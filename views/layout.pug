@@ -1,0 +1,35 @@
+doctype html
+html
+  head
+    title= sitetitle
+    link(href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', rel='stylesheet')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    div.d-flex.flex-column.flex-md-row.align-items-center.p-3.px-md-4.mb-3.bg-white.border-bottom.box-shadow
+      img(class='mb-2' src='/img/hugin-neon.png' alt='Hugin' height='50')
+      h5.my-0.mr-md-auto.font-weight-normal.ml-4
+        a(href='/' class='text-dark') #{sitetitle}
+      nav.my-2.my-md0.mr-md3
+        a(class='px-2 btn btn-outline-dark' href='https://github.com/kryptokrona/hugin-cache') GitHub
+    main.container
+      block content
+      block error_403
+      block error_404
+      block error_500
+      footer.pt-4.my-md-5.pt-md-5.border-top
+        div.row
+          div.col-12.col-md
+            img(class='mb-2' src='/img/hugin-neon.png' alt='Hugin' height='24')
+            small.d-block.mb-3.text-muted &copy; 2020
+            small.d-block.mb-3.text-muted A project by 
+              a(href='https://github.com/kryptokrona' target='blank') Kryptokrona
+          div.col-6.col-md
+            h5 Hugin
+            ul.list-unstyled.text-small
+              li
+                a(class='text-muted' href='https://github.com/kryptokrona/hugin-messenger') Hugin Messenger
+              li
+                a(class='text-muted' href='https://github.com/kryptokrona/hugin-mobile') Hugin Mobile
+    script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js")
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js")

@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1= title
+  h3 Welcome to #{sitetitle}
+  br
+  
+  if flash
+    div(class='alert alert-#{flash.type}')
+      div #{flash.text}
