@@ -1,0 +1,42 @@
+version: '3.7'
+
+services:
+  hugin-cache:
+    build: .
+    container_name: hugin-cache
+    environment:
+      POSTGRESQL_HOSTNAME: postgres
+      POSTGRESQL_PORT: 5432
+      POSTGRESQL_DB_NAME: hugin_cache_dev
+      POSTGRESQL_DB_USER: postgres
+      POSTGRESQL_DB_PASSWORD: test1234
+    ports:
+      - "3000:3000"
+    links:
+      - postgres
+    depends_on:
+      - postgres
+    networks:
+      - hugin-net
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: hugin_cache_dev
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test1234
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - hugin-net
+
+volumes:
+  postgres:
+
+networks:
+  hugin-net:
+    driver: bridge
