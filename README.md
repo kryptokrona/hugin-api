@@ -1,5 +1,12 @@
 ![Tux, the Linux mascot](/public/img/hugin-neon.png)
 
+<p>
+<a href="https://chat.kryptokrona.se"><img src="https://img.shields.io/discord/562673808582901793?label=Discord&logo=Discord&logoColor=white&style=plastic"></a> 
+<a href="https://github.com/kryptokrona/hugin-cache/releases"><img src="https://img.shields.io/github/v/release/kryptokrona/hugin-cache?label=Release&style=plastic"></a>
+<a href="https://github.com/kryptokrona/hugin-cache/releases"><img src="https://img.shields.io/github/downloads/kryptokrona/hugin-cache/total?label=Downloads&style=plastic"></a>
+<a href="https://twitter.com/kryptokrona"><img src="https://img.shields.io/twitter/follow/kryptokrona"></a>
+</p>
+
 ## About
 
 To be able to get data more easily from Hugin Messenger this RESTful API called Hugin Cache was created. It provides useful endpoints for within the Kryptokrona project as well as other external 3rd party interests. 
