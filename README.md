@@ -80,7 +80,9 @@ Extra details?
 <table>
   <tr>
     <td align="center"><a href="https://github.com/mjovanc"><img src="https://avatars.githubusercontent.com/u/33717111?v=4" width="100px;" alt=""/><br /><sub><b>Marcus Cvjeticanin</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/Swepool"><img src="https://avatars.githubusercontent.com/u/36674091?v=4" width="100px;" alt=""/><br /><sub><b>Lukas (Swepool)</b></sub></a><br /></td>
   </tr>
+    
 </table>
 
 <!-- markdownlint-enable -->
