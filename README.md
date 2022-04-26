@@ -9,7 +9,7 @@ To be able to get data more easily from Hugin Messenger this RESTful API called 
 - Node.js
 - ExpressJS
 - Pug
-- PostgreSQL (node-postgres)
+- PostgreSQL
 
 ## Usage
 

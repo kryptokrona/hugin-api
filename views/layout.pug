@@ -3,7 +3,7 @@ html
   head
     title= sitetitle
     link(href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', rel='stylesheet')
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/css/style.css')
   body
     div.d-flex.flex-column.flex-md-row.align-items-center.p-3.px-md-4.mb-3.bg-white.border-bottom.box-shadow
       img(class='mb-2' src='/img/hugin-neon.png' alt='Hugin' height='50')
@@ -11,7 +11,7 @@ html
         a(href='/' class='text-dark') #{sitetitle}
       nav.my-2.my-md0.mr-md3
         a(class='px-2 btn btn-outline-dark' href='https://github.com/kryptokrona/hugin-cache') GitHub
-    main.container
+    main.container.pt-5
       block content
       block error_403
       block error_404

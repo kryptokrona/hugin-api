@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
 
-# RUN npm ci --only=production
+ENV NODE_ENV=production
 
 # Bundle app source
 COPY . .

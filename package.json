@@ -31,7 +31,10 @@
     "kryptokrona-wallet-backend-js": "^2.4.0",
     "morgan": "^1.10.0",
     "pg": "^8.7.3",
-    "pug": "^3.0.2"
+    "pg-hstore": "^2.3.4",
+    "pug": "^3.0.2",
+    "sequelize": "^6.19.0",
+    "sequelize-cli": "^6.4.1"
   },
   "devDependencies": {
     "eslint": "^8.14.0",

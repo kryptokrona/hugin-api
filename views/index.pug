@@ -2,9 +2,17 @@ extends layout
 
 block content
   h1= title
-  h3 Welcome to #{sitetitle}
+  h3 #{sitetitle} Docs
   br
   
   if flash
     div(class='alert alert-#{flash.type}')
       div #{flash.text}
+
+  h4 Post endpoints 
+  br
+  ul.list-group
+    li.list-group-item.d-flex.justify-content-between.align-items-center /api/v1/posts/latest
+      span.badge.badge-primary.badge-pill GET
+    li.list-group-item.d-flex.justify-content-between.align-items-center /api/v1/posts/trending
+      span.badge.badge-primary.badge-pill GET

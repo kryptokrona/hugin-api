@@ -1,23 +1,20 @@
 version: '3.7'
 
 services:
-  hugin-cache:
-    build: .
-    container_name: hugin-cache
-    environment:
-      POSTGRESQL_HOSTNAME: postgres
-      POSTGRESQL_PORT: 5432
-      POSTGRESQL_DB_NAME: hugin_cache_dev
-      POSTGRESQL_DB_USER: postgres
-      POSTGRESQL_DB_PASSWORD: test1234
-    ports:
-      - "3000:3000"
-    links:
-      - postgres
-    depends_on:
-      - postgres
-    networks:
-      - hugin-net
+  # hugin-cache:
+  #   build: .
+  #   container_name: hugin-cache
+  #   environment:
+  #     DEV_DATABASE_URL: postgres://postgres:test1234@127.0.0.1:5432/hugin_cache_dev
+  #     NODE_ENV: development
+  #   ports:
+  #     - "3000:3000"
+  #   links:
+  #     - postgres
+  #   depends_on:
+  #     - postgres
+  #   networks:
+  #     - hugin-net
 
   postgres:
     image: postgres

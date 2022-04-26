@@ -6,7 +6,7 @@
 
 require('dotenv').config()
 
-const { Client } = require('pg')
+const { Sequelize } = require('sequelize');
 
 /**
  * Establishes a connection to a database.
@@ -14,20 +14,19 @@ const { Client } = require('pg')
  * @returns {Promise} Resolves to this if connection succeeded.
  */
 module.exports.connect = async () => {
+  const sequelize = new Sequelize(
+    process.env.NODE_ENV === 'production' 
+    ? process.env.DATABASE_URL
+    : process.env.DEV_DATABASE_URL
+  );
 
-  const client = new Client({
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    port: process.env.DB_PORT,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD
-  })
+  try {
+    await sequelize.authenticate();
+    console.log('Connection to database has been established successfully.');
 
-  return client.connect(err => {
-    if (err) {
-      console.error('Connection error...', err.stack)
-    } else {
-      console.log('Connected to PostgreSQL database...')
-    }
-  })
+    // returning the sequalize object on successful connection.
+    return sequelize;
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
 }
