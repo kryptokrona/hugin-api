@@ -54,7 +54,7 @@ This has then to be published on a container registry. More information about it
 
 ## Unit testing
 
-Coming soon...
+Unit tests are conducted using Mocha and Chai. All unit tests can be found under the **tests** directory in the root of this repository.
 ## Contribute
 
 ### Pull request
@@ -70,6 +70,8 @@ This PR has been tested using (e.g. Unit Tests, Manual Testing):
 
 Extra details?
 ```
+
+A pull request is approved if the GitHub Actions pipeline is marked green. Otherwise it will be closed directly. Always make sure to run the unit tests before creating a pull request.
 
 ## Contributors
 

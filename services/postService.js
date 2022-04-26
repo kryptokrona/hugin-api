@@ -12,7 +12,7 @@ const postService = {}
  * Get latest posts
  */
 postService.getLatest = () => {
-    db.connect()
+    db.connect() 
         .then((connection) => {
             console.log('connection...')
         })

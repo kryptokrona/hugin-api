@@ -22,16 +22,24 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: yarn install
+    - name: Install
       run: |
         yarn install
 
-    - name: yarn test
+    - name: Unit Test
       run: |
         yarn test 
       env:
         CI: true
+
+    # Code Coverage
       
-    - name: yarn build
+    - name: Build
       run: |
         yarn run build --if-present
+
+    # Build Docker Image
+
+    # Publish Docker Image
+
+    # Deploy

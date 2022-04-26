@@ -15,8 +15,8 @@ const postController = {}
  * @param {object} res - Express response object.
  */
 postController.getLatest = (req, res) => {
-    postService.getLatest()
-    res.json(null)
+    // postService.getLatest()
+    res.json(new Array(0))
 }
 
 /**
@@ -26,8 +26,8 @@ postController.getLatest = (req, res) => {
  * @param {object} res - Express response object.
  */
  postController.getTrending = (req, res) => {
-    postService.getTrending()
-    res.json(null)
+    // postService.getTrending()
+    res.json(new Array(0))
 }
 
 module.exports = postController
