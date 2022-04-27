@@ -8,11 +8,14 @@ var session = require('express-session')
 var path = require('path')
 var cookieParser = require('cookie-parser')
 var logger = require('morgan')
+var log = require('loglevel')
 
 var indexRouter = require('./routes/indexRouter')
 var postRouter = require('./routes/postRouter')
 
 var huginSyncer = require('./configs/huginSyncer')
+
+const { getTimestamp, sleep } = require('./utils/time')
 
 var app = express()
 
@@ -69,6 +72,7 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
     // 404 Not Found.
     if (err.status === 404) {
+        log.error(getTimestamp() + ' ERROR: 404 - Page could not be found.')
         return res
             .status(404)
             .render('errors/404.pug')
@@ -76,6 +80,7 @@ app.use(function (err, req, res, next) {
 
     // 500 Internal Server Error (in production, all other errors send this response).
     if (req.app.get('env') !== 'development') {
+        log.error(getTimestamp() + ' ERROR: 500 - Internal server error.')
         return res
             .status(500)
             .render('errors/500.pug')
@@ -90,14 +95,14 @@ app.use(function (err, req, res, next) {
     res.render('error')
 })
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms))
-}
-
 // Start listening.
 app.listen(3000, async () => {
     console.log('Server started on http://localhost:3000')
     console.log('Press Ctrl-C to terminate...')
+
+    if (process.env.NODE_ENV === 'development') {
+        log.setLevel('trace')
+    }
 
     // Starting WalletBackend
     while (true) {
