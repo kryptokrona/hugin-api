@@ -25,7 +25,7 @@ postController.getLatest = (req, res) => {
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
  */
- postController.getTrending = (req, res) => {
+postController.getTrending = (req, res) => {
     // postService.getTrending()
     res.json(new Array(0))
 }
