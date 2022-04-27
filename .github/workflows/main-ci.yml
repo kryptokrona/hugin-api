@@ -51,11 +51,11 @@ jobs:
         npm run build --if-present
 
     - name: Build Docker
-      run: docker build . --file Dockerfile --tag ${githubRegistry}/${githubDockerImage}:${githubDockerTag}
+      run: docker build . --file Dockerfile --tag ${{env.githubRegistry}}/${{env.githubDockerImage}}:${{env.githubDockerTag}
 
     - name: Publish Docker
       run: |
-        docker push ${githubRegistry}/${githubDockerImage}:${githubDockerTag}
-        docker push ${githubRegistry}/${githubDockerImage}:latest
+        docker push ${{env.githubRegistry}}/${{env.githubDockerImage}}:${{env.githubDockerTag}}
+        docker push ${{env.githubRegistry}}/${{env.githubDockerImage}}:latest
 
     # Deploy
