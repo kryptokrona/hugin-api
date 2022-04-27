@@ -1,6 +1,11 @@
 
 name: Hugin Cache Main Pipeline
 
+env:
+  githubRegistry: 'ghcr.io'
+  githubDockerImage: 'hugin-cache'
+  githubDockerTag: ${GITHUB_SHA::6}
+
 on: 
   push:
     branches:    
@@ -45,13 +50,12 @@ jobs:
       run: |
         npm run build --if-present
 
-    # Build Docker Image
     - name: Build Docker
-      run: docker build . --file Dockerfile --tag hugin-cache:${GITHUB_SHA::6}
+      run: docker build . --file Dockerfile --tag ${githubRegistry}/${githubDockerImage}:${githubDockerTag}
 
     - name: Publish Docker
       run: |
-        docker push hugin-cache:${GITHUB_SHA::6}
-        docker push hugin-cache:latest
+        docker push ${githubRegistry}/${githubDockerImage}:${githubDockerTag}
+        docker push ${githubRegistry}/${githubDockerImage}:latest
 
     # Deploy
