@@ -4,7 +4,7 @@ name: Hugin Cache Main Pipeline
 env:
   githubRegistry: 'ghcr.io'
   githubDockerImage: 'hugin-cache'
-  githubDockerTag: ${GITHUB_SHA::6}
+  githubDockerTag: ${{GITHUB_SHA::6}}
 
 on: 
   push:
