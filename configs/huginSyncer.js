@@ -1,6 +1,9 @@
 require('dotenv').config()
 
+let log = require('loglevel')
 const { extraDataToMessage } = require('hugin-crypto')
+
+const { getTimestamp } = require('../utils/time')
 
 let known_pool_txs = [];
 
@@ -10,7 +13,7 @@ let known_pool_txs = [];
  * @returns {Promise} Resolves to this if connection succeeded.
  */
 module.exports.backgroundSyncMessages = async () => {
-    console.log('Background syncing...');
+    log.info(getTimestamp() + ' INFO: Background syncing.')
     let message_was_unknown;
     
     try {
@@ -30,7 +33,7 @@ module.exports.backgroundSyncMessages = async () => {
         let transaction;
 
         if (transactions.length === 0) {
-            console.log('Empty array...')
+            log.info(getTimestamp() + ' INFO: Got empty transaction array.')
             return;
         }
 
@@ -68,7 +71,7 @@ module.exports.backgroundSyncMessages = async () => {
                     console.log('Message?', message)
                     // message could not be decrypted (and be saved to encrypted database/table)
                 } else {
-                    console.log('No messages...')
+                    log.info(getTimestamp() + ' INFO: No messages.')
                 }
 
                 // saveMsg(message, thisHash);
@@ -77,6 +80,6 @@ module.exports.backgroundSyncMessages = async () => {
             }
         }
     } catch (err) {
-        console.log('Sync error')
+        log.error(getTimestamp() + ' ERROR: Sync error.')
     }
 }
