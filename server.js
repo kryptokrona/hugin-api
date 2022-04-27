@@ -12,6 +12,9 @@ var logger = require('morgan')
 var indexRouter = require('./routes/indexRouter')
 var postRouter = require('./routes/postRouter')
 
+var walletBackend = require('./configs/walletBackend')
+const { time } = require('console')
+
 var app = express()
 
 // view engine setup
@@ -88,10 +91,20 @@ app.use(function (err, req, res, next) {
     res.render('error')
 })
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 // Start listening.
-app.listen(3000, () => {
+app.listen(3000, async () => {
     console.log('Server started on http://localhost:3000')
     console.log('Press Ctrl-C to terminate...')
+
+    // Starting WalletBackend
+    while (true) {
+        await sleep(2000)
+        walletBackend.backgroundSyncMessages()
+    }
 })
 
 module.exports = app

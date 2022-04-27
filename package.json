@@ -28,7 +28,7 @@
     "express": "^4.17.3",
     "express-session": "^1.17.2",
     "http-errors": "^2.0.0",
-    "kryptokrona-wallet-backend-js": "^2.4.0",
+    "hugin-crypto": "^0.0.2",
     "morgan": "^1.10.0",
     "pg": "^8.7.3",
     "pg-hstore": "^2.3.4",

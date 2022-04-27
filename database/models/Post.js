@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     board: {type: DataTypes.STRING, allowNull: false},
     time: {type: DataTypes.STRING, allowNull: false},
     nickname: {type: DataTypes.STRING, allowNull: false},
+    timestamps: false,
   }, {
     sequelize,
     modelName: 'Post',
