@@ -12,8 +12,7 @@ var logger = require('morgan')
 var indexRouter = require('./routes/indexRouter')
 var postRouter = require('./routes/postRouter')
 
-var walletBackend = require('./configs/walletBackend')
-const { time } = require('console')
+var huginSyncer = require('./configs/huginSyncer')
 
 var app = express()
 
@@ -92,7 +91,7 @@ app.use(function (err, req, res, next) {
 })
 
 function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise(resolve => setTimeout(resolve, ms))
 }
 
 // Start listening.
@@ -103,7 +102,7 @@ app.listen(3000, async () => {
     // Starting WalletBackend
     while (true) {
         await sleep(2000)
-        walletBackend.backgroundSyncMessages()
+        await huginSyncer.backgroundSyncMessages()
     }
 })
 
