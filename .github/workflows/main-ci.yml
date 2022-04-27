@@ -3,6 +3,7 @@ name: Hugin Cache Main Pipeline
 
 env:
   GITHUB_REGISTRY: 'ghcr.io'
+  GITHUB_OWNER: 'kryptokrona'
   GITHUB_DOCKER_IMAGE: 'hugin-cache'
   GITHUB_DOCKER_TAG: ${GITHUB_SHA::6}
 
@@ -51,11 +52,11 @@ jobs:
         npm run build --if-present
 
     - name: Build Docker
-      run: docker build -t $GITHUB_REGISTRY/$GITHUB_DOCKER_IMAGE:0.0.1 .
+      run: docker build -t $GITHUB_REGISTRY/$GITHUB_OWNER/$GITHUB_DOCKER_IMAGE:0.0.1 .
 
     - name: Publish Docker
       run: |
-        docker push $GITHUB_REGISTRY/$GITHUB_DOCKER_IMAGE:0.0.1
-        docker push $GITHUB_REGISTRY/$GITHUB_DOCKER_IMAGE:latest
+        docker push $GITHUB_REGISTRY/$GITHUB_OWNER/$GITHUB_DOCKER_IMAGE:0.0.1
+        docker push $GITHUB_REGISTRY/$GITHUB_OWNER/$GITHUB_DOCKER_IMAGE:latest
 
     # Deploy
