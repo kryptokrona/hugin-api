@@ -51,7 +51,7 @@ jobs:
         npm run build --if-present
 
     - name: Build Docker
-      run: docker build . --file Dockerfile --tag $GITHUB_REGISTRY/$GITHUB_DOCKER_IMAGE:$GITHUB_DOCKER_TAG
+      run: docker build -t $GITHUB_DOCKER_IMAGE:$GITHUB_DOCKER_TAG .
 
     - name: Publish Docker
       run: |
