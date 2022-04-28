@@ -14,14 +14,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Post.init({
-    message: {type: DataTypes.TEXT, allowNull: false},
-    key: {type: DataTypes.STRING, allowNull: false},
-    signature: {type: DataTypes.STRING, allowNull: false},
-    board: {type: DataTypes.STRING, allowNull: false},
-    time: {type: DataTypes.STRING, allowNull: false},
-    nickname: {type: DataTypes.STRING, allowNull: false},
-    timestamps: false,
+    message: {type: DataTypes.STRING, allowNull: true},
+    key: {type: DataTypes.STRING, allowNull: true},
+    signature: {type: DataTypes.STRING, allowNull: true},
+    board: {type: DataTypes.STRING, allowNull: true},
+    time: {type: DataTypes.INTEGER, allowNull: true},
+    nickname: {type: DataTypes.STRING, allowNull: true},
+    tx_hash: {type: DataTypes.STRING, allowNull: true}
   }, {
+    timestamps: false,
     sequelize,
     modelName: 'Post',
   });

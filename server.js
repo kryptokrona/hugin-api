@@ -104,7 +104,7 @@ app.listen(3000, async () => {
         log.setLevel('trace')
     }
 
-    // Starting WalletBackend
+    // starting hugin sync
     while (true) {
         await sleep(2000)
         await huginSyncer.backgroundSyncMessages()

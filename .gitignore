@@ -118,3 +118,6 @@ temp/
 
 # idea
 .idea
+
+# c8
+coverage/

@@ -1,4 +1,4 @@
-![Tux, the Linux mascot](/public/img/hugin-neon.png)
+![Hugin Neon](./public/img/hugin-neon.png)
 
 <p>
 <a href="https://chat.kryptokrona.se"><img src="https://img.shields.io/discord/562673808582901793?label=Discord&logo=Discord&logoColor=white&style=plastic"></a> 
@@ -17,6 +17,8 @@ To be able to get data more easily from Hugin Messenger this RESTful API called 
 - ExpressJS
 - Pug
 - PostgreSQL
+
+And a lot of other packages/libraries which can seen in **package.json**.
 
 ## Usage
 
@@ -51,17 +53,30 @@ docker run -p 3000:3000 \
     -e NODE_ENV=development
 ```
 
-## Build Hugin Cache image for production
-
-To build the project ready for production with Docker:
-
-- `docker build -t hugin-cache:0.0.1 .`
-
-This has then to be published on a container registry. More information about it will come later.
-
 ## Unit testing
 
-Unit tests are conducted using Mocha and Chai. All unit tests can be found under the **tests** directory in the root of this repository.
+Unit tests are conducted using Mocha and Chai. All unit tests can be found under the **tests** directory in the root of
+this repository.
+
+To run the tests:
+
+- `npm run test`
+
+## Code Coverage
+
+We are using C8 as the tool to execute the code coverage. This is not currently implemented. An issue exists to do this: https://github.com/kryptokrona/hugin-cache/issues/4
+
+## Build, Test and Deployment
+
+This project is automatically built, tested and deployed using GitHub Actions. We have two pipelines:
+
+- **Main Pipeline** - This is the pipeline that runs the code merged into our main branch.
+- **Pull Request Pipeline** - This is the pipeline that runs each time a pull request come in so the reviewer has some help evaluating the code health.
+
+The Main Pipeline do everything the Pull Request Pipeline does in addition to building and publishing a Docker Image to
+the project tagged by the project name, owner, repository and short form of commit SHA value. We also setup continuous deployment
+so if all the steps succeed the server will update its currently running docker container with a new image. 
+
 ## Contribute
 
 ### Pull request
