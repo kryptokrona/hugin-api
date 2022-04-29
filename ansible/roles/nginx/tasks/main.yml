@@ -1,0 +1,25 @@
+---
+- name: Ensure nginx is at the latest version
+  apt:
+    name: nginx
+    state: latest
+
+- name: Apply app config
+  template:
+    src: nginx.conf.j2
+    dest: '/etc/nginx/sites-available/{{ hugin_cache_domain }}'
+    mode: 0644
+    force: yes
+
+- name: Create symlink
+  file:
+    src: "/etc/nginx/sites-available/{{ hugin_cache_domain }}"
+    dest: "/etc/nginx/sites-enabled/{{ hugin_cache_domain }}"
+    state: link
+  become: yes
+
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted
+  become: yes

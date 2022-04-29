@@ -11,9 +11,8 @@ let db = require("../configs/postgresql"),
 
 const Op = db.Sequelize.Op;
 
-const { postService } = require('../services/postService')
+const postService = require('../services/postService')
 const { getPagination, getPagingData} = require('../utils/pagination')
-let models  = require('../database/models')
 const { getTimestamp } = require("../utils/time");
 
 const postController = {}
@@ -25,18 +24,10 @@ const postController = {}
  * @param {object} res - Express response object.
  */
 postController.getAll = async (req, res) => {
-    console.log("req.query (getAll: " + req.query.toString())
     const { page, size} = req.query;
     const { limit, offset } = getPagination(page, size)
 
-    //TODO: move to service later
-    await models.Post.findAndCountAll({
-        limit: limit,
-        order: [
-            ['id', 'ASC'],
-        ],
-        offset: offset,
-    })
+    postService.getAll(page, size, limit, offset)
         .then(data => {
             const response = getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
@@ -57,15 +48,16 @@ postController.getAll = async (req, res) => {
  * @param {object} res - Express response object.
  */
 postController.getPostByTxHash = async (req, res) => {
-    // postService.getPostByTxHash()
-    await models.Post.findOne({
-        where: {
-            tx_hash: req.params.tx_hash
-        }
-    })
+    postService.getPostByTxHash(req)
         .then(data => {
             log.info(getTimestamp() + ' INFO: Successful response.')
-            res.json(data)
+
+            // send empty object if we can not find the post
+            if (data === null) {
+                res.json({})
+            } else {
+                res.json(data)
+            }
         })
         .catch(err => {
             log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data.')
@@ -82,18 +74,10 @@ postController.getPostByTxHash = async (req, res) => {
  * @param {object} res - Express response object.
  */
 postController.getLatest = async (req, res) => {
-    console.log("req.query (getLatest: " + req.query)
     const { page, size } = req.query;
     const { limit, offset } = getPagination(page, size)
 
-    //TODO: move to service later
-    await models.Post.findAndCountAll({
-        limit: limit,
-        order: [
-            ['id', 'DESC'],
-        ],
-        offset: offset,
-    })
+    postService.getLatest(page, size, limit, offset)
         .then(data => {
             const response = getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')

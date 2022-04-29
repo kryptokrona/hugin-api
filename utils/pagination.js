@@ -1,4 +1,3 @@
-
 /**
  * Get paging data
  *
