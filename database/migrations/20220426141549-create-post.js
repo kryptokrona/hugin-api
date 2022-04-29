@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       message: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
       key: {
         type: Sequelize.STRING
@@ -21,9 +21,12 @@ module.exports = {
         type: Sequelize.STRING
       },
       time: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       nickname: {
+        type: Sequelize.STRING
+      },
+      tx_hash: {
         type: Sequelize.STRING
       },
       createdAt: {
