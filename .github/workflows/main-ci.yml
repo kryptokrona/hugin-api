@@ -4,6 +4,7 @@ env:
   GITHUB_REGISTRY: 'ghcr.io'
   GITHUB_OWNER: 'kryptokrona'
   GITHUB_DOCKER_IMAGE: 'hugin-cache'
+  NODE_VERSION: '18.x'
 
 on: 
   push:
@@ -13,10 +14,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x]
     
     steps:
     - uses: actions/checkout@v3
@@ -32,15 +29,13 @@ jobs:
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: $NODE_VERSION
 
     - name: Install
-      run: |
-        npm install
+      run: npm install
 
     - name: Build
-      run: |
-        npm run build --if-present
+      run: npm run build --if-present
 
   test:
     name: test
@@ -48,9 +43,16 @@ jobs:
     needs: [ build ]
 
     steps:
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: $NODE_VERSION
+
+    - name: Install
+      run: npm install
+
     - name: Unit Test
-      run: |
-        npm run test 
+      run: npm run test
       env:
         CI: true
 
