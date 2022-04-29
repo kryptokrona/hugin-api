@@ -1,0 +1,4 @@
+# hosts.inventory
+
+[vps]
+cache.hugin.chat
