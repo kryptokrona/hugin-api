@@ -28,6 +28,10 @@ And a lot of other packages/libraries which can seen in **package.json**.
 
 - `npm run dev`
 
+## API Endpoints
+
+All available API endpoints can be seen here on our Postman: https://www.postman.com/kryptokrona?tab=collections
+
 ## Test environment
 
 To just test the code, the easiest way is to use Docker Compose to orchestrate up the environment since we then don't have to install and configure the PostgreSQL database. 

@@ -83,10 +83,10 @@ module.exports.backgroundSyncMessages = async () => {
                     console.log('Message?', message) //TODO: remove later
 
                     //TODO: not sure this works
-                    if (message.t > (Date.now() / 1000) - 604800) {
+                    /*if (message.t > (Date.now() / 1000) - 604800) {
                         log.info(getTimestamp() + ' INFO: Post is more than 1 week old.')
                         continue
-                    }
+                    }*/
 
                     try {
                         // check if tx_hash already exists in db - then dont create
@@ -96,10 +96,10 @@ module.exports.backgroundSyncMessages = async () => {
                             }
                         })
 
-                        console.log(txHashExists.then(result => {
-                            console.log(result)
-                            return
-                        }))
+                        //TODO: early return here?
+                        /*console.log(txHashExists.then(result => {
+
+                        }))*/
 
                         await sequelize.transaction(async (t) => {
 
@@ -122,14 +122,12 @@ module.exports.backgroundSyncMessages = async () => {
                         log.info(getTimestamp() + ' ERROR: An error adding a Post transaction - Rolling back.')
                     }
 
-                    // message could not be decrypted (and be saved to encrypted database/table)
                 } else {
                     log.info(getTimestamp() + ' INFO: No message.')
                 }
 
-                // saveMsg(message, thisHash);
             } catch (err) {
-                console.log(err)
+                log.error(getTimestamp() + ' ERROR: ' + err)
             }
         }
     } catch (err) {

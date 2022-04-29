@@ -4,30 +4,76 @@
 
 'use strict'
 
-const postService = require('../services/postService')
-
+let log = require('loglevel')
 let db = require("../configs/postgresql"),
     sequelize = db.sequelize,
     Sequelize = db.Sequelize
 
 const Op = db.Sequelize.Op;
 
-let models = require('../database/models')
+const { postService } = require('../services/postService')
+const { getPagination, getPagingData} = require('../utils/pagination')
+let models  = require('../database/models')
+const { getTimestamp } = require("../utils/time");
 
 const postController = {}
 
-const getPagingData = (data, page, limit) => {
-    const { count: totalItems, rows: posts } = data;
-    const currentPage = page ? +page : 0;
-    const totalPages = Math.ceil(totalItems / limit);
-    return { totalItems, posts, totalPages, currentPage };
-};
+/**
+ * Get all posts
+ *
+ * @param {object} req - Express request object.
+ * @param {object} res - Express response object.
+ */
+postController.getAll = async (req, res) => {
+    console.log("req.query (getAll: " + req.query.toString())
+    const { page, size} = req.query;
+    const { limit, offset } = getPagination(page, size)
 
-const getPagination = (page, size) => {
-    const limit = size ? +size : 3;
-    const offset = page ? page * limit : 0;
-    return { limit, offset };
-};
+    //TODO: move to service later
+    await models.Post.findAndCountAll({
+        limit: limit,
+        order: [
+            ['id', 'ASC'],
+        ],
+        offset: offset,
+    })
+        .then(data => {
+            const response = getPagingData(data, page, limit)
+            log.info(getTimestamp() + ' INFO: Successful response.')
+            res.send(response)
+        })
+        .catch(err => {
+            log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data.')
+            res.status(500).send({
+                message: err.message || 'Some error occurred while retrieving data.'
+            })
+        })
+}
+
+/**
+ * Get a specific posts by tx_hash
+ *
+ * @param {object} req - Express request object.
+ * @param {object} res - Express response object.
+ */
+postController.getPostByTxHash = async (req, res) => {
+    // postService.getPostByTxHash()
+    await models.Post.findOne({
+        where: {
+            tx_hash: req.params.tx_hash
+        }
+    })
+        .then(data => {
+            log.info(getTimestamp() + ' INFO: Successful response.')
+            res.json(data)
+        })
+        .catch(err => {
+            log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data.')
+            res.status(500).send({
+                message: err.message || 'Some error occurred while retrieving data.'
+            })
+        })
+}
 
 /**
  * Get latest posts
@@ -36,21 +82,25 @@ const getPagination = (page, size) => {
  * @param {object} res - Express response object.
  */
 postController.getLatest = async (req, res) => {
+    console.log("req.query (getLatest: " + req.query)
     const { page, size } = req.query;
     const { limit, offset } = getPagination(page, size)
 
+    //TODO: move to service later
     await models.Post.findAndCountAll({
-        limit: 10,
+        limit: limit,
         order: [
             ['id', 'DESC'],
         ],
-        offset: 0,
+        offset: offset,
     })
         .then(data => {
-        const response = getPagingData(data, page, limit)
-        res.send(response)
-    })
+            const response = getPagingData(data, page, limit)
+            log.info(getTimestamp() + ' INFO: Successful response.')
+            res.send(response)
+        })
         .catch(err => {
+            log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data.')
             res.status(500).send({
                 message: err.message || 'Some error occurred while retrieving data.'
             })
@@ -58,7 +108,7 @@ postController.getLatest = async (req, res) => {
 }
 
 /**
- * Get trending postss
+ * Get trending posts
  *
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
