@@ -89,7 +89,8 @@ module.exports.backgroundSyncMessages = async () => {
                     }*/
 
                     try {
-                        const postTxHash = models.Post.findOne({
+                        // database lookup if row exists with a certain tx_hash
+                        const postTxHashLookup = models.Post.findOne({
                             where: {
                                 tx_hash: thisHash
                             },
@@ -98,10 +99,9 @@ module.exports.backgroundSyncMessages = async () => {
                         })
 
                         // checking if post with tx_hash already exists in db - if not create a new record
-                        postTxHash.then(async result => {
+                        postTxHashLookup.then(async result => {
                             if (result === null) {
                                 await sequelize.transaction(async (t) => {
-
                                     return models.Post.create({
                                         message: message.m || null,
                                         key: message.k || null,
@@ -110,9 +110,49 @@ module.exports.backgroundSyncMessages = async () => {
                                         time: message.t || null,
                                         nickname: message.n || null,
                                         tx_hash: thisHash || null
-                                    });
+                                    }).then(postObj => {
+                                        log.info(getTimestamp() + ' INFO: Post transaction was successful.')
+
+                                        console.log("postObj.id: " + postObj.id)
+
+                                        // extract hashtags from message and save it do db and add relationship in post_hashtag table
+                                        let messageStr = message.m
+                                        let hashtags = messageStr.match(/#[^\s#\.\;!*€%&()?^$@´`¨]*/gmi)
+
+                                        // going through all hashtags and do separate lookups
+                                        hashtags.forEach(hashtag => {
+                                            // removing the # and making it lowercase, so we have proper input for query
+                                            let hashtagName = hashtag.replace('#', '').toLowerCase()
+
+                                            const hashtagLookup = models.Hashtag.findOne({
+                                                where: {
+                                                    name: hashtagName
+                                                },
+                                                order: [[ 'id', 'DESC' ]],
+                                                raw: true,
+                                            })
+
+                                            // create hashtag if it does not exist otherwise get the hashtag ID
+                                            hashtagLookup.then(async result => {
+                                                if (result === null) {
+                                                    await sequelize.transaction(async (t1) => {
+                                                        return models.Hashtag.create({
+                                                            name: hashtagName
+                                                        }).then(async hashtagObj => {
+                                                            await sequelize.transaction(async (t2) => {
+                                                                return models.PostHashtag.create({
+                                                                    post_id: postObj.id,
+                                                                    hashtag_id: hashtagObj.id
+                                                                })
+                                                            })
+                                                        })
+                                                    })
+                                                }
+                                            })
+
+                                        })
+                                    })
                                 })
-                                log.info(getTimestamp() + ' INFO: Post transaction was successful.')
                             } else {
                                 log.info(getTimestamp() + ' INFO: Found record in database - Skipping.')
                             }

@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    postId: {
+    post_id: {
       type: DataTypes.INTEGER,
       references: {
         model: 'post',
@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         as: 'user_id'
       }
     },
-    hashtagId: {
+    hashtag_id: {
       type: DataTypes.INTEGER,
       references: {
         model: 'hashtag',
@@ -38,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
+    timestamps: false,
     modelName: 'PostHashtag',
     tableName: 'post_hashtag'
   });
