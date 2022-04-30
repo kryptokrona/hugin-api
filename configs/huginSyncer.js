@@ -8,6 +8,7 @@ require('dotenv').config()
 
 let log = require('loglevel')
 const { extraDataToMessage } = require('hugin-crypto')
+const { performance } = require('perf_hooks');
 
 const { getTimestamp } = require('../utils/time')
 let db = require("./postgresql"),
@@ -88,6 +89,8 @@ module.exports.backgroundSyncMessages = async () => {
                         continue
                     }*/
 
+                    let startTime = performance.now()
+
                     try {
                         // database lookup if row exists with a certain tx_hash
                         const postTxHashLookup = models.Post.findOne({
@@ -111,52 +114,65 @@ module.exports.backgroundSyncMessages = async () => {
                                         nickname: message.n || null,
                                         tx_hash: thisHash || null
                                     }).then(postObj => {
-                                        log.info(getTimestamp() + ' INFO: Post transaction was successful.')
-
-                                        console.log("postObj.id: " + postObj.id)
+                                        log.info(getTimestamp() + ` INFO: Post transaction was successful - Post with ID ${postObj.id} was created.`)
 
                                         // extract hashtags from message and save it do db and add relationship in post_hashtag table
                                         let messageStr = message.m
                                         let hashtags = messageStr.match(/#[^\s#\.\;!*€%&()?^$@´`¨]*/gmi)
 
-                                        // going through all hashtags and do separate lookups
-                                        hashtags.forEach(hashtag => {
-                                            // removing the # and making it lowercase, so we have proper input for query
-                                            let hashtagName = hashtag.replace('#', '').toLowerCase()
+                                        if (hashtags) {
+                                            // going through all hashtags and do separate lookups
+                                            hashtags.forEach(hashtag => {
+                                                // removing the # and making it lowercase, so we have proper input for query
+                                                let hashtagName = hashtag.replace('#', '').toLowerCase()
 
-                                            const hashtagLookup = models.Hashtag.findOne({
-                                                where: {
-                                                    name: hashtagName
-                                                },
-                                                order: [[ 'id', 'DESC' ]],
-                                                raw: true,
-                                            })
+                                                const hashtagLookup = models.Hashtag.findOne({
+                                                    where: {
+                                                        name: hashtagName
+                                                    },
+                                                    order: [[ 'id', 'DESC' ]],
+                                                    raw: true,
+                                                })
 
-                                            // create hashtag if it does not exist otherwise get the hashtag ID
-                                            hashtagLookup.then(async result => {
-                                                if (result === null) {
-                                                    await sequelize.transaction(async (t1) => {
-                                                        return models.Hashtag.create({
-                                                            name: hashtagName
-                                                        }).then(async hashtagObj => {
-                                                            await sequelize.transaction(async (t2) => {
-                                                                return models.PostHashtag.create({
-                                                                    post_id: postObj.id,
-                                                                    hashtag_id: hashtagObj.id
+                                                // create hashtag if it does not exist otherwise get the hashtag ID
+                                                hashtagLookup.then(async result => {
+                                                    if (result === null) {
+                                                        await sequelize.transaction(async (t1) => {
+                                                            return models.Hashtag.create({
+                                                                name: hashtagName
+                                                            }).then(async hashtagObj => {
+                                                                await sequelize.transaction(async (t2) => {
+                                                                    return models.PostHashtag.create({
+                                                                        post_id: postObj.id,
+                                                                        hashtag_id: hashtagObj.id
+                                                                    })
                                                                 })
                                                             })
                                                         })
-                                                    })
-                                                }
-                                            })
+                                                    } else {
+                                                        // hashtag exists, so we add a new row in post_hashtag with its ID
+                                                        await sequelize.transaction(async (t3) => {
+                                                            return models.PostHashtag.create({
+                                                                post_id: postObj.id,
+                                                                hashtag_id: result.id
+                                                            })
+                                                        })
+                                                    }
+                                                })
 
-                                        })
+                                            })
+                                        }
+
                                     })
                                 })
                             } else {
                                 log.info(getTimestamp() + ' INFO: Found record in database - Skipping.')
                             }
                         })
+
+                        // calculating queries for debug reasons
+                        let endTime = performance.now()
+                        log.info(getTimestamp() + ` INFO: Queries to took ${endTime - startTime} seconds`)
 
                     } catch (error) {
                         log.info(getTimestamp() + ' ERROR: An error adding a Post transaction - Rolling back.')
