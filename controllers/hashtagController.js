@@ -24,8 +24,21 @@ const hashtagController = {}
  * @param {object} res - Express response object.
  */
 hashtagController.getAll = (req, res) => {
-    // hashtagService.getAll()
-    res.json(new Array(0))
+    const { page, size} = req.query;
+    const { limit, offset } = getPagination(page, size)
+
+    hashtagService.getAll(page, size, limit, offset)
+        .then(data => {
+            const response = getPagingData(data, page, limit)
+            log.info(getTimestamp() + ' INFO: Successful response.')
+            res.send(response)
+        })
+        .catch(err => {
+            log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data.')
+            res.status(500).send({
+                message: err.message || 'Some error occurred while retrieving data.'
+            })
+        })
 }
 
 /**
@@ -35,8 +48,47 @@ hashtagController.getAll = (req, res) => {
  * @param {object} res - Express response object.
  */
 hashtagController.getHashTagById = (req, res) => {
-    // hashtagService.getHashTagById()
-    res.json(new Array(0))
+    hashtagService.getHashTagById(req)
+        .then(data => {
+            log.info(getTimestamp() + ' INFO: Successful response.')
+
+            // send empty object if we can not find the post
+            if (data === null) {
+                res.json({})
+            } else {
+                res.json(data)
+            }
+        })
+        .catch(err => {
+            log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data.')
+            res.status(500).send({
+                message: err.message || 'Some error occurred while retrieving data.'
+            })
+        })
+}
+
+/**
+ * Get latest hashtags
+ *
+ * @param {object} req - Express request object.
+ * @param {object} res - Express response object.
+ */
+hashtagController.getLatest = async (req, res) => {
+    const { page, size } = req.query;
+    const { limit, offset } = getPagination(page, size)
+
+    hashtagService.getLatest(page, size, limit, offset)
+        .then(data => {
+            const response = getPagingData(data, page, limit)
+            log.info(getTimestamp() + ' INFO: Successful response.')
+            res.send(response)
+        })
+        .catch(err => {
+            log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data.')
+            res.status(500).send({
+                message: err.message || 'Some error occurred while retrieving data.'
+            })
+        })
 }
 
 module.exports = hashtagController

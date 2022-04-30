@@ -9,6 +9,8 @@ const router = express.Router()
 
 const controller = require('../controllers/hashtagController')
 
+// the ordering here is important
+router.get('/hashtags/latest', controller.getLatest)
 router.get('/hashtags', controller.getAll)
 router.get('/hashtags/:id', controller.getHashTagById)
 

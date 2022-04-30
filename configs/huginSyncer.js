@@ -102,7 +102,7 @@ module.exports.backgroundSyncMessages = async () => {
                             if (result === null) {
                                 await sequelize.transaction(async (t) => {
 
-                                    const post = models.Post.create({
+                                    return models.Post.create({
                                         message: message.m || null,
                                         key: message.k || null,
                                         signature: message.s || null,
@@ -110,10 +110,7 @@ module.exports.backgroundSyncMessages = async () => {
                                         time: message.t || null,
                                         nickname: message.n || null,
                                         tx_hash: thisHash || null
-                                    })
-
-                                    return post;
-
+                                    });
                                 })
                                 log.info(getTimestamp() + ' INFO: Post transaction was successful.')
                             } else {
