@@ -10,16 +10,22 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      this.belongsToMany(models.Post, {
+        through: models.PostHashtag,
+        as: 'hashtag',
+        foreignKey: 'hashtag_id'
+      })
     }
   }
-  //TODO: add relationship here to create a coupling table
+
   Hashtag.init({
-    name: DataTypes.STRING
+    name: {type: DataTypes.STRING, allowNull: false},
+    timestamps: {timestamps: false}
   }, {
     timestamps: false,
     sequelize,
-    modelName: 'hashtag',
+    modelName: 'Hashtag',
+    tableName: 'hashtag'
   });
   return Hashtag;
 };

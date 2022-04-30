@@ -13,10 +13,14 @@ const hashtagService = {}
  * Get all hashtags
  */
 hashtagService.getAll = () => {
-    // query data with findAndCountAll
-    //
-    // between todays date and past days (week?)
     console.log('Post Service: getting all hashtags...')
+}
+
+/**
+ * Get hashtag by id
+ */
+hashtagService.getHashTagById = () => {
+    console.log('Post Service: getting hashtags by id...')
 }
 
 module.exports = hashtagService

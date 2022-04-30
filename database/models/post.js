@@ -10,22 +10,28 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      this.belongsToMany(models.Hashtag, {
+        through: models.PostHashtag,
+        as: 'posts',
+        foreignKey: 'post_id'
+      })
     }
   }
+
   Post.init({
-    message: {type: DataTypes.TEXT, allowNull: true},
-    key: {type: DataTypes.STRING, allowNull: true},
-    signature: {type: DataTypes.STRING, allowNull: true},
-    board: {type: DataTypes.STRING, allowNull: true},
-    time: {type: DataTypes.INTEGER, allowNull: true},
-    nickname: {type: DataTypes.STRING, allowNull: true},
-    tx_hash: {type: DataTypes.STRING, allowNull: true},
-    createdAt: {type: DataTypes.DATE, allowNull: false},
-    updatedAt: {type: DataTypes.DATE, allowNull: false}
+    message:    {type: DataTypes.TEXT, allowNull: true},
+    key:        {type: DataTypes.STRING, allowNull: true},
+    signature:  {type: DataTypes.STRING, allowNull: true},
+    board:      {type: DataTypes.STRING, allowNull: true},
+    time:       {type: DataTypes.INTEGER, allowNull: true},
+    nickname:   {type: DataTypes.STRING, allowNull: true},
+    tx_hash:    {type: DataTypes.STRING, allowNull: true},
+    createdAt:  {type: DataTypes.DATE, allowNull: false},
+    updatedAt:  {type: DataTypes.DATE, allowNull: false}
   }, {
     sequelize,
-    modelName: 'post',
+    modelName: 'Post',
+    tableName: 'post'
   });
   return Post;
 };

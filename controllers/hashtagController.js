@@ -11,7 +11,7 @@ let db = require("../configs/postgresql"),
 
 const Op = db.Sequelize.Op;
 
-const postService = require('../services/hashtagService')
+const hashtagService = require('../services/hashtagService')
 const { getPagination, getPagingData} = require('../utils/pagination')
 const { getTimestamp } = require("../utils/time");
 
@@ -24,7 +24,18 @@ const hashtagController = {}
  * @param {object} res - Express response object.
  */
 hashtagController.getAll = (req, res) => {
-    // postService.getTrending()
+    // hashtagService.getAll()
+    res.json(new Array(0))
+}
+
+/**
+ * Get hashtag by ids
+ *
+ * @param {object} req - Express request object.
+ * @param {object} res - Express response object.
+ */
+hashtagController.getHashTagById = (req, res) => {
+    // hashtagService.getHashTagById()
     res.json(new Array(0))
 }
 
