@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Hashtag.init({
     name: {type: DataTypes.STRING, allowNull: false},
-    timestamps: {timestamps: false}
+    // timestamps: {timestamps: false}
   }, {
     timestamps: false,
     sequelize,

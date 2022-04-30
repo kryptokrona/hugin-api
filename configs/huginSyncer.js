@@ -89,34 +89,37 @@ module.exports.backgroundSyncMessages = async () => {
                     }*/
 
                     try {
-                        // check if tx_hash already exists in db - then dont create
-                        const txHashExists = models.Post.findAll({
+                        const postTxHash = models.Post.findOne({
                             where: {
                                 tx_hash: thisHash
-                            }
+                            },
+                            order: [[ 'id', 'DESC' ]],
+                            raw: true,
                         })
 
-                        //TODO: early return here?
-                        /*console.log(txHashExists.then(result => {
+                        // checking if post with tx_hash already exists in db - if not create a new record
+                        postTxHash.then(async result => {
+                            if (result === null) {
+                                await sequelize.transaction(async (t) => {
 
-                        }))*/
+                                    const post = models.Post.create({
+                                        message: message.m || null,
+                                        key: message.k || null,
+                                        signature: message.s || null,
+                                        board: message.brd || null,
+                                        time: message.t || null,
+                                        nickname: message.n || null,
+                                        tx_hash: thisHash || null
+                                    })
 
-                        await sequelize.transaction(async (t) => {
+                                    return post;
 
-                            const post = models.Post.create({
-                                message: message.m || null,
-                                key: message.k || null,
-                                signature: message.s || null,
-                                board: message.brd || null,
-                                time: message.t || null,
-                                nickname: message.n || null,
-                                tx_hash: thisHash || null
-                            })
-
-                            return post;
-
-                        });
-                        log.info(getTimestamp() + ' INFO: Post transaction was successful.')
+                                })
+                                log.info(getTimestamp() + ' INFO: Post transaction was successful.')
+                            } else {
+                                log.info(getTimestamp() + ' INFO: Found record in database - Skipping.')
+                            }
+                        })
 
                     } catch (error) {
                         log.info(getTimestamp() + ' ERROR: An error adding a Post transaction - Rolling back.')
