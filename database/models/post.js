@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Post.init({
-    message: {type: DataTypes.STRING, allowNull: true},
+    message: {type: DataTypes.TEXT, allowNull: true},
     key: {type: DataTypes.STRING, allowNull: true},
     signature: {type: DataTypes.STRING, allowNull: true},
     board: {type: DataTypes.STRING, allowNull: true},
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     updatedAt: {type: DataTypes.DATE, allowNull: false}
   }, {
     sequelize,
-    modelName: 'Post',
+    modelName: 'post',
   });
   return Post;
 };
