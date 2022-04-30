@@ -12,6 +12,8 @@ var log = require('loglevel')
 
 var indexRouter = require('./routes/indexRouter')
 var postRouter = require('./routes/postRouter')
+var hashtagRouter = require('./routes/hashtagRouter')
+
 
 var huginSyncer = require('./configs/huginSyncer')
 
@@ -62,6 +64,7 @@ app.use((req, res, next) => {
 // routes
 app.use('/', indexRouter)
 app.use('/api/v1/', postRouter)
+app.use('/api/v1/', hashtagRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
