@@ -1,10 +1,30 @@
 ![Hugin Neon](./public/img/hugin-neon.png)
 
 <p>
-<a href="https://chat.kryptokrona.se"><img src="https://img.shields.io/discord/562673808582901793?label=Discord&logo=Discord&logoColor=white&style=plastic"></a> 
-<a href="https://github.com/kryptokrona/hugin-cache/releases"><img src="https://img.shields.io/github/v/release/kryptokrona/hugin-cache?label=Release&style=plastic"></a>
-<a href="https://github.com/kryptokrona/hugin-cache/releases"><img src="https://img.shields.io/github/downloads/kryptokrona/hugin-cache/total?label=Downloads&style=plastic"></a>
-<a href="https://twitter.com/kryptokrona"><img src="https://img.shields.io/twitter/follow/kryptokrona"></a>
+<a href="https://chat.kryptokrona.se">
+    <img src="https://img.shields.io/discord/562673808582901793?label=Discord&logo=Discord&logoColor=white&style=flat">
+</a> 
+<a href="https://github.com/kryptokrona/hugin-cache/actions">
+    <img src="https://img.shields.io/github/workflow/status/kryptokrona/hugin-cache/Hugin%20Cache%20Main%20Pipeline">
+</a>
+<a href="https://github.com/kryptokrona/hugin-cache/issues">
+    <img src="https://img.shields.io/github/issues/kryptokrona/hugin-cache">
+</a>
+<a href="https://github.com/kryptokrona/hugin-cache/pulls">
+    <img src="https://img.shields.io/github/issues-pr/kryptokrona/hugin-chat">
+</a>
+<a href="https://github.com/kryptokrona/hugin-cache/commits/main">
+    <img src="https://img.shields.io/github/commit-activity/m/kryptokrona/hugin-cache">
+</a>
+<a href="https://github.com/kryptokrona/hugin-cache/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/kryptokrona/hugin-cache">
+</a>
+<a href="https://github.com/kryptokrona/hugin-cache/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/kryptokrona/hugin-cache">
+</a>
+<a href="https://twitter.com/kryptokrona">
+    <img src="https://img.shields.io/twitter/follow/kryptokrona">
+</a>
 </p>
 
 ## About
