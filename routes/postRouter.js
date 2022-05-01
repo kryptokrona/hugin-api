@@ -11,7 +11,6 @@ const controller = require('../controllers/postController')
 
 // the ordering here is important
 router.get('/posts/latest', controller.getLatest)
-router.get('/posts/trending', controller.getTrending)
 router.get('/posts', controller.getAll)
 router.get('/posts/:tx_hash', controller.getPostByTxHash)
 

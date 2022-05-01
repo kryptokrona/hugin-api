@@ -12,8 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsToMany(models.Post, {
         through: models.PostHashtag,
-        as: 'hashtag',
-        foreignKey: 'hashtag_id'
+        as: 'posts',
+        foreignKey: 'hashtag_id',
+        onDelete: 'CASCADE'
       })
     }
   }

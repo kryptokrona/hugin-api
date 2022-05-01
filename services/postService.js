@@ -6,12 +6,14 @@
 
 const db = require('../configs/postgresql')
 const models = require("../database/models");
+const { Op } = require("sequelize");
 
 const postService = {}
 
 /**
  * Get all posts
  */
+//TODO: make parameter of one object instead
 postService.getAll = async (page, size, limit, offset) => {
     return models.Post.findAndCountAll({
         limit: limit,
@@ -19,6 +21,13 @@ postService.getAll = async (page, size, limit, offset) => {
             ['id', 'ASC'],
         ],
         offset: offset,
+        /* //TODO: parse date less than to date greater than and make a where query
+        where: {
+            created_at: {
+                [Op.lt]: new Date(Date.parse(dateLt)),
+                [Op.gt]: new Date(Date.parse(dateGt))
+            }
+        }*/
     })
 }
 
@@ -44,16 +53,6 @@ postService.getLatest = async (page, size, limit, offset) => {
         ],
         offset: offset,
     })
-}
-
-/**
- * Get trending posts
- */
-postService.getTrending = () => {
-    // query data with findAndCountAll
-    //
-    // between todays date and past days (week?)
-    console.log('Post Service: getting trending posts...')
 }
 
 module.exports = postService
