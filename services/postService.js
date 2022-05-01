@@ -50,6 +50,9 @@ postService.getLatest = async (page, size, limit, offset) => {
  * Get trending posts
  */
 postService.getTrending = () => {
+    // query data with findAndCountAll
+    //
+    // between todays date and past days (week?)
     console.log('Post Service: getting trending posts...')
 }
 

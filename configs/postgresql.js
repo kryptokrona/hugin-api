@@ -20,6 +20,7 @@ try {
   sequelize.authenticate()
       .then(r =>
           //TODO: we need to do a initial migrate on start (only if it hasn't before)
+            // correction: we need to do this in the package.json script section...
           log.info(getTimestamp() + ' INFO: Connection to database has been established successfully.')
       );
 } catch (err) {

@@ -121,3 +121,7 @@ temp/
 
 # c8
 coverage/
+
+# Drawio Diagram backup files
+*.bkp
+*.dtmp

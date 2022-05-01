@@ -55,9 +55,4 @@ root login later, we will only authenticate with our key.
 
 ## Provisioning
 
-To get started with the actual provisioning we need to create an Ansible vault that we will store our secrets. To do that
-run the command:
-
-`ansible-vault create hugin-cache.yml`
-
-You will be promoted to enter password after you will be able to add the secret content
+More information will come later.

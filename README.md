@@ -20,6 +20,18 @@ To be able to get data more easily from Hugin Messenger this RESTful API called 
 
 And a lot of other packages/libraries which can seen in **package.json**.
 
+## API Endpoints
+
+All available API endpoints can be seen here on our Postman: https://www.postman.com/kryptokrona?tab=collections
+
+## Database Diagram
+
+This Database Diagram demonstrates how we store the data:
+
+![Hugin Cache Database Diagram](./diagrams/database-diagram.jpg)
+
+To edit the diagram open up the file inside the directory **diagrams** called **database-diagram.drawio**.
+
 ## Usage
 
 - `npm install nodemon -g`
@@ -27,10 +39,6 @@ And a lot of other packages/libraries which can seen in **package.json**.
 - `npm install`
 
 - `npm run dev`
-
-## API Endpoints
-
-All available API endpoints can be seen here on our Postman: https://www.postman.com/kryptokrona?tab=collections
 
 ## Test environment
 
