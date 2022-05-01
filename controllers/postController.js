@@ -24,14 +24,14 @@ const postController = {}
  * @param {object} res - Express response object.
  */
 postController.getAll = async (req, res) => {
-    const { page, size} = req.query;
+    const { page, size } = req.query;
     const { limit, offset } = getPagination(page, size)
 
     postService.getAll(page, size, limit, offset)
         .then(data => {
             const response = getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
-            res.send(response)
+            res.json(response)
         })
         .catch(err => {
             log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data.')
@@ -81,7 +81,7 @@ postController.getLatest = async (req, res) => {
         .then(data => {
             const response = getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
-            res.send(response)
+            res.json(response)
         })
         .catch(err => {
             log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data.')
@@ -89,17 +89,6 @@ postController.getLatest = async (req, res) => {
                 message: err.message || 'Some error occurred while retrieving data.'
             })
         })
-}
-
-/**
- * Get trending posts
- *
- * @param {object} req - Express request object.
- * @param {object} res - Express response object.
- */
-postController.getTrending = (req, res) => {
-    // postService.getTrending()
-    res.json(new Array(0))
 }
 
 module.exports = postController
