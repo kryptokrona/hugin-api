@@ -55,22 +55,13 @@ hashtagService.getTrending = async (page, size, limit, offset) => {
     // filter posts under a week time
 
     return models.Hashtag.findAndCountAll({
-        attributes: { 
-            include: [[db.sequelize.literal('(COUNT("posts"."id") OVER (PARTITION BY "hashtag"."id")::int)'), 'posts']] 
-        },
         limit: limit,
         offset: offset,
         include: [{
             model: models.Post,
             as: 'posts',
             required: true,
-            attributes: [],
-            through: {
-                attributes: []
-            }
         }],
-        raw: true,
-        subQuery: false
     })
 }
 
