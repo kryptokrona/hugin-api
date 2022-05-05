@@ -27,18 +27,24 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.locals.sitetitle = 'Hugin Cache'
 
-// setup and use session middleware (https://github.com/expressjs/session)
-const sessionOptions = {
-    name: 'boss', // Don't use default session cookie name.
-    secret: 'boss cat', // Change it!!! The secret is used to hash the session with HMAC.
-    resave: false, // Resave even if a request is not changing the session.
-    saveUninitialized: false, // Don't save a created but not modified session.
-    cookie: {
-        maxAge: 1000 * 60 * 60 * 24 // 1 day
+// set cache control middleware
+let setCache = function (req, res, next) {
+    // period in seconds, currently 5 minutes
+    // set this lower if we need to have more frequent update
+    const period = 60 * 5
+
+    // cache only for GET requests
+    if (req.method == 'GET') {
+        res.set('Cache-control', `public, max-age=${period}`)
+    } else {
+        // for the other requests set strict no caching parameters
+        res.set('Cache-control', `no-store`)
     }
+
+    next()
 }
 
-app.use(session(sessionOptions))
+app.use(setCache)
 
 // middleware to be executed before the routes
 app.use((req, res, next) => {
@@ -86,7 +92,7 @@ app.use(function (err, req, res, next) {
     res.locals.error = req.app.get('env') === 'development' ? err : {}
 
     // send response back
-    res.status(err.status || 500).json('ERROR: Not Found.')
+    res.status(err.status || 500)
 })
 
 // Start listening.
