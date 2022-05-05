@@ -1,4 +1,6 @@
-![Hugin Neon](./public/img/hugin-neon.png)
+<p align="center">
+  <img src="https://github.com/kryptokrona/hugin-cache/blob/main/public/img/hugin_512x512.png?raw=true" alt="Hugin Logo"/>
+</p>
 
 <p>
 <a href="https://chat.kryptokrona.se">
@@ -187,7 +189,6 @@ the project tagged by the project name, owner, repository and short form of comm
 so if all the steps succeed the server will update its currently running docker container with a new image.
 
 To learn how we deploy to our VPS read the documentation here: [Ansible Documentation](ansible/README.md)
-
 
 # Deploy to your own VPS
 
