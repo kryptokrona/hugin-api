@@ -14,20 +14,20 @@ const postService = {}
  * Get all posts
  */
 //TODO: make parameter of one object instead
-postService.getAll = async (page, size, limit, offset) => {
+postService.getAll = async (page, size, limit, offset, dateLt, dateGt) => {
     return models.Post.findAndCountAll({
         limit: limit,
         order: [
             ['id', 'ASC'],
         ],
         offset: offset,
-        /* //TODO: parse date less than to date greater than and make a where query
-        where: {
+        //TODO: parse date less than to date greater than and make a where query
+        /* where: {
             created_at: {
-                [Op.lt]: new Date(Date.parse(dateLt)),
-                [Op.gt]: new Date(Date.parse(dateGt))
+                [Op.lt]: Date.parse(dateLt),
+                [Op.gt]: Date.parse(dateGt)
             }
-        }*/
+        } */
     })
 }
 

@@ -108,15 +108,15 @@ hashtagController.getTrending = async (req, res) => {
 
             //TODO: this is a temporary fix (check the hashtagService and modify it to avoid this method)
             // we want to do a SQL query instead of this
-            let jsonStr = JSON.stringify(response)
+            /* let jsonStr = JSON.stringify(response)
             let newData = JSON.parse(jsonStr)
 
             newData.items.forEach(item => {
                 item.posts = item.posts.length
-            })
+            }) */
 
             log.info(getTimestamp() + ' INFO: Successful response.')
-            res.json(newData)
+            res.json(response)
         })
         .catch(err => {
             log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data.')

@@ -24,10 +24,10 @@ const postController = {}
  * @param {object} res - Express response object.
  */
 postController.getAll = async (req, res) => {
-    const { page, size } = req.query;
+    const { page, size, dateLt, dateGt } = req.query;
     const { limit, offset } = getPagination(page, size)
 
-    postService.getAll(page, size, limit, offset)
+    postService.getAll(page, size, limit, offset, dateLt, dateGt)
         .then(data => {
             const response = getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')

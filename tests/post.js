@@ -24,8 +24,6 @@ describe('Post APIs', () => {
         })
     })
 
-    //TODO: get post by id test here
-
     describe(`Test GET route ${process.env.API_BASE_PATH}/posts/latest`, () => {
         it('It should return all latest posts', (done) => {
             chai.request(server)
