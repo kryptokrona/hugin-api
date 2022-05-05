@@ -49,19 +49,18 @@ hashtagService.getLatest = async (page, size, limit, offset) => {
 /**
  * Get trending posts
  */
-//TODO: this currently does not work to count number posts and return the count instead of the
+//TODO: this currently does NOT work to count number posts and return the count instead of the
 // objects. This needs to be fixed to avoid big and expensive queries
 hashtagService.getTrending = async (page, size, limit, offset) => {
     // filter posts under a week time
 
-    return models.Hashtag.findAndCountAll({
+    return models.PostHashtag.findAndCountAll({
+        group: ['PostHashtag.post_id'],
         limit: limit,
         offset: offset,
-        include: [{
-            model: models.Post,
-            as: 'posts',
-            required: true,
-        }],
+        attributes: { 
+            include: [[db.sequelize.fn("COUNT", db.sequelize.col("posts.id")), "num_posts"]]
+        },
     })
 }
 

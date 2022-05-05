@@ -27,11 +27,11 @@
 </a>
 </p>
 
-## About
+# About
 
 To be able to get data more easily from Hugin Messenger this RESTful API called Hugin Cache was created. It provides useful endpoints for within the Kryptokrona project as well as other external 3rd party interests. 
 
-## Technologies
+# Technologies
 
 - Node.js
 - ExpressJS
@@ -40,11 +40,88 @@ To be able to get data more easily from Hugin Messenger this RESTful API called 
 
 And a lot of other packages/libraries which can seen in **package.json**.
 
-## API Endpoints
+# API Endpoints
 
 All available API endpoints can be seen here on our Postman: https://www.postman.com/kryptokrona?tab=collections
 
-## Database Diagram
+## Examples
+
+Below are some code examples in JavaScript and Python how to use the Hugin Cache to get data. To just try out the API and check out what kind of data that we expect to get back we recommend you check out our Postman.
+
+### JavaScript
+
+**POSTS**
+
+Get all posts:
+
+```javascript
+import axios from 'axios'
+
+axios.get('http://localhost:3000/api/v1/posts')
+  .then(response => {
+    console.log(response)
+  })
+  .catch(err => {
+    console.log('ERROR: Could not get all posts from Hugin Cache.')
+  })
+```
+
+**HASHTAGS**
+
+Get trending hashtags:
+
+```javascript
+import axios from 'axios'
+
+axios.get('http://localhost:3000/api/v1/hashtags/trending')
+  .then(response => {
+    console.log(response)
+  })
+  .catch(err => {
+    console.log('ERROR: Could not get all trending hashtags from Hugin Cache.')
+  })
+```
+
+### Python
+
+**POSTS**
+
+Get all posts:
+
+```python
+import requests
+from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
+
+API_URL = 'http://localhost:3000/api/v1/posts'
+
+try:
+    headers = {'Content-Type': 'application/json'}
+    response = requests.get(API_URL, headers=headers)
+    print(response.json())
+except (ConnectionError, Timeout, TooManyRedirects):
+    print('ERROR: Could not get all posts from Hugin Cache.')
+```
+
+
+**HASHTAGS**
+
+Get trending hashtags:
+
+```python
+import requests
+from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
+
+API_URL = 'http://localhost:3000/api/v1/hashtags/trending'
+
+try:
+    headers = {'Content-Type': 'application/json'}
+    response = requests.get(API_URL, headers=headers)
+    print(response.json())
+except (ConnectionError, Timeout, TooManyRedirects):
+    print('ERROR: Could not get all trending hashtags from Hugin Cache.')
+```
+
+# Database Diagram
 
 This Database Diagram demonstrates how we store the data:
 
@@ -52,7 +129,7 @@ This Database Diagram demonstrates how we store the data:
 
 To edit the diagram open up the file inside the directory **diagrams** called **database-diagram.drawio**.
 
-## Usage
+# Usage
 
 - `npm install nodemon -g`
 
@@ -60,7 +137,7 @@ To edit the diagram open up the file inside the directory **diagrams** called **
 
 - `npm run dev`
 
-## Test environment
+# Test environment
 
 To just test the code, the easiest way is to use Docker Compose to orchestrate up the environment since we then don't have to install and configure the PostgreSQL database. 
 
@@ -85,7 +162,7 @@ docker run -p 3000:3000 \
     -e NODE_ENV=development
 ```
 
-## Unit testing
+# Unit testing
 
 Unit tests are conducted using Mocha and Chai. All unit tests can be found under the **tests** directory in the root of
 this repository.
@@ -94,11 +171,11 @@ To run the tests:
 
 - `npm run test`
 
-## Code Coverage
+# Code Coverage
 
 We are using C8 as the tool to execute the code coverage. This is not currently implemented. An issue exists to do this: https://github.com/kryptokrona/hugin-cache/issues/4
 
-## Build, Test and Deployment
+# Build, Test and Deployment
 
 This project is automatically built, tested and deployed using GitHub Actions. We have two pipelines:
 
@@ -112,7 +189,7 @@ so if all the steps succeed the server will update its currently running docker 
 To learn how we deploy to our VPS read the documentation here: [Ansible Documentation](ansible/README.md)
 
 
-## Deploy to your own VPS
+# Deploy to your own VPS
 
 To deploy this application we have two files in the **deploy** directory of this repository called `setup.sh` and `deploy.sh`. To deploy, simply just copy these files 
 to your VPS then modify these environment variables in the file `setup.sh`:
@@ -135,9 +212,9 @@ Then make the files executable and run it:
 - `./setup.sh`
 - `./deploy.sh`
 
-## Contribute
+# Contribute
 
-### Pull request
+## Pull request
 
 We appreciate all contributions whether it be small changes such as documentation of source code to major improvement of code. The easiest way is to make a fork and then make a pull request into our main branch. To make the PR go through make sure to include this information:
 
@@ -153,7 +230,15 @@ Extra details?
 
 A pull request is approved if the GitHub Actions pipeline is marked green. Otherwise it will be closed directly. Always make sure to run the unit tests before creating a pull request.
 
-## Contributors
+# Help and Support
+
+For questions and support please use the channel #support in Kryptokrona Discord server. The issue tracker is for bug reports and feature discussions only.
+
+# FAQ
+
+Will come later.
+
+# Contributors
 
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -171,6 +256,6 @@ A pull request is approved if the GitHub Actions pipeline is marked green. Other
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-## License
+# License
 
 The license is GPL-3.0 License.
