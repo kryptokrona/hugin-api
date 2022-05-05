@@ -14,8 +14,8 @@ module.exports = {
           time: 1651680078,
           nickname: 'kryptoknugen',
           tx_hash: '57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e7',
-          created_at: new Date('2022-05-04'),
-          updated_at: new Date('2022-05-04'),
+          created_at: new Date('2022-05-05').toISOString().split('T')[0],
+          updated_at: new Date('2022-05-05').toISOString().split('T')[0],
         },
         {
           id: 2,
@@ -26,8 +26,8 @@ module.exports = {
           time: 1651680078,
           nickname: 'mjovanc',
           tx_hash: '57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e7',
-          created_at: new Date('2022-05-05'),
-          updated_at: new Date('2022-05-05'),
+          created_at: new Date('2022-05-05').toISOString().split('T')[0],
+          updated_at: new Date('2022-05-05').toISOString().split('T')[0],
         },
         {
           id: 3,
@@ -38,8 +38,8 @@ module.exports = {
           time: 1651680078,
           nickname: 'Swepool',
           tx_hash: '57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e7',
-          created_at: new Date('2022-05-05'),
-          updated_at: new Date('2022-05-05'),
+          created_at: new Date('2022-05-05').toISOString().split('T')[0],
+          updated_at: new Date('2022-05-05').toISOString().split('T')[0],
         },
       ],
       {}

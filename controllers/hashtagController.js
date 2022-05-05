@@ -75,7 +75,7 @@ hashtagController.getHashTagById = (req, res) => {
  * @param {object} res - Express response object.
  */
 hashtagController.getLatest = async (req, res) => {
-    const { page, size } = req.query;
+    const { page, size } = req.query
     const { limit, offset } = getPagination(page, size)
 
     hashtagService.getLatest(page, size, limit, offset)
