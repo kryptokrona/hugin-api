@@ -1,4 +1,6 @@
-![Hugin Neon](./public/img/hugin-neon.png)
+<p align="center">
+  <img src="https://github.com/kryptokrona/hugin-cache/blob/main/public/img/hugin_512x512.png?raw=true" alt="Hugin Logo"/>
+</p>
 
 <p>
 <a href="https://chat.kryptokrona.se">
