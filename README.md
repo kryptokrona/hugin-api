@@ -190,7 +190,6 @@ so if all the steps succeed the server will update its currently running docker 
 
 To learn how we deploy to our VPS read the documentation here: [Ansible Documentation](ansible/README.md)
 
-
 # Deploy to your own VPS
 
 To deploy this application we have two files in the **deploy** directory of this repository called `setup.sh` and `deploy.sh`. To deploy, simply just copy these files 
