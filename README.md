@@ -213,6 +213,8 @@ Then make the files executable and run it:
 - `./setup.sh`
 - `./deploy.sh`
 
+Make sure to have setup your DNS configuration before running this script at least 24 hours before so it can obtain a certificate for TLS encryption (HTTPS).
+
 # Contribute
 
 ## Pull request
