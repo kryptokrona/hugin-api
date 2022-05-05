@@ -10,7 +10,6 @@ var cookieParser = require('cookie-parser')
 var logger = require('morgan')
 var log = require('loglevel')
 
-var indexRouter = require('./routes/indexRouter')
 var postRouter = require('./routes/postRouter')
 var hashtagRouter = require('./routes/hashtagRouter')
 
@@ -19,12 +18,6 @@ var huginSyncer = require('./configs/huginSyncer')
 const { getTimestamp, sleep } = require('./utils/time')
 
 var app = express()
-
-//TODO: remove frontend (not necessary)
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'pug')
 
 app.use(logger('dev'))
 app.use(express.json())
@@ -62,8 +55,7 @@ app.use((req, res, next) => {
     next()
 })
 
-// routes
-app.use('/', indexRouter)
+// api routes
 app.use(`${process.env.API_BASE_PATH}/`, postRouter)
 app.use(`${process.env.API_BASE_PATH}/`, hashtagRouter)
 
@@ -78,8 +70,7 @@ app.use(function (err, req, res, next) {
     if (err.status === 404) {
         log.error(getTimestamp() + ' ERROR: 404 - Page could not be found.')
         return res
-            .status(404)
-            .render('errors/404.pug')
+            .status(404).json('ERROR: Not Found.')
     }
 
     // 500 Internal Server Error (in production, all other errors send this response).
@@ -87,16 +78,15 @@ app.use(function (err, req, res, next) {
         log.error(getTimestamp() + ' ERROR: 500 - Internal server error.')
         return res
             .status(500)
-            .render('errors/500.pug')
+            .json('ERROR: Not Found.')
     }
 
     // set locals, only providing error in development
     res.locals.message = err.message
     res.locals.error = req.app.get('env') === 'development' ? err : {}
 
-    // render the error page
-    res.status(err.status || 500)
-    res.render('error')
+    // send response back
+    res.status(err.status || 500).json('ERROR: Not Found.')
 })
 
 // Start listening.
