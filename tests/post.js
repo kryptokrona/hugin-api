@@ -81,6 +81,35 @@ describe('Post APIs', () => {
         })
     })
 
+    // GET ALL POSTS QUERY PARAMS (EMPTY)
+    describe(`Test GET route ${process.env.API_BASE_PATH}/posts/latest?size=10&page=0`, () => {
+        it('It should return posts on page 0 with a limit of 10 posts', (done) => {
+            chai.request(server)
+                .get(`${process.env.API_BASE_PATH}/posts/latest?size=10&page=0`)
+                .end((err, response) => {
+                    // expect(response.status).to.equal(200)
+                    response.should.have.status(200)
+                    response.body.should.be.a('object')
+                    // response.body.length.should.not.be.eq(0) // uncomment this later when we have actual data to get back from DB
+                })
+            done()
+        }) 
+    })
+
+    // GET POST BY TX HASH (EMPTY)
+    describe(`Test GET route ${process.env.API_BASE_PATH}/posts/08d9a3158ff7111e8a1a8f0c6012039dff1b34fbbdfe3e9a8e5e399452fdba13`, () => {
+        it('It should return a 404 since the tx_hash value does not exist in db', (done) => {
+            chai.request(server)
+                .get(`${process.env.API_BASE_PATH}/posts/08d9a3158ff7111e8a1a8f0c6012039dff1b34fbbdfe3e9a8e5e399452fdba13`)
+                .end((err, response) => {
+                    response.should.have.status(404)
+                    response.body.should.be.a('object')
+                    // response.body.length.should.not.be.eq(0) // uncomment this later when we have actual data to get back from DB
+                })
+            done()
+        })
+    })
+
     // GET ALL LATEST POSTS (MOCKUP)
     describe(`Test GET route ${process.env.API_BASE_PATH}/posts`, () => {
         it('It should return 3 posts', (done) => {
@@ -97,35 +126,6 @@ describe('Post APIs', () => {
             done()
         })
     })
-
-    // GET ALL POSTS QUERY PARAMS (EMPTY)
-    /* describe(`Test GET route ${process.env.API_BASE_PATH}/posts/latest?size=10&page=0`, () => {
-        it('It should return posts on page 0 with a limit of 10 posts', (done) => {
-            chai.request(server)
-                .get(`${process.env.API_BASE_PATH}/posts/latest?size=10&page=0`)
-                .end((err, response) => {
-                    // expect(response.status).to.equal(200)
-                    // response.should.have.status(200)
-                    response.body.should.be.a('object')
-                    // response.body.length.should.not.be.eq(0) // uncomment this later when we have actual data to get back from DB
-                })
-            done()
-        })
-    }) */
-
-    // GET POST BY TX HASH (EMPTY)
-    /* describe(`Test GET route ${process.env.API_BASE_PATH}/posts/08d9a3158ff7111e8a1a8f0c6012039dff1b34fbbdfe3e9a8e5e399452fdba16`, () => {
-        it('It should return a 404 since the tx_hash value does not exist in db', (done) => {
-            chai.request(server)
-                .get(`${process.env.API_BASE_PATH}/posts/08d9a3158ff7111e8a1a8f0c6012039dff1b34fbbdfe3e9a8e5e399452fdba16`)
-                .end((err, response) => {
-                    // response.should.have.status(404)
-                    response.body.should.be.a('object')
-                    // response.body.length.should.not.be.eq(0) // uncomment this later when we have actual data to get back from DB
-                })
-            done()
-        })
-    }) */
 
     // GET POST BY TX HASH (MOCKUP)
     //TODO: add a successful 200 when trying to get a hashtag that exists, after we fix mock data.
