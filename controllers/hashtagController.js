@@ -14,7 +14,6 @@ const Op = db.Sequelize.Op;
 const hashtagService = require('../services/hashtagService')
 const { getPagination, getPagingData} = require('../utils/pagination')
 const { getTimestamp } = require("../utils/time");
-const postService = require("../services/postService");
 
 const hashtagController = {}
 
@@ -25,10 +24,10 @@ const hashtagController = {}
  * @param {object} res - Express response object.
  */
 hashtagController.getAll = (req, res) => {
-    const { page, size} = req.query;
+    const { page, size, search } = req.query;
     const { limit, offset } = getPagination(page, size)
 
-    hashtagService.getAll(page, size, limit, offset)
+    hashtagService.getAll(limit, offset, search)
         .then(data => {
             const response = getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
@@ -43,19 +42,19 @@ hashtagController.getAll = (req, res) => {
 }
 
 /**
- * Get hashtag by ids
+ * Get hashtag by id
  *
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
  */
 hashtagController.getHashTagById = (req, res) => {
-    hashtagService.getHashTagById(req)
+    hashtagService.getHashTagById(req.params.id)
         .then(data => {
             log.info(getTimestamp() + ' INFO: Successful response.')
 
             // send empty object if we can not find the post
             if (data === null) {
-                res.json({})
+                res.status(404).json({})
             } else {
                 res.json(data)
             }
@@ -78,7 +77,7 @@ hashtagController.getLatest = async (req, res) => {
     const { page, size } = req.query
     const { limit, offset } = getPagination(page, size)
 
-    hashtagService.getLatest(page, size, limit, offset)
+    hashtagService.getLatest(limit, offset)
         .then(data => {
             const response = getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')

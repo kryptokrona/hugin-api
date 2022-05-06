@@ -54,7 +54,7 @@ postController.getPostByTxHash = async (req, res) => {
 
             // send empty object if we can not find the post
             if (data === null) {
-                res.json({})
+                res.status(404).json({})
             } else {
                 res.json(data)
             }

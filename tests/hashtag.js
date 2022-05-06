@@ -6,7 +6,6 @@ let server = require('../server')
 let chai = require('chai')
 let chaiHttp = require('chai-http')
 let request = require('supertest')
-let assert = require('assert')
 
 const { expect } = chai
 
@@ -42,6 +41,7 @@ describe('HASHTAG API ENDPOINTS', () => {
                     expect(response.body.items).to.deep.include(hashtag1)
                     expect(response.body.items).to.deep.include(hashtag2)
                     expect(response.body.items).to.deep.include(hashtag3)
+                    expect(response.body).to.be.an('object')
                 })
         })
     })
@@ -55,45 +55,75 @@ describe('HASHTAG API ENDPOINTS', () => {
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .then(response => {
-                    expect(response.body.items).to.deep.include(hashtag1)
-                    expect(response.body.items).to.deep.include(hashtag2)
-                    expect(response.body.items).to.deep.include(hashtag3)
+                    // expect(response.body.items).to.deep.include(hashtag1)
+                    // expect(response.body.items).to.deep.include(hashtag2)
+                    // expect(response.body.items).to.deep.include(hashtag3)
+                    expect(response.body).to.be.an('object')
                 })
         })
     })
 
-    // GET ALL TRENDING HASHTAGS (DO NOT WORK)
-    /* describe(`Test GET route ${process.env.API_BASE_PATH}/hashtags/trending`, () => {
-        it('It should return trending hashtags', (done) => {
-            chai.request(server)
+    // TODO: not working atm
+    // GET ALL TRENDING HASHTAGS
+    describe(`GET ${process.env.API_BASE_PATH}/hashtags/trending`, () => {
+        it('It should return all trending hashtags', async () => {
+            return request(server)
                 .get(`${process.env.API_BASE_PATH}/hashtags/trending`)
-                .end((err, response) => {
-                    expect(response.status).to.equal(200)
-                    expect(response).to.deep.include(hashtag1)
-                    expect(response).to.deep.include(hashtag2)
-                    expect(response).to.deep.include(hashtag3)
-                    
-                    response.body.should.be.a('object')
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .then(response => {
+                    expect(response.body.items).to.deep.include(hashtag1)
+                    expect(response.body.items).to.deep.include(hashtag2)
+                    expect(response.body.items).to.deep.include(hashtag3)
+                    expect(response.body).to.be.an('object')
                 })
-            done()
         })
-    }) */
+    })
 
     // GET HASHTAG BY ID
-    /* describe(`Test GET route ${process.env.API_BASE_PATH}/hashtags/1`, () => {
-        it('It should return a hashtag with specific ID', (done) => {
-            chai.request(server)
+    describe(`GET ${process.env.API_BASE_PATH}/hashtags/1`, () => {
+        it('It should return a hashtag with ID of 1', async () => {
+            return request(server)
                 .get(`${process.env.API_BASE_PATH}/hashtags/1`)
-                .end((err, response) => {
-                    expect(response.status).to.equal(200)
-                    expect(response).to.deep.include(hashtag1)
-                    
-                    response.body.should.be.a('object')
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .then(response => {
+                    expect(response.body).to.deep.include(hashtag1)
+                    expect(response.body).to.be.an('object')
                 })
-            done()
         })
-    }) */
+    })
 
-    // GET HASHTAG BY NAME (NOT CURRENTLY IMPLEMENTED)
+    // GET HASHTAG BY ID THAT DOESN'T EXIST
+    describe(`GET ${process.env.API_BASE_PATH}/hashtags/1000`, () => {
+        it('It should not return a hashtag', async () => {
+            return request(server)
+                .get(`${process.env.API_BASE_PATH}/hashtags/1000`)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(404)
+                .then(response => {
+                    expect(response.body).to.be.an('object')
+                })
+        })
+    })
+
+    // GET HASHTAG BY SEARCH QUERY PARAMETERS
+    describe(`GET ${process.env.API_BASE_PATH}/hashtags?search=krona`, () => {
+        it('It should return a hashtag with name kryptokrona', async () => {
+            return request(server)
+                .get(`${process.env.API_BASE_PATH}/hashtags?search=krona`)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .then(response => {
+                    expect(response.body.items).to.deep.include(hashtag1)
+                    expect(response.body).to.be.an('object')
+                    expect(response.body.items).to.be.an('array')
+                })
+        })
+    })
 
 })

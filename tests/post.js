@@ -6,7 +6,6 @@ let server = require('../server')
 let chai = require('chai')
 let chaiHttp = require('chai-http')
 let request = require('supertest')
-let assert = require('assert')
 
 const { expect } = chai
 
@@ -66,6 +65,7 @@ describe('POST API ENDPOINTS', () => {
                     expect(response.body.items).to.deep.include(post1)
                     expect(response.body.items).to.deep.include(post2)
                     expect(response.body.items).to.deep.include(post3)
+                    expect(response.body).to.be.an('object')
                 })
         })
     })
@@ -82,40 +82,55 @@ describe('POST API ENDPOINTS', () => {
                     expect(response.body.items).to.deep.include(post1)
                     expect(response.body.items).to.deep.include(post2)
                     expect(response.body.items).to.deep.include(post3)
+                    expect(response.body).to.be.an('object')
                 })
         })
     })
 
     // GET ALL POSTS QUERY PARAMS
-    /* describe(`Test GET route ${process.env.API_BASE_PATH}/posts/latest?size=3&page=0`, () => {
-        it('It should return all latest posts with query parameters', (done) => {
-            chai.request(server)
+    describe(`GET ${process.env.API_BASE_PATH}/posts/latest?size=3&page=0`, () => {
+        it('It should return all posts', async () => {
+            return request(server)
                 .get(`${process.env.API_BASE_PATH}/posts/latest?size=3&page=0`)
-                .end((err, response) => {
-                    expect(response.status).to.equal(200)
-                    expect(response).to.deep.include(post1)
-                    expect(response).to.deep.include(post2)
-                    expect(response).to.deep.include(post3)
-                    
-                    response.body.should.be.a('object')
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .then(response => {
+                    expect(response.body.items).to.deep.include(post1)
+                    expect(response.body.items).to.deep.include(post2)
+                    expect(response.body.items).to.deep.include(post3)
+                    expect(response.body).to.be.an('object')
                 })
-            done()
         })
-    }) */
+    })
 
     // GET POST BY TX HASH
-    /* describe(`Test GET route ${process.env.API_BASE_PATH}/posts/57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e7`, () => {
-        it('It should return 1 post with a specific tx hash', (done) => {
-            chai.request(server)
+    describe(`GET ${process.env.API_BASE_PATH}/posts/57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e7`, () => {
+        it('It should return 1 post with a specific tx hash', async () => {
+            return request(server)
                 .get(`${process.env.API_BASE_PATH}/posts/57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e7`)
-                .end((err, response) => {
-                    expect(response.status).to.equal(200)
-                    expect(response).to.deep.include(post1)
-                    
-                    response.body.should.be.a('object')
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .then(response => {
+                    expect(response.body).to.deep.include(post1)
+                    expect(response.body).to.be.an('object')
                 })
-            done()
         })
-    }) */
+    })
+
+    // GET POST BY TX HASH THAT DOESN'T EXIST
+    describe(`GET ${process.env.API_BASE_PATH}/posts/57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e3`, () => {
+        it('It should return 1 post with a specific tx hash', async () => {
+            return request(server)
+                .get(`${process.env.API_BASE_PATH}/posts/57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e3`)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(404)
+                .then(response => {
+                    expect(response.body).to.be.an('object')
+                })
+        })
+    })
     
 })

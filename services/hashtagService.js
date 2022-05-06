@@ -4,31 +4,40 @@
 
 'use strict'
 
+const { Op } = require("sequelize")
 const db = require('../configs/postgresql')
-const models = require("../database/models");
+const models = require("../database/models")
 
 const hashtagService = {}
 
 /**
  * Get all hashtags
  */
-hashtagService.getAll = async (page, size, limit, offset) => {
-    return models.Hashtag.findAndCountAll({
+hashtagService.getAll = async (limit, offset, searchKeyword) => {
+    let query = {
         limit: limit,
         order: [
             ['id', 'ASC'],
         ],
         offset: offset,
-    })
+    }
+
+    searchKeyword ? (query.where = {
+        [Op.or]: [
+            { 'name': { [Op.like]: '%' + searchKeyword + '%' } }
+        ]
+    }) : query
+
+    return models.Hashtag.findAndCountAll(query)
 }
 
 /**
  * Get hashtag by id
  */
-hashtagService.getHashTagById = async (req) => {
+hashtagService.getHashTagById = async (hashtagId) => {
     return models.Hashtag.findOne({
         where: {
-            id: req.params.id
+            id: hashtagId
         }
     })
 }
@@ -36,7 +45,7 @@ hashtagService.getHashTagById = async (req) => {
 /**
  * Get latest hashtags
  */
-hashtagService.getLatest = async (page, size, limit, offset) => {
+hashtagService.getLatest = async (limit, offset) => {
     return models.Hashtag.findAndCountAll({
         limit: limit,
         order: [
@@ -51,7 +60,7 @@ hashtagService.getLatest = async (page, size, limit, offset) => {
  */
 //TODO: this currently does NOT work to count number posts and return the count instead of the
 // objects. This needs to be fixed to avoid big and expensive queries
-hashtagService.getTrending = async (page, size, limit, offset) => {
+hashtagService.getTrending = async (limit, offset) => {
     // filter posts under a week time
 
     return models.PostHashtag.findAndCountAll({
