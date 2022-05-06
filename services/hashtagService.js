@@ -63,13 +63,14 @@ hashtagService.getLatest = async (limit, offset) => {
 hashtagService.getTrending = async (limit, offset) => {
     // filter posts under a week time
 
-    return models.PostHashtag.findAndCountAll({
-        group: ['PostHashtag.post_id'],
+    return models.Hashtag.findAndCountAll({
         limit: limit,
         offset: offset,
-        attributes: { 
-            include: [[db.sequelize.fn("COUNT", db.sequelize.col("posts.id")), "num_posts"]]
-        },
+        include: [{
+            model: models.Post,
+            as: 'posts',
+            required: false,
+        }],
     })
 }
 

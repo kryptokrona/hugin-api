@@ -2,10 +2,11 @@
 
 require('dotenv').config()
 
-let server = require('../server')
+let server = require('../../server')
 let chai = require('chai')
 let chaiHttp = require('chai-http')
 let request = require('supertest')
+let assert = require('assert')
 
 const { expect } = chai
 
@@ -25,6 +26,24 @@ const hashtag2 = {
 const hashtag3 = {
     id: 3,
     name: 'crypto',
+}
+
+const trendingHashtag1 = {
+    id: 1,
+    name: 'kryptokrona',
+    posts: 2,
+}
+
+const trendingHashtag2 = {
+    id: 2,
+    name: 'hugin',
+    posts: 1,
+}
+
+const trendingHashtag3 = {
+    id: 3,
+    name: 'crypto',
+    posts: 1,
 }
 
 describe('HASHTAG API ENDPOINTS', () => {
@@ -55,9 +74,6 @@ describe('HASHTAG API ENDPOINTS', () => {
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .then(response => {
-                    // expect(response.body.items).to.deep.include(hashtag1)
-                    // expect(response.body.items).to.deep.include(hashtag2)
-                    // expect(response.body.items).to.deep.include(hashtag3)
                     expect(response.body).to.be.an('object')
                 })
         })
@@ -73,10 +89,13 @@ describe('HASHTAG API ENDPOINTS', () => {
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .then(response => {
-                    expect(response.body.items).to.deep.include(hashtag1)
-                    expect(response.body.items).to.deep.include(hashtag2)
-                    expect(response.body.items).to.deep.include(hashtag3)
+                    expect(response.body.items).to.deep.include(trendingHashtag1)
+                    expect(response.body.items).to.deep.include(trendingHashtag2)
+                    expect(response.body.items).to.deep.include(trendingHashtag3)
                     expect(response.body).to.be.an('object')
+
+                    // asserts
+                    // assert that a trending hashtag do not have 0 posts or less
                 })
         })
     })

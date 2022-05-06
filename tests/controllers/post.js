@@ -2,7 +2,7 @@
 
 require('dotenv').config()
 
-let server = require('../server')
+let server = require('../../server')
 let chai = require('chai')
 let chaiHttp = require('chai-http')
 let request = require('supertest')
