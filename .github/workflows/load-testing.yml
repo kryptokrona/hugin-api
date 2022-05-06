@@ -1,8 +1,8 @@
 name: Hugin Cache Load Testing
 
-on:
-  schedule:
-    - cron: '*/15 * * * *'
+on: push
+#  schedule:
+#    - cron: '*/15 * * * *'
 
 jobs:
   test:
