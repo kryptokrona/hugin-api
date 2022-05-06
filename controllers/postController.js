@@ -24,10 +24,10 @@ const postController = {}
  * @param {object} res - Express response object.
  */
 postController.getAll = async (req, res) => {
-    const { page, size, dateLt, dateGt } = req.query;
+    const { page, size } = req.query;
     const { limit, offset } = getPagination(page, size)
 
-    postService.getAll(page, size, limit, offset, dateLt, dateGt)
+    postService.getAll(page, size, limit, offset)
         .then(data => {
             const response = getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
@@ -35,7 +35,7 @@ postController.getAll = async (req, res) => {
         })
         .catch(err => {
             log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data.')
-            res.status(500).send({
+            res.status(404).send({
                 message: err.message || 'Some error occurred while retrieving data.'
             })
         })
@@ -61,7 +61,7 @@ postController.getPostByTxHash = async (req, res) => {
         })
         .catch(err => {
             log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data.')
-            res.status(500).send({
+            res.status(404).send({
                 message: err.message || 'Some error occurred while retrieving data.'
             })
         })
@@ -85,7 +85,7 @@ postController.getLatest = async (req, res) => {
         })
         .catch(err => {
             log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data.')
-            res.status(500).send({
+            res.status(404).send({
                 message: err.message || 'Some error occurred while retrieving data.'
             })
         })

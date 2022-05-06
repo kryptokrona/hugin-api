@@ -9,6 +9,7 @@ var path = require('path')
 var cookieParser = require('cookie-parser')
 var logger = require('morgan')
 var log = require('loglevel')
+var bodyParser = require('body-parser');
 
 var postRouter = require('./routes/postRouter')
 var hashtagRouter = require('./routes/hashtagRouter')
@@ -46,24 +47,11 @@ let setCache = function (req, res, next) {
 
 app.use(setCache)
 
-// middleware to be executed before the routes
-app.use((req, res, next) => {
-    // flash messages - survives only a round trip
-    if (req.session.flash) {
-        res.locals.flash = req.session.flash
-        delete req.session.flash
-    }
-
-    if (req.session.username) {
-        res.locals.username = req.session.username
-    }
-
-    next()
-})
-
 // api routes
 app.use(`${process.env.API_BASE_PATH}/`, postRouter)
 app.use(`${process.env.API_BASE_PATH}/`, hashtagRouter)
+
+app.use(bodyParser.json());
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -104,10 +92,13 @@ app.listen(3000, async () => {
         log.setLevel('trace')
     }
 
-    // starting hugin sync
-    while (true) {
-        await sleep(2000)
-        await huginSyncer.backgroundSyncMessages()
+    // do not start the hugin syncer if we want to test the endpoints
+    if (process.env.NODE_ENV !== 'test') {
+        // starting hugin sync
+        while (true) {
+            await sleep(2000)
+            await huginSyncer.backgroundSyncMessages()
+        }
     }
 })
 

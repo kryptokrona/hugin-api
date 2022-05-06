@@ -36,7 +36,7 @@ hashtagController.getAll = (req, res) => {
         })
         .catch(err => {
             log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data.')
-            res.status(500).send({
+            res.status(404).send({
                 message: err.message || 'Some error occurred while retrieving data.'
             })
         })
@@ -62,7 +62,7 @@ hashtagController.getHashTagById = (req, res) => {
         })
         .catch(err => {
             log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data.')
-            res.status(500).send({
+            res.status(404).send({
                 message: err.message || 'Some error occurred while retrieving data.'
             })
         })
@@ -75,7 +75,7 @@ hashtagController.getHashTagById = (req, res) => {
  * @param {object} res - Express response object.
  */
 hashtagController.getLatest = async (req, res) => {
-    const { page, size } = req.query;
+    const { page, size } = req.query
     const { limit, offset } = getPagination(page, size)
 
     hashtagService.getLatest(page, size, limit, offset)
@@ -86,7 +86,7 @@ hashtagController.getLatest = async (req, res) => {
         })
         .catch(err => {
             log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data.')
-            res.status(500).send({
+            res.status(404).send({
                 message: err.message || 'Some error occurred while retrieving data.'
             })
         })
@@ -120,7 +120,7 @@ hashtagController.getTrending = async (req, res) => {
         })
         .catch(err => {
             log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data.')
-            res.status(500).send({
+            res.status(404).send({
                 message: err.message || 'Some error occurred while retrieving data.'
             })
         })
