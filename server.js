@@ -9,7 +9,9 @@ var path = require('path')
 var cookieParser = require('cookie-parser')
 var logger = require('morgan')
 var log = require('loglevel')
-var bodyParser = require('body-parser');
+var bodyParser = require('body-parser')
+const rateLimit = require('express-rate-limit')
+
 
 var postRouter = require('./routes/postRouter')
 var hashtagRouter = require('./routes/hashtagRouter')
@@ -46,6 +48,18 @@ let setCache = function (req, res, next) {
 }
 
 app.use(setCache)
+
+const limiter = rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	max: 1000, // Limit each IP to 1000 requests per `window` (here, per 15 minutes) - TODO: perhaps put this in a settings.ini file?
+	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
+
+// Apply the rate limiting middleware to all requests
+app.use(limiter)
+// if problem with reverse proxy try tweak this setting (https://www.npmjs.com/package/express-rate-limit)
+app.set('trust proxy', 1) 
 
 // api routes
 app.use(`${process.env.API_BASE_PATH}/`, postRouter)
