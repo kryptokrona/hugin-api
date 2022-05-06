@@ -1,7 +1,7 @@
-import http from 'k6/http'
-import { sleep } from 'k6'
+let http = require('k6/http') 
+let sleep = require('k6')
 
-export const options = {
+module.exports.options = {
   duration: '1m',
   vus: 50,
   thresholds: {
@@ -10,7 +10,7 @@ export const options = {
   },
 };
 
-export default function () {
+module.exports = () => {
   const res = http.get('http://hugin-cache:3000') // we use the docker-compose service name here
   sleep(1)
 }
