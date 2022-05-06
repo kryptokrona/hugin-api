@@ -6,15 +6,19 @@
 
 require('dotenv').config()
 
-const { Sequelize } = require('sequelize');
-const log = require("loglevel");
-const {getTimestamp} = require("../utils/time");
+const { Sequelize } = require('sequelize')
+const log = require("loglevel")
+const {getTimestamp} = require("../utils/time")
 
-const sequelize = new Sequelize(
-    process.env.NODE_ENV === 'production'
-        ? process.env.DATABASE_URL
-        : process.env.DEV_DATABASE_URL
-);
+let sequelize
+
+if (process.env.NODE_ENV === 'development') {
+  sequelize = new Sequelize(process.env.DEV_DATABASE_URL)
+} else if (process.env.NODE_ENV === 'test') {
+  sequelize = new Sequelize(process.env.TEST_DATABASE_URL)
+} else {
+  sequelize = new Sequelize(process.env.DATABASE_URL)
+}
 
 try {
   sequelize.authenticate()
@@ -29,7 +33,7 @@ try {
 
 const db = {};
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+db.sequelize = sequelize
+db.Sequelize = Sequelize
 
-module.exports = db;
+module.exports = db

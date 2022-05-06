@@ -110,7 +110,7 @@ app.listen(3000, async () => {
     if (process.env.NODE_ENV !== 'test') {
         // starting hugin sync
         while (true) {
-            await sleep(2000)
+            await sleep(2000) //TODO: perhaps have a setting for this?
             await huginSyncer.backgroundSyncMessages()
         }
     }
