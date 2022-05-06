@@ -23,6 +23,15 @@ jobs:
       - name: Start Hugin Cache
         run: docker-compose -f docker-compose.test.yml up -d
 
+      - name: Info
+        id: info
+        shell: bash
+        run: |
+          export CID=$(cat $CID_FILE)
+          export ADDR=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $CID)
+          echo "::set-output name=cid::$CID"
+          echo "::set-output name=address::$ADDR"
+
       - name: Run Local k6 Test
         uses: grafana/k6-action@v0.2.0
         with:
