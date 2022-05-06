@@ -20,9 +20,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_PAT }}
 
+      - name: Start Hugin Cache
+        run: docker-compose -f docker-compose.test.yml up -d
+
       - name: Run Local k6 Test
         uses: grafana/k6-action@v0.2.0
-        run: docker-compose -f docker-compose.test.yml up
         with:
           filename: tests/k6/loadTest.js
       
@@ -31,3 +33,6 @@ jobs:
         with:
           name: hugin-cache-k6-report
           path: summary.json
+      
+      - name: Stop Hugin Cache
+        run: docker-compose -f docker-compose.test.yml down
