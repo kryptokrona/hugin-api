@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+  hugin-cache:
+    image: ghcr.io/kryptokrona/hugin-cache:latest
+    container_name: hugin-cache
+    environment:
+      DEV_DATABASE_URL: postgres://postgres:test1234@127.0.0.1:5432/hugin_cache_prod
+      NODE_ENV: production
+    ports:
+      - "3000:3000"
+    links:
+      - postgres
+    depends_on:
+      - postgres
+    networks:
+      - hugin-net
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: hugin_cache_prod
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test1234
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - hugin-net
+
+volumes:
+  postgres:
+
+networks:
+  hugin-net:
+    driver: bridge
