@@ -4,7 +4,7 @@
 
 'use strict'
 
-const { Op } = require("sequelize")
+const { Op, QueryTypes } = require("sequelize")
 const db = require('../configs/postgresql')
 const models = require("../database/models")
 
@@ -64,13 +64,18 @@ hashtagService.getTrending = async (limit, offset) => {
     // filter posts under a week time
 
     return models.Hashtag.findAndCountAll({
-        limit: limit,
-        offset: offset,
+        //limit: limit,
+        //offset: offset,
+        // group: ['PostHashtag.id', 'hashtag.name'],
+        // order: ['num_posts', 'DESC'],
         include: [{
             model: models.Post,
             as: 'posts',
-            required: false,
+            required: true,
+            // attributes: []  // uncomment this later when we can count
         }],
+        // raw: true,
+        // subQuery: false
     })
 }
 

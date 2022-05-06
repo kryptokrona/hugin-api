@@ -5,8 +5,8 @@
 'use strict'
 
 const db = require('../configs/postgresql')
-const models = require("../database/models");
-const { Op } = require("sequelize");
+const models = require("../database/models")
+const { Op } = require("sequelize")
 
 const postService = {}
 
