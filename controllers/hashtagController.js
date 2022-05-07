@@ -24,10 +24,10 @@ const hashtagController = {}
  * @param {object} res - Express response object.
  */
 hashtagController.getAll = (req, res) => {
-    const { page, size, search } = req.query;
+    const { page, size, order, search } = req.query;
     const { limit, offset } = getPagination(page, size)
 
-    hashtagService.getAll(limit, offset, search)
+    hashtagService.getAll(limit, offset, order, search)
         .then(data => {
             const response = getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
@@ -74,10 +74,10 @@ hashtagController.getHashTagById = (req, res) => {
  * @param {object} res - Express response object.
  */
 hashtagController.getLatest = async (req, res) => {
-    const { page, size } = req.query
+    const { page, size, order } = req.query
     const { limit, offset } = getPagination(page, size)
 
-    hashtagService.getLatest(limit, offset)
+    hashtagService.getLatest(limit, offset, order)
         .then(data => {
             const response = getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')

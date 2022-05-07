@@ -13,11 +13,11 @@ const hashtagService = {}
 /**
  * Get all hashtags
  */
-hashtagService.getAll = async (limit, offset, searchKeyword) => {
+hashtagService.getAll = async (limit, offset, order, searchKeyword) => {
     let query = {
         limit: limit,
         order: [
-            ['id', 'ASC'],
+            ['id', order ? order.toUpperCase() : 'DESC'],
         ],
         offset: offset,
     }
@@ -45,11 +45,11 @@ hashtagService.getHashTagById = async (hashtagId) => {
 /**
  * Get latest hashtags
  */
-hashtagService.getLatest = async (limit, offset) => {
+hashtagService.getLatest = async (limit, offset, order) => {
     return models.Hashtag.findAndCountAll({
         limit: limit,
         order: [
-            ['id', 'DESC'],
+            ['id', order ? order.toUpperCase() : 'DESC'],
         ],
         offset: offset,
     })
