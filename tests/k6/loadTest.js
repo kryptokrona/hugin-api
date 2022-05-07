@@ -1,49 +1,25 @@
-let http = require('k6/http') 
-let sleep = require('k6')
+import http from 'k6/http'
+import { check, group, sleep } from 'k6'
 
-module.exports.options = {
+export const options = {
+  stages: [
+    { duration: '5m', target: 100 }, // simulate ramp-up of traffic from 1 to 100 users over 5 minutes.
+    { duration: '10m', target: 100 }, // stay at 100 users for 10 minutes
+    { duration: '5m', target: 0 }, // ramp-down to 0 users
+  ],
   thresholds: {
-    'group_duration{group:::individualRequests}': ['avg < 400'],
-    'group_duration{group:::batchRequests}': ['avg < 200'],
+    'http_req_duration': ['p(99)<1500'], // 99% of requests must complete below 1.5s
   },
-  vus: 1,
-  duration: '10s',
 }
 
-export default function () {
-  group('individualRequests', function () {
-    // POSTS
-    http.get('http://localhost:3000/api/v1/posts')
-    http.get('http://localhost:3000/api/v1/posts/latest?size=10&page=0')
-    http.get('http://localhost:3000/api/v1/posts/latest')
-    http.get('http://localhost:3000/api/v1/posts/08d9a3158ff7111e8a1a8f0c6012039dff1b34fbbdfe3e9a8e5e399452fdba16')
+const BASE_URL = 'http://localhost:3000';
 
-    // HASHTAGS
-    http.get('http://localhost:3000/api/v1/hashtags/latest')
-    http.get('http://localhost:3000/api/v1/hashtags')
-    http.get('http://localhost:3000/api/v1/hashtags/1')
-    http.get('http://localhost:3000/api/v1/hashtags/trending')
-    http.get('http://localhost:3000/api/v1/hashtags?search=krona')
-  })
+export default () => {
+  const allPosts = http.get(`${BASE_URL}/api/v1/posts`).json()
+  check(allPosts, { 'retrieved posts': (obj) => obj.length > 0 })
 
-  group('batchRequests', function () {
-    // POSTS
-    http.batch([
-      ['GET', `http://localhost:3000/api/v1/posts`],
-      ['GET', `http://localhost:3000/api/v1/posts/latest?size=10&page=0`],
-      ['GET', `http://localhost:3000/api/v1/posts/latest`],
-      ['GET', `http://localhost:3000/api/v1/posts/08d9a3158ff7111e8a1a8f0c6012039dff1b34fbbdfe3e9a8e5e399452fdba16`],
-    ])
-
-    // HASHTAGS
-    http.batch([
-      ['GET', `http://localhost:3000/api/v1/hashtags/latest`],
-      ['GET', `http://localhost:3000/api/v1/hashtags`],
-      ['GET', `http://localhost:3000/api/v1/hashtags/1`],
-      ['GET', `http://localhost:3000/api/v1/hashtags/trending`],
-      ['GET', `http://localhost:3000/api/v1/hashtags?search=krona`],
-    ])
-  })
+  const allHashtags = http.get(`${BASE_URL}/api/v1/hashtags`).json()
+  check(allHashtags, { 'retrieved hashtags': (obj) => obj.length > 0 })
 
   sleep(1)
 }
