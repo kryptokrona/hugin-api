@@ -11,6 +11,20 @@ module.exports.options = {
 }
 
 export default function () {
+  group('individualRequests', function () {
+    http.get('http://localhost:3000/api/v1/posts')
+    http.get('http://test-api.k6.io/public/crocodiles/2/')
+    http.get('http://test-api.k6.io/public/crocodiles/3/')
+  })
+
+  group('batchRequests', function () {
+    http.batch([
+      ['GET', `http://test-api.k6.io/public/crocodiles/1/`],
+      ['GET', `http://test-api.k6.io/public/crocodiles/2/`],
+      ['GET', `http://test-api.k6.io/public/crocodiles/3/`],
+    ])
+  })
+
   const res = http.get('http://hugin-cache:3000/api/v1/posts')
   sleep(1)
 }

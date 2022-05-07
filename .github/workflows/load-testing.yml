@@ -22,11 +22,6 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-      
-      hugin-cache:
-        image: ghcr.io/kryptokrona/hugin-cache:latest
-        ports:
-           - 3000:3000
     
     env:
       NODE_ENV: production
@@ -36,20 +31,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      # - name: Log into registry ghcr.io
-      #   uses: docker/login-action@v1
-      #   with:
-      #     registry: ghcr.io
-      #     username: ${{ github.actor }}
-      #     password: ${{ secrets.GHCR_PAT }}
-
-      - name: Run Local k6 Test
-        uses: grafana/k6-action@v0.2.0
-        with:
-          filename: tests/k6/loadTest.js
+      - name: Install k6
+        run: |
+          curl https://github.com/loadimpact/k6/releases/download/v0.26.2/k6-v0.26.2-linux64.tar.gz -L | tar xvz --strip-components 1
       
-      - name: Upload Performance Test Results
-        uses: actions/upload-artifact@v3
-        with:
-          name: hugin-cache-k6-report
-          path: summary.json
+      - name: Install Packages
+        run: |
+          npm install
+      
+      - name: Start Server and Run Tests
+        run: |
+          npm start & npx wait-on http://localhost:3000
+          ./k6 run tests/k6/loadTest.js
+      
+      # - name: Upload Performance Test Results
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: hugin-cache-k6-report
+      #     path: summary.json
