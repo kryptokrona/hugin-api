@@ -11,6 +11,6 @@ module.exports.options = {
 }
 
 export default function () {
-  const res = http.get('http://hugin-cache:3000')
+  const res = http.get('http://hugin-cache:3000/api/v1/posts')
   sleep(1)
 }
