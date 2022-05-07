@@ -10,6 +10,9 @@ DATABASE_URL=postgres://postgres:$POSTGRES_PASSWORD@127.0.0.1:5432/$POSTGRES_DB
 DOMAINS=(example.org www.example.org)
 EMAIL=user@user.com
 
+# System configs
+#TODO: add variables here and below and these will be used with docker-compose -e FOO=BAR and then execute cron job to clean etc
+
 # Setting environment variables as persistent
 echo "export POSTGRES_DB=$POSTGRES_DB" >> ~/.bashrc
 echo "export POSTGRES_USER=$POSTGRES_USER" >> ~/.bashrc
