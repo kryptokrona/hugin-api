@@ -24,8 +24,8 @@ postService.getAll = async (limit, offset, order, searchKeyword) => {
     
     searchKeyword ? (query.where = {
         [Op.or]: [
-            { 'message': { [Op.like]: '%' + searchKeyword + '%' } }
-            //TODO: should be able to search on multiple fields
+            { 'message': { [Op.iLike]: '%' + searchKeyword + '%' } },
+            { 'board': { [Op.iLike]: '%' + searchKeyword + '%' } },
         ]
     }) : query
 
