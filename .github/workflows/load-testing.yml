@@ -43,9 +43,3 @@ jobs:
         run: |
           npm start & npx wait-on http://localhost:3000
           ./k6 run tests/k6/loadTest.js
-      
-      # - name: Upload Performance Test Results
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: hugin-cache-k6-report
-      #     path: summary.json
