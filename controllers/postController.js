@@ -24,10 +24,10 @@ const postController = {}
  * @param {object} res - Express response object.
  */
 postController.getAll = async (req, res) => {
-    const { page, size } = req.query;
+    const { page, size, order, search } = req.query;
     const { limit, offset } = getPagination(page, size)
 
-    postService.getAll(page, size, limit, offset)
+    postService.getAll(limit, offset, order, search)
         .then(data => {
             const response = getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
@@ -74,10 +74,10 @@ postController.getPostByTxHash = async (req, res) => {
  * @param {object} res - Express response object.
  */
 postController.getLatest = async (req, res) => {
-    const { page, size } = req.query;
+    const { page, size, order } = req.query;
     const { limit, offset } = getPagination(page, size)
 
-    postService.getLatest(page, size, limit, offset)
+    postService.getLatest(limit, offset, order)
         .then(data => {
             const response = getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')

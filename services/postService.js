@@ -13,15 +13,23 @@ const postService = {}
 /**
  * Get all posts
  */
-//TODO: make parameter of one object instead
-postService.getAll = async (page, size, limit, offset) => {
-    return models.Post.findAndCountAll({
+postService.getAll = async (limit, offset, order, searchKeyword) => {
+    let query = {
         limit: limit,
         order: [
-            ['id', 'ASC'],
+            ['id', order ? order.toUpperCase() : 'DESC'],
         ],
         offset: offset,
-    })
+    }
+    
+    searchKeyword ? (query.where = {
+        [Op.or]: [
+            { 'message': { [Op.like]: '%' + searchKeyword + '%' } }
+            //TODO: should be able to search on multiple fields
+        ]
+    }) : query
+
+    return models.Post.findAndCountAll(query)
 }
 
 /**
@@ -38,11 +46,11 @@ postService.getPostByTxHash = async (req) => {
 /**
  * Get latest posts
  */
-postService.getLatest = async (page, size, limit, offset) => {
+postService.getLatest = async (limit, offset, order) => {
     return models.Post.findAndCountAll({
         limit: limit,
         order: [
-            ['id', 'DESC'],
+            ['id', order ? order.toUpperCase() : 'DESC'],
         ],
         offset: offset,
     })
