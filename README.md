@@ -35,10 +35,13 @@ To be able to get data more easily from Hugin Messenger this RESTful API called 
 
 # Technologies
 
-- Node.js
-- ExpressJS
-- Pug
-- PostgreSQL
+- Express
+- Sequelize
+- c8
+- k6
+- Mocha
+- Chai
+- hugin-crypto
 
 And a lot of other packages/libraries which can seen in **package.json**.
 
@@ -175,7 +178,13 @@ To run the tests:
 
 # Code Coverage
 
-We are using C8 as the tool to execute the code coverage. This is not currently implemented. An issue exists to do this: https://github.com/kryptokrona/hugin-cache/issues/4
+We are using C8 as the tool to execute the code coverage. We have a global threshold of 75%, this will probably increase a little over time when we optimize our code. But for now we will use 75%. To run all test and get code coverage results run the command:
+
+- `npm run code-coverage`
+
+To be able to view in detail we can generate the report in HTML, we run the following command (it will automatically open it in your default browser):
+
+- `npm run code-coverage-report`
 
 # Build, Test and Deployment
 

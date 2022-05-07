@@ -77,7 +77,10 @@ jobs:
         env:
           CI: true
 
-      # Code Coverage
+      - name: Code Coverage
+        run: npm run code-coverage
+        env:
+          CI: true
 
   build-docker:
     name: Build Docker
