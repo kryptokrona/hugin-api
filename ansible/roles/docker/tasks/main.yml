@@ -1,20 +1,13 @@
 ---
-- name: Install Docker (Ansible <2.12).
-  package:
-    name: "{{ docker_package }}"
-    state: "{{ docker_package_state }}"
-  notify: restart docker
-  ignore_errors: "{{ ansible_check_mode }}"
-  when: "ansible_version.full is version_compare('2.12', '<')"
-
-- name: Install Docker (Ansible >=2.12).
-  package:
-    name: "{{ docker_package }}"
-    state: "{{ docker_package_state }}"
-    allow_downgrade: true
-  notify: restart docker
-  ignore_errors: "{{ ansible_check_mode }}"
-  when: "ansible_version.full is version_compare('2.12', '>=')"
+- name: Install Docker
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  loop:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
 
 - name: Ensure /etc/docker/ directory exists.
   file:
@@ -34,20 +27,20 @@
 - name: Ensure Docker is started and enabled at boot.
   service:
     name: docker
-    state: "{{ docker_service_state }}"
-    enabled: "{{ docker_service_enabled }}"
+    state: started
+    enabled: true
   ignore_errors: "{{ ansible_check_mode }}"
 
-- name: Setup Hugin Cache container
-  docker_container:
-    name: hugin-cache
-    image: "{{ docker_image_tag }}"
-    registry: "{{ docker_registry_url }}"
-    username: "{{ docker_registry_user }}"
-    password: "{{ docker_registry_pass }}"
-    email: "{{ docker_registry_mail }}"t
-    command: /bin/echo success
-    state: present
+# - name: Setup Hugin Cache container
+#   docker_container:
+#     name: hugin-cache
+#     image: "{{ docker_image_tag }}"
+#     registry: "{{ docker_registry_url }}"
+#     username: "{{ docker_registry_user }}"
+#     password: "{{ docker_registry_pass }}"
+#     email: "{{ docker_registry_mail }}"
+#     command: /bin/echo success
+#     state: present
 
 - include_tasks: docker-users.yml
   when: docker_users | length > 0

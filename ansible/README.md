@@ -17,7 +17,7 @@ On Mac using brew package manager:
 
 On Ubuntu/Debian:
 
-```
+```sh
 sudo apt update
 sudo apt install software-properties-common
 sudo add-apt-repository --yes --update ppa:ansible/ansible
@@ -47,7 +47,7 @@ Before we start with the provisioning we need to generate one vault file:
 
 Now enter a password for the file itself when prompted and then it will automatically open up Vi/Vim and we enter the following:
 
-```
+```yml
 ansible_user: root
 ansible_password: <your server password>
 ```
