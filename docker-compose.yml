@@ -3,6 +3,7 @@ version: '3.7'
 services:
   nginx:
       image: nginx:latest
+      restart: always
       ports:
         - "80:80"
         - "443:443"
@@ -24,11 +25,14 @@ services:
       - hugin-net
 
   hugin-cache:
-    image: ghcr.io/kryptokrona/hugin-cache:latest
+    image: ${SYS_HUGIN_DOCKER_IMAGE}
+    restart: always
     environment:
-      NODE_ENV: production
+      DATABASE_URL: ${SYS_POSTGRES_URL}
+      NODE_ENV: ${SYS_HUGIN_NODE_ENV}
+      SYS_HUGIN_NODE_SERVER: ${SYS_HUGIN_NODE_SERVER}
     ports:
-      - "3000:3000"
+      - "${SYS_HUGIN_PORT}:3000"
     links:
       - postgres
     depends_on:
@@ -40,10 +44,14 @@ services:
     image: postgres
     container_name: postgres
     restart: always
+    environment:
+      POSTGRES_DB: hugin_cache_prod
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test1234
     volumes:
       - postgres:/data/postgres
     ports:
-      - "5432:5432"
+      - "${SYS_POSTGRES_PORT}:5432"
     networks:
       - hugin-net
 

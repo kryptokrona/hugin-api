@@ -1,5 +1,5 @@
 ---
-- hosts: ssdnodes
+- hosts: vps
   remote_user: root
   vars:
     hugin_cache_domain: cache.hugin.chat
@@ -45,6 +45,17 @@
     docker_registry_user: "mjovanc"
     docker_registry_pass: ""
     docker_registry_mail: "mjovanc@protonmail.com"
+  vars_prompt:
+    - name: "user_name"
+      prompt: "Enter a name for the new user"
+      private: no
+      confirm: no
+    - name: "user_password"
+      prompt: "Enter a password for the new user"
+      private: yes
+      encrypt: "sha512_crypt"
+      confirm: yes
+      salt_size: 7
   roles:
     - base
     #- express
