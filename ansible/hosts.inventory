@@ -1,4 +1,5 @@
 # hosts.inventory
+# add hostname or IP under vps
 
 [vps]
 cache.hugin.chat

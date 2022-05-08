@@ -16,7 +16,7 @@
     user: "{{ user_name }}"
     key: "{{item}}"
   with_file:
-    - ~/.ssh/id_rsa.pub
+    - ~/.ssh/id_hugin_cache.pub
 
 - name: Restrict root SSH logins
   lineinfile:
