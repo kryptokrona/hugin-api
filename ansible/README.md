@@ -73,6 +73,14 @@ eval $(ssh-agent)
 ssh-add ~/.ssh/id_hugin_cache
 ```
 
+Then run to update:
+
+- `source ~/.bashrc`
+
+Or:
+
+- `source ~/.bash_profile`
+
 So now we can start provisioning by running our shell script:
 
 - `sudo chmod +x ansible.sh`
