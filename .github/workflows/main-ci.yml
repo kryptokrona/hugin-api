@@ -109,31 +109,31 @@ jobs:
         docker push $GITHUB_REGISTRY/$GITHUB_OWNER/$GITHUB_DOCKER_IMAGE:latest
 
   # Deploy
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    needs: build-docker
+  # deploy:
+  #   name: Deploy
+  #   runs-on: ubuntu-latest
+  #   needs: build-docker
 
-    steps:
-    - name: Check out the codebase.
-      uses: actions/checkout@v2
+  #   steps:
+  #   - name: Check out the codebase.
+  #     uses: actions/checkout@v2
 
-    # - name: Set up Python 3.
-    #   uses: actions/setup-python@v2
-    #   with:
-    #     python-version: '3.x'
+  #   # - name: Set up Python 3.
+  #   #   uses: actions/setup-python@v2
+  #   #   with:
+  #   #     python-version: '3.x'
 
-    # - name: Install Ansible.
-    #   run: pip3 install ansible-core
+  #   # - name: Install Ansible.
+  #   #   run: pip3 install ansible-core
 
-    - name: Run playbook
-      uses: dawidd6/action-ansible-playbook@v2
-      with:
-        playbook: provision_vps.yml
-        directory: ./ansible
-        key: ${{secrets.ANSIBLE_PRIVATE_KEY}}
-        known_hosts: .known_hosts
-        vault_password: ${{secrets.ANSIBLE_VAULT_PASS}}
-        options: |
-          --inventory hosts.inventory
-          --verbose
+  #   - name: Run playbook
+  #     uses: dawidd6/action-ansible-playbook@v2
+  #     with:
+  #       playbook: provision_vps.yml
+  #       directory: ./ansible
+  #       key: ${{secrets.ANSIBLE_PRIVATE_KEY}}
+  #       known_hosts: .known_hosts
+  #       vault_password: ${{secrets.ANSIBLE_VAULT_PASS}}
+  #       options: |
+  #         --inventory hosts.inventory
+  #         --verbose
