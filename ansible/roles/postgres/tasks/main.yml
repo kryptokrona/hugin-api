@@ -1,0 +1,51 @@
+---
+- name: Install dependencies for PostgreSQL
+  apt:
+    name: "{{ item }}"
+    update_cache: true
+    state: latest
+  with_items:
+    - bash
+    - openssl
+    - libssl-dev
+    - libssl-doc
+
+- name: Install PostgreSQL 
+  apt:
+    name: "{{ item }}"
+    update_cache: true
+    state: present
+  with_items:
+    - postgresql
+    - postgresql-contrib
+    - libpq-dev
+    - python3-psycopg2
+
+- name: Create the Hugin Cache DB
+  become_user: postgres
+  postgresql_db:
+    name: "{{ vault_postgres_db_name }}"
+    template: "template0"
+    state: present
+
+- name: Ensure User has access to the new Hugin Cache DB
+  become_user: postgres
+  postgresql_user:
+    db: "{{ vault_postgres_db_name }}"
+    name: "{{ vault_postgres_db_user }}"
+    password: "{{ vault_postgres_db_password }}"
+    priv: ALL
+    state: present
+
+- name: Ensure Hugin Cache DB User do not have unnecessary permissions
+  become_user: postgres
+  postgresql_user:
+    name: "{{ vault_postgres_db_user }}"
+    role_attr_flags: NOSUPERUSER,NOCREATEDB
+    state: present
+
+- name: Ensure the PostgreSQL service is running
+  service:
+    name: postgresql
+    state: started
+    enabled: yes

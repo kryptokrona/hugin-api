@@ -48,4 +48,4 @@
     - base
     #- express
     - nginx
-    #- postgres
+    - postgres
