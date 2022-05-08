@@ -2,4 +2,4 @@
 # add hostname or IP under vps
 
 [vps]
-cache.hugin.chat
+cache.hugin.chat letsencrypt_email=mjovanc@protonmail.com domain_name=cache.hugin.chat

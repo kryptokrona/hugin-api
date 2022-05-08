@@ -1,28 +1,26 @@
-upstream {{ hugin_cache_name }} {
-    server 127.0.0.1:{{ hugin_cache_port }};
+user www-data;
+worker_processes 4;
+pid /run/nginx.pid;
+
+events {
+    worker_connections 768;
 }
 
-server {
-    listen 80;
-    server_name {{ hugin_cache_domain }};
+http {
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 65;
+    types_hash_max_size 2048;
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
 
-    location / {
-        proxy_pass http://{{ hugin_cache_name }};
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-        proxy_http_version 1.1;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $host;
-        proxy_buffering off;
-        proxy_read_timeout 86400;
-    }
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
 
+    gzip on;
+    gzip_disable "msie6";
 
-    # listen                  443 ssl;
-    # ssl_certificate         {{ cert_out }};
-    # ssl_certificate_key     {{ key_out }};
-
-    # if ($scheme != "https") {
-    #     return 301 https://$host$request_uri;
-    # } # managed by Certbot
+    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/sites-enabled/*;
 }

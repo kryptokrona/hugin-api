@@ -1,12 +1,11 @@
 ---
 - hosts: vps
   remote_user: root
+  become: true
+  gather_facts: no
   vars:
-    hugin_cache_domain: cache.hugin.chat
-    hugin_cache_name: 'hugin_cache'
+    hugin_cache_name: hugin_cache
     hugin_cache_port: 3000
-    key_out: /home/jupyter/.jupyter/jupyter.key
-    cert_out: /home/jupyter/.jupyter/jupyter.cert
     postgres_db: "hugin_cache_prod"
     postgres_user: "hugin_user"
     postgres_password: "test1234"
