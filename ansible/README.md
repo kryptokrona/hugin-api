@@ -66,6 +66,13 @@ Then save and exit:
 
 - `:wq`
 
+Now we need to permanently add our SSH key. Open up our bash rc file (depending on OS you might have a different file name for this in your home directory). Open up ~/.bashrc or ~/.bash_profile and add this:
+
+```sh
+eval $(ssh-agent)
+ssh-add ~/.ssh/id_hugin_cache
+```
+
 So now we can start provisioning by running our shell script:
 
 - `sudo chmod +x ansible.sh`

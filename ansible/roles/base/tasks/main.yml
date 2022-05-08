@@ -7,13 +7,13 @@
 
 - name: Create the non-root user
   user:
-    name: "{{ user_name }}"
-    password: "{{ user_password }}"
+    name: "{{ vault_vps_user }}"
+    password: "{{ vault_vps_password | password_hash('sha512') }}"
     shell: "/bin/bash"
 
 - name: Add local public key for key-based SSH authentication
   authorized_key:
-    user: "{{ user_name }}"
+    user: "{{ vault_vps_user }}"
     key: "{{item}}"
   with_file:
     - ~/.ssh/id_hugin_cache.pub
