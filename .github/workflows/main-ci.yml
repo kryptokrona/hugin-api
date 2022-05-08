@@ -131,7 +131,6 @@ jobs:
         playbook: provision_vps.yml
         directory: ./ansible
         key: ${{secrets.ANSIBLE_PRIVATE_KEY}}
-        inventory: hosts.inventory
         known_hosts: .known_hosts
         vault_password: ${{secrets.ANSIBLE_VAULT_PASS}}
         options: |
