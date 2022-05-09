@@ -46,11 +46,10 @@
   docker_container:
     name: hugin-cache
     image: "{{ docker_image }}"
-    # env: {
-    #   name: Martin D'vloper,
-    #   job: Developer,
-    #   skill: Elite
-    # }
+    env: {
+      DATABASE_URL: "postgres://{{ vault_postgres_db_user }}:{{ vault_postgres_db_password }}@127.0.0.1:5432/{{ vault_postgres_db_name }}",
+      # NODE_ENV: production # might not need this since its default set when building docker image
+    }
     command: /bin/echo success
     state: present
 
