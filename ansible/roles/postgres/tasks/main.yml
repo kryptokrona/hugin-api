@@ -52,7 +52,7 @@
 
 - name: Copy SQL Delete Posts Query
   template:
-    src: templates/remove_data.sql
+    src: templates/remove_data.sql.j2
     dest: /home/{{ vault_vps_user }}/remove_data.sql
 
 - name: "Remove Data"
