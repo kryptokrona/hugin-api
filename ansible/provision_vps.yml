@@ -7,24 +7,6 @@
     hugin_cache_name: hugin_cache
     hugin_cache_port: 3000
 
-    # Edition can be one of: 'ce' (Community Edition) or 'ee' (Enterprise Edition).
-    docker_edition: 'ce'
-    docker_package: "docker-{{ docker_edition }}"
-
-    # Service options.
-    # docker_service_enabled: true
-    # docker_restart_handler_state: restarted
-
-    # # Docker repo URL.
-    # docker_repo_url: https://download.docker.com/linux
-
-    # # Used only for Debian/Ubuntu. Switch 'stable' to 'nightly' if needed.
-    # docker_apt_release_channel: stable
-    # docker_apt_arch: amd64
-    # docker_apt_repository: "deb [arch={{ docker_apt_arch }}] {{ docker_repo_url }}/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} {{ docker_apt_release_channel }}"
-    # docker_apt_ignore_key_error: true
-    # docker_apt_gpg_key: "{{ docker_repo_url }}/{{ ansible_distribution | lower }}/gpg"
-
     # A list of users who will be added to the docker group.
     docker_users: [
       "hugin_docker"
@@ -34,13 +16,9 @@
     docker_daemon_options: { }
 
     # Docker GitHub Container Registry
-    docker_image_tag: "kryptokrona/hugin-cache:latest"
-    docker_registry_url: "https://ghcr.io"
-    docker_registry_user: "mjovanc"
-    docker_registry_pass: ""
-    docker_registry_mail: "mjovanc@protonmail.com"
+    docker_image: "ghcr.io/kryptokrona/hugin-cache:latest"
   roles:
     - base
     - docker
-    #- nginx
-    #- postgres
+    - nginx
+    - postgres

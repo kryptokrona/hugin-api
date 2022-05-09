@@ -48,8 +48,13 @@ Before we start with the provisioning we need to generate one vault file:
 Now enter a password for the file itself when prompted and then it will automatically open up Vi/Vim and we enter the following:
 
 ```yml
-ansible_user: root
-ansible_password: <your server password>
+ansible_user: <username>
+ansible_password: <passsword>
+vault_vps_user: ansible
+vault_vps_password: <ansible-password>
+vault_postgres_db_user: <postgres-username>
+vault_postgres_db_password: <postgres-password>
+vault_postgres_db_name: <postgres-db-name>
 ```
 
 Then save and exit:

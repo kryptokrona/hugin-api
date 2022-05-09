@@ -8,6 +8,17 @@
     - docker-ce
     - docker-ce-cli
     - containerd.io
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - software-properties-common
+    - python3-pip
+    - virtualenv
+    - python3-setuptools
+
+- name: Install Docker Module for Python
+  pip:
+    name: docker
 
 - name: Ensure /etc/docker/ directory exists.
   file:
@@ -31,16 +42,17 @@
     enabled: true
   ignore_errors: "{{ ansible_check_mode }}"
 
-# - name: Setup Hugin Cache container
-#   docker_container:
-#     name: hugin-cache
-#     image: "{{ docker_image_tag }}"
-#     registry: "{{ docker_registry_url }}"
-#     username: "{{ docker_registry_user }}"
-#     password: "{{ docker_registry_pass }}"
-#     email: "{{ docker_registry_mail }}"
-#     command: /bin/echo success
-#     state: present
+- name: Setup Hugin Cache container
+  docker_container:
+    name: hugin-cache
+    image: "{{ docker_image }}"
+    # env: {
+    #   name: Martin D'vloper,
+    #   job: Developer,
+    #   skill: Elite
+    # }
+    command: /bin/echo success
+    state: present
 
 - include_tasks: docker-users.yml
   when: docker_users | length > 0
