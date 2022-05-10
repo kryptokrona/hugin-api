@@ -8,6 +8,13 @@ jobs:
   test:
     name: k6 Load Test
     runs-on: ubuntu-latest
+    
+    env:
+      NODE_ENV: production
+      DATABASE_URL: postgres://postgres:test1234@0.0.0.0:5432/hugin_cache_prod
+      SYS_HUGIN_NODE_SERVER: blocksum.org:11898'
+      API_BASE_PATH: /api/v1
+
     services:
       postgres:
         image: postgres:latest
@@ -23,10 +30,6 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     
-    env:
-      NODE_ENV: production
-      DATABASE_URL: postgres://postgres:test1234@0.0.0.0:5432/hugin_cache_prod
-
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -41,5 +44,4 @@ jobs:
       
       - name: Start Server and Run Tests
         run: |
-          npm start
-          ./k6 run tests/k6/loadTest.js
+          npm start && ./k6 run tests/k6/loadTest.js
