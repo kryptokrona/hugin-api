@@ -137,3 +137,20 @@ jobs:
   #       options: |
   #         --inventory hosts.inventory
   #         --verbose
+
+  smoke-test:
+    name: Smoke Test
+    runs-on: ubuntu-latest
+    # needs: [ deploy ] #TODO: uncomment this when deploy stage is finished
+
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Uses Python 3.11
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.11.0-alpha.1'
+        
+      - name: Smoke Test  
+        run: |
+          python3 tests/requests/smoke-test.py
