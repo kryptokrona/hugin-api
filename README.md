@@ -146,9 +146,9 @@ To edit the diagram open up the file inside the directory **diagrams** called **
 
 To just test the code, the easiest way is to use Docker Compose to orchestrate up the environment since we then don't have to install and configure the PostgreSQL database. 
 
-Run the following to start orchestrating (note the -f flag for specifying the dev Docker Compose file):
+Run the following to start orchestrating:
 
-- `docker-compose -f docker-compose.dev.yml up`
+- `docker-compose up`
 
 If we have done some changes to our code we need to run `docker-compose up --build` to force rebuilding the images.
 
@@ -198,31 +198,6 @@ the project tagged by the project name, owner, repository and short form of comm
 so if all the steps succeed the server will update its currently running docker container with a new image.
 
 To learn how we deploy to our VPS read the documentation here: [Ansible Documentation](ansible/README.md)
-
-# Deploy to your own VPS
-
-To deploy this application we have two files in the **deploy** directory of this repository called `setup.sh` and `deploy.sh`. To deploy, simply just copy these files 
-to your VPS then modify these environment variables in the file `setup.sh`:
-
-```
-POSTGRES_DB=hugin_cache_prod
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=test1234
-DATABASE_URL=postgres://postgres:$POSTGRES_PASSWORD@127.0.0.1:5432/$POSTGRES_DB
-DOMAINS=(example.org www.example.org)
-EMAIL=user@user.com
-```
-
-Then we need to update the nginx.conf with the domain you want to use.
-
-Then make the files executable and run it:
-
-- `sudo chmod +x setup.sh`
-- `sudo chmod +x deploy.sh`
-- `./setup.sh`
-- `./deploy.sh`
-
-Make sure to have setup your DNS configuration before running this script at least 24 hours before so it can obtain a certificate for TLS encryption (HTTPS).
 
 # Contribute
 

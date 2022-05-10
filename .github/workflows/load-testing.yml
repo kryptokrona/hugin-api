@@ -33,7 +33,7 @@ jobs:
 
       - name: Install k6
         run: |
-          curl https://github.com/loadimpact/k6/releases/download/v0.26.2/k6-v0.26.2-linux64.tar.gz -L | tar xvz --strip-components 1
+          curl https://github.com/grafana/k6/releases/download/v0.38.1/k6-v0.38.1-linux-amd64.tar.gz -L | tar xvz --strip-components 1
       
       - name: Install Packages
         run: |
@@ -41,5 +41,5 @@ jobs:
       
       - name: Start Server and Run Tests
         run: |
-          npm start & npx wait-on http://localhost:3000
+          npm start
           ./k6 run tests/k6/loadTest.js

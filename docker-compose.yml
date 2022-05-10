@@ -1,57 +1,33 @@
 version: '3.7'
 
 services:
-  nginx:
-      image: nginx:latest
-      restart: always
-      ports:
-        - "80:80"
-        - "443:443"
-      volumes:
-        - ./data/nginx:/etc/nginx/conf.d
-        - ./data/certbot/conf:/etc/letsencrypt
-        - ./data/certbot/www:/var/www/certbot
-      command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
-      networks:
-        - hugin-net
-
-  certbot:
-    image: certbot/certbot
-    volumes:
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-    networks:
-      - hugin-net
-
-  hugin-cache:
-    image: ${SYS_HUGIN_DOCKER_IMAGE}
-    restart: always
-    environment:
-      DATABASE_URL: ${SYS_POSTGRES_URL}
-      NODE_ENV: ${SYS_HUGIN_NODE_ENV}
-      SYS_HUGIN_NODE_SERVER: ${SYS_HUGIN_NODE_SERVER}
-    ports:
-      - "${SYS_HUGIN_PORT}:3000"
-    links:
-      - postgres
-    depends_on:
-      - postgres
-    networks:
-      - hugin-net
+  # hugin-cache:
+  #   build: .
+  #   container_name: hugin-cache
+  #   environment:
+  #     DEV_DATABASE_URL: postgres://postgres:test1234@127.0.0.1:5432/hugin_cache_dev
+  #     NODE_ENV: development
+  #   ports:
+  #     - "3000:3000"
+  #   links:
+  #     - postgres
+  #   depends_on:
+  #     - postgres
+  #   networks:
+  #     - hugin-net
 
   postgres:
     image: postgres
     container_name: postgres
     restart: always
     environment:
-      POSTGRES_DB: hugin_cache_prod
+      POSTGRES_DB: hugin_cache_dev
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: test1234
     volumes:
       - postgres:/data/postgres
     ports:
-      - "${SYS_POSTGRES_PORT}:5432"
+      - "5432:5432"
     networks:
       - hugin-net
 
