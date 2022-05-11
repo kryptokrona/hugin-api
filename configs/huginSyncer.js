@@ -8,7 +8,7 @@ require('dotenv').config()
 
 let log = require('loglevel')
 const { extraDataToMessage } = require('hugin-crypto')
-const { performance } = require('perf_hooks');
+const { performance } = require('perf_hooks')
 
 const { getTimestamp } = require('../utils/time')
 let db = require("./postgresql"),
