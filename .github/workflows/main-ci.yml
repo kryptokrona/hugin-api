@@ -121,9 +121,9 @@ jobs:
         playbook: provision_vps.yml
         directory: ./ansible
         key: ${{secrets.ANSIBLE_PRIVATE_KEY}}
-        inventory: hosts.inventory
         vault_password: ${{secrets.ANSIBLE_VAULT_PASS}}
         options: |
+          --inventory hosts.inventory
           --verbose
 
   # smoke-test:
