@@ -23,12 +23,11 @@
 
     # DO NOT CONFIGURE THE ABOVE YOURSELF
 
-    manual_deploy: false # set this to true for manual deploy
     removal_interval: '1 years 2 months 3 days 2 hours 1 minutes 1 second'
     hugin_node_server: 'blocksum.org:11898'
     
   roles:
-    - base
+    #- base
     - postgres
     - docker
     - nginx

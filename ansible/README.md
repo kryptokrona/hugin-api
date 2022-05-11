@@ -86,7 +86,7 @@ Or:
 
 - `source ~/.bash_profile`
 
-Open up **provision_vps.yml** and set manual_deploy to true.
+Open up **provision_vps.yml** remove the comment for "base". We are not using that in the pipeline but for manual deploy this is needed.
 
 So now we can start provisioning by running our shell script:
 
