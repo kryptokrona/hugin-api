@@ -118,49 +118,55 @@ module.exports.backgroundSyncMessages = async () => {
 
                                         // extract hashtags from message and save it do db and add relationship in post_hashtag table
                                         let messageStr = message.m
-                                        let hashtags = messageStr.match(/#[^\s#\.\;!*€%&()?^$@´`¨]*/gmi)
+                                        let hashtags
 
-                                        if (hashtags) {
-                                            // going through all hashtags and do separate lookups
-                                            hashtags.forEach(hashtag => {
-                                                // removing the # and making it lowercase, so we have proper input for query
-                                                let hashtagName = hashtag.replace('#', '').toLowerCase()
+                                        try {
+                                            hashtags = messageStr.match(/#[^\s#\.\;!*€%&()?^$@`¨]*/gmi)
 
-                                                const hashtagLookup = models.Hashtag.findOne({
-                                                    where: {
-                                                        name: hashtagName
-                                                    },
-                                                    order: [[ 'id', 'DESC' ]],
-                                                    raw: true,
-                                                })
-
-                                                // create hashtag if it does not exist otherwise get the hashtag ID
-                                                hashtagLookup.then(async result => {
-                                                    if (result === null) {
-                                                        await sequelize.transaction(async (t1) => {
-                                                            return models.Hashtag.create({
-                                                                name: hashtagName
-                                                            }).then(async hashtagObj => {
-                                                                await sequelize.transaction(async (t2) => {
-                                                                    return models.PostHashtag.create({
-                                                                        post_id: postObj.id,
-                                                                        hashtag_id: hashtagObj.id
+                                            if (hashtags) {
+                                                // going through all hashtags and do separate lookups
+                                                hashtags.forEach(hashtag => {
+                                                    // removing the # and making it lowercase, so we have proper input for query
+                                                    let hashtagName = hashtag.replace('#', '').toLowerCase()
+    
+                                                    const hashtagLookup = models.Hashtag.findOne({
+                                                        where: {
+                                                            name: hashtagName
+                                                        },
+                                                        order: [[ 'id', 'DESC' ]],
+                                                        raw: true,
+                                                    })
+    
+                                                    // create hashtag if it does not exist otherwise get the hashtag ID
+                                                    hashtagLookup.then(async result => {
+                                                        if (result === null) {
+                                                            await sequelize.transaction(async (t1) => {
+                                                                return models.Hashtag.create({
+                                                                    name: hashtagName
+                                                                }).then(async hashtagObj => {
+                                                                    await sequelize.transaction(async (t2) => {
+                                                                        return models.PostHashtag.create({
+                                                                            post_id: postObj.id,
+                                                                            hashtag_id: hashtagObj.id
+                                                                        })
                                                                     })
                                                                 })
                                                             })
-                                                        })
-                                                    } else {
-                                                        // hashtag exists, so we add a new row in post_hashtag with its ID
-                                                        await sequelize.transaction(async (t3) => {
-                                                            return models.PostHashtag.create({
-                                                                post_id: postObj.id,
-                                                                hashtag_id: result.id
+                                                        } else {
+                                                            // hashtag exists, so we add a new row in post_hashtag with its ID
+                                                            await sequelize.transaction(async (t3) => {
+                                                                return models.PostHashtag.create({
+                                                                    post_id: postObj.id,
+                                                                    hashtag_id: result.id
+                                                                })
                                                             })
-                                                        })
-                                                    }
+                                                        }
+                                                    })
+    
                                                 })
-
-                                            })
+                                            }
+                                        } catch(TypeError)  {
+                                            log.error(getTimestamp() + ' ERROR: Could not parse hashtags')
                                         }
 
                                     })
