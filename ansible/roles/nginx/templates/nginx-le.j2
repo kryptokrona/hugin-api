@@ -32,6 +32,7 @@ server {
         proxy_set_header Connection 'upgrade';
         proxy_set_header Host $host;
         proxy_cache_bypass $http_upgrade;
+        proxy_hide_header 'Access-Control-Allow-Origin';
 
         if ($request_method = 'GET') {
             add_header 'Access-Control-Allow-Origin' '*' always;
