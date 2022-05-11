@@ -1,4 +1,4 @@
 #!/bin/sh
 
 npm run db:migrate
-node start
+npm start
