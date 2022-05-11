@@ -12,7 +12,6 @@ var log = require('loglevel')
 var bodyParser = require('body-parser')
 const rateLimit = require('express-rate-limit')
 
-
 var postRouter = require('./routes/postRouter')
 var hashtagRouter = require('./routes/hashtagRouter')
 
@@ -34,11 +33,13 @@ app.locals.sitetitle = 'Hugin Cache'
 let setCache = function (req, res, next) {
     // period in seconds, currently 5 minutes
     // set this lower if we need to have more frequent update
-    const period = 60 * 5
+    const period = 10
 
     // cache only for GET requests
     if (req.method == 'GET') {
         res.set('Cache-control', `public, max-age=${period}`)
+    } else if (req.hostname == 'kryptokrona.org') {
+        res.set('Cache-control', `no-store`)
     } else {
         // for the other requests set strict no caching parameters
         res.set('Cache-control', `no-store`)

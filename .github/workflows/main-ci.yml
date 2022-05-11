@@ -146,5 +146,5 @@ jobs:
 
   # rollback:
   #   name: Rollback
-  #   runs-on: ubuntu
+  #   runs-on: ubuntu-latest
   #   if: ${{ always() && (needs.smoke-test.result=='failure') }}
