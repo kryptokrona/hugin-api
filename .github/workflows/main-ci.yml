@@ -126,23 +126,23 @@ jobs:
           --inventory hosts.inventory
           --verbose
 
-  # smoke-test:
-  #   name: Smoke Test
-  #   runs-on: ubuntu-latest
-  #   needs: [ deploy ]
+  smoke-test:
+    name: Smoke Test
+    runs-on: ubuntu-latest
+    needs: [ deploy ]
 
-  #   steps:
-  #     - uses: actions/checkout@v3
+    steps:
+      - uses: actions/checkout@v3
       
-  #     - name: Uses Python 3.11
-  #       uses: actions/setup-python@v3
-  #       with:
-  #         python-version: '3.11.0-alpha.1'
+      - name: Uses Python 3.11
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.11.0-alpha.1'
         
-  #     - name: Smoke Test  
-  #       run: |
-  #         pip3 install requests
-  #         python3 tests/requests/smoke-test.py
+      - name: Smoke Test  
+        run: |
+          pip3 install requests
+          python3 tests/requests/smoke-test.py
 
   # rollback:
   #   name: Rollback
