@@ -12,6 +12,9 @@
       "hugin_docker"
     ]
 
+    docker_container_name: hugin-cache
+    docker_network_name: hugin
+
     # Docker daemon options as a dict
     docker_daemon_options: { }
 

@@ -42,22 +42,32 @@
     enabled: true
   ignore_errors: "{{ ansible_check_mode }}"
 
+- name: Stop Running Hugin cache Container
+  docker_container:
+    name: {{ docker_container_name }}
+    state: stopped
+
+- name: Remove Hugin Cache Container
+  docker_container:
+    name: {{ docker_container_name }}
+    state: absent
+
 - name: Create Docker Network
   docker_network:
-    name: hugin
+    name: {{ docker_network_name }}
 
 - name: Create Hugin Cache Container
   docker_container:
-    name: hugin-cache
+    name: {{ docker_container_name }}
     image: "{{ docker_image }}"
     command: /bin/echo success
     state: present
     networks:
-      - name: hugin
+      - name: {{ docker_network_name }}
 
 - name: Start Hugin Cache Container
   docker_container:
-    name: hugin-cache
+    name: {{ docker_container_name }}
     image: "{{ docker_image }}"
     command: ["sleep", "infinity"]
     env: {
@@ -67,7 +77,7 @@
     ports:
       - "3000:3000"
     networks:
-    - name: hugin
+    - name: {{ docker_network_name }}
 
 - include_tasks: docker-users.yml
   when: docker_users | length > 0
