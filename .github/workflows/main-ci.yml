@@ -104,7 +104,7 @@ jobs:
 
     - name: Publish Docker
       run: |
-        docker push $GITHUB_REGISTRY/$GITHUB_OWNER/$GITHUB_DOCKER_IMAGE:${{ env.SHA }} .
+        docker push $GITHUB_REGISTRY/$GITHUB_OWNER/$GITHUB_DOCKER_IMAGE:${{ env.SHA }}
 
   # Deploy
   # deploy:
