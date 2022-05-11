@@ -96,3 +96,7 @@ If we add multiple VPS instances in our inventory, we need to copy our public ke
 - `ssh-copy-id -i ~/.ssh/id_hugin_cache.pub root@new-vps`
 
 
+## Common issues
+
+**Problem:**If you made some change in NGINX configuration and it breaks during setup, the next time it will not always be able to update it so it works again.
+**Solution:** SSH into the machine and change the configuration manually and restart the NGINX server. Check the logs with `journalctl -xe` if you don't find the issue right away.

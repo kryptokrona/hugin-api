@@ -3,3 +3,7 @@ npm-debug.log
 ansible
 diagrams
 tests
+.git
+.dockerignore
+.github
+.gitignore

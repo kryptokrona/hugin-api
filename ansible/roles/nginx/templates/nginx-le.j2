@@ -1,11 +1,7 @@
-add_header X-Frame-Options SAMEORIGIN;
-add_header X-Content-Type-Options nosniff;
-add_header X-XSS-Protection "1; mode=block";
-add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google-analytics.com; img-src 'self' data: https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; font-src 'self'; frame-src 'none'; object-src 'none'";
+upstream {{ hugin_cache_name }} {
+    server 127.0.0.1:3000;
+}
 
-
-# HTTPS server
-#
 server {
     listen 443 ssl default deferred;
     server_name {{ domain_name }};
@@ -26,10 +22,15 @@ server {
     ssl_dhparam /etc/nginx/dhparams.pem;
     ssl_prefer_server_ciphers on;
 
-    root /var/www/{{ domain_name }};
-    index index.html index.htm;
+    access_log /var/log/nginx/reverse-access.log;
+    error_log /var/log/nginx/reverse-error.log;
 
     location / {
-        try_files $uri $uri/ =404;
+        proxy_pass http://{{ hugin_cache_name }};
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
     }
 }

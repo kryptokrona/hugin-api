@@ -21,6 +21,6 @@
     docker_image: "ghcr.io/kryptokrona/hugin-cache:latest"
   roles:
     - base
+    - postgres
     - docker
     - nginx
-    - postgres
