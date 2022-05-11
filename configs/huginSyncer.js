@@ -79,15 +79,14 @@ module.exports.backgroundSyncMessages = async () => {
 
                 // let msg = JSON.parse(message)
 
-                if (message !== undefined) {
-                    log.info(getTimestamp() + ' INFO: Got 1 message.')
-                    console.log('Message?', message) //TODO: remove later
+                if (!message || message === undefined) {
+                    log.info(getTimestamp() + ' INFO: Caught undefined null message, continue.')
+                    continue
+                }
 
-                    //TODO: not sure this works
-                    /*if (message.t > (Date.now() / 1000) - 604800) {
-                        log.info(getTimestamp() + ' INFO: Post is more than 1 week old.')
-                        continue
-                    }*/
+                if ((message || message !== undefined) && (message.brd || message.brd !== undefined)) {
+                    log.info(getTimestamp() + ' INFO: Got 1 message.')
+                    // console.log('Message?', message)
 
                     let startTime = performance.now()
 
