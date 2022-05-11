@@ -66,7 +66,7 @@
   docker_container:
     name: "{{ docker_container_name }}"
     image: "{{ docker_image }}:{{ gitresult.after[:7] }}"
-    command: ["sleep", "infinity"]
+    command: "./start.sh"
     env: {
       DATABASE_URL: "postgres://{{ vault_postgres_db_user }}:{{ vault_postgres_db_password }}@127.0.0.1:5432/{{ vault_postgres_db_name }}",
       SYS_HUGIN_NODE_SERVER: "{{ hugin_node_server }}"
