@@ -86,6 +86,8 @@ Or:
 
 - `source ~/.bash_profile`
 
+Open up **provision_vps.yml** and github_actions to false.
+
 So now we can start provisioning by running our shell script:
 
 - `sudo chmod +x ansible.sh`
@@ -98,5 +100,7 @@ If we add multiple VPS instances in our inventory, we need to copy our public ke
 
 ## Common issues
 
-**Problem:**If you made some change in NGINX configuration and it breaks during setup, the next time it will not always be able to update it so it works again.
+### NGINX configuration breaks
+
+**Problem:** If you made some change in NGINX configuration and it breaks during setup, the next time it will not always be able to update it so it works again.
 **Solution:** SSH into the machine and change the configuration manually and restart the NGINX server. Check the logs with `journalctl -xe` if you don't find the issue right away.

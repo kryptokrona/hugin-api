@@ -10,6 +10,7 @@
     name: "{{ vault_vps_user }}"
     password: "{{ vault_vps_password | password_hash('sha512') }}"
     shell: "/bin/bash"
+  when: github_actions == false
 
 - name: Add local public key for key-based SSH authentication
   authorized_key:
@@ -17,6 +18,7 @@
     key: "{{item}}"
   with_file:
     - ~/.ssh/id_hugin_cache.pub
+  when: github_actions == false
 
 - name: Restrict root SSH logins
   lineinfile:
@@ -24,6 +26,7 @@
     state: present
     regexp: '^#PermitRootLogin'
     line: 'PermitRootLogin no'
+  when: github_actions == false
 
 - name: Restrict SSH logins to keys only
   lineinfile:
@@ -31,10 +34,12 @@
     state: present
     regexp: '^#PasswordAuthentication'
     line: 'PasswordAuthentication no'
+  when: github_actions == false
 
 - name: Restart sshd
   systemd:
     state: restarted
     daemon_reload: yes
     name: sshd
+  when: github_actions == false
 
