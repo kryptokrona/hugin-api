@@ -148,3 +148,7 @@ jobs:
   #   name: Rollback
   #   runs-on: ubuntu-latest
   #   if: ${{ always() && (needs.smoke-test.result=='failure') }}
+  #   workflow_run:
+  #     workflows: ["Fork production builds"]
+  #     type:
+  #     - complete

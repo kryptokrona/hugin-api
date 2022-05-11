@@ -8,10 +8,6 @@ jobs:
   test:
     name: k6 Load Test
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x]
     
     env:
       NODE_ENV: production
@@ -38,10 +34,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+      - name: Use Node 18
+        uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 18
 
       - name: Install k6
         run: |
