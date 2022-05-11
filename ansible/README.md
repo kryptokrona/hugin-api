@@ -86,7 +86,7 @@ Or:
 
 - `source ~/.bash_profile`
 
-Open up **provision_vps.yml** and github_actions to false.
+Open up **provision_vps.yml** and set github_actions to no.
 
 So now we can start provisioning by running our shell script:
 
