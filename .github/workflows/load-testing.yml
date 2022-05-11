@@ -12,7 +12,7 @@ jobs:
     env:
       NODE_ENV: production
       DATABASE_URL: postgres://postgres:test1234@0.0.0.0:5432/hugin_cache_prod
-      SYS_HUGIN_NODE_SERVER: blocksum.org:11898'
+      SYS_HUGIN_NODE_SERVER: blocksum.org:11898
       API_BASE_PATH: /api/v1
 
     services:
