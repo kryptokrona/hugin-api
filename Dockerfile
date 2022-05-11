@@ -19,5 +19,7 @@ ENV NODE_ENV=production
 # Bundle app source
 COPY . .
 
+RUN chmod +x start.sh
+
 EXPOSE 3000
-CMD [ "npm", "start" ]
+CMD ["start.sh"]
