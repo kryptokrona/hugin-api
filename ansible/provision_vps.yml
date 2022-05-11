@@ -21,7 +21,7 @@
     removal_interval: '1 years 2 months 3 days 2 hours 1 minutes 1 second'
 
     # Docker GitHub Container Registry
-    docker_image: "ghcr.io/kryptokrona/hugin-cache:latest"
+    docker_image: "ghcr.io/kryptokrona/hugin-cache"
   roles:
     - base
     - postgres
