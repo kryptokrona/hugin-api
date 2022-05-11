@@ -1,39 +1,39 @@
 ---
 - name: Create the non-root user
-  when: not github_actions
   user:
     name: "{{ vault_vps_user }}"
     password: "{{ vault_vps_password | password_hash('sha512') }}"
     shell: "/bin/bash"
+  when: "not github_actions"
 
 - name: Add local public key for key-based SSH authentication
-  when: not github_actions
   authorized_key:
     user: "{{ vault_vps_user }}"
     key: "{{item}}"
   with_file:
     - ~/.ssh/id_hugin_cache.pub
+  when: "not github_actions"
 
 - name: Restrict root SSH logins
-  when: not github_actions
   lineinfile:
     dest: /etc/ssh/sshd_config
     state: present
     regexp: '^#PermitRootLogin'
     line: 'PermitRootLogin no'
+  when: "not github_actions"  
 
 - name: Restrict SSH logins to keys only
-  when: not github_actions
   lineinfile:
     dest: /etc/ssh/sshd_config
     state: present
     regexp: '^#PasswordAuthentication'
     line: 'PasswordAuthentication no'
+  when: "not github_actions"
 
 - name: Restart sshd
-  when: not github_actions
   systemd:
     state: restarted
     daemon_reload: yes
     name: sshd
+  when: "not github_actions"
 
