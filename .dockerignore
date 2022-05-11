@@ -7,3 +7,6 @@ tests
 .dockerignore
 .github
 .gitignore
+docker-compose.yml
+Dockerfile
+.mocharc.js

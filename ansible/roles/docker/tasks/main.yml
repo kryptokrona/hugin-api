@@ -52,42 +52,27 @@
     update=false
   register: gitresult
 
-- name: Stop Running Hugin Cache Container
-  docker_container:
-    name: "{{ docker_container_name }}"
-    state: stopped
-
-- name: Remove Hugin Cache Container
-  docker_container:
-    name: "{{ docker_container_name }}"
-    state: absent
-
-- name: Create Docker Network
-  docker_network:
-    name: "{{ docker_network_name }}"
-
 - name: Create Hugin Cache Container
   docker_container:
     name: "{{ docker_container_name }}"
-    image: "{{ docker_image }}:{{ gitresult.after[:6] }}"
+    image: "{{ docker_image }}:{{ gitresult.after[:7] }}"
     command: /bin/echo success
     state: present
+    recreate: yes
     networks:
-      - name: "{{ docker_network_name }}"
+      - name: "host"
 
 - name: Start Hugin Cache Container
   docker_container:
     name: "{{ docker_container_name }}"
-    image: "{{ docker_image }}:{{ gitresult.after[:6] }}"
+    image: "{{ docker_image }}:{{ gitresult.after[:7] }}"
     command: ["sleep", "infinity"]
     env: {
-      DATABASE_URL: "postgres://{{ vault_postgres_db_user }}:{{ vault_postgres_db_password }}@host.docker.internal:5432/{{ vault_postgres_db_name }}",
-      SYS_HUGIN_NODE_SERVER: blocksum.org:11898
+      DATABASE_URL: "postgres://{{ vault_postgres_db_user }}:{{ vault_postgres_db_password }}@127.0.0.1:5432/{{ vault_postgres_db_name }}",
+      SYS_HUGIN_NODE_SERVER: "{{ hugin_node_server }}"
     }
-    ports:
-      - "3000:3000"
     networks:
-    - name: "{{ docker_network_name }}"
+    - name: "host"
 
 - include_tasks: docker-users.yml
   when: docker_users | length > 0

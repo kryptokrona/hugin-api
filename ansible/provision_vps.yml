@@ -7,6 +7,9 @@
     hugin_cache_name: hugin_cache
     hugin_cache_port: 3000
 
+    # Docker GitHub Container Registry
+    docker_image: "ghcr.io/kryptokrona/hugin-cache"
+
     # A list of users who will be added to the docker group.
     docker_users: [
       "hugin_docker"
@@ -18,12 +21,13 @@
     # Docker daemon options as a dict
     docker_daemon_options: { }
 
-    removal_interval: '1 years 2 months 3 days 2 hours 1 minutes 1 second'
+    # DO NOT CONFIGURE THE ABOVE YOURSELF
 
-    # Docker GitHub Container Registry
-    docker_image: "ghcr.io/kryptokrona/hugin-cache"
+    # removal_interval: '1 years 2 months 3 days 2 hours 1 minutes 1 second'
+    hugin_node_server: 'blocksum.org:11898'
+    
   roles:
-    - base
-    - postgres
+    #- base
+    #- postgres
     - docker
     - nginx
