@@ -86,7 +86,7 @@ Or:
 
 - `source ~/.bash_profile`
 
-Open up **provision_vps.yml** and set manual_deploy to yes.
+Open up **provision_vps.yml** and set github_actions to false.
 
 So now we can start provisioning by running our shell script:
 
