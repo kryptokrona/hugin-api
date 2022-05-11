@@ -47,6 +47,11 @@ jobs:
         run: |
           npm install
       
-      - name: Start Server and Run Tests
+      - name: Start Server
         run: |
-          npm start && ./k6 run tests/k6/loadTest.js
+          npm start && npx wait-on http://127.0.0.1:3000
+
+      - name: Run k6 Tests
+        uses: k6io/action@v0.1
+        with:
+          filename: tests/k6/loadTest.js
