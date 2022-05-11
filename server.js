@@ -11,6 +11,7 @@ var logger = require('morgan')
 var log = require('loglevel')
 var bodyParser = require('body-parser')
 const rateLimit = require('express-rate-limit')
+var cors = require('cors')
 
 
 var postRouter = require('./routes/postRouter')
@@ -48,6 +49,7 @@ let setCache = function (req, res, next) {
 }
 
 app.use(setCache)
+app.use(cors())
 
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutes
