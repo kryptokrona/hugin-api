@@ -2,7 +2,7 @@
 - hosts: vps
   remote_user: root
   become: true
-  gather_facts: no
+  gather_facts: yes
   vars:
     hugin_cache_name: hugin_cache
     hugin_cache_port: 3000
