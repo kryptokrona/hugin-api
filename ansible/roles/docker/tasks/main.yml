@@ -1,4 +1,16 @@
 ---
+# - name: Ansible delete files .list
+#   find:
+#     paths: /etc/apt/sources.list.d
+#     patterns: "*.list"
+#   register: files_to_delete
+
+# - name: Ansible remove file list
+#   file:
+#     path: "{{ item.path }}"
+#     state: absent
+#   with_items: "{{ files_to_delete.files }}"
+
 - name: Install Docker prerequisites
   apt:
     name: "{{ item }}"
