@@ -104,19 +104,3 @@ If we add multiple VPS instances in our inventory, we need to copy our public ke
 
 **Problem:** If you made some change in NGINX configuration and it breaks during setup, the next time it will not always be able to update it so it works again.\
 **Solution:** SSH into the machine and change the configuration manually and restart the NGINX server. Check the logs with `journalctl -xe` if you don't find the issue right away.
-
-### Host Key checking is enabled and sshpass does not support this
-
-**Problem:**
-```
-fatal: [cache.mjovanc.com]: FAILED! => {"msg": "Using a SSH password instead of a key is not possible because Host Key checking is enabled and sshpass does not support this.  Please add this host's fingerprint to your known_hosts file to manage this host."}
-```
-
-**Solution:**
-The solution to solve this issues is to create a file **ansible.cfg** and put the content inside it:
-
-```
-[defaults]
-host_key_checking = False
-```
-

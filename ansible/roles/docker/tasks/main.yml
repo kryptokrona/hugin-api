@@ -1,19 +1,10 @@
 ---
-# - name: Add Dockers official GPG key 
-#   shell: | 
-#     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-#     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-#     $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-- name: Install Docker
+- name: Install Docker prerequisites
   apt:
     name: "{{ item }}"
     state: latest
     update_cache: yes
   loop:
-    - docker-ce
-    - docker-ce-cli
-    - containerd.io
     - apt-transport-https
     - ca-certificates
     - curl
@@ -21,6 +12,25 @@
     - python3-pip
     - virtualenv
     - python3-setuptools
+
+- name: Add Docker apt key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Add Docker apt repo
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable"
+    state: present
+    update_cache: yes
+  
+- name: Install Docker and it's dependencies
+  apt:
+    pkg:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    state: present
 
 - name: Install Docker Module for Python
   pip:
