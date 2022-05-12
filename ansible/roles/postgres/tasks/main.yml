@@ -47,6 +47,7 @@
   template:
     src: templates/remove_data.sql.j2
     dest: /home/{{ vault_vps_user }}/remove_data.sql
+    mode: 0755
 
 # TASK [postgres : Remove Data] ******************************************************************************************************************************************************************************************************************************************************************
 # fatal: [cache.hugin.chat]: FAILED! => {"changed": false, "msg": "missing required arguments: name"}

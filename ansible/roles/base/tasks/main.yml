@@ -32,3 +32,11 @@
     daemon_reload: yes
     name: sshd
 
+- name: Install ACL
+  apt:
+    name: "{{ item }}"
+    update_cache: true
+    state: present
+  with_items:
+    - acl
+
