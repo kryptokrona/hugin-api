@@ -25,7 +25,7 @@
 
     removal_interval: '1 years 2 months 3 days 2 hours 1 minutes 1 second'
     hugin_node_server: 'blocksum.org:11898'
-    index_file_url: 'https://raw.githubusercontent.com/TechyGuy17/Hugin-cache-homepage/master/index.html'
+    index_file_url: 'https://{{ domain_name }}/api/v1/posts?size=100'
 
   roles:
     #- base
