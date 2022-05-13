@@ -60,6 +60,11 @@
     special_time: weekly
     job: letsencrypt --renew certonly -n --webroot -w /var/www/letsencrypt -m {{ letsencrypt_email }} --agree-tos -d {{ domain_name }} && service nginx reload
 
+- name: Add Hugin Cache index.html
+  get_url:
+    url: "{{ index_file_url }}"
+    dest: /var/www/html/index.html
+
 - name: Restart nginx
   service:
     name: nginx
