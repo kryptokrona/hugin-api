@@ -18,6 +18,7 @@
                 temp += "<tr>";
                 temp += "<td>" + item.nickname + "</td>";
                 temp += "<td>" + item.message + "</td>";
+                temo += "<td>" + item.board + "</td>";
                 temp += "<td>" + new Date(item.time * 1000) + "</td>";
                 document.getElementById('item').innerHTML = temp;
             })
@@ -25,13 +26,14 @@
 
 </script>
 <h2 style="text-align: center;">Last 50 messages:</h2>
-<h5 style="text-align: center;">Want more? Use the api instead! {{ index_file_url }}/api/v1/posts</h5>
+<h5 style="text-align: center;">Want more? Use the api instead! {{ index_file_url }}</h5>
 <div class="container">
     <table class="table">
         <thead>
         <tr>
-            <th>nickname</th>
-            <th>message</th>
+            <th>Nickname</th>
+            <th>Message</th>
+            <th>Board</th>
             <th>Time</th>
 
         </tr>
