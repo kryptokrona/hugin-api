@@ -14,9 +14,12 @@
         .then((json) => {
             var temp = "";
             json.items.forEach(item => {
-
+                let username = item.nickname
+                if (username == null) {
+                  username = "Anonymous"
+                }
                 temp += "<tr>";
-                temp += "<td>" + item.nickname + "</td>";
+                temp += "<td>" + username + "</td>";
                 temp += "<td>" + item.message + "</td>";
                 temp += "<td>" + item.board + "</td>";
                 temp += "<td>" + new Date(item.time * 1000) + "</td>";
