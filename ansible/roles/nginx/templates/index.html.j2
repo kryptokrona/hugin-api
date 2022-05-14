@@ -16,10 +16,10 @@
             json.items.forEach(item => {
                 let username = item.nickname
                 if (username == null) {
-                  nickname = "Anonymous"
+                  username = "Anonymous"
                 }
                 temp += "<tr>";
-                temp += "<td>" + nickname + "</td>";
+                temp += "<td>" + username + "</td>";
                 temp += "<td>" + item.message + "</td>";
                 temp += "<td>" + item.board + "</td>";
                 temp += "<td>" + new Date(item.time * 1000) + "</td>";
