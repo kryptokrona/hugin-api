@@ -235,6 +235,8 @@ Will come later.
   <tr>
     <td align="center"><a href="https://github.com/mjovanc"><img src="https://avatars.githubusercontent.com/u/33717111?v=4" width="100px;" alt=""/><br /><sub><b>Marcus Cvjeticanin</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/Swepool"><img src="https://avatars.githubusercontent.com/u/36674091?v=4" width="100px;" alt=""/><br /><sub><b>Lukas (Swepool)</b></sub></a><br /></td>
+     <td align="center"><a href="https://github.com/TechyGuy17"><img src="https://avatars.githubusercontent.com/u/65623992?v=4" width="100px;" alt=""/><br /><sub><b>TechyGuy</b></sub></a><br /></td>
+  </tr>
   </tr>
     
 </table>
