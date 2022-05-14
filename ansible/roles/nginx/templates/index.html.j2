@@ -18,6 +18,7 @@
                 temp += "<tr>";
                 temp += "<td>" + item.nickname + "</td>";
                 temp += "<td>" + item.message + "</td>";
+                temo += "<td>" + item.board + "</td>";
                 temp += "<td>" + new Date(item.time * 1000) + "</td>";
                 document.getElementById('item').innerHTML = temp;
             })
@@ -30,8 +31,9 @@
     <table class="table">
         <thead>
         <tr>
-            <th>nickname</th>
-            <th>message</th>
+            <th>Nickname</th>
+            <th>Message</th>
+            <th>Board</th>
             <th>Time</th>
 
         </tr>
