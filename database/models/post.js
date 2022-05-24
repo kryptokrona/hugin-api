@@ -28,8 +28,9 @@ module.exports = (sequelize, DataTypes) => {
     nickname:   {type: DataTypes.STRING, allowNull: true},
     tx_hash:    {type: DataTypes.STRING, allowNull: true},
     createdAt:  {type: DataTypes.DATEONLY, allowNull: false, field: 'created_at'},
-    updatedAt:  {type: DataTypes.DATEONLY, allowNull: false, field: 'updated_at'}
-  }, {
+    updatedAt:  {type: DataTypes.DATEONLY, allowNull: false, field: 'updated_at'},
+    reply:      {type: DataTypes.STRING, allowNull: true}
+  }, {      
     sequelize,
     modelName: 'Post',
     tableName: 'post'
