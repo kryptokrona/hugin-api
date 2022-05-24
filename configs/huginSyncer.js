@@ -33,9 +33,8 @@ module.exports.backgroundSyncMessages = async () => {
             method: 'POST',
             body: JSON.stringify({ knownTxsIds: known_pool_txs })
         })
-
+           
         let json = await resp.json();
-
         json = JSON.stringify(json)
             .replaceAll('.txPrefix', '')
             .replaceAll('transactionPrefixInfo.txHash', 'transactionPrefixInfotxHash')
@@ -48,7 +47,6 @@ module.exports.backgroundSyncMessages = async () => {
             log.info(getTimestamp() + ' INFO: Got empty transaction array.')
             return;
         }
-
         for (transaction in transactions) {
             try {
                 console.log('tx', transactions[transaction]);
@@ -111,7 +109,8 @@ module.exports.backgroundSyncMessages = async () => {
                                         board: message.brd || null,
                                         time: message.t || null,
                                         nickname: message.n || null,
-                                        tx_hash: thisHash || null
+                                        tx_hash: thisHash || null,
+                                        reply: message.r ||null,
                                     }).then(postObj => {
                                         log.info(getTimestamp() + ` INFO: Post transaction was successful - Post with ID ${postObj.id} was created.`)
 

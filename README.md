@@ -135,10 +135,13 @@ This Database Diagram demonstrates how we store the data:
 To edit the diagram open up the file inside the directory **diagrams** called **database-diagram.drawio**.
 
 # Usage
+**NOTE**: Node version 18 LTS is needed for this to function!
 
 - `npm install nodemon -g`
 
 - `npm install`
+
+- `npm run db:migrate`
 
 - `npm run dev`
 
