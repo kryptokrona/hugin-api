@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<!-- Written by TechyGuy (TechyGuy#3470 @ discord, techy@novastack.org) for hugin cache, comes with no warranty but no copyright either. The code is free to edit however you want -->
+<!-- Written by TechyGuy (Coffeboi helped a little too) (TechyGuy#3470 @ discord, techy@novastack.org) for hugin cache, comes with no warranty but no copyright either. The code is free to edit however you want -->
 <html>
 
 <head>
+  <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
@@ -10,53 +11,80 @@
 </head>
 
 <body>
-  <h2>Last 50 messages:</h2>
+  <h2>Last 100 messages:</h2>
   <h5>Want more? Use the api instead! {{ index_file_url }}</h5>
 
+  <!-- Sends requests to API every second and updates table data automatically-->
   <script>
-    fetch('{{ index_file_url }}')
-      .then((response) => {
-        return response.json()
-      })
-      .then((json) => {
-        var temp = "";
+    jQuery.ajax({
+      type: "GET",
+      url: 'https://cache.hugin.chat/api/v1/posts',
+      dataType: "json",
+      cache: true,
+      crossDomain: true,
+      processData: true,
 
-        json.items.forEach(item => {
-          let username = item.nickname
-          if (username == null) {
-            username = "Anonymous"
-          }
-          let board = item.board
-          if (item.board.startsWith('SEKR') == true) {
-            board = item.board.slice(0, 10) + ".....";
-          }
+      success: function (data) {
+        setInterval(function () {
 
-          temp += "<tr>";
-          temp += "<td>" + username + "</td>";
-          temp += "<td>" + item.message + "</td>";
-          temp += "<td>" + board + "</td>";
-          temp += "<td>" + new Date(item.time * 1000) + "</td>";
-          document.getElementById('item').innerHTML = temp;
+          fetch('{{ index_file_url }}')
+            .then((response) => {
+              return response.json()
+            })
+            .then((json) => {
+              var temp = "";
+
+              json.items.forEach(item => {
+                let username = item.nickname
+                if (username == null) {
+                  username = "Anonymous"
+                }
+                let board = item.board
+                if (item.board.startsWith('SEKR') == true) {
+                  board = item.board.slice(0, 10) + ".....";
+                }
+
+                temp += "<tr>";
+                temp += "<td>" + username + "</td>";
+                temp += "<td>" + item.message + "</td>";
+                temp += "<td>" + board + "</td>";
+                temp += "<td>" + new Date(item.time * 1000) + "</td>";
+                document.getElementById('item').innerHTML = temp;
+
+              }, 1000);
+
+            })
         })
-      })
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+        alert("Error"); 
+    }});
   </script>
 
+  <!--The table-->
   <div class="container">
+
     <table class="table">
+
       <thead>
+
         <tr>
           <th>Nickname</th>
           <th>Message</th>
           <th>Board</th>
           <th>Time</th>
         </tr>
+
       </thead>
 
       <tbody>
       <tbody id="item">
       </tbody>
+
     </table>
+
   </div>
+
 </body>
 
 </html>
