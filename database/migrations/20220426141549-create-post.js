@@ -46,10 +46,6 @@ module.exports = {
         type: Sequelize.DATEONLY,
         field: 'updated_at'
       },
-      reply: {
-        type: Sequelize.STRING,
-        allowNull: true
-      }
     });
   },
   async down(queryInterface, Sequelize) {
