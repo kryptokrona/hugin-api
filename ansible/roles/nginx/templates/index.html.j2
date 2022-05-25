@@ -14,7 +14,7 @@
   <h5>Want more? Use the api instead! {{ index_file_url }}</h5>
 
   <script>
-    fetch('{{ index_file_url }}?size=50')
+    fetch('https://cache.hugin.chat/api/v1/posts?size=50')
       .then((response) => {
         return response.json()
       })
@@ -33,26 +33,33 @@
           let reply_tx = item.reply
           let reply_message = ""
           let reply_nickname = ""
+          let reply_show = ""
+
 
 if (reply_tx != null) {
-    fetch('{{ index_file_url }}/' + reply_tx)
-        .then((response) => {
-            return response.json()        
-        }).then((json) => {
-          reply_message = json.message
-          reply_nickname = json.nickname
-     
-          temp += "<tr>";
+async function getReplyMessageNickname() {
+  response = await fetch('https://cache.hugin.chat/api/v1/posts/' + reply_tx)
+  json = await response.json()
+  reply_message = json.message
+  reply_nickname = json.nickname
+//  console.log(reply_nickname,reply_message)
+  reply_show = 'Original message: "' + reply_nickname + ':' + reply_message + '"' + " | Response: "
+}
+getReplyMessageNickname()
+}
+
+async function populateTable() {
+  temp += "<tr>";
           temp += "<td>" + username + "</td>";
-          temp += "<td>" + 'Orignal message: "' +  reply_nickname + ': ' + reply_message + ' "| Response: ' + item.message + "</td>";
+          temp += "<td>" + reply_show + item.message + "</td>";
           temp += "<td>" + board + "</td>";
           temp += "<td>" + new Date(item.time * 1000) + "</td>";
           document.getElementById('item').innerHTML = temp;
-        })
-      }
+  }
+setTimeout(() => { populateTable()},75)
     })
     }) 
- 
+
   </script>
 
   <div class="container">
