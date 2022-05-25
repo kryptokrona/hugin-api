@@ -14,7 +14,7 @@
   <h5>Want more? Use the api instead! {{ index_file_url }}</h5>
 
   <script>
-    fetch('https://cache.hugin.chat/api/v1/posts?size=50')
+    fetch('{{ index_file_url }}?size=50')
       .then((response) => {
         return response.json()
       })
@@ -38,7 +38,7 @@
 
 if (reply_tx != null) {
 async function getReplyMessageNickname() {
-  response = await fetch('https://cache.hugin.chat/api/v1/posts/' + reply_tx)
+  response = await fetch('{{ index_file_url }}/' + reply_tx)
   json = await response.json()
   reply_message = json.message
   reply_nickname = json.nickname
