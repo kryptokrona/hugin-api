@@ -226,7 +226,9 @@ For questions and support please use the channel #support in Kryptokrona Discord
 
 # FAQ
 
-Will come later.
+- Q: How do I distribute my own Hugin Cache so I can decide what data to collect?
+    - A: You can read through the tutorial here created by Marcus Cvjeticanin: [Distribute content from the Kryptokrona blockchain with Hugin Cache
+](https://mjovanc.com/distribute-content-from-the-kryptokrona-blockchain-with-hugin-cache-81aa6703530)
 
 # Contributors
 
