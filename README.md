@@ -136,6 +136,7 @@ To edit the diagram open up the file inside the directory **diagrams** called **
 
 # Usage
 **NOTE**: Node version 18 LTS is needed for this to function!
+- `apt install gcc build-essential make`
 
 - `npm install nodemon -g`
 
@@ -169,6 +170,17 @@ docker run -p 3000:3000 \
     -e POSTGRESQL_DB_PASSWORD=test1234 \
     -e NODE_ENV=development
 ```
+
+## Database dump
+
+To simplify the testing we also provide a database dump. Its real data captured from hugin so its great way to either get some base data in the database to test the API or to try new features!
+
+To load in the data you run the following in the hugin cache folder:
+
+```
+psql hugin_cache < database/samples/database_dump.sql
+```
+NOTE: For the above to function make sure you HAVE NOT ran the npm run db:migrate commands since this will cause issues!
 
 # Unit testing
 
