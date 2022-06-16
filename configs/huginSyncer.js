@@ -43,10 +43,12 @@ module.exports.backgroundSyncMessages = async () => {
         let transactions = json.addedTxs;
         let transaction;
 
+        known_pooL_txs = known_pooL_txs.filter(n => !json.deletedTxsIds.includes(n)) // fixing https://github.com/kryptokrona/hugin-cache/issues/86
         if (transactions.length === 0) {
             log.info(getTimestamp() + ' INFO: Got empty transaction array.')
             return;
         }
+        
         for (transaction in transactions) {
             try {
                 console.log('tx', transactions[transaction]);

@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     key:        {type: DataTypes.STRING, allowNull: true},
     signature:  {type: DataTypes.STRING, allowNull: true},
     board:      {type: DataTypes.STRING, allowNull: true},
-    time:       {type: DataTypes.INTEGER, allowNull: true},
+    time:       {type: DataTypes.BIGINT, allowNull: true},
     nickname:   {type: DataTypes.STRING, allowNull: true},
     tx_hash:    {type: DataTypes.STRING, allowNull: true},
     createdAt:  {type: DataTypes.DATEONLY, allowNull: false, field: 'created_at'},
