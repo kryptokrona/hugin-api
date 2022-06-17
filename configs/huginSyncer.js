@@ -43,7 +43,7 @@ module.exports.backgroundSyncMessages = async () => {
         let transactions = json.addedTxs;
         let transaction;
 
-        known_pooL_txs = known_pooL_txs.filter(n => !json.deletedTxsIds.includes(n)) // fixing https://github.com/kryptokrona/hugin-cache/issues/86
+        // known_pooL_txs = known_pooL_txs.filter(n => !json.deletedTxsIds.includes(n)) // fixing https://github.com/kryptokrona/hugin-cache/issues/86
         if (transactions.length === 0) {
             log.info(getTimestamp() + ' INFO: Got empty transaction array.')
             return;
@@ -193,6 +193,7 @@ module.exports.backgroundSyncMessages = async () => {
             }
         }
     } catch (err) {
+        console.log(err)
         log.error(getTimestamp() + ' ERROR: Sync error.')
     }
 }
