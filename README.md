@@ -241,6 +241,10 @@ For questions and support please use the channel #support in Kryptokrona Discord
 - Q: How do I distribute my own Hugin Cache so I can decide what data to collect?
     - A: You can read through the tutorial here created by Marcus Cvjeticanin: [Distribute content from the Kryptokrona blockchain with Hugin Cache
 ](https://mjovanc.com/distribute-content-from-the-kryptokrona-blockchain-with-hugin-cache-81aa6703530)
+- Q: How do I upgrade my Hugin Cache?
+  - A: Read through the guide here https://medium.com/coinsbench/upgrade-your-hugin-cache-2b1e1f2bd5d8
+- Q: Where do I find the log output to see if something went wrong?
+  - A: The log output can be seen in output.log in the root of the container where the source code exits.
 
 # Contributors
 

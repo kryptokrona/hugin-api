@@ -126,3 +126,5 @@ coverage/
 # Drawio Diagram backup files
 *.bkp
 *.dtmp
+
+*.log
