@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "stop": "pkill --signal SIGINT cache",
     "dev": "nodemon server.js",
     "test": "cross-env NODE_ENV=test mocha tests --recursive --ignore 'tests/k6/**' --timeout 10000 --exit",
     "pretest": "cross-env NODE_ENV=test npm run db:reset",

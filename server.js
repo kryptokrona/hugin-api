@@ -21,6 +21,8 @@ const { getTimestamp, sleep } = require('./utils/time')
 
 var app = express()
 
+process.title = cache;
+
 app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
