@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
+    "start": "node server.js >> output.log 2>&1",
+    "dev": "nodemon server.js >> output.log 2>&1",
     "test": "cross-env NODE_ENV=test mocha tests --recursive --ignore 'tests/k6/**' --timeout 10000 --exit",
     "pretest": "cross-env NODE_ENV=test npm run db:reset",
     "db:migrate": "npx sequelize-cli db:migrate",

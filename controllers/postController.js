@@ -34,7 +34,7 @@ postController.getAll = async (req, res) => {
             res.json(response)
         })
         .catch(err => {
-            log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data.')
+            log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data. ' + err)
             res.status(404).send({
                 message: err.message || 'Some error occurred while retrieving data.'
             })
@@ -60,7 +60,7 @@ postController.getPostByTxHash = async (req, res) => {
             }
         })
         .catch(err => {
-            log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data.')
+            log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data. ' + err)
             res.status(404).send({
                 message: err.message || 'Some error occurred while retrieving data.'
             })
@@ -84,7 +84,7 @@ postController.getLatest = async (req, res) => {
             res.json(response)
         })
         .catch(err => {
-            log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data.')
+            log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data. ' + err)
             res.status(404).send({
                 message: err.message || 'Some error occurred while retrieving data.'
             })

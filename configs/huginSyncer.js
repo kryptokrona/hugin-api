@@ -51,7 +51,6 @@ module.exports.backgroundSyncMessages = async () => {
         
         for (transaction in transactions) {
             try {
-                console.log('tx', transactions[transaction]);
                 let thisExtra = transactions[transaction].transactionPrefixInfo.extra
                 let thisHash = transactions[transaction].transactionPrefixInfotxHash
 
@@ -85,8 +84,7 @@ module.exports.backgroundSyncMessages = async () => {
                 }
 
                 if ((message || message !== undefined) && (message.brd || message.brd !== undefined)) {
-                    log.info(getTimestamp() + ' INFO: Got 1 message.')
-                    // console.log('Message?', message)
+                    log.info(getTimestamp() + ' INFO: Got 1 message. Message: ' + JSON.stringify(message))
 
                     let startTime = performance.now()
 
@@ -180,8 +178,8 @@ module.exports.backgroundSyncMessages = async () => {
                         let endTime = performance.now()
                         log.info(getTimestamp() + ` INFO: Queries to took ${endTime - startTime} seconds`)
 
-                    } catch (error) {
-                        log.info(getTimestamp() + ' ERROR: An error adding a Post transaction - Rolling back.')
+                    } catch (err) {
+                        log.info(getTimestamp() + ' ERROR: An error adding a Post transaction - Rolling back. ' + err)
                     }
 
                 } else {
@@ -193,7 +191,6 @@ module.exports.backgroundSyncMessages = async () => {
             }
         }
     } catch (err) {
-        console.log(err)
-        log.error(getTimestamp() + ' ERROR: Sync error.')
+        log.error(getTimestamp() + ' ERROR: Sync error. ' + err)
     }
 }
