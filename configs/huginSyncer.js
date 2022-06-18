@@ -88,16 +88,7 @@ module.exports.backgroundSyncMessages = async () => {
 
                 if ((message || message !== undefined) && (message.brd || message.brd !== undefined)) {
                     log.info(getTimestamp() + ' INFO: Got 1 message. Message: ' + JSON.stringify(message))
-
-                    // skipping based on criteria - if criteria exists
-                    criteriaFulfilled = messageCriteria(message)
                     
-                    // criteria guard
-                    if (!criteriaFulfilled) {
-                        log.info(getTimestamp() + ' INFO: Message does not meet criteria based on configuration: ' + JSON.stringify(message))
-                        continue
-                    }
-
                     let messageObj = {
                         message: message.m || null,
                         key: message.k || null,
@@ -107,6 +98,15 @@ module.exports.backgroundSyncMessages = async () => {
                         nickname: message.n || null,
                         tx_hash: thisHash || null,
                         reply: message.r ||null
+                    }
+
+                    // skipping based on criteria - if criteria exists
+                    const criteriaFulfilled = messageCriteria(messageObj)
+                    
+                    // criteria guard
+                    if (!criteriaFulfilled) {
+                        log.info(getTimestamp() + ' INFO: Message does not meet criteria based on configuration: ' + JSON.stringify(message))
+                        continue
                     }
 
                     // broadcast message object to websocket server

@@ -5,7 +5,10 @@
 'use strict'
 
 require('dotenv').config()
+
 const profanityList = require('../profanity-list.json')
+const { getTimestamp } = require('./time')
+
 let log = require('loglevel')
 
 /**
@@ -15,21 +18,44 @@ let log = require('loglevel')
  * @returns {Boolean} criteria - True or false based on the criteria of the config.
  */
 module.exports.messageCriteria = (messageObj) => {
-    usersInclude = process.env.SYS_CRITERIA_USERS_INCLUDE
-    usersExclude = process.env.SYS_CRITERIA_USERS_EXCLUDE
+    const usersInclude = process.env.SYS_CRITERIA_USERS_INCLUDE
+    const usersExclude = process.env.SYS_CRITERIA_USERS_EXCLUDE
 
-    boardsInclude = process.env.SYS_CRITERIA_BOARDS_INCLUDE
-    boardsExclude = process.env.SYS_CRITERIA_BOARDS_EXCLUDE
+    const boardsInclude = process.env.SYS_CRITERIA_BOARDS_INCLUDE
+    const boardsExclude = process.env.SYS_CRITERIA_BOARDS_EXCLUDE
 
-    keywordsInclude = process.env.SYS_CRITERIA_KEYWORDS_INCLUDE
-    keywordsExclude = process.env.SYS_CRITERIA_KEYWORDS_EXCLUDE
-    keywordsCursewords = process.env.SYS_CRITERIA_KEYWORDS_CURSEWORDS
+    const keywordsInclude = process.env.SYS_CRITERIA_KEYWORDS_INCLUDE
+    const keywordsExclude = process.env.SYS_CRITERIA_KEYWORDS_EXCLUDE
+    const keywordsCursewords = (process.env.SYS_CRITERIA_KEYWORDS_CURSEWORDS === 'true');    
 
     // check for curse words
     if (!keywordsCursewords) {
-        found = profanityList.find(word => messageObj.message === word)
-        if (found) return false
+        containsCurseWord(messageObj.message)
     }
 
+    return true
+}
+
+/**
+ * Checks if the message contains curse words.
+ *
+ * @param {string} message - Message object.
+ * @returns {Boolean} contains curse word - Get boolean if the message contains curse words.
+ */
+function containsCurseWord(message) {
+    // need to split up message into array and check each word
+    const messageWords = message.split(' ')
+    console.log(messageWords)
+
+    // going through all words in a message and checks against the profanity list
+    messageWords.forEach(word => {
+        const found = profanityList.find(curseWord => word === curseWord)
+        
+        if (found !== undefined) {
+            log.info(getTimestamp() + ' INFO: Message contains curse word: ' + found)
+            return false
+        }
+    })
+    
     return true
 }
