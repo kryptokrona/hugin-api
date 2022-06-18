@@ -11,7 +11,6 @@ const { extraDataToMessage } = require('hugin-crypto')
 const { performance } = require('perf_hooks')
 
 const { getTimestamp } = require('../utils/time')
-const wss = require('../server.js')
 
 let db = require("./postgresql"),
     sequelize = db.sequelize,

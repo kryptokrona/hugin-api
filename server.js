@@ -136,4 +136,4 @@ wss.on('connection', function connection(ws) {
 })
 console.log("The WebSocket server is running on port 8080");
 
-module.exports = wss
+module.exports = app

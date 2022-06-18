@@ -1,5 +1,9 @@
-upstream {{ hugin_cache_name }} {
+upstream {{ hugin_cache_name }}_api {
     server 127.0.0.1:3000;
+}
+
+upstream {{ hugin_cache_name }}_ws {
+    server 127.0.0.1:8080;
 }
 
 server {
@@ -29,7 +33,7 @@ server {
     index index.html;
 
     location /api {
-        proxy_pass http://{{ hugin_cache_name }};
+        proxy_pass http://{{ hugin_cache_name }}_api;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -43,5 +47,13 @@ server {
             add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range' always;
             add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range' always;
         }
+    }
+
+    location /ws {
+        proxy_pass http://{{ hugin_cache_name }}_ws;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_set_header Host $host;
     }
 }
