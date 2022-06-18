@@ -48,7 +48,7 @@ And a lot of other packages/libraries which can seen in **package.json**.
 
 # Websockets
 
-We have implemented websockets that are listening on `wss://<domain>`.
+We have implemented Websockets that are listening on `wss://<domain>`.
 
 # API Endpoints
 
