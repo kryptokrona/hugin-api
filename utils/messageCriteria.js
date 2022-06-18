@@ -30,58 +30,117 @@ module.exports.messageCriteria = (messageObj) => {
     const keywordsCurseWords = (process.env.SYS_CRITERIA_KEYWORDS_CURSEWORDS === 'true');
 
     // initial values
-    let hasUsersInclude = false
-    let hasUsersExclude = false
-    let hasBoardsInclude = false
-    let hasBoardsExclude = false
-    let hasKeywordsInclude = false
-    let hasKeywordsExclude = false
-    let hasCurseWord = false
+    let criteriaUsersInclude = true
+    let criteriaUsersExclude = true
+    let criteriaBoardsInclude = true
+    let criteriaBoardsExclude = true
+    let criteriaKeywordsInclude = true
+    let criteriaKeywordsExclude = true
+    let curseWord = false
     
     // check for users to include
     if (usersInclude.length > 0) {
-        hasUsersInclude = contains(usersInclude.split(' '), messageObj.nickname)
+        const lookup = usersInclude.split(' ').some(user => messageObj.nickname === user)
+        console.log('usersInclude: ' + lookup)
+
+        if (lookup) {
+            criteriaUsersInclude = true
+        } else {
+            criteriaUsersInclude = false
+        }
     }
 
     // check for users to exclude
     if (usersExclude.length > 0) {
-        hasUsersExclude = usersExclude.split(' ').some(user => messageObj.nickname === user)
+        const lookup = usersExclude.split(' ').some(user => messageObj.nickname === user)
+        console.log('usersExclude: ' + lookup)
+
+        if (lookup) {
+            criteriaUsersExclude = true
+        } else {
+            criteriaUsersExclude = false
+        }
     }
 
     // check for boards to include
     if (boardsInclude.length > 0) {
-        hasBoardsInclude = contains(boardsInclude.split(' '), messageObj.board)
+        const lookup = boardsInclude.split(' ').some(board => messageObj.board === board)
+        console.log('boardsInclude: ' + lookup)
+
+        if (lookup) {
+            criteriaBoardsInclude = true
+        } else {
+            criteriaBoardsInclude = false
+        }
     }
 
     // check for boards to exclude
     if (boardsExclude.length > 0) {
-        hasBoardsExclude = boardsExclude.split(' ').some(board => messageObj.board === board)
+        const lookup = boardsExclude.split(' ').some(board => messageObj.board === board)
+        console.log('boardsExclude: ' + lookup)
+
+        if (lookup) {
+            criteriaBoardsExclude = false
+        } else {
+            criteriaBoardsExclude = true
+        }
     }
 
     // check for keywords to include
     if (keywordsInclude.length > 0) {
-        hasKeywordsInclude = contains(keywordsInclude.split(' '), messageObj.message)
+        const keywordsInMessage = messageObj.message.split(' ')
+        
+        criteriaKeywordsInclude = keywordsInclude.split(' ').some(keywordToInclude => {
+            const lookup = keywordsInMessage.some(keyword => keywordToInclude === keyword)
+            console.log('keywordsInclude: ' + lookup)
+
+            if (lookup) {
+                return true
+            } else {
+                return false
+            }
+        })
     }
 
     // check for keywords to exclude
     if (keywordsExclude.length > 0) {
-        hasKeywordsExclude = contains(keywordsExclude.split(' '), messageObj.message)
+        const keywordsInMessage = messageObj.message.split(' ')
+        
+        criteriaKeywordsExclude = keywordsExclude.split(' ').some(keywordToExclude => {
+            const lookup = keywordsInMessage.some(keyword => keywordToExclude === keyword)
+            console.log('keywordsExclude: ' + lookup)
+
+            if (lookup) {
+                return false
+            } else {
+                return true
+            }
+        })
     }
 
     // check for curse words
     if (!keywordsCurseWords) {
-        hasCurseWord = containsCurseWord(messageObj.message)
+        curseWord = noCurseWord(messageObj.message)
     }
 
     // all checks if the message should go through or not
-    if (hasCurseWord) {
-        console.log('has curse word')
+    if (!curseWord) {
         return false
     } else {
-        if ( 
-            ( (hasUsersInclude    || hasUsersExclude)        &&       (hasUsersInclude    != hasUsersExclude) )        &&
-            ( (hasBoardsInclude   || hasBoardsExclude)       &&       (hasBoardsInclude   != hasBoardsExclude) )       &&
-            ( (hasKeywordsInclude || hasKeywordsExclude)     &&       (hasKeywordsInclude != hasKeywordsExclude) )
+        console.log('criteriaUsersInclude: ' + criteriaUsersInclude)
+        console.log('criteriaUsersExclude: ' + criteriaUsersExclude)
+        console.log('criteriaBoardsInclude: ' + criteriaBoardsInclude)
+        console.log('criteriaBoardsExclude: ' + criteriaBoardsExclude)
+        console.log('criteriaKeywordsInclude: ' + criteriaKeywordsInclude)
+        console.log('criteriaKeywordsExclude: ' + criteriaKeywordsExclude)
+        
+        if (
+            criteriaUsersInclude    && 
+            criteriaUsersExclude    && 
+            criteriaBoardsInclude   && 
+            criteriaBoardsExclude   &&
+            criteriaKeywordsInclude && 
+            criteriaKeywordsExclude
         ) {
             return true
         } else {
@@ -91,23 +150,12 @@ module.exports.messageCriteria = (messageObj) => {
 }
 
 /**
- * Checks if item contains in list.
- *
- * @params {array} list - Array of items.
- * @param {string} item - String item.
- * @returns {Boolean} contains item - Get boolean if the item contains in list.
- */
-function contains(list, item) {
-    return list.some(i => item === i)
-}
-
-/**
  * Checks if the message contains curse words.
  *
  * @param {string} message - Message string.
  * @returns {Boolean} contains curse word - Get boolean if the message contains curse words.
  */
-function containsCurseWord(message) {
+function noCurseWord(message) {
     // need to split up message into array and check each word
     const messageWords = message.split(' ')
     console.log(messageWords)
@@ -118,9 +166,9 @@ function containsCurseWord(message) {
         
         if (found !== undefined) {
             log.info(getTimestamp() + ' INFO: Message contains curse word: ' + found)
-            return true
+            return false
         }
     })
     
-    return false
+    return true
 }
