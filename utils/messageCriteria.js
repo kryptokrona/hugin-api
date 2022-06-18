@@ -41,7 +41,6 @@ module.exports.messageCriteria = (messageObj) => {
     // check for users to include
     if (usersInclude.length > 0) {
         const lookup = usersInclude.split(' ').some(user => messageObj.nickname === user)
-        console.log('usersInclude: ' + lookup)
 
         if (lookup) {
             criteriaUsersInclude = true
@@ -53,7 +52,6 @@ module.exports.messageCriteria = (messageObj) => {
     // check for users to exclude
     if (usersExclude.length > 0) {
         const lookup = usersExclude.split(' ').some(user => messageObj.nickname === user)
-        console.log('usersExclude: ' + lookup)
 
         if (lookup) {
             criteriaUsersExclude = true
@@ -65,7 +63,6 @@ module.exports.messageCriteria = (messageObj) => {
     // check for boards to include
     if (boardsInclude.length > 0) {
         const lookup = boardsInclude.split(' ').some(board => messageObj.board === board)
-        console.log('boardsInclude: ' + lookup)
 
         if (lookup) {
             criteriaBoardsInclude = true
@@ -77,7 +74,6 @@ module.exports.messageCriteria = (messageObj) => {
     // check for boards to exclude
     if (boardsExclude.length > 0) {
         const lookup = boardsExclude.split(' ').some(board => messageObj.board === board)
-        console.log('boardsExclude: ' + lookup)
 
         if (lookup) {
             criteriaBoardsExclude = false
@@ -92,7 +88,6 @@ module.exports.messageCriteria = (messageObj) => {
         
         criteriaKeywordsInclude = keywordsInclude.split(' ').some(keywordToInclude => {
             const lookup = keywordsInMessage.some(keyword => keywordToInclude === keyword)
-            console.log('keywordsInclude: ' + lookup)
 
             if (lookup) {
                 return true
@@ -108,7 +103,6 @@ module.exports.messageCriteria = (messageObj) => {
         
         criteriaKeywordsExclude = keywordsExclude.split(' ').some(keywordToExclude => {
             const lookup = keywordsInMessage.some(keyword => keywordToExclude === keyword)
-            console.log('keywordsExclude: ' + lookup)
 
             if (lookup) {
                 return false
@@ -125,15 +119,9 @@ module.exports.messageCriteria = (messageObj) => {
 
     // all checks if the message should go through or not
     if (!curseWord) {
+        log.info(getTimestamp() + ' INFO: Message contains curse words.')
         return false
     } else {
-        console.log('criteriaUsersInclude: ' + criteriaUsersInclude)
-        console.log('criteriaUsersExclude: ' + criteriaUsersExclude)
-        console.log('criteriaBoardsInclude: ' + criteriaBoardsInclude)
-        console.log('criteriaBoardsExclude: ' + criteriaBoardsExclude)
-        console.log('criteriaKeywordsInclude: ' + criteriaKeywordsInclude)
-        console.log('criteriaKeywordsExclude: ' + criteriaKeywordsExclude)
-        
         if (
             criteriaUsersInclude    && 
             criteriaUsersExclude    && 
@@ -158,14 +146,12 @@ module.exports.messageCriteria = (messageObj) => {
 function noCurseWord(message) {
     // need to split up message into array and check each word
     const messageWords = message.split(' ')
-    console.log(messageWords)
 
     // going through all words in a message and checks against the profanity list
     messageWords.forEach(word => {
         const found = profanityList.find(curseWord => word === curseWord)
         
         if (found !== undefined) {
-            log.info(getTimestamp() + ' INFO: Message contains curse word: ' + found)
             return false
         }
     })

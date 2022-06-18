@@ -102,13 +102,14 @@ module.exports.backgroundSyncMessages = async () => {
 
                     // skipping based on criteria - if criteria exists
                     const criteriaFulfilled = messageCriteria(messageObj)
-                    console.log('CRITERIA FULFILLED: ' + criteriaFulfilled)
                     
                     // criteria guard
                     if (!criteriaFulfilled) {
                         log.info(getTimestamp() + ' INFO: Message does not meet criteria based on configuration: ' + JSON.stringify(message))
                         continue
                     }
+
+                    log.info(getTimestamp() + ' INFO: Criteria fulfilled.')
 
                     // broadcast message object to websocket server
                     ws.send(JSON.stringify(messageObj))
