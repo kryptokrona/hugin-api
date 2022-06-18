@@ -11,7 +11,7 @@
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all --seeders-path ./database/seeders",
     "db:create:test": "cross-env NODE_ENV=test npx sequelize-cli db:create",
-    "code-coverage": "npx c8 --check-coverage --lines 75 npm test",
+    "code-coverage": "npx c8 --check-coverage --lines 70 npm test",
     "code-coverage-report": "npx c8 report --temp-directory .c8 -o ./.c8/html_coverage -r html && open ./.c8/html_coverage/index.html"
   },
   "repository": {
