@@ -122,15 +122,17 @@ const server = app.listen(3000, async () => {
 const wss = new WebSocketServer({ port: 8080 })
 
 wss.on('connection', function connection(ws) {
+
+    // broadcasting to all listening clients
     ws.on('message', function message(data, isBinary) {
         wss.clients.forEach(function each(client) {
-          if (client !== ws && client.readyState === WebSocket.OPEN) {
-            client.send(data, { binary: isBinary });
-          }
+            if (client !== ws && client.readyState === WebSocket.OPEN) {
+                client.send(data, { binary: isBinary });
+            }
         });
-      });
+    });
       
-      ws.send('Connected to Hugin Cache Websocket!');
+      ws.send('Connected to Hugin Cache Websocket! :)');
 })
 console.log("The WebSocket server is running on port 8080");
 
