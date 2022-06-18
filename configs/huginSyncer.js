@@ -39,14 +39,14 @@ module.exports.backgroundSyncMessages = async () => {
             body: JSON.stringify({ knownTxsIds: known_pool_txs })
         })
            
-        let json = await resp.json();
+        let json = await resp.json()
         json = JSON.stringify(json)
             .replaceAll('.txPrefix', '')
             .replaceAll('transactionPrefixInfo.txHash', 'transactionPrefixInfotxHash')
-        json = JSON.parse(json);
+        json = JSON.parse(json)
 
-        let transactions = json.addedTxs;
-        let transaction;
+        let transactions = json.addedTxs
+        let transaction
 
         if (transactions.length === 0) {
             log.info(getTimestamp() + ' INFO: Got empty transaction array.')
@@ -55,6 +55,9 @@ module.exports.backgroundSyncMessages = async () => {
         
         for (transaction in transactions) {
             try {
+                console.log(transactions[transaction])
+                await saveEncryptedPost(transactions[transaction])
+
                 let thisExtra = transactions[transaction].transactionPrefixInfo.extra
                 let thisHash = transactions[transaction].transactionPrefixInfotxHash
 
@@ -78,8 +81,6 @@ module.exports.backgroundSyncMessages = async () => {
                 if (thisExtra !== undefined && thisExtra.length > 200) {
                     message = await extraDataToMessage(thisExtra, knownk, keypair)
                 }
-
-                // let msg = JSON.parse(message)
 
                 if (!message || message === undefined) {
                     log.info(getTimestamp() + ' INFO: Caught undefined null message, continue.')
@@ -212,4 +213,36 @@ module.exports.backgroundSyncMessages = async () => {
     } catch (err) {
         log.error(getTimestamp() + ' ERROR: Sync error. ' + err)
     }
+}
+
+/**
+ * Save an encrypted post to database.
+ *
+ * @param {Object} transaction - Transaction object.
+ * @returns {Promise} Resolves to this if transaction to database succeeded.
+ */
+async function saveEncryptedPost(transaction) {
+    try {
+        await sequelize.transaction(async (t) => {
+            return models.PostEncrypted.create({
+                tx_hash: transaction.transactionPrefixInfotxHash,
+                tx_extra: transaction.transactionPrefixInfo.extra,
+                tx_unlock_time: transaction.transactionPrefixInfo.unlock_time,
+                tx_version: transaction.transactionPrefixInfo.version
+            })
+        })
+    } catch(err) {
+        log.error(getTimestamp() + ' ERROR: ' + err)
+    }
+    
+}
+
+/**
+ * Save a post to database.
+ *
+ * @param {Object} message - Message object.
+ * @returns {Promise} Resolves to this if transaction to database succeeded.
+ */
+async function savePost(message) {
+    console.log(message)
 }
