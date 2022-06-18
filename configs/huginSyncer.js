@@ -11,6 +11,8 @@ const { extraDataToMessage } = require('hugin-crypto')
 const { performance } = require('perf_hooks')
 
 const { getTimestamp } = require('../utils/time')
+const wss = require('../server.js')
+
 let db = require("./postgresql"),
     sequelize = db.sequelize,
     Sequelize = db.Sequelize
@@ -18,6 +20,9 @@ let db = require("./postgresql"),
 let models = require('../database/models')
 
 let known_pool_txs = [];
+
+const { WebSocket } = require('ws');
+let ws = new WebSocket(`ws://localhost:8080`);
 
 /**
  * Background sync to fetch data
@@ -85,6 +90,7 @@ module.exports.backgroundSyncMessages = async () => {
 
                 if ((message || message !== undefined) && (message.brd || message.brd !== undefined)) {
                     log.info(getTimestamp() + ' INFO: Got 1 message. Message: ' + JSON.stringify(message))
+                    ws.send(JSON.stringify(message))
 
                     let startTime = performance.now()
 

@@ -21,5 +21,7 @@ COPY . .
 
 RUN chmod +x start.sh
 
+VOLUME . "/usr/src/app"
+
 EXPOSE 3000
 CMD ["start.sh"]
