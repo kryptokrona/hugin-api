@@ -33,6 +33,8 @@ module.exports.messageCriteria = (messageObj) => {
         containsCurseWord(messageObj.message)
     }
 
+    // check for users to include
+
     return true
 }
 
