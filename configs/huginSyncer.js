@@ -59,14 +59,14 @@ module.exports.backgroundSyncMessages = async () => {
                 await saveEncryptedPost(transactions[transaction])
 
                 let thisExtra = transactions[transaction].transactionPrefixInfo.extra
-                let thisHash = transactions[transaction].transactionPrefixInfotxHash
+                let txHash = transactions[transaction].transactionPrefixInfotxHash
 
-                if (known_pool_txs.indexOf(thisHash) === -1) {
-                    known_pool_txs.push(thisHash)
+                if (known_pool_txs.indexOf(txHash) === -1) {
+                    known_pool_txs.push(txHash)
                     message_was_unknown = true
                 } else {
                     message_was_unknown = false
-                    console.log("This transaction is already known", thisHash)
+                    console.log("This transaction is already known", txHash)
                     continue
                 }
 
@@ -97,7 +97,7 @@ module.exports.backgroundSyncMessages = async () => {
                         board: message.brd || null,
                         time: message.t || null,
                         nickname: message.n || null,
-                        tx_hash: thisHash || null,
+                        tx_hash: txHash || null,
                         reply: message.r ||null
                     }
 
@@ -115,93 +115,7 @@ module.exports.backgroundSyncMessages = async () => {
                     // broadcast message object to websocket server
                     ws.send(JSON.stringify(messageObj))
 
-                    let startTime = performance.now()
-
-                    try {
-                        // database lookup if row exists with a certain tx_hash
-                        const postTxHashLookup = models.Post.findOne({
-                            where: {
-                                tx_hash: thisHash
-                            },
-                            order: [[ 'id', 'DESC' ]],
-                            raw: true,
-                        })
-
-                        // checking if post with tx_hash already exists in db - if not create a new record
-                        postTxHashLookup.then(async result => {
-                            if (result === null) {
-                                await sequelize.transaction(async (t) => {
-                                    return models.Post.create(messageObj).then(postObj => {
-                                        log.info(getTimestamp() + ` INFO: Post transaction was successful - Post with ID ${postObj.id} was created.`)
-
-                                        // extract hashtags from message and save it do db and add relationship in post_hashtag table
-                                        let messageStr = message.m
-                                        let hashtags
-
-                                        try {
-                                            hashtags = messageStr.match(/#[^\s#\.\;!*€%&()?^$@`¨]*/gmi)
-
-                                            if (hashtags) {
-                                                // going through all hashtags and do separate lookups
-                                                hashtags.forEach(hashtag => {
-                                                    // removing the # and making it lowercase, so we have proper input for query
-                                                    let hashtagName = hashtag.replace('#', '').toLowerCase()
-    
-                                                    const hashtagLookup = models.Hashtag.findOne({
-                                                        where: {
-                                                            name: hashtagName
-                                                        },
-                                                        order: [[ 'id', 'DESC' ]],
-                                                        raw: true,
-                                                    })
-    
-                                                    // create hashtag if it does not exist otherwise get the hashtag ID
-                                                    hashtagLookup.then(async result => {
-                                                        if (result === null) {
-                                                            await sequelize.transaction(async (t1) => {
-                                                                return models.Hashtag.create({
-                                                                    name: hashtagName
-                                                                }).then(async hashtagObj => {
-                                                                    await sequelize.transaction(async (t2) => {
-                                                                        return models.PostHashtag.create({
-                                                                            post_id: postObj.id,
-                                                                            hashtag_id: hashtagObj.id
-                                                                        })
-                                                                    })
-                                                                })
-                                                            })
-                                                        } else {
-                                                            // hashtag exists, so we add a new row in post_hashtag with its ID
-                                                            await sequelize.transaction(async (t3) => {
-                                                                return models.PostHashtag.create({
-                                                                    post_id: postObj.id,
-                                                                    hashtag_id: result.id
-                                                                })
-                                                            })
-                                                        }
-                                                    })
-    
-                                                })
-                                            }
-                                        } catch(TypeError)  {
-                                            log.error(getTimestamp() + ' ERROR: Could not parse hashtags')
-                                        }
-
-                                    })
-                                })
-                            } else {
-                                log.info(getTimestamp() + ' INFO: Found record in database - Skipping.')
-                            }
-                        })
-
-                        // calculating queries for debug reasons
-                        let endTime = performance.now()
-                        log.info(getTimestamp() + ` INFO: Queries to took ${endTime - startTime} seconds`)
-
-                    } catch (err) {
-                        log.info(getTimestamp() + ' ERROR: An error adding a Post transaction - Rolling back. ' + err)
-                    }
-
+                    savePost(messageObj, txHash)
                 } else {
                     log.info(getTimestamp() + ' INFO: No message.')
                 }
@@ -216,33 +130,167 @@ module.exports.backgroundSyncMessages = async () => {
 }
 
 /**
+ * Check if encrypted post exists in database.
+ *
+ * @param {String} txHash - Hash value.
+ * @returns {Boolean} Resolves to true if found.
+ */
+async function encryptedPostExists(txHash) {
+    try {
+        const postEncryptedTxHashLookup = models.PostEncrypted.findOne({
+            where: {
+                tx_hash: txHash
+            },
+            order: [[ 'id', 'DESC' ]],
+            raw: true,
+        })
+
+        postEncryptedTxHashLookup.then(async result => {
+            if (result === null) {
+                return false
+            }
+        })
+    } catch (err) {
+        log.error(getTimestamp() + ' ERROR: Sync error. ' + err)
+    }
+    
+    return true
+}
+
+/**
+ * Check if post exists in database.
+ *
+ * @param {String} txHash - Hash value.
+ * @returns {Boolean} Resolves to true if found.
+ */
+async function postExists(txHash) {
+    try {
+        const postTxHashLookup = models.Post.findOne({
+            where: {
+                tx_hash: txHash
+            },
+            order: [[ 'id', 'DESC' ]],
+            raw: true,
+        })
+
+        postTxHashLookup.then(async result => {
+            if (result === null) {
+                return false
+            }
+        })
+    } catch (err) {
+        log.error(getTimestamp() + ' ERROR: Sync error. ' + err)
+    }
+    
+    return true
+}
+
+/**
  * Save an encrypted post to database.
  *
  * @param {Object} transaction - Transaction object.
  * @returns {Promise} Resolves to this if transaction to database succeeded.
  */
 async function saveEncryptedPost(transaction) {
-    try {
-        await sequelize.transaction(async (t) => {
-            return models.PostEncrypted.create({
-                tx_hash: transaction.transactionPrefixInfotxHash,
-                tx_extra: transaction.transactionPrefixInfo.extra,
-                tx_unlock_time: transaction.transactionPrefixInfo.unlock_time,
-                tx_version: transaction.transactionPrefixInfo.version
+    const exists = await encryptedPostExists(transaction.transactionPrefixInfotxHash)
+
+    if (!exists) {
+        try {
+            await sequelize.transaction(async (t) => {
+                return models.PostEncrypted.create({
+                    tx_hash: transaction.transactionPrefixInfotxHash,
+                    tx_extra: transaction.transactionPrefixInfo.extra,
+                    tx_unlock_time: transaction.transactionPrefixInfo.unlock_time,
+                    tx_version: transaction.transactionPrefixInfo.version
+                })
             })
-        })
-    } catch(err) {
-        log.error(getTimestamp() + ' ERROR: ' + err)
+        } catch(err) {
+            log.error(getTimestamp() + ' ERROR: ' + err)
+        }
     }
-    
 }
 
 /**
  * Save a post to database.
  *
- * @param {Object} message - Message object.
+ * @param {Object} messageObj - Message object.
+ * @param {String} txHash - Hash value.
  * @returns {Promise} Resolves to this if transaction to database succeeded.
  */
-async function savePost(message) {
-    console.log(message)
+async function savePost(messageObj, txHash) {
+    let startTime = performance.now()
+
+    try {
+       // checking if post with txHash already exists in db - if not create a new record
+        const exists = await postExists(txHash)
+
+        if (!exists) {
+            await sequelize.transaction(async (t) => {
+                return models.Post.create(messageObj).then(postObj => {
+                    log.info(getTimestamp() + ` INFO: Post transaction was successful - Post with ID ${postObj.id} was created.`)
+    
+                    // extract hashtags from message and save it do db and add relationship in post_hashtag table
+                    let messageStr = message.m
+                    let hashtags
+    
+                    try {
+                        hashtags = messageStr.match(/#[^\s#\.\;!*€%&()?^$@`¨]*/gmi)
+    
+                        if (hashtags) {
+                            // going through all hashtags and do separate lookups
+                            hashtags.forEach(hashtag => {
+                                // removing the # and making it lowercase, so we have proper input for query
+                                let hashtagName = hashtag.replace('#', '').toLowerCase()
+    
+                                const hashtagLookup = models.Hashtag.findOne({
+                                    where: {
+                                        name: hashtagName
+                                    },
+                                    order: [[ 'id', 'DESC' ]],
+                                    raw: true,
+                                })
+    
+                                // create hashtag if it does not exist otherwise get the hashtag ID
+                                hashtagLookup.then(async result => {
+                                    if (result === null) {
+                                        await sequelize.transaction(async (t1) => {
+                                            return models.Hashtag.create({
+                                                name: hashtagName
+                                            }).then(async hashtagObj => {
+                                                await sequelize.transaction(async (t2) => {
+                                                    return models.PostHashtag.create({
+                                                        post_id: postObj.id,
+                                                        hashtag_id: hashtagObj.id
+                                                    })
+                                                })
+                                            })
+                                        })
+                                    } else {
+                                        // hashtag exists, so we add a new row in post_hashtag with its ID
+                                        await sequelize.transaction(async (t3) => {
+                                            return models.PostHashtag.create({
+                                                post_id: postObj.id,
+                                                hashtag_id: result.id
+                                            })
+                                        })
+                                    }
+                                })
+    
+                            })
+                        }
+                    } catch(TypeError)  {
+                        log.error(getTimestamp() + ' ERROR: Could not parse hashtags')
+                    }
+    
+                })
+            })
+        }   
+
+        // calculating queries for debug reasons
+        let endTime = performance.now()
+        log.info(getTimestamp() + ` INFO: Queries to took ${endTime - startTime} seconds`)
+
+    } catch (err) {
+        log.info(getTimestamp() + ' ERROR: An error adding a Post transaction - Rolling back. ' + err)
+    }
 }
