@@ -88,8 +88,6 @@
     state: present
     force_kill: yes
     recreate: yes
-    volumes: 
-      - ./:/usr/src/app
     networks:
       - name: "host"
 
