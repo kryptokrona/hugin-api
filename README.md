@@ -42,8 +42,13 @@ To be able to get data more easily from Hugin Messenger this RESTful API called 
 - Mocha
 - Chai
 - hugin-crypto
+- ws
 
 And a lot of other packages/libraries which can seen in **package.json**.
+
+# Websockets
+
+We have implemented websockets that are listening on `wss://<domain>`.
 
 # API Endpoints
 

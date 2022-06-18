@@ -17,6 +17,8 @@ var hashtagRouter = require('./routes/hashtagRouter')
 
 var huginSyncer = require('./configs/huginSyncer')
 
+const {WebSocket, WebSocketServer} = require('ws');
+
 const { getTimestamp, sleep } = require('./utils/time')
 
 var app = express()
@@ -99,7 +101,7 @@ app.use(function (err, req, res, next) {
 })
 
 // Start listening.
-app.listen(3000, async () => {
+const server = app.listen(3000, async () => {
     console.log('Server started on http://localhost:3000')
     console.log('Press Ctrl-C to terminate...')
 
@@ -116,5 +118,22 @@ app.listen(3000, async () => {
         }
     }
 })
+
+const wss = new WebSocketServer({ port: 8080 })
+
+wss.on('connection', function connection(ws) {
+
+    // broadcasting to all listening clients
+    ws.on('message', function message(data, isBinary) {
+        wss.clients.forEach(function each(client) {
+            if (client !== ws && client.readyState === WebSocket.OPEN) {
+                client.send(data, { binary: isBinary });
+            }
+        });
+    });
+      
+      ws.send('Connected to Hugin Cache Websocket! :)');
+})
+console.log("The WebSocket server is running on port 8080");
 
 module.exports = app

@@ -11,6 +11,7 @@ const { extraDataToMessage } = require('hugin-crypto')
 const { performance } = require('perf_hooks')
 
 const { getTimestamp } = require('../utils/time')
+
 let db = require("./postgresql"),
     sequelize = db.sequelize,
     Sequelize = db.Sequelize
@@ -18,6 +19,9 @@ let db = require("./postgresql"),
 let models = require('../database/models')
 
 let known_pool_txs = [];
+
+const { WebSocket } = require('ws');
+let ws = new WebSocket(`ws://localhost:8080`);
 
 /**
  * Background sync to fetch data
@@ -86,6 +90,20 @@ module.exports.backgroundSyncMessages = async () => {
                 if ((message || message !== undefined) && (message.brd || message.brd !== undefined)) {
                     log.info(getTimestamp() + ' INFO: Got 1 message. Message: ' + JSON.stringify(message))
 
+                    let messageObj = {
+                        message: message.m || null,
+                        key: message.k || null,
+                        signature: message.s || null,
+                        board: message.brd || null,
+                        time: message.t || null,
+                        nickname: message.n || null,
+                        tx_hash: thisHash || null,
+                        reply: message.r ||null
+                    }
+
+                    // broadcast message object to websocket server
+                    ws.send(JSON.stringify(messageObj))
+
                     let startTime = performance.now()
 
                     try {
@@ -102,16 +120,7 @@ module.exports.backgroundSyncMessages = async () => {
                         postTxHashLookup.then(async result => {
                             if (result === null) {
                                 await sequelize.transaction(async (t) => {
-                                    return models.Post.create({
-                                        message: message.m || null,
-                                        key: message.k || null,
-                                        signature: message.s || null,
-                                        board: message.brd || null,
-                                        time: message.t || null,
-                                        nickname: message.n || null,
-                                        tx_hash: thisHash || null,
-                                        reply: message.r ||null,
-                                    }).then(postObj => {
+                                    return models.Post.create(messageObj).then(postObj => {
                                         log.info(getTimestamp() + ` INFO: Post transaction was successful - Post with ID ${postObj.id} was created.`)
 
                                         // extract hashtags from message and save it do db and add relationship in post_hashtag table

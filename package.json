@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js >> output.log 2>&1",
-    "dev": "nodemon server.js >> output.log 2>&1",
+    "dev": "nodemon server.js",
     "test": "cross-env NODE_ENV=test mocha tests --recursive --ignore 'tests/k6/**' --timeout 10000 --exit",
     "pretest": "cross-env NODE_ENV=test npm run db:reset",
     "db:migrate": "npx sequelize-cli db:migrate",
@@ -45,7 +45,8 @@
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.18.0",
     "sequelize-cli": "^6.4.1",
-    "supertest": "^6.2.3"
+    "supertest": "^6.2.3",
+    "ws": "^8.8.0"
   },
   "devDependencies": {
     "body-parser": "^1.20.0",
