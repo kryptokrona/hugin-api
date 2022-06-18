@@ -26,22 +26,88 @@ module.exports.messageCriteria = (messageObj) => {
 
     const keywordsInclude = process.env.SYS_CRITERIA_KEYWORDS_INCLUDE
     const keywordsExclude = process.env.SYS_CRITERIA_KEYWORDS_EXCLUDE
-    const keywordsCursewords = (process.env.SYS_CRITERIA_KEYWORDS_CURSEWORDS === 'true');    
+    const keywordsCurseWords = (process.env.SYS_CRITERIA_KEYWORDS_CURSEWORDS === 'true');
 
-    // check for curse words
-    if (!keywordsCursewords) {
-        containsCurseWord(messageObj.message)
+    let hasUsersInclude = false
+    let hasUsersExclude = false
+    let hasBoardsInclude = false
+    let hasBoardsExclude = false
+    let hasKeywordsInclude = false
+    let hasKeywordsExclude = false
+    let hasCurseWord = false
+    
+    // check for users to include
+    if (usersInclude.length != 0) {
+        console.log('Users to include is NOT 0')
+        hasUsersInclude = contains(usersInclude, messageObj.nickname)
     }
 
-    // check for users to include
+    // check for users to exclude
+    if (usersExclude.length != 0) {
+        console.log('Users to exclude is NOT 0')
+        hasUsersExclude = contains(usersExclude, messageObj.nickname)
+    }
+
+    // check for boards to include
+    if (boardsInclude.length != 0) {
+        console.log('Boards to include is NOT 0')
+        hasBoardsInclude = contains(boardsInclude, messageObj.board)
+    }
+
+    // check for boards to exclude
+    if (boardsExclude.length != 0) {
+        console.log('Boards to exclude is NOT 0')
+        hasBoardsExclude = contains(boardsExclude, messageObj.board)
+    }
+
+    // check for keywords to exclude
+    if (keywordsInclude.length != 0) {
+        console.log('Keywords to exclude is NOT 0')
+        hasKeywordsInclude = contains(keywordsInclude, messageObj.board)
+    }
+
+    // check for keywords to exclude
+    if (keywordsExclude.length != 0) {
+        console.log('Keywords to exclude is NOT 0')
+        hasKeywordsExclude = contains(keywordsExclude, messageObj.board)
+    }
+
+    // check for curse words
+    if (!keywordsCurseWords) {
+        hasCurseWord = containsCurseWord(messageObj.message)
+    }
+
+    // all checks if the message should go through or not
+    if (hasCurseWord) {
+        return false
+    } else {
+        if ( 
+            (hasUsersInclude    || hasUsersExclude)        &&       (hasUsersInclude    != hasUsersExclude)        &&
+            (hasBoardsInclude   || hasBoardsExclude)       &&       (hasBoardsInclude   != hasBoardsExclude)       &&
+            (hasKeywordsInclude || hasKeywordsExclude)     &&       (hasKeywordsInclude != hasKeywordsExclude)
+        ) {
+            return true
+        }
+    }
 
     return true
 }
 
 /**
+ * Checks if item contains in list.
+ *
+ * @params {array} list - Array of items.
+ * @param {string} item - String item.
+ * @returns {Boolean} contains item - Get boolean if the item contains in list.
+ */
+function contains(list, item) {
+    return list.some(i => item === i);
+}
+
+/**
  * Checks if the message contains curse words.
  *
- * @param {string} message - Message object.
+ * @param {string} message - Message string.
  * @returns {Boolean} contains curse word - Get boolean if the message contains curse words.
  */
 function containsCurseWord(message) {
@@ -55,9 +121,9 @@ function containsCurseWord(message) {
         
         if (found !== undefined) {
             log.info(getTimestamp() + ' INFO: Message contains curse word: ' + found)
-            return false
+            return true
         }
     })
     
-    return true
+    return false
 }
