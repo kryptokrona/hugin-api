@@ -11,6 +11,7 @@ const { extraDataToMessage } = require('hugin-crypto')
 const { performance } = require('perf_hooks')
 
 const { getTimestamp } = require('../utils/time')
+const { messageCriteria } = require('../utils/messageCriteria')
 
 let db = require("./postgresql"),
     sequelize = db.sequelize,
@@ -47,7 +48,6 @@ module.exports.backgroundSyncMessages = async () => {
         let transactions = json.addedTxs;
         let transaction;
 
-        // known_pooL_txs = known_pooL_txs.filter(n => !json.deletedTxsIds.includes(n)) // fixing https://github.com/kryptokrona/hugin-cache/issues/86
         if (transactions.length === 0) {
             log.info(getTimestamp() + ' INFO: Got empty transaction array.')
             return;
@@ -73,7 +73,6 @@ module.exports.backgroundSyncMessages = async () => {
                     privateViewKey:  '0000000000000000000000000000000000000000000000000000000000000000'
                 }
 
-
                 // if extra is less than 200 length - skip
                 let message
                 if (thisExtra !== undefined && thisExtra.length > 200) {
@@ -89,6 +88,15 @@ module.exports.backgroundSyncMessages = async () => {
 
                 if ((message || message !== undefined) && (message.brd || message.brd !== undefined)) {
                     log.info(getTimestamp() + ' INFO: Got 1 message. Message: ' + JSON.stringify(message))
+
+                    // skipping based on criteria - if criteria exists
+                    criteriaFulfilled = messageCriteria(message)
+                    
+                    // criteria guard
+                    if (!criteriaFulfilled) {
+                        log.info(getTimestamp() + ' INFO: Message does not meet criteria based on configuration: ' + JSON.stringify(message))
+                        continue
+                    }
 
                     let messageObj = {
                         message: message.m || null,
