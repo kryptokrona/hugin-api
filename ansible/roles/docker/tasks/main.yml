@@ -101,7 +101,7 @@
       SYS_HUGIN_NODE_SERVER: "{{ hugin_node_server }}"
     }
     networks:
-    - name: "host"
+      - name: "host"
 
 - include_tasks: docker-users.yml
   when: docker_users | length > 0
