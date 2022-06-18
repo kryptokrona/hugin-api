@@ -28,6 +28,14 @@
     index_file_url: 'https://{{ domain_name }}/api/v1/posts'
     index_file_path: 'https://raw.githubusercontent.com/TechyGuy17/Hugin-cache-homepage/master/index.html.j2'
 
+    sys_criteria_users_include: ''
+    sys_criteria_users_exclude: ''
+    sys_criteria_boards_include: ''
+    sys_criteria_boards_exclude: ''
+    sys_criteria_keywords_include: ''
+    sys_criteria_keywords_exclude: ''
+    sys_criteria_keywords_cursewords: 'false'
+  
   roles:
     #- base
     - postgres

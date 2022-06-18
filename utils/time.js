@@ -1,4 +1,9 @@
 /**
+ * Time module.
+ */
+
+
+/**
  * Gets timestamp
  *
  * @returns {String}

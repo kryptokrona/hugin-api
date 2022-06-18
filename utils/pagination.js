@@ -1,9 +1,15 @@
 /**
+ * Pagination module.
+ */
+
+
+/**
  * Get paging data
  *
  * @param {object} data - Data object.
  * @param {object} page - Page object.
  * @param {object} limit - Limit object.
+ * @returns {object} pagination data - Get the pagination data object.
  */
 module.exports.getPagingData = (data, page, limit) => {
     const { count: totalItems, rows: items } = data
@@ -18,6 +24,7 @@ module.exports.getPagingData = (data, page, limit) => {
  *
  * @param {object} page - Page object.
  * @param {object} size - Size object.
+ * @returns {object} pagination - Get the pagination object.
  */
 module.exports.getPagination = (page, size) => {
     const limit = size ? +size : 3
