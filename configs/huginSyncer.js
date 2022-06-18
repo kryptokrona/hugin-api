@@ -102,6 +102,7 @@ module.exports.backgroundSyncMessages = async () => {
 
                     // skipping based on criteria - if criteria exists
                     const criteriaFulfilled = messageCriteria(messageObj)
+                    console.log('CRITERIA FULFILLED: ' + criteriaFulfilled)
                     
                     // criteria guard
                     if (!criteriaFulfilled) {

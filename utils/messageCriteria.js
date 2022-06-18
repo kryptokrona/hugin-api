@@ -18,6 +18,7 @@ let log = require('loglevel')
  * @returns {Boolean} criteria - True or false based on the criteria of the config.
  */
 module.exports.messageCriteria = (messageObj) => {
+    // load data from environment variables
     const usersInclude = process.env.SYS_CRITERIA_USERS_INCLUDE
     const usersExclude = process.env.SYS_CRITERIA_USERS_EXCLUDE
 
@@ -28,6 +29,7 @@ module.exports.messageCriteria = (messageObj) => {
     const keywordsExclude = process.env.SYS_CRITERIA_KEYWORDS_EXCLUDE
     const keywordsCurseWords = (process.env.SYS_CRITERIA_KEYWORDS_CURSEWORDS === 'true');
 
+    // initial values
     let hasUsersInclude = false
     let hasUsersExclude = false
     let hasBoardsInclude = false
@@ -37,39 +39,33 @@ module.exports.messageCriteria = (messageObj) => {
     let hasCurseWord = false
     
     // check for users to include
-    if (usersInclude.length != 0) {
-        console.log('Users to include is NOT 0')
-        hasUsersInclude = contains(usersInclude, messageObj.nickname)
+    if (usersInclude.length > 0) {
+        hasUsersInclude = contains(usersInclude.split(' '), messageObj.nickname)
     }
 
     // check for users to exclude
-    if (usersExclude.length != 0) {
-        console.log('Users to exclude is NOT 0')
-        hasUsersExclude = contains(usersExclude, messageObj.nickname)
+    if (usersExclude.length > 0) {
+        hasUsersExclude = usersExclude.split(' ').some(user => messageObj.nickname === user)
     }
 
     // check for boards to include
-    if (boardsInclude.length != 0) {
-        console.log('Boards to include is NOT 0')
-        hasBoardsInclude = contains(boardsInclude, messageObj.board)
+    if (boardsInclude.length > 0) {
+        hasBoardsInclude = contains(boardsInclude.split(' '), messageObj.board)
     }
 
     // check for boards to exclude
-    if (boardsExclude.length != 0) {
-        console.log('Boards to exclude is NOT 0')
-        hasBoardsExclude = contains(boardsExclude, messageObj.board)
+    if (boardsExclude.length > 0) {
+        hasBoardsExclude = boardsExclude.split(' ').some(board => messageObj.board === board)
+    }
+
+    // check for keywords to include
+    if (keywordsInclude.length > 0) {
+        hasKeywordsInclude = contains(keywordsInclude.split(' '), messageObj.message)
     }
 
     // check for keywords to exclude
-    if (keywordsInclude.length != 0) {
-        console.log('Keywords to exclude is NOT 0')
-        hasKeywordsInclude = contains(keywordsInclude, messageObj.board)
-    }
-
-    // check for keywords to exclude
-    if (keywordsExclude.length != 0) {
-        console.log('Keywords to exclude is NOT 0')
-        hasKeywordsExclude = contains(keywordsExclude, messageObj.board)
+    if (keywordsExclude.length > 0) {
+        hasKeywordsExclude = contains(keywordsExclude.split(' '), messageObj.message)
     }
 
     // check for curse words
@@ -79,18 +75,19 @@ module.exports.messageCriteria = (messageObj) => {
 
     // all checks if the message should go through or not
     if (hasCurseWord) {
+        console.log('has curse word')
         return false
     } else {
         if ( 
-            (hasUsersInclude    || hasUsersExclude)        &&       (hasUsersInclude    != hasUsersExclude)        &&
-            (hasBoardsInclude   || hasBoardsExclude)       &&       (hasBoardsInclude   != hasBoardsExclude)       &&
-            (hasKeywordsInclude || hasKeywordsExclude)     &&       (hasKeywordsInclude != hasKeywordsExclude)
+            ( (hasUsersInclude    || hasUsersExclude)        &&       (hasUsersInclude    != hasUsersExclude) )        &&
+            ( (hasBoardsInclude   || hasBoardsExclude)       &&       (hasBoardsInclude   != hasBoardsExclude) )       &&
+            ( (hasKeywordsInclude || hasKeywordsExclude)     &&       (hasKeywordsInclude != hasKeywordsExclude) )
         ) {
             return true
+        } else {
+            return false
         }
     }
-
-    return true
 }
 
 /**
@@ -101,7 +98,7 @@ module.exports.messageCriteria = (messageObj) => {
  * @returns {Boolean} contains item - Get boolean if the item contains in list.
  */
 function contains(list, item) {
-    return list.some(i => item === i);
+    return list.some(i => item === i)
 }
 
 /**
