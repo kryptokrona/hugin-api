@@ -31,7 +31,7 @@
 
 To be able to get data more easily from Hugin Messenger this RESTful API called Hugin Cache was created. It provides useful endpoints for within the Kryptokrona project as well as other external 3rd party interests. 
 
-## Table of Contents
+# Table of Contents
 
 - [Development resources](#development-resources)
 - [Technologies](#technologies)
