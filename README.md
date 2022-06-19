@@ -137,7 +137,7 @@ except (ConnectionError, Timeout, TooManyRedirects):
 
 This Database Diagram demonstrates how we store the data:
 
-![Hugin Cache Database Diagram](./diagrams/database-diagram.jpg)
+![Hugin Cache Database Diagram](./diagrams/database-diagram.drawio.png)
 
 To edit the diagram open up the file inside the directory **diagrams** called **database-diagram.drawio**.
 
