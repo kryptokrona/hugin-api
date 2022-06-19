@@ -43,6 +43,7 @@ To be able to get data more easily from Hugin Messenger this RESTful API called 
 - Chai
 - hugin-crypto
 - ws
+- Swagger
 
 And a lot of other packages/libraries which can seen in **package.json**.
 

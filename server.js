@@ -10,15 +10,19 @@ var cookieParser = require('cookie-parser')
 var logger = require('morgan')
 var log = require('loglevel')
 var bodyParser = require('body-parser')
+var os = require("os")
+
 const rateLimit = require('express-rate-limit')
+const swaggerJsdoc = require('swagger-jsdoc')
+const swaggerUi = require('swagger-ui-express')
+const fs = require('fs')
 
 var postRouter = require('./routes/postRouter')
 var hashtagRouter = require('./routes/hashtagRouter')
 
 var huginSyncer = require('./configs/huginSyncer')
 
-const {WebSocket, WebSocketServer} = require('ws');
-
+const {WebSocket, WebSocketServer} = require('ws')
 const { getTimestamp, sleep } = require('./utils/time')
 
 var app = express()
@@ -30,6 +34,48 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.locals.sitetitle = 'Hugin Cache'
+
+// swagger
+const swaggerOptions = {
+    definition: {
+        openapi: '3.0.0',
+        info: {
+            title: `${app.locals.sitetitle} API`,
+            version: '1.0.0',
+            contact: {
+                name: process.env.SYS_SWAGGER_CONTACT_NAME,
+                email: process.env.SYS_SWAGGER_CONTACT_EMAIL,
+                url: process.env.SYS_SWAGGER_CONTACT_URL
+            },
+            license: {
+                name: 'GNU General Public License v3.0',
+                url: 'https://github.com/kryptokrona/hugin-cache/blob/main/LICENSE'
+            },
+            externalDocs: {
+                description: 'Find out more about the project on Kryptokrona Docs',
+                url: 'https//docs.kryptokrona.org'
+            }
+        },
+        servers: [
+            {
+                url: `https://cache.hugin.chat`,
+                description: 'The Official Hugin Cache API hosted by Kryptokrona project'
+            },
+            {
+                url: `https://cache.novastack.org`,
+                description: 'High Performance Hugin Cache API Powered by Novastack Hosting'
+            }
+        ]
+
+    },
+    apis: ['./routes/*.js'],
+}
+
+const swaggerCustomOptions = {
+    customCss: fs.readFileSync('./public/css/openapi.css').toString()
+};
+
+const openapiSpecification = swaggerJsdoc(swaggerOptions);
 
 // set cache control middleware
 let setCache = function (req, res, next) {
@@ -65,6 +111,7 @@ app.use(limiter)
 app.set('trust proxy', 1) 
 
 // api routes
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification, swaggerCustomOptions))
 app.use(`${process.env.API_BASE_PATH}/`, postRouter)
 app.use(`${process.env.API_BASE_PATH}/`, hashtagRouter)
 

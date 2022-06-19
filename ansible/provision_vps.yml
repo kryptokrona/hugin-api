@@ -25,8 +25,6 @@
 
     removal_interval: '1 years 2 months 3 days 2 hours 1 minutes 1 second'
     hugin_node_server: 'blocksum.org:11898'
-    index_file_url: 'https://{{ domain_name }}/api/v1/posts'
-    index_file_path: 'https://raw.githubusercontent.com/TechyGuy17/Hugin-cache-homepage/master/index.html.j2'
 
     sys_criteria_users_include: ''
     sys_criteria_users_exclude: ''
@@ -35,6 +33,10 @@
     sys_criteria_keywords_include: ''
     sys_criteria_keywords_exclude: ''
     sys_criteria_keywords_cursewords: 'false'
+
+    sys_swagger_contact_name: 'Marcus Cvjeticanin'
+    sys_swagger_contact_email: 'mjovanc@protonmail.com'
+    sys_swagger_contact_url: 'https://github.com/kryptokrona/hugin-cache/issues'
   
   roles:
     #- base
