@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="code-coverage" type="js.build_tools.npm" nameIsGenerated="true">
+    <package-json value="$PROJECT_DIR$/package.json" />
+    <command value="run" />
+    <scripts>
+      <script value="code-coverage" />
+    </scripts>
+    <node-interpreter value="$USER_HOME$/.nvm/versions/node/v18.4.0/bin/node" />
+    <envs>
+      <env name="SHELL" value="/bin/bash" />
+    </envs>
+    <method v="2" />
+  </configuration>
+</component>

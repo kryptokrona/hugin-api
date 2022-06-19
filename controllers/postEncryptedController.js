@@ -1,5 +1,5 @@
 /**
- * Hashtag Controller
+ * PostEncrypted Controller
  */
 
 'use strict'
@@ -11,23 +11,23 @@ let db = require("../configs/postgresql"),
 
 const Op = db.Sequelize.Op;
 
-const hashtagService = require('../services/hashtagService')
+const postEncryptedService = require('../services/postEncryptedService')
 const { getPagination, getPagingData} = require('../utils/pagination')
 const { getTimestamp } = require("../utils/time")
 
-const hashtagController = {}
+const postEncryptedController = {}
 
 /**
- * Get all hashtags
+ * Get all encrypted posts
  *
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
  */
-hashtagController.getAll = (req, res) => {
+postEncryptedController.getAll = async (req, res) => {
     const { page, size, order, search } = req.query;
     const { limit, offset } = getPagination(page, size)
 
-    hashtagService.getAll(limit, offset, order, search)
+    postEncryptedService.getAll(limit, offset, order, search)
         .then(data => {
             const response = getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
@@ -42,13 +42,13 @@ hashtagController.getAll = (req, res) => {
 }
 
 /**
- * Get hashtag by id
+ * Get a specific encrypted posts by tx_hash
  *
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
  */
-hashtagController.getHashTagById = (req, res) => {
-    hashtagService.getHashTagById(req.params.id)
+postEncryptedController.getEncryptedPostByTxHash = async (req, res) => {
+    postEncryptedService.getEncryptedPostByTxHash(req)
         .then(data => {
             log.info(getTimestamp() + ' INFO: Successful response.')
 
@@ -68,16 +68,16 @@ hashtagController.getHashTagById = (req, res) => {
 }
 
 /**
- * Get latest hashtags
+ * Get latest encrypted posts
  *
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
  */
-hashtagController.getLatest = async (req, res) => {
-    const { page, size, order } = req.query
+postEncryptedController.getLatest = async (req, res) => {
+    const { page, size, order } = req.query;
     const { limit, offset } = getPagination(page, size)
 
-    hashtagService.getLatest(limit, offset, order)
+    postEncryptedService.getLatest(limit, offset, order)
         .then(data => {
             const response = getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
@@ -91,38 +91,4 @@ hashtagController.getLatest = async (req, res) => {
         })
 }
 
-/**
- * Get trending hashtags
- *
- * @param {object} req - Express request object.
- * @param {object} res - Express response object.
- */
-hashtagController.getTrending = async (req, res) => {
-    const { page, size } = req.query;
-    const { limit, offset } = getPagination(page, size)
-
-    hashtagService.getTrending(page, size, limit, offset)
-        .then(data => {
-            let response = getPagingData(data, page, limit)
-
-            //TODO: this is a temporary fix (check the hashtagService and modify it to avoid this method)
-            // we want to do a SQL query instead of this
-            /* let jsonStr = JSON.stringify(response)
-            let newData = JSON.parse(jsonStr)
-
-            newData.items.forEach(item => {
-                item.posts = item.posts.length
-            }) */
-
-            log.info(getTimestamp() + ' INFO: Successful response.')
-            res.json(response)
-        })
-        .catch(err => {
-            log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data. ' + err)
-            res.status(404).send({
-                message: err.message || 'Some error occurred while retrieving data.'
-            })
-        })
-}
-
-module.exports = hashtagController
+module.exports = postEncryptedController

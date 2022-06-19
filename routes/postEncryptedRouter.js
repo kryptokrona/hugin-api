@@ -1,5 +1,5 @@
 /**
- * Post routes.
+ * PostEncrypted routes.
  */
 
 'use strict'
@@ -7,97 +7,97 @@
 const express = require('express')
 const router = express.Router()
 
-const controller = require('../controllers/postController')
+const controller = require('../controllers/postEncryptedController')
 
 // NOTE: the ordering here is important
 
 /**
  * @openapi
- * /api/v1/posts/latest:
+ * /api/v1/posts-encrypted/latest:
  *   get:
- *     description: Gets the latest posts.
+ *     description: Gets the latest encrypted posts.
  *     parameters:
  *       - in: query
  *         name: order
  *         schema:
  *           type: string
- *         description: Ordering of posts (asc/desc)
+ *         description: Ordering of encrypted posts (asc/desc)
  *       - in: query
  *         name: search
  *         schema:
  *           type: string
- *         description: Search keyword of posts
+ *         description: Search keyword of encrypted posts
  *       - in: query
  *         name: size
  *         schema:
  *           type: integer
- *         description: The amount of posts per page
+ *         description: The amount of encrypted posts per page
  *       - in: query
  *         name: page
  *         schema:
  *           type: integer
  *         description: Page number
  *     tags:
- *       - posts
+ *       - posts encrypted
  *     responses:
  *       200:
- *         description: Returns the latest posts.
+ *         description: Returns the latest encrypted posts.
  */
-router.get('/posts/latest', controller.getLatest)
+router.get('/posts-encrypted/latest', controller.getLatest)
 
 /**
  * @openapi
- * /api/v1/posts:
+ * /api/v1/posts-encrypted:
  *   get:
- *     description: Gets all posts.
+ *     description: Gets all encrypted posts.
  *     parameters:
  *       - in: query
  *         name: order
  *         schema:
  *           type: string
- *         description: Ordering of posts (asc/desc)
+ *         description: Ordering of encrypted posts (asc/desc)
  *       - in: query
  *         name: search
  *         schema:
  *           type: string
- *         description: Search keyword of posts
+ *         description: Search keyword of encrypted posts
  *       - in: query
  *         name: size
  *         schema:
  *           type: integer
- *         description: The amount of posts per page
+ *         description: The amount of encrypted posts per page
  *       - in: query
  *         name: page
  *         schema:
  *           type: integer
  *         description: Page number
  *     tags:
- *       - posts
+ *       - posts encrypted
  *     responses:
  *       200:
- *         description: Returns all posts.
+ *         description: Returns all encrypted posts.
  */
-router.get('/posts', controller.getAll)
+router.get('/posts-encrypted', controller.getAll)
 
 /**
  * @openapi
- * /api/v1/posts/{tx_hash}:
+ * /api/v1/posts-encrypted/{tx_hash}:
  *   get:
- *     description: Gets a specific post by given transaction hash value.
+ *     description: Gets a specific encrypted post by given transaction hash value.
  *     parameters:
  *       - in: path
  *         name: tx_hash
  *         schema:
  *           type: string
  *         required: true
- *         description: Transaction Hash Value (unique to the post)
+ *         description: Transaction Hash Value (unique to the encrypted post)
  *     tags:
- *       - posts
+ *       - posts encrypted
  *     responses:
  *       200:
- *         description: Returns the specific post.
+ *         description: Returns the specific encrypted post.
  */
-router.get('/posts/:tx_hash', controller.getPostByTxHash)
+router.get('/posts-encrypted/:tx_hash', controller.getEncryptedPostByTxHash)
 
 
 module.exports = router

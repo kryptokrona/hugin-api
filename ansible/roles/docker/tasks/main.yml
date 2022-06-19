@@ -105,7 +105,10 @@
       SYS_CRITERIA_BOARDS_EXCLUDE: "",
       SYS_CRITERIA_KEYWORDS_INCLUDE: "",
       SYS_CRITERIA_KEYWORDS_EXCLUDE: "",
-      SYS_CRITERIA_KEYWORDS_CURSEWORDS: "false"
+      SYS_CRITERIA_KEYWORDS_CURSEWORDS: "false",
+      SYS_SWAGGER_CONTACT_NAME: "{{ sys_swagger_contact_name }}",
+      SYS_SWAGGER_CONTACT_EMAIL: "{{ sys_swagger_contact_email }}",
+      SYS_SWAGGER_CONTACT_URL: "{{ sys_swagger_contact_url }}"
     }
     networks:
       - name: "host"

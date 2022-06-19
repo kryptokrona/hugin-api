@@ -118,6 +118,7 @@ temp/
 
 # idea
 .idea
+target/
 
 # c8
 coverage/

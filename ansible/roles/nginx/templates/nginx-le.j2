@@ -30,9 +30,8 @@ server {
     error_log /var/log/nginx/reverse-error.log;
 
     root /var/www/html/;
-    index index.html;
 
-    location /ws {
+    location / {
         proxy_pass http://{{ hugin_cache_name }}_ws;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
