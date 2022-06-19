@@ -9,6 +9,8 @@ require('dotenv').config()
 let log = require('loglevel')
 const { extraDataToMessage } = require('hugin-crypto')
 const { performance } = require('perf_hooks')
+const { WebSocket } = require('ws')
+let ws = new WebSocket(`ws://localhost:8080`)
 
 const { getTimestamp } = require('../utils/time')
 const { messageCriteria } = require('../utils/messageCriteria')
@@ -20,9 +22,6 @@ let db = require("./postgresql"),
 let models = require('../database/models')
 
 let known_pool_txs = [];
-
-const { WebSocket } = require('ws');
-let ws = new WebSocket(`ws://localhost:8080`);
 
 /**
  * Background sync to fetch data
@@ -56,10 +55,16 @@ module.exports.backgroundSyncMessages = async () => {
         for (transaction in transactions) {
             try {
                 console.log(transactions[transaction])
-                await saveEncryptedPost(transactions[transaction])
 
                 let thisExtra = transactions[transaction].transactionPrefixInfo.extra
                 let txHash = transactions[transaction].transactionPrefixInfotxHash
+
+                // checking if encrypted post with txHash already exists in db - if not create a new record
+                encryptedPostExists(txHash).then(result => {
+                    if (result === null) {
+                        saveEncryptedPost(transactions[transaction])
+                    }
+                })
 
                 if (known_pool_txs.indexOf(txHash) === -1) {
                     known_pool_txs.push(txHash)
@@ -109,13 +114,17 @@ module.exports.backgroundSyncMessages = async () => {
                         log.info(getTimestamp() + ' INFO: Message does not meet criteria based on configuration: ' + JSON.stringify(message))
                         continue
                     }
-
                     log.info(getTimestamp() + ' INFO: Criteria fulfilled.')
 
                     // broadcast message object to websocket server
                     ws.send(JSON.stringify(messageObj))
 
-                    savePost(messageObj, txHash)
+                    // checking if post with txHash already exists in db - if not create a new record
+                    postExists(txHash).then(result => {
+                        if (result === null) {
+                            savePost(messageObj, txHash)
+                        }
+                    })
                 } else {
                     log.info(getTimestamp() + ' INFO: No message.')
                 }
@@ -145,16 +154,10 @@ async function encryptedPostExists(txHash) {
             raw: true,
         })
 
-        postEncryptedTxHashLookup.then(async result => {
-            if (result === null) {
-                return false
-            }
-        })
+        return postEncryptedTxHashLookup
     } catch (err) {
         log.error(getTimestamp() + ' ERROR: Sync error. ' + err)
     }
-    
-    return true
 }
 
 /**
@@ -173,16 +176,10 @@ async function postExists(txHash) {
             raw: true,
         })
 
-        postTxHashLookup.then(async result => {
-            if (result === null) {
-                return false
-            }
-        })
+        return postTxHashLookup
     } catch (err) {
         log.error(getTimestamp() + ' ERROR: Sync error. ' + err)
     }
-    
-    return true
 }
 
 /**
@@ -192,21 +189,17 @@ async function postExists(txHash) {
  * @returns {Promise} Resolves to this if transaction to database succeeded.
  */
 async function saveEncryptedPost(transaction) {
-    const exists = await encryptedPostExists(transaction.transactionPrefixInfotxHash)
-
-    if (!exists) {
-        try {
-            await sequelize.transaction(async (t) => {
-                return models.PostEncrypted.create({
-                    tx_hash: transaction.transactionPrefixInfotxHash,
-                    tx_extra: transaction.transactionPrefixInfo.extra,
-                    tx_unlock_time: transaction.transactionPrefixInfo.unlock_time,
-                    tx_version: transaction.transactionPrefixInfo.version
-                })
+    try {
+        await sequelize.transaction(async (t) => {
+            return models.PostEncrypted.create({
+                tx_hash: transaction.transactionPrefixInfotxHash,
+                tx_extra: transaction.transactionPrefixInfo.extra,
+                tx_unlock_time: transaction.transactionPrefixInfo.unlock_time,
+                tx_version: transaction.transactionPrefixInfo.version
             })
-        } catch(err) {
-            log.error(getTimestamp() + ' ERROR: ' + err)
-        }
+        })
+    } catch(err) {
+        log.error(getTimestamp() + ' ERROR: ' + err)
     }
 }
 
@@ -221,70 +214,65 @@ async function savePost(messageObj, txHash) {
     let startTime = performance.now()
 
     try {
-       // checking if post with txHash already exists in db - if not create a new record
-        const exists = await postExists(txHash)
+        await sequelize.transaction(async (t) => {
+            return models.Post.create(messageObj).then(postObj => {
+                log.info(getTimestamp() + ` INFO: Post transaction was successful - Post with ID ${postObj.id} was created.`)
 
-        if (!exists) {
-            await sequelize.transaction(async (t) => {
-                return models.Post.create(messageObj).then(postObj => {
-                    log.info(getTimestamp() + ` INFO: Post transaction was successful - Post with ID ${postObj.id} was created.`)
-    
-                    // extract hashtags from message and save it do db and add relationship in post_hashtag table
-                    let messageStr = message.m
-                    let hashtags
-    
-                    try {
-                        hashtags = messageStr.match(/#[^\s#\.\;!*€%&()?^$@`¨]*/gmi)
-    
-                        if (hashtags) {
-                            // going through all hashtags and do separate lookups
-                            hashtags.forEach(hashtag => {
-                                // removing the # and making it lowercase, so we have proper input for query
-                                let hashtagName = hashtag.replace('#', '').toLowerCase()
-    
-                                const hashtagLookup = models.Hashtag.findOne({
-                                    where: {
-                                        name: hashtagName
-                                    },
-                                    order: [[ 'id', 'DESC' ]],
-                                    raw: true,
-                                })
-    
-                                // create hashtag if it does not exist otherwise get the hashtag ID
-                                hashtagLookup.then(async result => {
-                                    if (result === null) {
-                                        await sequelize.transaction(async (t1) => {
-                                            return models.Hashtag.create({
-                                                name: hashtagName
-                                            }).then(async hashtagObj => {
-                                                await sequelize.transaction(async (t2) => {
-                                                    return models.PostHashtag.create({
-                                                        post_id: postObj.id,
-                                                        hashtag_id: hashtagObj.id
-                                                    })
+                // extract hashtags from message and save it do db and add relationship in post_hashtag table
+                let messageStr = messageObj.message
+
+                try {
+                    let hashtags = messageStr.match(/#[^\s#\.\;!*€%&()?^$@`¨]*/gmi)
+                    
+
+                    if (hashtags) {
+                        // going through all hashtags and do separate lookups
+                        hashtags.forEach(hashtag => {
+                            // removing the # and making it lowercase, so we have proper input for query
+                            let hashtagName = hashtag.replace('#', '').toLowerCase()
+
+                            const hashtagLookup = models.Hashtag.findOne({
+                                where: {
+                                    name: hashtagName
+                                },
+                                order: [[ 'id', 'DESC' ]],
+                                raw: true,
+                            })
+
+                            // create hashtag if it does not exist otherwise get the hashtag ID
+                            hashtagLookup.then(async result => {
+                                if (result === null) {
+                                    await sequelize.transaction(async (t1) => {
+                                        return models.Hashtag.create({
+                                            name: hashtagName
+                                        }).then(async hashtagObj => {
+                                            await sequelize.transaction(async (t2) => {
+                                                return models.PostHashtag.create({
+                                                    post_id: postObj.id,
+                                                    hashtag_id: hashtagObj.id
                                                 })
                                             })
                                         })
-                                    } else {
-                                        // hashtag exists, so we add a new row in post_hashtag with its ID
-                                        await sequelize.transaction(async (t3) => {
-                                            return models.PostHashtag.create({
-                                                post_id: postObj.id,
-                                                hashtag_id: result.id
-                                            })
+                                    })
+                                } else {
+                                    // hashtag exists, so we add a new row in post_hashtag with its ID
+                                    await sequelize.transaction(async (t3) => {
+                                        return models.PostHashtag.create({
+                                            post_id: postObj.id,
+                                            hashtag_id: result.id
                                         })
-                                    }
-                                })
-    
+                                    })
+                                }
                             })
-                        }
-                    } catch(TypeError)  {
-                        log.error(getTimestamp() + ' ERROR: Could not parse hashtags')
+
+                        })
                     }
-    
-                })
+                } catch(TypeError)  {
+                    log.error(getTimestamp() + ' ERROR: Could not parse hashtags')
+                }
+
             })
-        }   
+        })
 
         // calculating queries for debug reasons
         let endTime = performance.now()
