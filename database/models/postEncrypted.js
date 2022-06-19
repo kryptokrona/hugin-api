@@ -15,9 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   PostEncrypted.init({
     tx_hash: {type: DataTypes.STRING, allowNull: true},
-    tx_extra: {type: DataTypes.TEXT, allowNull: true},
-    tx_unlock_time: {type: DataTypes.INTEGER, allowNull: true},
-    tx_version: {type: DataTypes.INTEGER, allowNull: true},
+    tx_box: {type: DataTypes.TEXT, allowNull: true},
+    tx_timestamp: {type: DataTypes.BIGINT, allowNull: true},
   }, {
     sequelize,
     modelName: 'PostEncrypted',

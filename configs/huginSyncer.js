@@ -54,17 +54,8 @@ module.exports.backgroundSyncMessages = async () => {
         
         for (transaction in transactions) {
             try {
-                console.log(transactions[transaction])
-
                 let thisExtra = transactions[transaction].transactionPrefixInfo.extra
                 let txHash = transactions[transaction].transactionPrefixInfotxHash
-
-                // checking if encrypted post with txHash already exists in db - if not create a new record
-                encryptedPostExists(txHash).then(result => {
-                    if (result === null) {
-                        saveEncryptedPost(transactions[transaction])
-                    }
-                })
 
                 if (known_pool_txs.indexOf(txHash) === -1) {
                     known_pool_txs.push(txHash)
@@ -84,15 +75,23 @@ module.exports.backgroundSyncMessages = async () => {
                 // if extra is less than 200 length - skip
                 let message
                 if (thisExtra !== undefined && thisExtra.length > 200) {
+                    const boxObj = JSON.parse(trimExtra(thisExtra))
+                    // checking if encrypted post with txHash already exists in db - if not create a new record
+                    encryptedPostExists(txHash).then(result => {
+                        if (result === null) {
+                            saveEncryptedPost(txHash, boxObj)
+                        }
+                    })
+
                     message = await extraDataToMessage(thisExtra, knownk, keypair)
                 }
 
-                if (!message || message === undefined) {
+                if (!message) {
                     log.info(getTimestamp() + ' INFO: Caught undefined null message, continue.')
                     continue
                 }
 
-                if ((message || message !== undefined) && (message.brd || message.brd !== undefined)) {
+                if ((message || true) && (message.brd || message.brd !== undefined)) {
                     log.info(getTimestamp() + ' INFO: Got 1 message. Message: ' + JSON.stringify(message))
                     
                     let messageObj = {
@@ -185,17 +184,17 @@ async function postExists(txHash) {
 /**
  * Save an encrypted post to database.
  *
- * @param {Object} transaction - Transaction object.
+ * @param {String} txHash - Transaction Hash Value.
+ * @param {Object} boxObj - Box Object.
  * @returns {Promise} Resolves to this if transaction to database succeeded.
  */
-async function saveEncryptedPost(transaction) {
+async function saveEncryptedPost(txHash, boxObj) {
     try {
         await sequelize.transaction(async (t) => {
             return models.PostEncrypted.create({
-                tx_hash: transaction.transactionPrefixInfotxHash,
-                tx_extra: transaction.transactionPrefixInfo.extra,
-                tx_unlock_time: transaction.transactionPrefixInfo.unlock_time,
-                tx_version: transaction.transactionPrefixInfo.version
+                tx_hash: txHash,
+                tx_box: boxObj.box,
+                tx_timestamp: boxObj.t.toString(),
             })
         })
     } catch(err) {
@@ -280,5 +279,41 @@ async function savePost(messageObj, txHash) {
 
     } catch (err) {
         log.info(getTimestamp() + ' ERROR: An error adding a Post transaction - Rolling back. ' + err)
+    }
+}
+
+/**
+ * Converts hex value to string.
+ *
+ * @param {String} hex - Hex value.
+ * @param {String} str - String value.
+ * @returns {String} Returns .
+ */
+function fromHex(hex, str) {
+    try{
+        str = decodeURIComponent(hex.replace(/(..)/g,'%$1'))
+    } catch (e) {
+        str = hex
+        log.error(getTimestamp() + ' ERROR: Invalid hex input. ' + err)
+    }
+    return str
+}
+
+/**
+ * Trim extra data to Box object.
+ *
+ * @param {String} extra - Extra data.
+ * @returns {String} Returns extra data to Box.
+ */
+function trimExtra(extra) {
+    // Extra data contains either a 66 or 78 prefix that isn't used for messages
+    try {
+        // Transaction from kryptokrona-service
+        let payload = fromHex(extra.substring(66))
+        let payload_json = JSON.parse(payload)
+        return fromHex(extra.substring(66))
+    } catch (e) {
+        // Transaction from kryptokrona-wallet-backend-js
+        return fromHex(Buffer.from(extra.substring(78)).toString())
     }
 }
