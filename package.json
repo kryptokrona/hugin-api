@@ -1,6 +1,6 @@
 {
   "name": "hugin-cache",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
@@ -40,6 +40,7 @@
     "hugin-crypto": "^0.0.2",
     "loglevel": "^1.8.0",
     "morgan": "^1.10.0",
+    "node-slate": "^3.0.2",
     "perf_hooks": "^0.0.1",
     "pg": "^8.7.3",
     "pg-hstore": "^2.3.4",
