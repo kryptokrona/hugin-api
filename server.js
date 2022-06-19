@@ -73,7 +73,9 @@ const swaggerOptions = {
 }
 
 const swaggerCustomOptions = {
-    customCss: fs.readFileSync('./public/css/openapi.css').toString()
+    customCss: fs.readFileSync('./public/css/openapi.css').toString(),
+    customSiteTitle: `${process.env.SYS_PROJECT_NAME} API Docs`,
+    customfavIcon: '/img/favicon.ico'
 };
 
 const openapiSpecification = swaggerJsdoc(swaggerOptions);

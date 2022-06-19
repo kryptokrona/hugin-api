@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/kryptokrona/hugin-cache/blob/main/public/img/hugin_512x512.png?raw=true" alt="Hugin Logo"/>
+  <img src="hugin-cache.png" alt="Hugin Logo"/>
 </p>
 
 <p>
@@ -29,9 +29,40 @@
 </a>
 </p>
 
-# About
-
 To be able to get data more easily from Hugin Messenger this RESTful API called Hugin Cache was created. It provides useful endpoints for within the Kryptokrona project as well as other external 3rd party interests. 
+
+## Table of Contents
+
+- [Development resources](#development-resources)
+- [Technologies](#technologies)
+- [Websockets](#websockets)
+- [API Endpoints](#api-endpoints)
+  - [Examples](#examples)
+    - [JavaScript](#javascript)
+    - [Python](#python)
+- [Database Diagram](#database-diagram)
+- [Usage](#usage)
+- [Test environment](#test-environment)
+- [Testing](#testing)
+  - [Unit Testing](#unit-testing)
+  - [Code Coverage](#code-coverage)
+- [Build, Test and Deployment](#build-test-and-deployment)
+  - [Javadoc](#javadoc)
+- [Contribute](#contribute)
+  - [Pull Request](#pull-request)
+- [Contribute](#contribute)
+- [Help and Support](#help-and-support)
+- [FAQ](#faq)
+- [Contributors](#contributors)
+- [License](#license)
+
+# Development Resources
+
+- Web: kryptokrona.org
+- Mail: mjovanc@protonmail.com
+- GitHub: https://github.com/kryptokrona
+- Hugin: projectdevelopment board on Hugin Messenger
+- It is HIGHLY recommended to join our board on Hugin Messenger if you want to contribute to stay up to date on what is happening on the project.
 
 # Technologies
 
@@ -190,7 +221,9 @@ psql hugin_cache < database/samples/database_dump.sql
 ```
 NOTE: For the above to function make sure you HAVE NOT ran the npm run db:migrate commands since this will cause issues!
 
-# Unit testing
+# Testing
+
+## Unit testing
 
 Unit tests are conducted using Mocha and Chai. All unit tests can be found under the **tests** directory in the root of
 this repository.
@@ -199,7 +232,7 @@ To run the tests:
 
 - `npm run test`
 
-# Code Coverage
+## Code Coverage
 
 We are using C8 as the tool to execute the code coverage. We have a global threshold of 75%, this will probably increase a little over time when we optimize our code. But for now we will use 75%. To run all test and get code coverage results run the command:
 
@@ -256,25 +289,14 @@ For questions and support please use the channel #support in Kryptokrona Discord
 
 # Contributors
 
+The following contributors have either helped to start this project, have contributed
+code, are actively maintaining it (including documentation), or in other ways
+being awesome contributors to this project. **We'd like to take a moment to recognize them.**
 
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/mjovanc"><img src="https://avatars.githubusercontent.com/u/33717111?v=4" width="100px;" alt=""/><br /><sub><b>Marcus Cvjeticanin</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/Swepool"><img src="https://avatars.githubusercontent.com/u/36674091?v=4" width="100px;" alt=""/><br /><sub><b>Lukas (Swepool)</b></sub></a><br /></td>
-     <td align="center"><a href="https://github.com/TechyGuy17"><img src="https://avatars.githubusercontent.com/u/65623992?v=4" width="100px;" alt=""/><br /><sub><b>TechyGuy</b></sub></a><br /></td>
-     <td align="center"><a href="https://github.com/Coffeboi"><img src="https://avatars.githubusercontent.com/u/84473858?v=4" width="100px;" alt=""/><br /><sub><b>Coffeboi</b></sub></a><br />
-    </td>
-  </tr>
-  </tr>
-    
-</table>
-
-<!-- markdownlint-enable -->
-<!-- prettier-ignore-end -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
+[<img src="https://github.com/mjovanc.png?size=72" alt="mjovanc" width="72">](https://github.com/mjovanc)
+[<img src="https://github.com/TechyGuy17.png?size=72" alt="mjovanc" width="72">](https://github.com/TechyGuy17)
+[<img src="https://github.com/Coffeboi.png?size=72" alt="mjovanc" width="72">](https://github.com/Coffeboi)
+[<img src="https://github.com/Swepool.png?size=72" alt="mjovanc" width="72">](https://github.com/Swepool)
 
 # License
 

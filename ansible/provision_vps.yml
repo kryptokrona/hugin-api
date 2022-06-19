@@ -37,6 +37,8 @@
     sys_swagger_contact_name: 'Marcus Cvjeticanin'
     sys_swagger_contact_email: 'mjovanc@protonmail.com'
     sys_swagger_contact_url: 'https://github.com/kryptokrona/hugin-cache/issues'
+
+    sys_project_name: 'Hugin Cache'
   
   roles:
     #- base
