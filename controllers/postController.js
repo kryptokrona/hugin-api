@@ -13,7 +13,7 @@ const Op = db.Sequelize.Op;
 
 const postService = require('../services/postService')
 const { getPagination, getPagingData} = require('../utils/pagination')
-const { getTimestamp } = require("../utils/time");
+const { getTimestamp } = require("../utils/time")
 
 const postController = {}
 

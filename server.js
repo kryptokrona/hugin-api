@@ -18,6 +18,7 @@ const swaggerUi = require('swagger-ui-express')
 const fs = require('fs')
 
 var postRouter = require('./routes/postRouter')
+var postEncryptedRouter = require('./routes/postEncryptedRouter')
 var hashtagRouter = require('./routes/hashtagRouter')
 
 var huginSyncer = require('./configs/huginSyncer')
@@ -113,6 +114,7 @@ app.set('trust proxy', 1)
 // api routes
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification, swaggerCustomOptions))
 app.use(`${process.env.API_BASE_PATH}/`, postRouter)
+app.use(`${process.env.API_BASE_PATH}/`, postEncryptedRouter)
 app.use(`${process.env.API_BASE_PATH}/`, hashtagRouter)
 
 app.use(bodyParser.json());
