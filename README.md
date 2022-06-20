@@ -50,6 +50,7 @@ To be able to get data more easily from Hugin Messenger this RESTful API called 
   - [Javadoc](#javadoc)
 - [Contribute](#contribute)
   - [Pull Request](#pull-request)
+  - [Donate](#donate)
 - [Contribute](#contribute)
 - [Help and Support](#help-and-support)
 - [FAQ](#faq)
@@ -273,6 +274,25 @@ Extra details?
 ```
 
 A pull request is approved if the GitHub Actions pipeline is marked green. Otherwise it will be closed directly. Always make sure to run the unit tests before creating a pull request.
+
+## Donate
+
+### Bitcoin (BTC)
+
+BTC: bc1ql97dlhhexma7agkk7gmg76t7ljycuqc9xgr4vl
+
+<img src="assets/img/btc-qr-code.png" alt="Bitcoin QR Code" width="200"/>
+
+### Monero (XMR)
+
+XMR: 49AWzFTrZZvDKNzCUHPSXm5ZUyBrFan7xXXrKmfS6ircfcTAeiXBH1Yg99V4jiiEdT8RYhXvEiAgbMjEzq8AJJCbAd5ckJG
+
+<img src="assets/img/monero-qr-code.png" alt="Monero QR Code" width="200"/>
+
+### Kryptokrona (XKR)
+XKR: SEKReXXU9aJPiwjX2XkpbK8ACMWbUNXcYPxUVSiUYpNdhj8Z2snEy8CjjorZUNyswQNfzAmVWuGksU72Sf3Kq79Zd3fJWHq4Nyx
+
+<img src="assets/img/kryptokrona-qr-code.png" alt="Kryptokrona QR Code" width="200"/>
 
 # Help and Support
 
