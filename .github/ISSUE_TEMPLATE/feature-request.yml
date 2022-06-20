@@ -9,19 +9,17 @@ body:
     attributes:
       value: |
         Thanks for taking the time to fill out this feature request!
-  - type: input
-    id: contact
-    attributes:
-      label: Contact Details
-      description: How can we get in touch with you if we need more info?
-      placeholder: ex. email@example.com
-    validations:
-      required: false
   - type: textarea
     id: description
     attributes:
       label: Description of feature request
       description: Please enter a thorough description on what the feature is about and try describe it as a user story.
+      render: shell
+  - type: textarea
+    id: reason
+    attributes:
+      label: Why is this needed
+      description: Please enter a reason why this is needed.
       render: shell
   - type: checkboxes
     id: terms
