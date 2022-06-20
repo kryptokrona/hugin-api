@@ -22,8 +22,8 @@ const post1 = {
     nickname: 'kryptoknugen',
     tx_hash: '57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e7',
     reply: '638ca916c88704e61318cf853ccf4b347aa649f841437939471fc9f6bc448cce',
-    createdAt: new Date('2022-05-05').toISOString(),
-    updatedAt: new Date('2022-05-05').toISOString(),
+    createdAt: new Date(0).toISOString(),
+    updatedAt: new Date(0).toISOString(),
 }
 
 const post2 = {
@@ -36,8 +36,8 @@ const post2 = {
     nickname: 'mjovanc',
     tx_hash: '57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e7',
     reply: '638ca916c88704e61318cf853ccf4b347aa649f841437939471fc9f6bc448cce',
-    createdAt: new Date('2022-05-05').toISOString(),
-    updatedAt: new Date('2022-05-05').toISOString(),
+    createdAt: new Date(0).toISOString(),
+    updatedAt: new Date(0).toISOString(),
 }
 
 const post3 = {
@@ -50,8 +50,8 @@ const post3 = {
     nickname: 'Swepool',
     tx_hash: '57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e7',
     reply: '638ca916c88704e61318cf853ccf4b347aa649f841437939471fc9f6bc448cce',
-    createdAt: new Date('2022-05-05').toISOString(),
-    updatedAt: new Date('2022-05-05').toISOString(),
+    createdAt: new Date(0).toISOString(),
+    updatedAt: new Date(0).toISOString(),
 }
 
 describe('POST API ENDPOINTS', () => {
