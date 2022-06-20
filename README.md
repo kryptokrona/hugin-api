@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="hugin-cache.png" alt="Hugin Logo"/>
+  <img src="assets/img/hugin-cache.png" alt="Hugin Logo"/>
 </p>
 
 <p>
@@ -53,6 +53,7 @@ To be able to get data more easily from Hugin Messenger this RESTful API called 
 - [Contribute](#contribute)
 - [Help and Support](#help-and-support)
 - [FAQ](#faq)
+- [Sponsors](#sponsors)
 - [Contributors](#contributors)
 - [License](#license)
 
@@ -82,7 +83,7 @@ And a lot of other packages/libraries which can seen in **package.json**.
 
 We have implemented Websockets that are listening on `wss://<domain>`. You can try it out using [Websocket King Client](https://websocketking.com/).
 
-![Websockets](websockets.png)
+![Websockets](assets/img/websockets.png)
 
 # API Endpoints
 
@@ -286,6 +287,15 @@ For questions and support please use the channel #support in Kryptokrona Discord
   - A: Read through the guide here https://medium.com/coinsbench/upgrade-your-hugin-cache-2b1e1f2bd5d8
 - Q: Where do I find the log output to see if something went wrong?
   - A: The log output can be seen in output.log in the root of the container where the source code exits.
+
+# Sponsors
+
+The following sponsors are either helping the project with free usage, great discounts of services or in other ways helping
+via advertisement.
+
+<p align="center">
+  <img src="./assets/img/novastack.png" alt="Novastack Hosting"/>
+</p>
 
 # Contributors
 
