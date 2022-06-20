@@ -51,7 +51,6 @@ To be able to get data more easily from Hugin Messenger this RESTful API called 
 - [Contribute](#contribute)
   - [Pull Request](#pull-request)
   - [Donate](#donate)
-- [Contribute](#contribute)
 - [Help and Support](#help-and-support)
 - [FAQ](#faq)
 - [Sponsors](#sponsors)
