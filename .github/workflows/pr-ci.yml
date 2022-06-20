@@ -1,6 +1,13 @@
 name: Hugin Cache Pull Request Pipeline
 
-on: [ pull_request ]
+on:
+  pull_request:
+    paths-ignore:
+      - '*.md'
+      - '.run/**'
+      - 'assets/**'
+      - '.github/ISSUE_TEMPLATE/**'
+      - 'docker-compose.yml'
 
 jobs:
   build:

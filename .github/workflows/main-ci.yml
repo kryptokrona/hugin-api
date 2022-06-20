@@ -9,6 +9,12 @@ on:
   push:
     branches:    
       - main
+    paths-ignore:
+      - '*.md'
+      - '.run/**'
+      - 'assets/**'
+      - '.github/ISSUE_TEMPLATE/**'
+      - 'docker-compose.yml'
 
 jobs:
   build:
