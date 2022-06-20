@@ -312,8 +312,8 @@ For questions and support please use the channel #support in Kryptokrona Discord
 The following sponsors are either helping the project with free usage, great discounts of services or in other ways helping
 via advertisement.
 
-<p align="center">
-  <img src="./assets/img/novastack.png" alt="Novastack Hosting"/>
+<p align="left">
+  <img src="./assets/img/novastack.png" alt="Novastack Hosting" width="300"/>
 </p>
 
 # Contributors
