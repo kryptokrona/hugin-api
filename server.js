@@ -33,6 +33,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
+app.use('/public', express.static(__dirname + '/public'));
+
 
 app.locals.sitetitle = 'Hugin Cache'
 
@@ -73,9 +75,9 @@ const swaggerOptions = {
 }
 
 const swaggerCustomOptions = {
-    customCss: fs.readFileSync('./public/css/openapi.css').toString(),
+    customCss: fs.readFileSync('./public/static/css/openapi.css').toString(),
     customSiteTitle: `${process.env.SYS_PROJECT_NAME} API Docs`,
-    customfavIcon: '/img/favicon.ico'
+    customfavIcon: process.env.NODE_ENV === 'development' ? '/api/docs/static/img/favicon.ico' : '/api/docs/static/img/favicon.ico',
 };
 
 const openapiSpecification = swaggerJsdoc(swaggerOptions);
