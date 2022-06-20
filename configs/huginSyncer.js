@@ -221,8 +221,8 @@ async function savePost(messageObj, txHash) {
                 let messageStr = messageObj.message
 
                 try {
+                    // break down message to a list of hashtags (if text starts with #)
                     let hashtags = messageStr.match(/#[^\s#\.\;!*€%&()?^$@`¨]*/gmi)
-                    
 
                     if (hashtags) {
                         // going through all hashtags and do separate lookups
@@ -269,7 +269,6 @@ async function savePost(messageObj, txHash) {
                 } catch(TypeError)  {
                     log.error(getTimestamp() + ' ERROR: Could not parse hashtags')
                 }
-
             })
         })
 

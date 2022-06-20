@@ -15,8 +15,8 @@ module.exports = {
           nickname: 'kryptoknugen',
           tx_hash: '57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e7',
           reply: '638ca916c88704e61318cf853ccf4b347aa649f841437939471fc9f6bc448cce',
-          created_at: new Date('2022-05-05'),
-          updated_at: new Date('2022-05-05'),
+          created_at: new Date(0).toISOString(),
+          updated_at: new Date(0).toISOString(),
         },
         {
           id: 2,
@@ -28,8 +28,8 @@ module.exports = {
           nickname: 'mjovanc',
           tx_hash: '57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e7',
           reply: '638ca916c88704e61318cf853ccf4b347aa649f841437939471fc9f6bc448cce',
-          created_at: new Date('2022-05-05'),
-          updated_at: new Date('2022-05-05'),
+          created_at: new Date(0).toISOString(),
+          updated_at: new Date(0).toISOString(),
         },
         {
           id: 3,
@@ -41,8 +41,8 @@ module.exports = {
           nickname: 'Swepool',
           tx_hash: '57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e7',
           reply: '638ca916c88704e61318cf853ccf4b347aa649f841437939471fc9f6bc448cce',
-          created_at: new Date('2022-05-05'),
-          updated_at: new Date('2022-05-05'),
+          created_at: new Date(0).toISOString(),
+          updated_at: new Date(0).toISOString(),
         },
       ],
       {}

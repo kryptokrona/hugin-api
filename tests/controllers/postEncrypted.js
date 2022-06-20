@@ -15,36 +15,33 @@ chai.use(chaiHttp)
 const postEncrypted1 = {
     id: 1,
     tx_hash: 'c077967136518addd60ec558275aa8066aa1e17280423e405cd570e405a0e00f',
-    tx_extra: '014840233e2677412a6d9594cffd2107d74376030f0eb1b06908614dfbffc4719d',
-    tx_unlock_time: 0,
-    tx_version: 1,
-    createdAt: new Date(0),
-    updatedAt: new Date(0),
+    tx_box: '014840233e2677412a6d9594cffd2107d74376030f0eb1b06908614dfbffc4719d',
+    tx_timestamp: '0',
+    createdAt: new Date(0).toISOString(),
+    updatedAt: new Date(0).toISOString(),
 }
 
 const postEncrypted2 = {
     id: 2,
     tx_hash: 'c077967136518addd60ec558275aa8066aa1e17280423e405cd570e405a0e00f',
-    tx_extra: '014840233e2677412a6d9594cffd2107d74376030f0eb1b06908614dfbffc4719d',
-    tx_unlock_time: 0,
-    tx_version: 1,
-    createdAt: new Date(0),
-    updatedAt: new Date(0),
+    tx_box: '014840233e2677412a6d9594cffd2107d74376030f0eb1b06908614dfbffc4719d',
+    tx_timestamp: '0',
+    createdAt: new Date(0).toISOString(),
+    updatedAt: new Date(0).toISOString(),
 }
 
 const postEncrypted3 = {
     id: 3,
     tx_hash: 'c077967136518addd60ec558275aa8066aa1e17280423e405cd570e405a0e00f',
-    tx_extra: '014840233e2677412a6d9594cffd2107d74376030f0eb1b06908614dfbffc4719d',
-    tx_unlock_time: 0,
-    tx_version: 1,
-    createdAt: new Date(0),
-    updatedAt: new Date(0),
+    tx_box: '014840233e2677412a6d9594cffd2107d74376030f0eb1b06908614dfbffc4719d',
+    tx_timestamp: '0',
+    createdAt: new Date(0).toISOString(),
+    updatedAt: new Date(0).toISOString(),
 }
 
 describe('POST ENCRYPTED API ENDPOINTS', () => {
 
-    /*// GET ALL LATEST ENCRYPTED POSTS
+    // GET ALL LATEST ENCRYPTED POSTS
     describe(`GET ${process.env.API_BASE_PATH}/posts-encrypted/latest`, () => {
         it('It should return all latest encrypted posts', async () => {
             return request(server)
@@ -122,6 +119,6 @@ describe('POST ENCRYPTED API ENDPOINTS', () => {
                     expect(response.body).to.be.an('object')
                 })
         })
-    })*/
+    })
 
 })
