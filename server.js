@@ -81,15 +81,15 @@ const swaggerCustomOptions = {
 const openapiSpecification = swaggerJsdoc(swaggerOptions);
 
 // set cache control middleware
-let setCache = function (req, res, next) {
+const setCache = (req, res, next) => {
     // period in seconds, currently 5 minutes
     // set this lower if we need to have more frequent update
     const period = 10
 
     // cache only for GET requests
-    if (req.method == 'GET') {
+    if (req.method === 'GET') {
         res.set('Cache-control', `public, max-age=${period}`)
-    } else if (req.hostname == 'kryptokrona.org') {
+    } else if (req.hostname === 'kryptokrona.org') {
         res.set('Cache-control', `no-store`)
     } else {
         // for the other requests set strict no caching parameters
