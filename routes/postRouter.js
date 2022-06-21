@@ -37,6 +37,18 @@ const controller = require('../controllers/postController')
  *         schema:
  *           type: integer
  *         description: Page number
+ *       - in: query
+ *         name: startDate
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: From a given date and time - format 2022-05-05T00:00:00.000Z
+ *       - in: query
+ *         name: endDate
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: To a given date and time - format 2022-06-20T00:00:00.000Z
  *     tags:
  *       - posts
  *     responses:
@@ -71,6 +83,18 @@ router.get('/posts/latest', controller.getLatest)
  *         schema:
  *           type: integer
  *         description: Page number
+ *       - in: query
+ *         name: startDate
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: From a given date and time - format 2022-05-05T00:00:00.000Z
+ *       - in: query
+ *         name: endDate
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: To a given date and time - format 2022-06-20T00:00:00.000Z
  *     tags:
  *       - posts
  *     responses:

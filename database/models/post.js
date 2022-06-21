@@ -27,8 +27,8 @@ module.exports = (sequelize, DataTypes) => {
     time:       {type: DataTypes.BIGINT,    allowNull: true},
     nickname:   {type: DataTypes.STRING,    allowNull: true},
     tx_hash:    {type: DataTypes.STRING,    allowNull: true},
-    createdAt:  {type: DataTypes.DATE,      allowNull: false, defaultValue: DataTypes.NOW, field: 'created_at'},
-    updatedAt:  {type: DataTypes.DATE,      allowNull: false, defaultValue: DataTypes.NOW, field: 'updated_at'},
+    createdAt:  {type: DataTypes.DATE,      allowNull: false, field: 'created_at'},
+    updatedAt:  {type: DataTypes.DATE,      allowNull: false, field: 'updated_at'},
     reply:      {type: DataTypes.STRING,    allowNull: true}
   }, {      
     sequelize,

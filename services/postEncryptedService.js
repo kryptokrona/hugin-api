@@ -13,7 +13,7 @@ const postEncryptedService = {}
 /**
  * Get all encrypted posts
  */
-postEncryptedService.getAll = async (limit, offset, order, searchKeyword) => {
+postEncryptedService.getAll = async (limit, offset, order, searchKeyword, startDate, endDate) => {
     let query = {
         limit: limit,
         order: [
@@ -22,12 +22,25 @@ postEncryptedService.getAll = async (limit, offset, order, searchKeyword) => {
         offset: offset,
     }
 
-    searchKeyword ? (query.where = {
-        [Op.or]: [
-            { 'message': { [Op.iLike]: '%' + searchKeyword + '%' } },
-            { 'board': { [Op.iLike]: '%' + searchKeyword + '%' } },
-        ]
-    }) : query
+    let opOrList = []
+
+    // checking if startDate or endDate is true - we must have both true
+    if (startDate && endDate) {
+        opOrList.push({ created_at: { [Op.between]: [startDate, endDate] } })
+    }
+
+    // checking if we have a searchKeyword
+    if (searchKeyword) {
+        opOrList.push({ 'message': { [Op.iLike]: '%' + searchKeyword + '%' } })
+        opOrList.push({ 'board': { [Op.iLike]: '%' + searchKeyword + '%' } })
+    }
+
+    // adding all statements together
+    if (opOrList.length !== 0) {
+        query.where = {
+            [Op.or]: opOrList
+        }
+    }
 
     return models.PostEncrypted.findAndCountAll(query)
 }
@@ -46,14 +59,36 @@ postEncryptedService.getEncryptedPostByTxHash = async (req) => {
 /**
  * Get latest encrypted posts
  */
-postEncryptedService.getLatest = async (limit, offset, order) => {
-    return models.PostEncrypted.findAndCountAll({
+postEncryptedService.getLatest = async (limit, offset, order, searchKeyword, startDate, endDate) => {
+    let query = {
         limit: limit,
         order: [
             ['id', order ? order.toUpperCase() : 'DESC'],
         ],
         offset: offset,
-    })
+    }
+
+    let opOrList = []
+
+    // checking if startDate or endDate is true - we must have both true
+    if (startDate && endDate) {
+        opOrList.push({ qcreated_at: { [Op.between]: [startDate, endDate] } })
+    }
+
+    // checking if we have a searchKeyword
+    if (searchKeyword) {
+        opOrList.push({ 'message': { [Op.iLike]: '%' + searchKeyword + '%' } })
+        opOrList.push({ 'board': { [Op.iLike]: '%' + searchKeyword + '%' } })
+    }
+
+    // adding all statements together
+    if (opOrList.length !== 0) {
+        query.where = {
+            [Op.or]: opOrList
+        }
+    }
+
+    return models.PostEncrypted.findAndCountAll(query)
 }
 
 module.exports = postEncryptedService

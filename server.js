@@ -77,10 +77,10 @@ const swaggerOptions = {
 const swaggerCustomOptions = {
     customCss: fs.readFileSync('./public/static/css/openapi.css').toString(),
     customSiteTitle: `${process.env.SYS_PROJECT_NAME} API Docs`,
-    customfavIcon: process.env.NODE_ENV === 'development' ? '/api/docs/static/img/favicon.ico' : '/api/docs/static/img/favicon.ico',
-};
+    customfavIcon: process.env.NODE_ENV === 'development' ? '/static/img/favicon.ico' : '/static/img/favicon.ico',
+}
 
-const openapiSpecification = swaggerJsdoc(swaggerOptions);
+const openapiSpecification = swaggerJsdoc(swaggerOptions)
 
 // set cache control middleware
 const setCache = (req, res, next) => {
