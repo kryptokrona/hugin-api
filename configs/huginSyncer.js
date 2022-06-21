@@ -76,12 +76,16 @@ module.exports.backgroundSyncMessages = async () => {
                 let message
                 if (thisExtra !== undefined && thisExtra.length > 200) {
                     const boxObj = JSON.parse(trimExtra(thisExtra))
-                    // checking if encrypted post with txHash already exists in db - if not create a new record
-                    encryptedPostExists(txHash).then(result => {
-                        if (result === null) {
-                            saveEncryptedPost(txHash, boxObj)
-                        }
-                    })
+
+                    // make sure that box exists before adding an encrypted post to db
+                    if (boxObj.box) {
+                        // checking if encrypted post with txHash already exists in db - if not create a new record
+                        encryptedPostExists(txHash).then(result => {
+                            if (result === null) {
+                                saveEncryptedPost(txHash, boxObj)
+                            }
+                        })
+                    }
 
                     message = await extraDataToMessage(thisExtra, knownk, keypair)
                 }
