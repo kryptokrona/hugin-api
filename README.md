@@ -47,7 +47,6 @@ To be able to get data more easily from Hugin Messenger this RESTful API called 
   - [Unit Testing](#unit-testing)
   - [Code Coverage](#code-coverage)
 - [Build, Test and Deployment](#build-test-and-deployment)
-  - [Javadoc](#javadoc)
 - [Contribute](#contribute)
   - [Pull Request](#pull-request)
   - [Donate](#donate)
