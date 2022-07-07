@@ -29,7 +29,11 @@
 </a>
 </p>
 
-To be able to get data more easily from Hugin Messenger this RESTful API called Hugin Cache was created. It provides useful endpoints for within the Kryptokrona project as well as other external 3rd party interests. 
+Hugin is a messaging service where messages are stored on the Kryptokrona Blockchain. Messages are secured with industry leading encryption so that only you and your chat partner have the possibility to read them. The purpose is not to gather any personal information about the users, unlike most apps and social media.
+
+Hugin also packs some powerful decentralized P2P encrypted features like video, voice, screen sharing and filesharing.
+
+To be able to get data more easily from Hugin this RESTful API called Hugin Cache was created. It provides useful endpoints for within the Kryptokrona project as well as other external 3rd party interests. 
 
 # Table of Contents
 
