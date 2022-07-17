@@ -21,7 +21,7 @@
     # Docker daemon options as a dict
     docker_daemon_options: { }
 
-        prometheus_targets:
+    prometheus_targets:
       node:
       - targets:
         - localhost:9100
