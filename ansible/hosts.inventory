@@ -3,3 +3,6 @@
 
 [vps]
 cache.hugin.chat letsencrypt_email=mjovanc@protonmail.com domain_name=cache.hugin.chat
+
+[server]
+localhost ansible_connection=local
