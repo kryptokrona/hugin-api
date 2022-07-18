@@ -29,7 +29,7 @@
         labels:
           env: prod
 
-    node_exporter_version: {{ exporter_version }}
+    node_exporter_version: "{{ exporter_version }}"
 
     # DO NOT CONFIGURE THE ABOVE YOURSELF
 
