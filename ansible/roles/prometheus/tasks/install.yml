@@ -113,6 +113,43 @@
   notify:
     - restart prometheus
 
+- name: Download and unpack node exporter binary to /usr/local/bin
+  unarchive:
+    src: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.linux-{{ go_arch }}.tar.gz"
+    dest: "/usr/local/bin/"
+    remote_src: yes
+    extra_opts: [--strip-components=1]
+    owner: "root"
+    group: "root" 
+
+- name: Create group 'node_exporter' to run the node exporter service
+  group:
+    name: "node_exporter"
+    state: present
+
+- name: Create user 'node_exporter' to run the node exporter service
+  user:
+    name: "node_exporter"
+    group: "node_exporter"
+    state: present
+
+- name: create systemd service unit
+  template:
+    src: node_exporter.service.j2
+    dest: /etc/systemd/system/node_exporter.service
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart node_exporter
+  
+- name: Make sure 'node_exporter' service is started and enabled
+  systemd:
+    name: node_exporter
+    state: started
+    enabled: yes
+    daemon_reload: yes
+
 - name: Install SELinux dependencies
   package:
     name: "{{ item }}"

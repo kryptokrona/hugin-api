@@ -19,7 +19,7 @@ On Ubuntu/Debian:
 
 ```sh
 sudo apt update
-sudo apt install software-properties-common
+sudo apt install software-properties-common python3-jmespath
 sudo add-apt-repository --yes --update ppa:ansible/ansible
 sudo apt install ansible
 sudo apt install sshpass
@@ -39,6 +39,22 @@ Now open up `hosts.inventory` and add the IP of the VPS we want to provision to:
 ```
 
 We can add multiple lines with IP/hostname addresses if we want to deploy it to many servers.
+
+After that we need to open `provision_vps.yml` and edit the following lines:
+
+```
+prometheus_targets:
+      node:
+      - targets:
+        - IP OF VPS:9100
+        labels:
+          env: prod
+
+node_exporter_version: 1.3.1
+```
+Change out IP of VPS to the IP to the ip of the server your cache will run on. Also update the node_exporter_version to the latest found here: https://github.com/prometheus/node_exporter/releases/
+
+
 ## Provisioning
 
 Before we start with the provisioning we need to generate one vault file:
