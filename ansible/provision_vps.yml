@@ -21,14 +21,15 @@
     # Docker daemon options as a dict
     docker_daemon_options: { }
 
+    # Prometheus configuration
     prometheus_targets:
       node:
       - targets:
-        - IP OF VPS:9100
+        - "{{ domain_name }}:9100"
         labels:
           env: prod
 
-    node_exporter_version: 1.3.1
+    node_exporter_version: {{ exporter_version }}
 
     # DO NOT CONFIGURE THE ABOVE YOURSELF
 
