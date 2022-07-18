@@ -1,4 +1,12 @@
 ---
+- name: Get dependencies for prometheus
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  loop:
+    - python3-jmespath
+    
 - name: Assert usage of systemd as an init system
   assert:
     that: ansible_service_mgr == 'systemd'
