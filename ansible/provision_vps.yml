@@ -21,6 +21,16 @@
     # Docker daemon options as a dict
     docker_daemon_options: { }
 
+    # Prometheus configuration
+    prometheus_targets:
+      node:
+      - targets:
+        - "{{ domain_name }}:9100"
+        labels:
+          env: prod
+
+    node_exporter_version: {{ exporter_version }}
+
     # DO NOT CONFIGURE THE ABOVE YOURSELF
 
     removal_interval: '1 years 2 months 3 days 2 hours 1 minutes 1 second'
@@ -39,9 +49,11 @@
     sys_swagger_contact_url: 'https://github.com/kryptokrona/hugin-cache/issues'
 
     sys_project_name: 'Hugin Cache'
+    
 
   roles:
     #- base
     - postgres
     - docker
     - nginx
+    - prometheus
