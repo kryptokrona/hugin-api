@@ -1,7 +1,4 @@
 ---
-- name: Get dependencies for prometheus
-  shell: pip3 install jmespath
-    
 - name: Assert usage of systemd as an init system
   assert:
     that: ansible_service_mgr == 'systemd'
