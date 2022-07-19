@@ -121,6 +121,17 @@ jobs:
     - name: Check out the codebase.
       uses: actions/checkout@v2
 
+    - name: Uses Python 3.11
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.11.0-alpha.1'
+
+    - name: Install Jmespath Dependency
+      run: |
+        pip3 install jmespath
+        pip3 freeze
+        sudo apt install -y python3-jmespath
+
     - name: Run playbook
       uses: dawidd6/action-ansible-playbook@v2
       with:
