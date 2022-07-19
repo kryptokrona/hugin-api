@@ -11,6 +11,9 @@ upstream {{ hugin_cache_name }}_monitoring {
 upstream {{ hugin_cache_name }}_stats {
     server 127.0.0.1:9100;
 }
+upstream {{ hugin_cache_name }}_graphs {
+    server 127.0.0.1:433;
+}
 
 
 server {
@@ -80,12 +83,23 @@ server {
   rewrite ^/monitoring/?$ /monitoring/graph redirect;
   rewrite ^/monitoring/(.*)$ /$1 break;
 }
+    location /prometheus {
+     proxy_pass http://{{ hugin_cache_name }}_monitoring/api/v1;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_set_header Host $host;
+    }
      location /metrics {
      proxy_pass http://{{ hugin_cache_name }}_stats/metrics;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "Upgrade";
         proxy_set_header Host $host;
+    }
+      location /dashboard {
+    alias /var/www/html/;
+    index graphs.html;
     }
 
 
