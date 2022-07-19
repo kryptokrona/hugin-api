@@ -75,7 +75,7 @@
 
 - name: Add graphs CSS
   template:
-    src: templates/style.css.j2
+    src: templates/style.css
     dest: /var/www/html/style.css
 
 - name: Add favicon 
