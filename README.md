@@ -98,6 +98,8 @@ All available API endpoints can be seen here on our Postman: https://www.postman
 
 To show the usage of the cache, we have developed a dashboard with graphs of CPU, RAM and disk usage. To access the dashboard go to your domain and end it with /dashboard, for example https://cache.hugin.chat/dashboard
 
+<img src="assets/img/hugin-cache-dashboard.png" alt="Hugin Cache Dashboard"/>
+
 ## Examples
 
 Below are some code examples in JavaScript and Python how to use the Hugin Cache to get data. To just try out the API and check out what kind of data that we expect to get back we recommend you check out our Postman.
