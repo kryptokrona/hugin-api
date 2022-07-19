@@ -14,8 +14,9 @@
         <!-- <h1 style="color: #ffffff;">Hugin Cache</h1> -->
         <img src="https://raw.githubusercontent.com/kryptokrona/hugin-cache/main/assets/img/hugin-cache.png"class="img-fluid" width="20%" height="20%" >
         <nav>
-            <a class="link-nav" href="/index.html">Home</a>
-            <a class="link-nav" href="/graphs.html">Graphs</a>
+             <a class="link-nav" href="/dashboard">Graphs</a>
+            <a class="link-nav" href="https://{{ domain_name }}/api/docs">Docs</a>
+            <a class="link-nav" href="https://github.com/kryptokrona/hugin-cache">Github</a>
         </nav>
     </div>
 </header>
@@ -91,7 +92,7 @@
                         endpoint: "https://{{ domain_name }}",
                         baseURL: "/prometheus",   // default value
                     },
-                    query: '100 * (1 - ((avg_over_time(node_memory_MemFree_bytes[10m]) + avg_over_time(node_memory_Cached_bytes[10m]) + avg_over_time(node_memory_Buffers_bytes[10m])) / avg_over_time(node_memory_MemTotal_bytes[10m])))',
+                    query: '10 * ( avg_over_time(node_memory_MemTotal_bytes[10m])) / (avg_over_time(node_memory_MemFree_bytes[10m]) + avg_over_time(node_memory_Cached_bytes[10m]) + avg_over_time(node_memory_Buffers_bytes[10m]))',
                     timeRange: {
                         type: 'relative',
 
