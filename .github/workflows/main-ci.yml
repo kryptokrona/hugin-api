@@ -127,7 +127,9 @@ jobs:
         python-version: '3.11.0-alpha.1'
 
     - name: Install Jmespath
-      run: pip3 install jmespath
+      run: |
+        pip3 install jmespath
+        sudo apt -y install python3-jmespath
 
     - name: Run playbook
       uses: dawidd6/action-ansible-playbook@v2
