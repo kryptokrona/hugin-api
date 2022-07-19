@@ -67,6 +67,10 @@ const swaggerOptions = {
             {
                 url: `https://cache.novastack.org`,
                 description: 'High Performance Hugin Cache API Powered by Novastack Hosting'
+            },
+	     {
+                url: `https://testcache.novastack.org`,
+                description: 'Used to test new/latest features before running on main Novastack Cache'
             }
         ]
 
