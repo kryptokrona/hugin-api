@@ -14,9 +14,9 @@
         <!-- <h1 style="color: #ffffff;">Hugin Cache</h1> -->
         <img src="https://raw.githubusercontent.com/kryptokrona/hugin-cache/main/assets/img/hugin-cache.png"class="img-fluid" width="20%" height="20%" >
         <nav>
-             <a class="link-nav" href="/dashboard">Graphs</a>
-            <a class="link-nav" href="https://{{ domain_name }}/api/docs">Docs</a>
-            <a class="link-nav" href="https://github.com/kryptokrona/hugin-cache">Github</a>
+            <a class="link-nav" href="/dashboard" target="_blank">Graphs</a>
+            <a class="link-nav" href="https://{{ domain_name }}/api/docs" target="_blank">Docs</a>
+            <a class="link-nav" href="https://github.com/kryptokrona/hugin-cache" target="_blank">Github</a>
         </nav>
     </div>
 </header>
@@ -38,6 +38,16 @@
             <div class="card-body">
                 <h5 style="color: #fff">Disk usage (%)</h5>
                 <canvas id="diskUsage"></canvas>
+	     </div>
+	 </div>
+	 <div class="custom-card">
+            <div class="card-body">
+                <h5 style="color: #fff">Total disk / Used disk (GB)</h5>
+                <canvas id="diskSpace"></canvas>
+
+            </div>
+        </div>
+
             </div>
         </div>
     </div>
@@ -69,8 +79,8 @@
                     timeRange: {
                         type: 'relative',
 
-                        // from 12 hours ago to now
-                        start: -12 * 60 * 60 * 1000,
+                        // from 5 minutes ago to now
+                        start: -5 * 60 * 1000,
                         end: 0,
                         msUpdateInterval: 5000,
                     },
@@ -120,6 +130,33 @@
                         baseURL: "/prometheus",   // default value
                     },
                     query: '100 - (100 * ((node_filesystem_avail_bytes{mountpoint="/",fstype!="rootfs"} )  / (node_filesystem_size_bytes{mountpoint="/",fstype!="rootfs"}) ))',
+                    timeRange: {
+                        type: 'relative',
+
+                        // from 12 hours ago to now
+                        start: -12 * 60 * 60 * 1000,
+                        end: 0,
+                        msUpdateInterval: 5000,
+                    },
+                },
+            },
+        },
+    });
+     const ctx4 = document.getElementById('diskSpace').getContext('2d');
+    var myChart = new Chart(ctx4, {
+        type: 'line',
+        plugins: [ChartDatasourcePrometheusPlugin],
+        options: {
+         animation: {
+            duration: 0,
+        },
+            plugins: {
+                'datasource-prometheus': {
+                    prometheus: {
+                        endpoint: "https://{{ domain_name }}",
+                        baseURL: "/prometheus",   // default value
+                    },
+                    query: ['(node_filesystem_size_bytes{mountpoint="/",fstype!="rootfs"} * 100) / 100000000000','((node_filesystem_size_bytes{mountpoint="/",fstype!="rootfs"} * 100) - (node_filesystem_avail_bytes{mountpoint="/",fstype!="rootfs"} * 100)) / 100000000000'],
                     timeRange: {
                         type: 'relative',
 
