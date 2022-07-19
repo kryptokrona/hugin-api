@@ -79,6 +79,8 @@ To be able to get data more easily from Hugin this RESTful API called Hugin Cach
 - hugin-crypto
 - ws
 - Swagger
+- prometheus
+- Chart.JS
 
 And a lot of other packages/libraries which can seen in **package.json**.
 
@@ -91,6 +93,10 @@ We have implemented Websockets that are listening on `wss://<domain>`. You can t
 # API Endpoints
 
 All available API endpoints can be seen here on our Postman: https://www.postman.com/kryptokrona?tab=collections
+
+# Dashboard
+
+To show the usage of the cache, we have developed a dashboard with graphs of CPU, RAM and disk usage. To access the dashboard go to your domain and end it with /dashboard, for example https://cache.hugin.chat/dashboard
 
 ## Examples
 
