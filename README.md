@@ -40,6 +40,7 @@ To be able to get data more easily from Hugin this RESTful API called Hugin Cach
 - [Development resources](#development-resources)
 - [Technologies](#technologies)
 - [Websockets](#websockets)
+- [Dashboard](#dashboard)
 - [API Endpoints](#api-endpoints)
   - [Examples](#examples)
     - [JavaScript](#javascript)
@@ -79,6 +80,8 @@ To be able to get data more easily from Hugin this RESTful API called Hugin Cach
 - hugin-crypto
 - ws
 - Swagger
+- prometheus
+- Chart.JS
 
 And a lot of other packages/libraries which can seen in **package.json**.
 
@@ -87,6 +90,12 @@ And a lot of other packages/libraries which can seen in **package.json**.
 We have implemented Websockets that are listening on `wss://<domain>`. You can try it out using [Websocket King Client](https://websocketking.com/).
 
 ![Websockets](assets/img/websockets.png)
+
+# Dashboard
+
+To show the usage of the cache, we have developed a dashboard with graphs of CPU, RAM and disk usage. To access the dashboard go to your domain and end it with /dashboard, for example https://cache.hugin.chat/dashboard
+
+<img src="assets/img/hugin-cache-dashboard.png" alt="Hugin Cache Dashboard"/>
 
 # API Endpoints
 
