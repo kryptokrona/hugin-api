@@ -40,6 +40,7 @@ To be able to get data more easily from Hugin this RESTful API called Hugin Cach
 - [Development resources](#development-resources)
 - [Technologies](#technologies)
 - [Websockets](#websockets)
+- [Dashboard](#dashboard)
 - [API Endpoints](#api-endpoints)
   - [Examples](#examples)
     - [JavaScript](#javascript)
@@ -90,15 +91,15 @@ We have implemented Websockets that are listening on `wss://<domain>`. You can t
 
 ![Websockets](assets/img/websockets.png)
 
-# API Endpoints
-
-All available API endpoints can be seen here on our Postman: https://www.postman.com/kryptokrona?tab=collections
-
 # Dashboard
 
 To show the usage of the cache, we have developed a dashboard with graphs of CPU, RAM and disk usage. To access the dashboard go to your domain and end it with /dashboard, for example https://cache.hugin.chat/dashboard
 
 <img src="assets/img/hugin-cache-dashboard.png" alt="Hugin Cache Dashboard"/>
+
+# API Endpoints
+
+All available API endpoints can be seen here on our Postman: https://www.postman.com/kryptokrona?tab=collections
 
 ## Examples
 
