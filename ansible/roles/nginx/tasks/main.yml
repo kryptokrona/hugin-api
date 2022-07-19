@@ -78,7 +78,7 @@
     src: templates/style.css.j2
     dest: /var/www/html/style.css
 
-- name: Add index.html
-  template: 
-    src: templates/index.html.j2
-    dest: /var/www/html/index.html
+- name: Add favicon 
+  template:
+    src: templates/favicon.ico
+    dest: /var/www/html/favicon.ico
