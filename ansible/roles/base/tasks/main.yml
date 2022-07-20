@@ -41,17 +41,20 @@
     - acl
 
 - name: Iptables port 22 
-  shell: iptables -A INPUT -p tcp -m tcp --dport 22 -j ACCEPT
+  shell: iptables -C INPUT -s 0/0 -p tcp --dport 22 -j ACCEPT || iptables -I INPUT -s 0/0 -p tcp --dport 22 -j ACCEPT
 
 - name: Iptables port 443 
-  shell: iptables -A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
+  shell: iptables -C INPUT -s 0/0 -p tcp --dport 443 -j ACCEPT || iptables -I INPUT -s 0/0 -p tcp --dport 443 -j ACCEPT
 
 - name: Iptables port 80
-  shell: iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
+  shell: iptables -C INPUT -s 0/0 -p tcp --dport 80 -j ACCEPT || iptables -I INPUT -s 0/0 -p tcp --dport 80 -j ACCEPT
 
 - name: Iptables port 9090
-  shell: iptables -A INPUT -p tcp -m tcp --dport 9090 -j ACCEPT
+  shell: iptables -C INPUT -s 0/0 -p tcp --dport 9090 -j ACCEPT || iptables -I INPUT -s 0/0 -p tcp --dport 9090 -j ACCEPT
 
 - name: Iptables port 9100
-  shell: iptables -A INPUT -p tcp -m tcp --dport 9100 -j ACCEPT
+  shell: iptables -C INPUT -s 0/0 -p tcp --dport 9100 -j ACCEPT || iptables -I INPUT -s 0/0 -p tcp --dport 9100 -j ACCEPT
+
+- name: Save iptables changes
+  shell: iptables-save > /etc/network/iptables.rules
 
