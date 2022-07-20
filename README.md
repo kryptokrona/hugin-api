@@ -37,10 +37,12 @@ To be able to get data more easily from Hugin this RESTful API called Hugin Cach
 
 # Table of Contents
 
-- [Development resources](#development-resources)
+- [Table of Contents](#table-of-contents)
+- [Development Resources](#development-resources)
 - [Technologies](#technologies)
 - [Websockets](#websockets)
 - [Dashboard](#dashboard)
+- [Onion](#onion)
 - [API Endpoints](#api-endpoints)
   - [Examples](#examples)
     - [JavaScript](#javascript)
@@ -48,13 +50,17 @@ To be able to get data more easily from Hugin this RESTful API called Hugin Cach
 - [Database Diagram](#database-diagram)
 - [Usage](#usage)
 - [Test environment](#test-environment)
+  - [Database dump](#database-dump)
 - [Testing](#testing)
-  - [Unit Testing](#unit-testing)
+  - [Unit testing](#unit-testing)
   - [Code Coverage](#code-coverage)
 - [Build, Test and Deployment](#build-test-and-deployment)
 - [Contribute](#contribute)
-  - [Pull Request](#pull-request)
+  - [Pull request](#pull-request)
   - [Donate](#donate)
+    - [Bitcoin (BTC)](#bitcoin-btc)
+    - [Monero (XMR)](#monero-xmr)
+    - [Kryptokrona (XKR)](#kryptokrona-xkr)
 - [Help and Support](#help-and-support)
 - [FAQ](#faq)
 - [Sponsors](#sponsors)
@@ -82,6 +88,7 @@ To be able to get data more easily from Hugin this RESTful API called Hugin Cach
 - Swagger
 - prometheus
 - Chart.JS
+- onion
 
 And a lot of other packages/libraries which can seen in **package.json**.
 
@@ -96,6 +103,10 @@ We have implemented Websockets that are listening on `wss://<domain>`. You can t
 To show the usage of the cache, we have developed a dashboard with graphs of CPU, RAM and disk usage. To access the dashboard go to your domain and end it with /dashboard, for example https://cache.hugin.chat/dashboard
 
 <img src="assets/img/hugin-cache-dashboard.png" alt="Hugin Cache Dashboard"/>
+
+# Onion
+
+we use tor to provide api data over onion. to access it use the onion address on your server (use `tail /var/lib/tor/hugin_cache/hostname` to read it) and open a onion browser. So to for example read the posts in api use https://<your_onion_address>/api/v1/posts
 
 # API Endpoints
 

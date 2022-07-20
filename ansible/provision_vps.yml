@@ -31,6 +31,11 @@
 
     node_exporter_version: "{{ exporter_version }}"
 
+    website_name: hugin_cache
+    web_server_ip: "{{ domain_name }}"
+    web_server_port: "443"
+    hidden_service_port: "443"
+
     # DO NOT CONFIGURE THE ABOVE YOURSELF
 
     removal_interval: '1 years 2 months 3 days 2 hours 1 minutes 1 second'
@@ -57,3 +62,4 @@
     - docker
     - nginx
     - prometheus
+    - onion
