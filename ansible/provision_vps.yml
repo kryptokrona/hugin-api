@@ -34,7 +34,7 @@
     website_name: hugin_cache
     web_server_ip: "{{ domain_name }}"
     web_server_port: "443"
-    hidden_service_port: "444"
+    hidden_service_port: "443"
 
     # DO NOT CONFIGURE THE ABOVE YOURSELF
 
