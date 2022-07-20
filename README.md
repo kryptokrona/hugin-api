@@ -106,7 +106,7 @@ To show the usage of the cache, we have developed a dashboard with graphs of CPU
 
 # Onion
 
-we use tor to provide api data over onion. to access it use the onion address on your server (use `nano /var/lib/tor/hugin_cache/hostname` to read it) and open a onion browser. Add port 444 in the end. So to for example read the posts in api access https://<your_onion_address>:444/api/v1/posts
+we use tor to provide api data over onion. to access it use the onion address on your server (use `nano /var/lib/tor/hugin_cache/hostname` to read it) and open a onion browser. Add port 444 in the end. So to for example read the posts in api use https://<your_onion_address>:444/api/v1/posts
 
 # API Endpoints
 
