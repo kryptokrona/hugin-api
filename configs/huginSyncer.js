@@ -83,6 +83,12 @@ module.exports.backgroundSyncMessages = async () => {
                         encryptedPostExists(txHash).then(result => {
                             if (result === null) {
                                 saveEncryptedPost(txHash, boxObj)
+                                let messageObj = {
+                                    tx_hash: txHash,
+                                    tx_box: boxObj.box,
+                                    tx_timestamp: boxObj.t.toString(),
+                                  }
+                                  ws.send(JSON.stringify(messageObj))
                             }
                         })
                     }
