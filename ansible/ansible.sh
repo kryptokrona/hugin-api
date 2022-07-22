@@ -9,4 +9,4 @@ if [ ! -f ~/.ssh/id_hugin_cache ]; then
     ssh-copy-id -i ~/.ssh/id_hugin_cache.pub root@cache.hugin.chat
 fi
 
-ansible-playbook provision_vps.yml -i hosts.inventory --ask-vault-pass
+ansible-playbook provision_vps.yml -i prod.inventory --ask-vault-pass
