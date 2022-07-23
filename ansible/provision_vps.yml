@@ -57,7 +57,7 @@
     
 
   roles:
-    #- base
+    - base
     - postgres
     - docker
     - nginx
