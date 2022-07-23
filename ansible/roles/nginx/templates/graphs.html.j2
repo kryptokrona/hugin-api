@@ -48,6 +48,13 @@
 
             </div>
         </div>
+        <div class="custom-card">
+            <div class="card-body">
+                <h5 style="color: #fff">Activity on Hugin Cache</h5>
+                <canvas id="Activity"></canvas>
+
+            </div>
+        </div>
 
             </div>
         </div>
@@ -170,6 +177,38 @@
             },
         },
     });
+    var jsonfile = {
+    fetch("https://{{ domain_name }}/api/v1/posts")
+    .then(function (response) {
+    // The JSON data will arrive here
+  })
+  .catch(function (err) {
+    // If an error occured, you will catch it here
+  });
+};
+   var labels = jsonfile.jsonarray.map(function(e) {
+   return e.ID;
+});
+var data = jsonfile.jsonarray.map(function(e) {
+   return e.createdAt;
+});;
+
+var ctx5 = canvas.getContext('2d');
+var config = {
+   type: 'line',
+   data: {
+      labels: labels,
+      datasets: [{
+         label: 'Graph Line',
+         data: data,
+         backgroundColor: 'rgba(0, 119, 204, 0.3)'
+      }]
+   }
+};
+
+var chart = new Chart(ctx5, config);
+    
 </script>
+
 </body>
 </html>
