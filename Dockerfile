@@ -16,7 +16,7 @@ RUN npm install
 
 ENV NODE_ENV=production
 
-# Bundle app source
+# bundle app source
 COPY . .
 
 RUN chmod +x start.sh
