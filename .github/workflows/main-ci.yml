@@ -113,7 +113,7 @@ jobs:
         docker push $GITHUB_REGISTRY/$GITHUB_OWNER/$GITHUB_DOCKER_IMAGE:${{ env.SHA }}
 
   staging-deploy:
-    name: staging-deploy
+    name: Staging Deploy
     runs-on: ubuntu-latest
     needs: build-docker
 
@@ -133,7 +133,7 @@ jobs:
           --verbose
 
   smoke-test-staging:
-    name: Staging Smoke Test
+    name: Smoke Test Staging 
     runs-on: ubuntu-latest
     needs: [ staging-deploy ]
 
@@ -151,7 +151,7 @@ jobs:
           python3 tests/requests/smoke-test.py
 
   deploy-prod:
-    name: Deploy-prod
+    name: Deploy Prod
     runs-on: ubuntu-latest
     needs: [ smoke-test-staging ]
 
