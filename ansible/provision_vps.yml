@@ -57,9 +57,9 @@
     
 
   roles:
-    #- base
-    - postgres
-    - docker
-    - nginx
-    - prometheus
-    - onion
+  #- base
+  - postgres
+  - docker
+  - nginx
+  - prometheus
+  - onion
