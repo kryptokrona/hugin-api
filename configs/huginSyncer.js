@@ -290,21 +290,3 @@ async function savePost(messageObj, txHash) {
         log.info(getTimestamp() + ' ERROR: An error adding a Post transaction - Rolling back. ' + err)
     }
 }
-
-/**
- * Converts hex value to string.
- *
- * @param {String} hex - Hex value.
- * @param {String} str - String value.
- * @returns {String} Returns .
- */
-fromHex(hex, str)
-
-/**
- * Trim extra data to Box object.
- *
- * @param {String} extra - Extra data.
- * @returns {String} Returns extra data to Box.
- */
-
-trimExtra(extra)
