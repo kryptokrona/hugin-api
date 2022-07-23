@@ -148,7 +148,7 @@ jobs:
       - name: Smoke Test  
         run: |
           pip3 install requests
-          python3 tests/requests/smoke-test.py
+          python3 tests/requests/smoke-test.py testcache.novastack.org
 
   deploy-prod:
     name: Deploy Prod
@@ -186,7 +186,7 @@ jobs:
       - name: Smoke Test  
         run: |
           pip3 install requests
-          python3 tests/requests/smoke-test.py
+          python3 tests/requests/smoke-test.py cache.hugin.chat
 
   # rollback:
   #   name: Rollback
