@@ -7,7 +7,7 @@
 require('dotenv').config()
 
 let log = require('loglevel')
-const { extraDataToMessage } = require('hugin-crypto')
+const { extraDataToMessage, fromHex, trimExtra } = require('hugin-crypto')
 const { performance } = require('perf_hooks')
 const { WebSocket } = require('ws')
 let ws = new WebSocket(`ws://localhost:8080`)
@@ -288,41 +288,5 @@ async function savePost(messageObj, txHash) {
 
     } catch (err) {
         log.info(getTimestamp() + ' ERROR: An error adding a Post transaction - Rolling back. ' + err)
-    }
-}
-
-/**
- * Converts hex value to string.
- *
- * @param {String} hex - Hex value.
- * @param {String} str - String value.
- * @returns {String} Returns .
- */
-function fromHex(hex, str) {
-    try{
-        str = decodeURIComponent(hex.replace(/(..)/g,'%$1'))
-    } catch (e) {
-        str = hex
-        log.error(getTimestamp() + ' ERROR: Invalid hex input. ' + err)
-    }
-    return str
-}
-
-/**
- * Trim extra data to Box object.
- *
- * @param {String} extra - Extra data.
- * @returns {String} Returns extra data to Box.
- */
-function trimExtra(extra) {
-    // Extra data contains either a 66 or 78 prefix that isn't used for messages
-    try {
-        // Transaction from kryptokrona-service
-        let payload = fromHex(extra.substring(66))
-        let payload_json = JSON.parse(payload)
-        return fromHex(extra.substring(66))
-    } catch (e) {
-        // Transaction from kryptokrona-wallet-backend-js
-        return fromHex(Buffer.from(extra.substring(78)).toString())
     }
 }
