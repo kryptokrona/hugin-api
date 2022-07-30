@@ -42,7 +42,7 @@ To be able to get data more easily from Hugin this RESTful API called Hugin Cach
 - [Technologies](#technologies)
 - [Websockets](#websockets)
 - [Dashboard](#dashboard)
-- [Onion](#onion)
+- [Onion Services](#onion-services)
 - [API Endpoints](#api-endpoints)
   - [Examples](#examples)
     - [JavaScript](#javascript)
@@ -88,7 +88,7 @@ To be able to get data more easily from Hugin this RESTful API called Hugin Cach
 - Swagger
 - prometheus
 - Chart.JS
-- onion
+- Onion Service (Tor)
 
 And a lot of other packages/libraries which can seen in **package.json**.
 
@@ -104,9 +104,9 @@ To show the usage of the cache, we have developed a dashboard with graphs of CPU
 
 <img src="assets/img/hugin-cache-dashboard.png" alt="Hugin Cache Dashboard"/>
 
-# Onion
+# Onion Services
 
-we use tor to provide api data over onion. to access it use the onion address on your server (use `tail /var/lib/tor/hugin_cache/hostname` to read it) and open a onion browser. So to for example read the posts in api use https://<your_onion_address>/api/v1/posts
+We use Tor to provide API data through a Onion Service. To be able to access it use the Onion address on your server (use `tail /var/lib/tor/hugin_cache/hostname` to read it) and open a Onion browser such as Tor. So for example read the posts from the API use https://<your_onion_address>/api/v1/posts
 
 # API Endpoints
 
