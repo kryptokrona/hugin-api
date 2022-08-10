@@ -71,6 +71,10 @@ const swaggerOptions = {
 	     {
                 url: `https://testcache.novastack.org`,
                 description: 'Used to test new/latest features before running on main Novastack Cache'
+            },
+	    {
+            	url: `https://cache.norpool.org`,
+            	description: 'Norpool Hugin Cache API'
             }
         ]
 
