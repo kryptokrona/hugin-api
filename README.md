@@ -52,7 +52,8 @@ To be able to get data more easily from Hugin this RESTful API called Hugin Cach
 - [Test environment](#test-environment)
   - [Database dump](#database-dump)
 - [Testing](#testing)
-  - [Unit testing](#unit-testing)
+  - [Manual Testing](#manual-testing)
+  - [Unit Testing](#unit-testing)
   - [Code Coverage](#code-coverage)
 - [Build, Test and Deployment](#build-test-and-deployment)
 - [Contribute](#contribute)
@@ -246,6 +247,12 @@ psql hugin_cache < database/samples/database_dump.sql
 NOTE: For the above to function make sure you HAVE NOT ran the npm run db:migrate commands since this will cause issues!
 
 # Testing
+
+## Manual Testing
+
+We have some options for manual testing of the endpoints which are using .http files. Recommended to use WebStorm in order
+to run these tests, but it should be possible to import these to another HTTP client tool as well. If we add more endpoints
+it should be added to corresponding file or adding a new if we have an entirely new endpoint path. 
 
 ## Unit testing
 

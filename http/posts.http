@@ -1,0 +1,3 @@
+### get all posts
+GET http://localhost:3000/api/v1/posts
+Accept: application/json

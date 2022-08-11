@@ -14,6 +14,7 @@ let ws = new WebSocket(`ws://localhost:8080`)
 
 const { getTimestamp } = require('../utils/time')
 const { messageCriteria } = require('../utils/messageCriteria')
+let avatar = require('../utils/avatar')
 
 let db = require("./postgresql"),
     sequelize = db.sequelize,
@@ -103,6 +104,8 @@ module.exports.backgroundSyncMessages = async () => {
 
                 if ((message || true) && (message.brd || message.brd !== undefined)) {
                     log.info(getTimestamp() + ' INFO: Got 1 message. Message: ' + JSON.stringify(message))
+
+                    let avatarStr = avatar.generate(message.k)
                     
                     let messageObj = {
                         message: message.m || null,
@@ -112,7 +115,8 @@ module.exports.backgroundSyncMessages = async () => {
                         time: message.t || null,
                         nickname: message.n || null,
                         tx_hash: txHash || null,
-                        reply: message.r ||null
+                        reply: message.r || null,
+                        avatar: avatarStr || null
                     }
 
                     // skipping based on criteria - if criteria exists
