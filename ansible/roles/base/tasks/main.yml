@@ -55,6 +55,10 @@
 - name: Iptables port 9100
   shell: iptables -C INPUT -s 0/0 -p tcp --dport 9100 -j ACCEPT || iptables -I INPUT -s 0/0 -p tcp --dport 9100 -j ACCEPT
 
-- name: Save iptables changes
+- name: Iptables Websocket port
+  shell : "iptables -C INPUT -s 0/0 -p tcp --dport {{ sys_ws_port }} -j ACCEPT || iptables -I INPUT -s 0/0 -p tcp --dport {{ sys_ws_port }} -j ACCEPT" 
+
+- name:  Save iptables changes
   shell: iptables-save > /etc/network/iptables.rules
+
 
