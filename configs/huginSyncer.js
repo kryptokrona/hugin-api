@@ -10,7 +10,7 @@ let log = require('loglevel')
 const { extraDataToMessage } = require('hugin-crypto')
 const { performance } = require('perf_hooks')
 const { WebSocket } = require('ws')
-let ws = new WebSocket(`ws://localhost:8080`)
+let ws = new WebSocket(`ws://localhost:${process.env.SYS_WS_PORT}`)
 
 const { getTimestamp } = require('../utils/time')
 const { messageCriteria } = require('../utils/messageCriteria')
