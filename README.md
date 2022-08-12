@@ -336,6 +336,8 @@ For questions and support please use the channel #support in Kryptokrona Discord
   - A: Read through the guide here https://medium.com/coinsbench/upgrade-your-hugin-cache-2b1e1f2bd5d8
 - Q: Where do I find the log output to see if something went wrong?
   - A: The log output can be seen in output.log in the root of the container where the source code exits.
+- Q: Do you have any video guides on how to setup or use Hugin Cache?
+  - A: Yes, we have a playlist of videos and upcoming videos here: [https://youtube.com/playlist?list=PLWjk-S4W7EjCCnDC1m3SfoLrPPhjZ59n_](https://youtube.com/playlist?list=PLWjk-S4W7EjCCnDC1m3SfoLrPPhjZ59n_)
 
 # Sponsors
 
