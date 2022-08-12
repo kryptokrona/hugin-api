@@ -109,7 +109,8 @@
       SYS_SWAGGER_CONTACT_NAME: "{{ sys_swagger_contact_name }}",
       SYS_SWAGGER_CONTACT_EMAIL: "{{ sys_swagger_contact_email }}",
       SYS_SWAGGER_CONTACT_URL: "{{ sys_swagger_contact_url }}",
-      SYS_PROJECT_NAME: "{{ sys_project_name }}"
+      SYS_PROJECT_NAME: "{{ sys_project_name }}",
+      SYS_WS_PORT: "{{ sys_ws_port }}"
     }
     networks:
       - name: "host"
