@@ -162,8 +162,8 @@ app.use(function (err, req, res, next) {
 })
 
 // Start listening.
-const server = app.listen(3000, async () => {
-    console.log('Server started on http://localhost:3000')
+const server = app.listen(process.env.SYS_API_PORT, async () => {
+    console.log(`Server started on http://localhost:${process.env.SYS_API_PORT}`)
     console.log('Press Ctrl-C to terminate...')
 
     if (process.env.NODE_ENV === 'development') {
@@ -174,13 +174,13 @@ const server = app.listen(3000, async () => {
     if (process.env.NODE_ENV !== 'test') {
         // starting hugin sync
         while (true) {
-            await sleep(2000) //TODO: perhaps have a setting for this?
+            await sleep(process.env.SYS_HUGIN_SYNCER_SLEEP)
             await huginSyncer.backgroundSyncMessages()
         }
     }
 })
 
-const wss = new WebSocketServer({ port: 8080 })
+const wss = new WebSocketServer({ port: process.env.SYS_WS_PORT })
 
 wss.on('connection', function connection(ws) {
 
@@ -195,6 +195,6 @@ wss.on('connection', function connection(ws) {
       
       ws.send('Connected to Hugin Cache Websocket! :)');
 })
-console.log("The WebSocket server is running on port 8080");
+console.log(`The WebSocket server is running on port ${process.env.SYS_WS_PORT}`);
 
 module.exports = app

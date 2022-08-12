@@ -110,7 +110,9 @@
       SYS_SWAGGER_CONTACT_EMAIL: "{{ sys_swagger_contact_email }}",
       SYS_SWAGGER_CONTACT_URL: "{{ sys_swagger_contact_url }}",
       SYS_PROJECT_NAME: "{{ sys_project_name }}",
-      SYS_WS_PORT: "{{ sys_ws_port }}"
+      SYS_API_PORT: "{{ sys_api_port }}",
+      SYS_WS_PORT: "{{ sys_ws_port }}",
+      SYS_HUGIN_SYNCER_SLEEP: "{{ sys_hugin_syncer_sleep }}"
     }
     networks:
       - name: "host"
