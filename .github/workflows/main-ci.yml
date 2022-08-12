@@ -23,7 +23,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x, 18.x]
+        node-version: [18.x] # add 19 and 20 when it's released
     
     steps:
     - uses: actions/checkout@v3
@@ -63,7 +63,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x, 18.x]
+        node-version: [18.x] # add 19 and 20 when it's released
 
     steps:
       - uses: actions/checkout@v3
