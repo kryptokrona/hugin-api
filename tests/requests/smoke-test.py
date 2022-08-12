@@ -34,6 +34,11 @@ try:
     dashboard = requests.get(base_url.format(domain, 'dashboard'))
     assert dashboard.status_code == requests.codes.ok
 
+    # trying hugin cache api docs
+    print('GET ' + base_url.format(domain, 'api/docs'))
+    api_docs = requests.get(base_url.format(domain, 'api/docs'))
+    assert api_docs.status_code == requests.codes.ok
+
     print('\nSMOKE TEST PASSED!')
 except (AssertionError, ConnectionError, Timeout, TooManyRedirects):
     print('Smoke Test Failed!')

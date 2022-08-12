@@ -2,3 +2,6 @@
 GET http://localhost:3000/api/v1/posts-encrypted
 Accept: application/json
 
+### get latest encrypted posts
+GET http://localhost:3000/api/v1/posts-encrypted/latest
+Accept: application/json
