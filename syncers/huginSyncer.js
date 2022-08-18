@@ -16,7 +16,7 @@ const { getTimestamp } = require('../utils/time')
 const { messageCriteria } = require('../utils/messageCriteria')
 let avatar = require('../utils/avatar')
 
-let db = require("./postgresql"),
+let db = require("../configs/postgresql"),
     sequelize = db.sequelize,
     Sequelize = db.Sequelize
 
@@ -32,13 +32,13 @@ let known_pool_txs = [];
 module.exports.backgroundSyncMessages = async () => {
     log.info(getTimestamp() + ' INFO: Background syncing.')
     let message_was_unknown
-    
+
     try {
         const resp = await fetch('http://' + process.env.SYS_HUGIN_NODE_SERVER + '/get_pool_changes_lite', {
             method: 'POST',
             body: JSON.stringify({ knownTxsIds: known_pool_txs })
         })
-           
+
         let json = await resp.json()
         json = JSON.stringify(json)
             .replaceAll('.txPrefix', '')
@@ -52,7 +52,7 @@ module.exports.backgroundSyncMessages = async () => {
             log.info(getTimestamp() + ' INFO: Got empty transaction array.')
             return;
         }
-        
+
         for (transaction in transactions) {
             try {
                 let thisExtra = transactions[transaction].transactionPrefixInfo.extra
@@ -100,7 +100,7 @@ module.exports.backgroundSyncMessages = async () => {
                     log.info(getTimestamp() + ' INFO: Got 1 message. Message: ' + JSON.stringify(message))
 
                     let avatarStr = avatar.generate(message.k)
-                    
+
                     let messageObj = {
                         message: message.m || null,
                         key: message.k || null,
@@ -115,7 +115,7 @@ module.exports.backgroundSyncMessages = async () => {
 
                     // skipping based on criteria - if criteria exists
                     const criteriaFulfilled = messageCriteria(messageObj)
-                    
+
                     // criteria guard
                     if (!criteriaFulfilled) {
                         log.info(getTimestamp() + ' INFO: Message does not meet criteria based on configuration: ' + JSON.stringify(message))
