@@ -49,6 +49,12 @@ const controller = require('../controllers/postController')
  *           type: string
  *           format: date
  *         description: To a given date and time - format 2022-06-20T00:00:00.000Z
+ *       - in: query
+ *         name: excludeAvatar
+ *         schema:
+ *           type: boolean
+ *           default: false
+ *         description: Exclude avatar column - true or false
  *     tags:
  *       - posts
  *     responses:
@@ -95,6 +101,12 @@ router.get('/posts/latest', controller.getLatest)
  *           type: string
  *           format: date
  *         description: To a given date and time - format 2022-06-20T00:00:00.000Z
+ *       - in: query
+ *         name: excludeAvatar
+ *         schema:
+ *           type: boolean
+ *           default: false
+ *         description: Exclude avatar column - true or false
  *     tags:
  *       - posts
  *     responses:

@@ -61,6 +61,10 @@ const swaggerOptions = {
         },
         servers: [
             {
+              url: `http://localhost:3000`,
+              description: 'Development Hugin Cache'
+            },
+            {
                 url: `https://cache.hugin.chat`,
                 description: 'The Official Hugin Cache API hosted by Kryptokrona project'
             },
@@ -121,7 +125,7 @@ const limiter = rateLimit({
 // Apply the rate limiting middleware to all requests
 app.use(limiter)
 // if problem with reverse proxy try tweak this setting (https://www.npmjs.com/package/express-rate-limit)
-app.set('trust proxy', 1) 
+app.set('trust proxy', 1)
 
 // api routes
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification, swaggerCustomOptions))
@@ -192,7 +196,7 @@ wss.on('connection', function connection(ws) {
             }
         });
     });
-      
+
       ws.send('Connected to Hugin Cache Websocket! :)');
 })
 console.log(`The WebSocket server is running on port ${process.env.SYS_WS_PORT}`);

@@ -13,7 +13,7 @@ const postService = {}
 /**
  * Get all posts
  */
-postService.getAll = async (limit, offset, order, searchKeyword, startDate, endDate) => {
+postService.getAll = async (limit, offset, order, searchKeyword, startDate, endDate, excludeAvatar) => {
     let query = {
         limit: limit,
         order: [
@@ -40,6 +40,13 @@ postService.getAll = async (limit, offset, order, searchKeyword, startDate, endD
         query.where = {
             [Op.or]: opOrList
         }
+    }
+
+    // don't return avatar column if true
+    if (excludeAvatar === 'true') {
+      query.attributes = {
+        exclude: ['avatar'],
+      }
     }
 
     return models.Post.findAndCountAll(query)
@@ -59,7 +66,7 @@ postService.getPostByTxHash = async (req) => {
 /**
  * Get latest posts
  */
-postService.getLatest = async (limit, offset, order, searchKeyword, startDate, endDate) => {
+postService.getLatest = async (limit, offset, order, searchKeyword, startDate, endDate, excludeAvatar) => {
     let query = {
         limit: limit,
         order: [
@@ -86,6 +93,13 @@ postService.getLatest = async (limit, offset, order, searchKeyword, startDate, e
         query.where = {
             [Op.or]: opOrList
         }
+    }
+
+    // don't return avatar column if true
+    if (excludeAvatar === 'true') {
+      query.attributes = {
+        exclude: ['avatar'],
+      }
     }
 
     return models.Post.findAndCountAll(query)

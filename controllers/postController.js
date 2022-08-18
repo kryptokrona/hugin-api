@@ -24,10 +24,13 @@ const postController = {}
  * @param {object} res - Express response object.
  */
 postController.getAll = async (req, res) => {
-    const { page, size, order, search, startDate, endDate } = req.query;
+    const { page, size, order, search, startDate, endDate, excludeAvatar } = req.query;
     const { limit, offset } = getPagination(page, size)
 
-    postService.getAll(limit, offset, order, search, startDate ? new Date(startDate) : startDate, endDate ? new Date(endDate) : endDate)
+    postService.getAll(
+      limit, offset, order, search, startDate ? new Date(startDate) : startDate,
+      endDate ? new Date(endDate) : endDate, excludeAvatar
+    )
         .then(data => {
             const response = getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
@@ -35,7 +38,7 @@ postController.getAll = async (req, res) => {
         })
         .catch(err => {
             log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data. ' + err)
-            res.status(404).send({
+            res.status(400).send({
                 message: err.message || 'Some error occurred while retrieving data.'
             })
         })
@@ -61,7 +64,7 @@ postController.getPostByTxHash = async (req, res) => {
         })
         .catch(err => {
             log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data. ' + err)
-            res.status(404).send({
+            res.status(400).send({
                 message: err.message || 'Some error occurred while retrieving data.'
             })
         })
@@ -74,10 +77,12 @@ postController.getPostByTxHash = async (req, res) => {
  * @param {object} res - Express response object.
  */
 postController.getLatest = async (req, res) => {
-    const { page, size, order, search, startDate, endDate } = req.query;
+    const { page, size, order, search, startDate, endDate, excludeAvatar } = req.query;
     const { limit, offset } = getPagination(page, size)
 
-    postService.getLatest(limit, offset, order, search, startDate ? new Date(startDate) : startDate, endDate ? new Date(endDate) : endDate)
+    postService.getLatest(limit, offset, order, search, startDate ? new Date(startDate) : startDate,
+      endDate ? new Date(endDate) : endDate, excludeAvatar
+    )
         .then(data => {
             const response = getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
@@ -85,7 +90,7 @@ postController.getLatest = async (req, res) => {
         })
         .catch(err => {
             log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data. ' + err)
-            res.status(404).send({
+            res.status(400).send({
                 message: err.message || 'Some error occurred while retrieving data.'
             })
         })

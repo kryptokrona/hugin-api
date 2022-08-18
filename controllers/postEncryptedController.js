@@ -35,7 +35,7 @@ postEncryptedController.getAll = async (req, res) => {
         })
         .catch(err => {
             log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data. ' + err)
-            res.status(404).send({
+            res.status(400).send({
                 message: err.message || 'Some error occurred while retrieving data.'
             })
         })
@@ -61,7 +61,7 @@ postEncryptedController.getEncryptedPostByTxHash = async (req, res) => {
         })
         .catch(err => {
             log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data. ' + err)
-            res.status(404).send({
+            res.status(400).send({
                 message: err.message || 'Some error occurred while retrieving data.'
             })
         })
@@ -85,7 +85,7 @@ postEncryptedController.getLatest = async (req, res) => {
         })
         .catch(err => {
             log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data. ' + err)
-            res.status(404).send({
+            res.status(400).send({
                 message: err.message || 'Some error occurred while retrieving data.'
             })
         })
