@@ -29,10 +29,10 @@ const swaggerOptions = {
       }
     },
     servers: [
-      /*{
+      {
         url: `http://localhost:3000`,
         description: 'Development Hugin Cache'
-      },*/
+      },
       {
         url: `https://cache.hugin.chat`,
         description: 'The Official Hugin Cache API hosted by Kryptokrona project'

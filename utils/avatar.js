@@ -9,7 +9,7 @@ let intToRGB = require('int-to-rgb')
 
 module.exports.generate = (hash, format='png') => {
     // get custom color scheme based on address
-    let rgb = intToRGB(hashCode(hash));
+    let rgb = intToRGB(hashCode(hash))
 
     // options for avatar
     let options = {
@@ -28,21 +28,19 @@ module.exports.generate = (hash, format='png') => {
 }
 
 const hashCode = (str) => {
-    let hash = Math.abs(str.hash_code()) * 0.007812499538
-    return Math.floor(hash)
+    let hash = Math.abs(generateHashCode(str))*0.007812499538;
+    return Math.floor(hash);
 }
 
-String.prototype.hash_code = () => {
+const generateHashCode = (str) => {
     let hash = 0;
-    if (this.length === 0) {
-        return hash
+    if (str.length == 0) {
+        return hash;
     }
-
-    for (let i = 0; i < this.length; i++) {
-        let char = this.charCodeAt(i)
-        hash = ((hash << 5) - hash) + char
-        hash = hash & hash // Convert to 32bit integer
+    for (let i = 0; i < str.length; i++) {
+        var char = str.charCodeAt(i);
+        hash = ((hash<<5)-hash)+char;
+        hash = hash & hash; // Convert to 32bit integer
     }
-
-    return hash
+    return hash;
 }
