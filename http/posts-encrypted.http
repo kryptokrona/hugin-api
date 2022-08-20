@@ -7,5 +7,5 @@ GET http://localhost:3000/api/v1/posts-encrypted/latest
 Accept: application/json
 
 ### get a specific encrypted post by given transaction hash value
-GET http://localhost:3000/api/v1/posts-encrypted/{tx_hash}
+GET http://localhost:3000/api/v1/posts-encrypted/{1}
 Accept: application/json

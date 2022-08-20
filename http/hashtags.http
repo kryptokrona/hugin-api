@@ -11,5 +11,5 @@ GET http://localhost:3000/api/v1/hashtags/trending
 Accept: application/json
 
 ### get a specific hashtag by id
-GET http://localhost:3000/api/v1/hashtags/{id}
+GET http://localhost:3000/api/v1/hashtags/{1}
 Accept: application/json
