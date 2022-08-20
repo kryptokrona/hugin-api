@@ -5,3 +5,7 @@ Accept: application/json
 ### get latest posts
 GET http://localhost:3000/api/v1/posts/latest
 Accept: application/json
+
+### get specific post by given transaction hash value
+GET http://localhost:3000/api/v1/posts/1
+Accept: application/json
