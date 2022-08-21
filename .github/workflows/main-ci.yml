@@ -15,6 +15,7 @@ on:
       - 'assets/**'
       - '.github/ISSUE_TEMPLATE/**'
       - 'docker-compose.yml'
+      - 'http/**'
 
 jobs:
   build:
