@@ -112,7 +112,9 @@
       SYS_PROJECT_NAME: "{{ sys_project_name }}",
       SYS_API_PORT: "{{ sys_api_port }}",
       SYS_WS_PORT: "{{ sys_ws_port }}",
-      SYS_HUGIN_SYNCER_SLEEP: "{{ sys_hugin_syncer_sleep }}"
+      SYS_HUGIN_SYNCER_SLEEP: "{{ sys_hugin_syncer_sleep }}",
+      SYS_RATELIMIT_WINDOW_MS: "{{ sys_ratelimit_window_ms }}",
+      SYS_RATELIMIT_MAX: "{{ sys_ratelimit_max }}"
     }
     networks:
       - name: "host"
