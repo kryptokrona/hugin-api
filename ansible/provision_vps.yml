@@ -48,9 +48,11 @@
     sys_criteria_keywords_include: ''
     sys_criteria_keywords_exclude: ''
     sys_criteria_keywords_cursewords: 'false'
+    sys_ratelimit_window_ms: '900000'
+    sys_ratelimit_max: '1000'
 
     sys_swagger_contact_name: 'Marcus Cvjeticanin'
-    sys_swagger_contact_email: 'mjovanc@protonmail.com'
+    sys_swagger_contact_email: 'mjovanc@icloud.com'
     sys_swagger_contact_url: 'https://github.com/kryptokrona/hugin-cache/issues'
 
     sys_api_port: '3000'
