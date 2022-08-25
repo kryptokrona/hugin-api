@@ -8,7 +8,7 @@ require('dotenv').config()
 
 const fs = require('fs')
 
-const swaggerOptions = {
+let swaggerOptions = {
   definition: {
     openapi: '3.0.0',
     info: {
@@ -30,10 +30,6 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: `http://localhost:3000`,
-        description: 'Development Hugin Cache'
-      },
-      {
         url: `https://cache.hugin.chat`,
         description: 'The Official Hugin Cache API hosted by Kryptokrona project'
       },
@@ -53,6 +49,16 @@ const swaggerOptions = {
 
   },
   apis: ['./routes/*.js'],
+}
+
+// adding localhost to api docs if we are working on development
+if (process.env.NODE_ENV === 'development') {
+  swaggerOptions.definition.servers.push(
+      {
+        url: `http://localhost:3000`,
+        description: 'Development Hugin Cache'
+      },
+    )
 }
 
 const swaggerCustomOptions = {

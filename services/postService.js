@@ -43,7 +43,7 @@ postService.getAll = async (limit, offset, order, searchKeyword, startDate, endD
     }
 
     // don't return avatar column if true
-    if (excludeAvatar === 'true') {
+    if (excludeAvatar) {
       query.attributes = {
         exclude: ['avatar'],
       }
@@ -96,7 +96,7 @@ postService.getLatest = async (limit, offset, order, searchKeyword, startDate, e
     }
 
     // don't return avatar column if true
-    if (excludeAvatar === 'true') {
+    if (excludeAvatar) {
       query.attributes = {
         exclude: ['avatar'],
       }

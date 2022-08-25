@@ -53,7 +53,7 @@ const controller = require('../controllers/postController')
  *         name: excludeAvatar
  *         schema:
  *           type: boolean
- *           default: false
+ *           default: true
  *         description: Exclude avatar column - true or false
  *     tags:
  *       - posts
@@ -105,7 +105,7 @@ router.get('/posts/latest', controller.getLatest)
  *         name: excludeAvatar
  *         schema:
  *           type: boolean
- *           default: false
+ *           default: true
  *         description: Exclude avatar column - true or false
  *     tags:
  *       - posts

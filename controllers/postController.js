@@ -24,8 +24,10 @@ const postController = {}
  * @param {object} res - Express response object.
  */
 postController.getAll = async (req, res) => {
-    const { page, size, order, search, startDate, endDate, excludeAvatar } = req.query;
+    let { page, size, order, search, startDate, endDate, excludeAvatar } = req.query;
     const { limit, offset } = getPagination(page, size)
+
+    excludeAvatar = (excludeAvatar === undefined || excludeAvatar === 'true')
 
     postService.getAll(
       limit, offset, order, search, startDate ? new Date(startDate) : startDate,
@@ -77,8 +79,10 @@ postController.getPostByTxHash = async (req, res) => {
  * @param {object} res - Express response object.
  */
 postController.getLatest = async (req, res) => {
-    const { page, size, order, search, startDate, endDate, excludeAvatar } = req.query;
+    let { page, size, order, search, startDate, endDate, excludeAvatar } = req.query;
     const { limit, offset } = getPagination(page, size)
+
+    excludeAvatar = (excludeAvatar === undefined || excludeAvatar === 'true')
 
     postService.getLatest(limit, offset, order, search, startDate ? new Date(startDate) : startDate,
       endDate ? new Date(endDate) : endDate, excludeAvatar
