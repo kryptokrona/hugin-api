@@ -14,10 +14,15 @@ const { WebSocket, WebSocketServer } = require('ws')
 const swaggerJsdoc = require('swagger-jsdoc')
 const swaggerUi = require('swagger-ui-express')
 
-// routers
-var postRouter = require('./routes/postRouter')
-var postEncryptedRouter = require('./routes/postEncryptedRouter')
-var hashtagRouter = require('./routes/hashtagRouter')
+// latest routers
+var postRouterLatest = require('./routes/latest/postRouter')
+var postEncryptedRouterLatest = require('./routes/latest/postEncryptedRouter')
+var hashtagRouterLatest = require('./routes/latest/hashtagRouter')
+
+// v1 routers
+var postRouter = require('./routes/v1/postRouter')
+var postEncryptedRouter = require('./routes/v1/postEncryptedRouter')
+var hashtagRouter = require('./routes/v1/hashtagRouter')
 
 // syncers
 var huginSyncer = require('./syncers/huginSyncer')
@@ -50,10 +55,17 @@ app.use(limiter)
 app.set('trust proxy', 1)
 
 // api routes
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification, swaggerCustomOptions))
-app.use(`${process.env.API_BASE_PATH}/`, postRouter)
-app.use(`${process.env.API_BASE_PATH}/`, postEncryptedRouter)
-app.use(`${process.env.API_BASE_PATH}/`, hashtagRouter)
+app.use(`${process.env.API_BASE_PATH}/docs`, swaggerUi.serve, swaggerUi.setup(openapiSpecification, swaggerCustomOptions))
+
+// latest routes
+app.use(`${process.env.API_BASE_PATH}/v2/`, postRouterLatest)
+app.use(`${process.env.API_BASE_PATH}/v2/`, postEncryptedRouterLatest)
+app.use(`${process.env.API_BASE_PATH}/v2/`, hashtagRouterLatest)
+
+// v1 routes
+app.use(`${process.env.API_BASE_PATH}/v1/`, postRouter)
+app.use(`${process.env.API_BASE_PATH}/v1/`, postEncryptedRouter)
+app.use(`${process.env.API_BASE_PATH}/v1/`, hashtagRouter)
 
 app.use(bodyParser.json());
 

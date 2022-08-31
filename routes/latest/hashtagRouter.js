@@ -1,5 +1,5 @@
 /**
- * Post routes.
+ * Hashtag routes.
  */
 
 'use strict'
@@ -7,15 +7,15 @@
 const express = require('express')
 const router = express.Router()
 
-const controller = require('../controllers/postController')
+const controller = require('../../controllers/latest/hashtagController')
 
 // NOTE: the ordering here is important
 
 /**
  * @openapi
- * /api/v1/posts/latest:
+ * /api/v2/hashtags/latest:
  *   get:
- *     description: Gets the latest posts.
+ *     description: Gets the latest hashtags.
  *     parameters:
  *       - in: query
  *         name: order
@@ -37,37 +37,19 @@ const controller = require('../controllers/postController')
  *         schema:
  *           type: integer
  *         description: Page number
- *       - in: query
- *         name: startDate
- *         schema:
- *           type: string
- *           format: date
- *         description: From a given date and time - format 2022-05-05T00:00:00.000Z
- *       - in: query
- *         name: endDate
- *         schema:
- *           type: string
- *           format: date
- *         description: To a given date and time - format 2022-06-20T00:00:00.000Z
- *       - in: query
- *         name: excludeAvatar
- *         schema:
- *           type: boolean
- *           default: true
- *         description: Exclude avatar column - true or false
  *     tags:
- *       - posts
+ *       - hashtags
  *     responses:
  *       200:
- *         description: Returns the latest posts.
+ *         description: Returns the latest hashtags.
  */
-router.get('/posts/latest', controller.getLatest)
+router.get('/hashtags/latest', controller.getLatest)
 
 /**
  * @openapi
- * /api/v1/posts:
+ * /api/v2/hashtags/trending:
  *   get:
- *     description: Gets all posts.
+ *     description: Gets the trending hashtags.
  *     parameters:
  *       - in: query
  *         name: order
@@ -89,51 +71,66 @@ router.get('/posts/latest', controller.getLatest)
  *         schema:
  *           type: integer
  *         description: Page number
- *       - in: query
- *         name: startDate
- *         schema:
- *           type: string
- *           format: date
- *         description: From a given date and time - format 2022-05-05T00:00:00.000Z
- *       - in: query
- *         name: endDate
- *         schema:
- *           type: string
- *           format: date
- *         description: To a given date and time - format 2022-06-20T00:00:00.000Z
- *       - in: query
- *         name: excludeAvatar
- *         schema:
- *           type: boolean
- *           default: true
- *         description: Exclude avatar column - true or false
  *     tags:
- *       - posts
+ *       - hashtags
  *     responses:
  *       200:
- *         description: Returns all posts.
+ *         description: Returns the trending hashtags.
  */
-router.get('/posts', controller.getAll)
+router.get('/hashtags/trending', controller.getTrending)
 
 /**
  * @openapi
- * /api/v1/posts/{tx_hash}:
+ * /api/v2/hashtags:
  *   get:
- *     description: Gets a specific post by given transaction hash value.
+ *     description: Gets all hashtags.
+ *     parameters:
+ *       - in: query
+ *         name: order
+ *         schema:
+ *           type: string
+ *         description: Ordering of hashtags (asc/desc)
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *         description: Search keyword of hashtags
+ *       - in: query
+ *         name: size
+ *         schema:
+ *           type: integer
+ *         description: The amount of hashtags per page
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         description: Page number
+ *     tags:
+ *       - hashtags
+ *     responses:
+ *       200:
+ *         description: Returns all hashtags.
+ */
+router.get('/hashtags', controller.getAll)
+
+/**
+ * @openapi
+ * /api/v2/hashtags/{id}:
+ *   get:
+ *     description: Gets a specific hashtag by id.
  *     parameters:
  *       - in: path
- *         name: tx_hash
+ *         name: id
  *         schema:
- *           type: string
+ *           type: integer
  *         required: true
- *         description: Transaction Hash Value (unique to the post)
+ *         description: Hashtag ID
  *     tags:
- *       - posts
+ *       - hashtags
  *     responses:
  *       200:
- *         description: Returns the specific post.
+ *         description: Returns the specific hashtag.
  */
-router.get('/posts/:tx_hash', controller.getPostByTxHash)
-
+router.get('/hashtags/:id', controller.getHashTagById)
 
 module.exports = router

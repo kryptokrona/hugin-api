@@ -13,7 +13,7 @@ let swaggerOptions = {
     openapi: '3.0.0',
     info: {
       title: `${process.env.SYS_PROJECT_NAME} API`,
-      version: '1.0.0',
+      version: '2.0.0',
       contact: {
         name: process.env.SYS_SWAGGER_CONTACT_NAME,
         email: process.env.SYS_SWAGGER_CONTACT_EMAIL,
@@ -48,7 +48,7 @@ let swaggerOptions = {
     ]
 
   },
-  apis: ['./routes/*.js'],
+  apis: ['./routes/v1/*.js', './routes/latest/*.js'],
 }
 
 // adding localhost to api docs if we are working on development

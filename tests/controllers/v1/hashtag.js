@@ -2,7 +2,7 @@
 
 require('dotenv').config()
 
-let server = require('../../server')
+let server = require('../../../server')
 let chai = require('chai')
 let chaiHttp = require('chai-http')
 let request = require('supertest')
@@ -49,10 +49,10 @@ const trendingHashtag3 = {
 describe('HASHTAG API ENDPOINTS', () => {
 
     // GET ALL LATEST HASHTAGS
-    describe(`GET ${process.env.API_BASE_PATH}/hashtags/latest`, () => {
+    describe(`GET ${process.env.API_BASE_PATH}/v1/hashtags/latest`, () => {
         it('It should return the latest hashtags', async () => {
             return request(server)
-                .get(`${process.env.API_BASE_PATH}/hashtags/latest`)
+                .get(`${process.env.API_BASE_PATH}/v1/hashtags/latest`)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200)
@@ -66,10 +66,10 @@ describe('HASHTAG API ENDPOINTS', () => {
     })
 
     // GET ALL HASHTAGS
-    describe(`GET ${process.env.API_BASE_PATH}/hashtags`, () => {
+    describe(`GET ${process.env.API_BASE_PATH}/v1/hashtags`, () => {
         it('It should return all hashtags', async () => {
             return request(server)
-                .get(`${process.env.API_BASE_PATH}/hashtags`)
+                .get(`${process.env.API_BASE_PATH}/v1/hashtags`)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200)
@@ -81,10 +81,10 @@ describe('HASHTAG API ENDPOINTS', () => {
 
     // TODO: not working atm
     // GET ALL TRENDING HASHTAGS
-    describe(`GET ${process.env.API_BASE_PATH}/hashtags/trending`, () => {
+    describe(`GET ${process.env.API_BASE_PATH}/v1/hashtags/trending`, () => {
         it('It should return all trending hashtags', async () => {
             return request(server)
-                .get(`${process.env.API_BASE_PATH}/hashtags/trending`)
+                .get(`${process.env.API_BASE_PATH}/v1/hashtags/trending`)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200)
@@ -101,10 +101,10 @@ describe('HASHTAG API ENDPOINTS', () => {
     })
 
     // GET HASHTAG BY ID
-    describe(`GET ${process.env.API_BASE_PATH}/hashtags/1`, () => {
+    describe(`GET ${process.env.API_BASE_PATH}/v1/hashtags/1`, () => {
         it('It should return a hashtag with ID of 1', async () => {
             return request(server)
-                .get(`${process.env.API_BASE_PATH}/hashtags/1`)
+                .get(`${process.env.API_BASE_PATH}/v1/hashtags/1`)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200)
@@ -116,10 +116,10 @@ describe('HASHTAG API ENDPOINTS', () => {
     })
 
     // GET HASHTAG BY ID THAT DOESN'T EXIST
-    describe(`GET ${process.env.API_BASE_PATH}/hashtags/1000`, () => {
+    describe(`GET ${process.env.API_BASE_PATH}/v1/hashtags/1000`, () => {
         it('It should not return a hashtag', async () => {
             return request(server)
-                .get(`${process.env.API_BASE_PATH}/hashtags/1000`)
+                .get(`${process.env.API_BASE_PATH}/v1/hashtags/1000`)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(404)
@@ -130,10 +130,10 @@ describe('HASHTAG API ENDPOINTS', () => {
     })
 
     // GET HASHTAG BY SEARCH QUERY PARAMETERS
-    describe(`GET ${process.env.API_BASE_PATH}/hashtags?search=krona`, () => {
+    describe(`GET ${process.env.API_BASE_PATH}/v1/hashtags?search=krona`, () => {
         it('It should return a hashtag with name kryptokrona', async () => {
             return request(server)
-                .get(`${process.env.API_BASE_PATH}/hashtags?search=krona`)
+                .get(`${process.env.API_BASE_PATH}/v1/hashtags?search=krona`)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200)

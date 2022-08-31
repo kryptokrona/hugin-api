@@ -5,15 +5,15 @@
 'use strict'
 
 let log = require('loglevel')
-let db = require("../configs/postgresql"),
+let db = require("../../configs/postgresql"),
     sequelize = db.sequelize,
     Sequelize = db.Sequelize
 
 const Op = db.Sequelize.Op;
 
-const postEncryptedService = require('../services/postEncryptedService')
-const { getPagination, getPagingData} = require('../utils/pagination')
-const { getTimestamp } = require("../utils/time")
+const postEncryptedService = require('../../services/latest/postEncryptedService')
+const { getPagination, getPagingData} = require('../../utils/pagination')
+const { getTimestamp } = require("../../utils/time")
 
 const postEncryptedController = {}
 

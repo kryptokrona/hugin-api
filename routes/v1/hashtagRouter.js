@@ -7,7 +7,7 @@
 const express = require('express')
 const router = express.Router()
 
-const controller = require('../controllers/hashtagController')
+const controller = require('../../controllers/v1/hashtagController')
 
 // NOTE: the ordering here is important
 

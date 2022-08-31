@@ -5,8 +5,8 @@
 'use strict'
 
 const { Op, QueryTypes } = require("sequelize")
-const db = require('../configs/postgresql')
-const models = require("../database/models")
+const db = require('../../configs/postgresql')
+const models = require("../../database/models")
 
 const hashtagService = {}
 

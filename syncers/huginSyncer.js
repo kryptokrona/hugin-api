@@ -110,7 +110,7 @@ module.exports.backgroundSyncMessages = async () => {
                         nickname: message.n || null,
                         tx_hash: txHash || null,
                         reply: message.r || null,
-                        avatar: avatarStr || null
+                        avatar: avatarStr || null,
                     }
 
                     // skipping based on criteria - if criteria exists
