@@ -17,8 +17,8 @@ const postEncrypted1 = {
     tx_hash: 'c077967136518addd60ec558275aa8066aa1e17280423e405cd570e405a0e00f',
     tx_box: '014840233e2677412a6d9594cffd2107d74376030f0eb1b06908614dfbffc4719d',
     tx_timestamp: '0',
-    createdAt: new Date(0).toISOString(),
-    updatedAt: new Date(0).toISOString(),
+    createdAt: 0,
+    updatedAt: 0,
 }
 
 const postEncrypted2 = {
@@ -26,8 +26,8 @@ const postEncrypted2 = {
     tx_hash: 'c087967136518addd60ec558275aa8066aa1e17280423e405cd570e405a0e00f',
     tx_box: '014840233e2677412a6d9594cffd2107d74376030f0eb1b06908614dfbffc4719d',
     tx_timestamp: '0',
-    createdAt: new Date(0).toISOString(),
-    updatedAt: new Date(0).toISOString(),
+    createdAt: 0,
+    updatedAt: 0,
 }
 
 const postEncrypted3 = {
@@ -35,8 +35,8 @@ const postEncrypted3 = {
     tx_hash: 'c097967136518addd60ec558275aa8066aa1e17280423e405cd570e405a0e00f',
     tx_box: '014840233e2677412a6d9594cffd2107d74376030f0eb1b06908614dfbffc4719d',
     tx_timestamp: '0',
-    createdAt: new Date(0).toISOString(),
-    updatedAt: new Date(0).toISOString(),
+    createdAt: 0,
+    updatedAt: 0,
 }
 
 describe('POST ENCRYPTED API ENDPOINTS', () => {
@@ -50,7 +50,6 @@ describe('POST ENCRYPTED API ENDPOINTS', () => {
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .then(response => {
-                    console.log(response.body.items)
                     expect(response.body.items).to.deep.include(postEncrypted1)
                     expect(response.body.items).to.deep.include(postEncrypted2)
                     expect(response.body.items).to.deep.include(postEncrypted3)

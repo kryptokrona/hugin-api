@@ -22,8 +22,8 @@ const post1 = {
     nickname: 'kryptoknugen',
     tx_hash: '57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e7',
     reply: '638ca916c88704e61318cf853ccf4b347aa649f841437939471fc9f6bc448cce',
-    createdAt: new Date(0).toISOString(),
-    updatedAt: new Date(0).toISOString(),
+    createdAt: 0,
+    updatedAt: 0,
 }
 
 const post2 = {
@@ -36,8 +36,8 @@ const post2 = {
     nickname: 'mjovanc',
     tx_hash: '57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e7',
     reply: '638ca916c88704e61318cf853ccf4b347aa649f841437939471fc9f6bc448cce',
-    createdAt: new Date(0).toISOString(),
-    updatedAt: new Date(0).toISOString(),
+    createdAt: 0,
+    updatedAt: 0,
 }
 
 const post3 = {
@@ -50,8 +50,8 @@ const post3 = {
     nickname: 'Swepool',
     tx_hash: '57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e7',
     reply: '638ca916c88704e61318cf853ccf4b347aa649f841437939471fc9f6bc448cce',
-    createdAt: new Date(0).toISOString(),
-    updatedAt: new Date(0).toISOString(),
+    createdAt: 0,
+    updatedAt: 0,
 }
 
 describe('POST API ENDPOINTS', () => {
@@ -124,7 +124,7 @@ describe('POST API ENDPOINTS', () => {
 
     // GET POST BY TX HASH THAT DOESN'T EXIST
     describe(`GET ${process.env.API_BASE_PATH}/v2/posts/57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e3`, () => {
-        it('It should return 1 post with a specific tx hash', async () => {
+        it('It should NOT return 1 post with a specific tx hash', async () => {
             return request(server)
                 .get(`${process.env.API_BASE_PATH}/v2/posts/57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e3`)
                 .set('Accept', 'application/json')

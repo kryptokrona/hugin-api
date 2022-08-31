@@ -62,14 +62,13 @@ postController.getPostByTxHash = async (req, res) => {
         .then(data => {
             log.info(getTimestamp() + ' INFO: Successful response.')
 
-            // converts the standard UTC to unix timestamp
-            data.dataValues.createdAt = convertDateTimeToUnix(data.dataValues.createdAt)
-            data.dataValues.updatedAt = convertDateTimeToUnix(data.dataValues.updatedAt)
-
             // send empty object if we can not find the post
             if (data === null) {
                 res.status(404).json({})
             } else {
+                // converts the standard UTC to unix timestamp
+                data.dataValues.createdAt = convertDateTimeToUnix(data.dataValues.createdAt)
+                data.dataValues.updatedAt = convertDateTimeToUnix(data.dataValues.updatedAt)
                 res.json(data)
             }
         })
