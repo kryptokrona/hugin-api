@@ -13,7 +13,7 @@ const Op = db.Sequelize.Op;
 
 const postService = require('../../services/latest/postService')
 const { getPagination, getPagingData} = require('../../utils/pagination')
-const { getTimestamp } = require("../../utils/time")
+const { getTimestamp, convertDateTimeToUnix } = require("../../utils/time")
 
 const postController = {}
 
@@ -34,6 +34,11 @@ postController.getAll = async (req, res) => {
       endDate ? new Date(endDate) : endDate, excludeAvatar
     )
         .then(data => {
+            // converts the standard UTC to unix timestamp
+            data.rows.forEach(row => {
+              row.dataValues.createdAt = convertDateTimeToUnix(row.dataValues.createdAt)
+              row.dataValues.updatedAt = convertDateTimeToUnix(row.dataValues.updatedAt)
+            })
             const response = getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
             res.json(response)
@@ -56,6 +61,10 @@ postController.getPostByTxHash = async (req, res) => {
     postService.getPostByTxHash(req)
         .then(data => {
             log.info(getTimestamp() + ' INFO: Successful response.')
+
+            // converts the standard UTC to unix timestamp
+            data.dataValues.createdAt = convertDateTimeToUnix(data.dataValues.createdAt)
+            data.dataValues.updatedAt = convertDateTimeToUnix(data.dataValues.updatedAt)
 
             // send empty object if we can not find the post
             if (data === null) {
@@ -88,6 +97,11 @@ postController.getLatest = async (req, res) => {
       endDate ? new Date(endDate) : endDate, excludeAvatar
     )
         .then(data => {
+            // converts the standard UTC to unix timestamp
+            data.rows.forEach(row => {
+              row.dataValues.createdAt = convertDateTimeToUnix(row.dataValues.createdAt)
+              row.dataValues.updatedAt = convertDateTimeToUnix(row.dataValues.updatedAt)
+            })
             const response = getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
             res.json(response)

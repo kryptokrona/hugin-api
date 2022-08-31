@@ -23,3 +23,21 @@ module.exports.getTimestamp = () => {
 module.exports.sleep = (ms) => {
     return new Promise(resolve => setTimeout(resolve, ms))
 }
+
+/**
+ * Convert date object to unix timestamp
+ *
+ * @returns {number}
+ */
+module.exports.convertDateTimeToUnix = (dateObj) => {
+  return Math.floor(Date.parse(dateObj) / 1000)
+}
+
+/**
+ * Convert unix timestamp to date object
+ *
+ * @returns {Date}
+ */
+module.exports.convertUnixToDateTime = (unixTimestamp) => {
+  return new Date(unixTimestamp * 1000)
+}

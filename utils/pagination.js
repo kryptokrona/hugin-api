@@ -2,7 +2,6 @@
  * Pagination module.
  */
 
-
 /**
  * Get paging data
  *

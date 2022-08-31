@@ -40,15 +40,15 @@ const controller = require('../../controllers/latest/postEncryptedController')
  *       - in: query
  *         name: startDate
  *         schema:
- *           type: string
- *           format: date
- *         description: From a given date and time - format 2022-05-05T00:00:00.000Z
+ *           type: integer
+ *           format: int64
+ *         description: From a given date and time in unix timestamp - format 1661941082
  *       - in: query
  *         name: endDate
  *         schema:
- *           type: string
- *           format: date
- *         description: To a given date and time - format 2022-06-20T00:00:00.000Z
+ *           type: integer
+ *           format: int64
+ *         description: To a given date and time in unix timestamp - format 1661941082
  *     tags:
  *       - posts encrypted
  *     responses:
@@ -86,15 +86,15 @@ router.get('/posts-encrypted/latest', controller.getLatest)
  *       - in: query
  *         name: startDate
  *         schema:
- *           type: string
- *           format: date
- *         description: From a given date and time - format 2022-05-05T00:00:00.000Z
+ *           type: integer
+ *           format: int64
+ *         description: From a given date and time in unix timestamp - format 1661941082
  *       - in: query
  *         name: endDate
  *         schema:
- *           type: string
- *           format: date
- *         description: To a given date and time - format 2022-06-20T00:00:00.000Z
+ *           type: integer
+ *           format: int64
+ *         description: To a given date and time in unix timestamp - format 1661941082
  *     tags:
  *       - posts encrypted
  *     responses:

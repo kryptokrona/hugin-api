@@ -13,7 +13,7 @@ const Op = db.Sequelize.Op;
 
 const postEncryptedService = require('../../services/latest/postEncryptedService')
 const { getPagination, getPagingData} = require('../../utils/pagination')
-const { getTimestamp } = require("../../utils/time")
+const { getTimestamp, convertDateTimeToUnix} = require("../../utils/time")
 
 const postEncryptedController = {}
 
@@ -29,6 +29,11 @@ postEncryptedController.getAll = async (req, res) => {
 
     postEncryptedService.getAll(limit, offset, order, search, startDate ? new Date(startDate) : startDate, endDate ? new Date(endDate) : endDate)
         .then(data => {
+            // converts the standard UTC to unix timestamp
+            data.rows.forEach(row => {
+              row.dataValues.createdAt = convertDateTimeToUnix(row.dataValues.createdAt)
+              row.dataValues.updatedAt = convertDateTimeToUnix(row.dataValues.updatedAt)
+            })
             const response = getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
             res.json(response)
@@ -51,6 +56,10 @@ postEncryptedController.getEncryptedPostByTxHash = async (req, res) => {
     postEncryptedService.getEncryptedPostByTxHash(req)
         .then(data => {
             log.info(getTimestamp() + ' INFO: Successful response.')
+
+            // converts the standard UTC to unix timestamp
+            data.dataValues.createdAt = convertDateTimeToUnix(data.dataValues.createdAt)
+            data.dataValues.updatedAt = convertDateTimeToUnix(data.dataValues.updatedAt)
 
             // send empty object if we can not find the post
             if (data === null) {
@@ -79,6 +88,11 @@ postEncryptedController.getLatest = async (req, res) => {
 
     postEncryptedService.getLatest(limit, offset, order, search, startDate ? new Date(startDate) : startDate, endDate ? new Date(endDate) : endDate)
         .then(data => {
+            // converts the standard UTC to unix timestamp
+            data.rows.forEach(row => {
+              row.dataValues.createdAt = convertDateTimeToUnix(row.dataValues.createdAt)
+              row.dataValues.updatedAt = convertDateTimeToUnix(row.dataValues.updatedAt)
+            })
             const response = getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
             res.json(response)
