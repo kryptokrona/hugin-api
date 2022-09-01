@@ -33,7 +33,7 @@ Hugin is a messaging service where messages are stored on the Kryptokrona Blockc
 
 Hugin also packs some powerful decentralized P2P encrypted features like video, voice, screen sharing and filesharing.
 
-To be able to get data more easily from Hugin this RESTful API called Hugin Cache was created. It provides useful endpoints for within the Kryptokrona project as well as other external 3rd party interests. 
+To be able to get data more easily from Hugin this RESTful API and websocket server called Hugin API was created. It provides useful endpoints for within the Kryptokrona project as well as other external 3rd party interests that wants to host their own Hugin API.
 
 # Table of Contents
 
