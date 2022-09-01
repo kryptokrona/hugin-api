@@ -1,33 +1,4 @@
-<p align="center">
-  <img src="assets/img/hugin-cache.png" alt="Hugin Logo"/>
-</p>
-
-<p>
-<a href="https://chat.kryptokrona.se">
-    <img src="https://img.shields.io/discord/562673808582901793?label=Discord&logo=Discord&logoColor=white&style=flat">
-</a> 
-<a href="https://github.com/kryptokrona/hugin-cache/actions">
-    <img src="https://img.shields.io/github/workflow/status/kryptokrona/hugin-cache/Hugin%20Cache%20Main%20Pipeline">
-</a>
-<a href="https://github.com/kryptokrona/hugin-cache/issues">
-    <img src="https://img.shields.io/github/issues/kryptokrona/hugin-cache">
-</a>
-<a href="https://github.com/kryptokrona/hugin-cache/pulls">
-    <img src="https://img.shields.io/github/issues-pr/kryptokrona/hugin-chat">
-</a>
-<a href="https://github.com/kryptokrona/hugin-cache/commits/main">
-    <img src="https://img.shields.io/github/commit-activity/m/kryptokrona/hugin-cache">
-</a>
-<a href="https://github.com/kryptokrona/hugin-cache/graphs/contributors">
-    <img src="https://img.shields.io/github/contributors/kryptokrona/hugin-cache">
-</a>
-<a href="https://github.com/kryptokrona/hugin-cache/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/kryptokrona/hugin-cache">
-</a>
-<a href="https://twitter.com/kryptokrona">
-    <img src="https://img.shields.io/twitter/follow/kryptokrona">
-</a>
-</p>
+# <img src="https://raw.githubusercontent.com/kryptokrona/kryptokrona-python-sdk/master/kryptokrona.png" alt="XKR" height="36" /> Hugin API [![Hugin API Main Pipeline](https://github.com/kryptokrona/hugin-api/actions/workflows/main-ci.yml/badge.svg)](https://github.com/kryptokrona/hugin-api/actions/workflows/main-ci.yml) 
 
 Hugin is a messaging service where messages are stored on the Kryptokrona Blockchain. Messages are secured with industry leading encryption so that only you and your chat partner have the possibility to read them. The purpose is not to gather any personal information about the users, unlike most apps and social media.
 
