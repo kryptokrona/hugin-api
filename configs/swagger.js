@@ -21,7 +21,7 @@ let swaggerOptions = {
       },
       license: {
         name: 'GNU General Public License v3.0',
-        url: 'https://github.com/kryptokrona/hugin-cache/blob/main/LICENSE'
+        url: 'https://github.com/kryptokrona/hugin-api/blob/main/LICENSE'
       },
       externalDocs: {
         description: 'Find out more about the project on Kryptokrona Docs',
@@ -30,20 +30,20 @@ let swaggerOptions = {
     },
     servers: [
       {
-        url: `https://cache.hugin.chat`,
-        description: 'The Official Hugin Cache API hosted by Kryptokrona project'
+        url: `https://api.hugin.chat`,
+        description: 'The Official Hugin API hosted by Kryptokrona project'
       },
       {
-        url: `https://cache.novastack.org`,
-        description: 'High Performance Hugin Cache API Powered by Novastack Hosting'
+        url: `https://hugin-api.novastack.org`,
+        description: 'High Performance Hugin API Powered by Novastack Hosting'
       },
       {
-        url: `https://testcache.novastack.org`,
-        description: 'Used to test new/latest features before running on main Novastack Cache'
+        url: `https://api-test.novastack.org`,
+        description: 'Used to test new/latest features before running on main Novastack Hugin API'
       },
       {
-        url: `https://cache.norpool.org`,
-        description: 'Norpool Hugin Cache API'
+        url: `https://hugin-api.norpool.org`,
+        description: 'Norpool Hugin API'
       }
     ]
 
@@ -56,7 +56,7 @@ if (process.env.NODE_ENV === 'development') {
   swaggerOptions.definition.servers.push(
       {
         url: `http://localhost:3000`,
-        description: 'Development Hugin Cache'
+        description: 'Development Hugin API'
       },
     )
 }

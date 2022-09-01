@@ -1,5 +1,5 @@
 {
-  "name": "hugin-cache",
+  "name": "hugin-api",
   "version": "2.0.0",
   "description": "",
   "main": "server.js",
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kryptokrona/hugin-cache.git"
+    "url": "git+https://github.com/kryptokrona/hugin-api.git"
   },
   "keywords": [
     "kryptokrona",
@@ -25,9 +25,9 @@
   "author": "",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/kryptokrona/hugin-cache/issues"
+    "url": "https://github.com/kryptokrona/hugin-api/issues"
   },
-  "homepage": "https://github.com/kryptokrona/hugin-cache",
+  "homepage": "https://github.com/kryptokrona/hugin-api",
   "dependencies": {
     "@ledgerhq/hw-transport": "^6.27.1",
     "cookie-parser": "^1.4.6",

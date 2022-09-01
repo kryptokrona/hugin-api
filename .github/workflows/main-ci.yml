@@ -1,13 +1,13 @@
-name: Hugin Cache Main Pipeline
+name: Hugin API Main Pipeline
 
 env:
   GITHUB_REGISTRY: 'ghcr.io'
   GITHUB_OWNER: 'kryptokrona'
-  GITHUB_DOCKER_IMAGE: 'hugin-cache'
+  GITHUB_DOCKER_IMAGE: 'hugin-api'
 
-on: 
+on:
   push:
-    branches:    
+    branches:
       - main
     paths-ignore:
       - '*.md'
@@ -25,10 +25,10 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x] # add 19 and 20 when it's released
-    
+
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
@@ -48,7 +48,7 @@ jobs:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_DB: hugin_cache_test
+          POSTGRES_DB: hugin_api_test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: test1234
         ports:
@@ -60,7 +60,7 @@ jobs:
           --health-retries 5
     env:
       NODE_ENV: test
-      TEST_DATABASE_URL: postgres://postgres:test1234@0.0.0.0:5432/hugin_cache_test
+      TEST_DATABASE_URL: postgres://postgres:test1234@0.0.0.0:5432/hugin_api_test
 
     strategy:
       matrix:
@@ -134,22 +134,22 @@ jobs:
           --verbose
 
   smoke-test-staging:
-    name: Smoke Test Staging 
+    name: Smoke Test Staging
     runs-on: ubuntu-latest
     needs: [ staging-deploy ]
 
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Uses Python 3.11
         uses: actions/setup-python@v3
         with:
           python-version: '3.11.0-alpha.1'
-        
-      - name: Smoke Test  
+
+      - name: Smoke Test
         run: |
           pip3 install requests
-          python3 tests/requests/smoke-test.py testcache.novastack.org
+          python3 tests/requests/smoke-test.py api.novastack.org
 
   deploy-prod:
     name: Deploy Prod
@@ -178,16 +178,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Uses Python 3.11
         uses: actions/setup-python@v3
         with:
           python-version: '3.11.0-alpha.1'
-        
-      - name: Smoke Test  
+
+      - name: Smoke Test
         run: |
           pip3 install requests
-          python3 tests/requests/smoke-test.py cache.hugin.chat
+          python3 tests/requests/smoke-test.py api.hugin.chat
 
   # rollback:
   #   name: Rollback
