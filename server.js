@@ -41,7 +41,7 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use('/public', express.static(__dirname + '/public'));
 
-app.locals.sitetitle = 'Hugin Cache'
+app.locals.sitetitle = 'Hugin API'
 
 // swagger
 const openapiSpecification = swaggerJsdoc(swaggerOptions)

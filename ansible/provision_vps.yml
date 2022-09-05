@@ -4,18 +4,18 @@
   become: true
   gather_facts: yes
   vars:
-    hugin_cache_name: hugin_cache
-    hugin_cache_port: 3000
+    hugin_api_name: hugin_api
+    hugin_api_port: 3000
 
     # Docker GitHub Container Registry
-    docker_image: "ghcr.io/kryptokrona/hugin-cache"
+    docker_image: "ghcr.io/kryptokrona/hugin-api"
 
     # A list of users who will be added to the docker group.
     docker_users: [
       "hugin_docker"
     ]
 
-    docker_container_name: hugin-cache
+    docker_container_name: hugin-api
     docker_network_name: hugin
 
     # Docker daemon options as a dict
@@ -31,7 +31,7 @@
 
     node_exporter_version: "{{ exporter_version }}"
 
-    website_name: hugin_cache
+    website_name: hugin_api
     web_server_ip: "{{ domain_name }}"
     web_server_port: "443"
     hidden_service_port: "443"
@@ -53,13 +53,13 @@
 
     sys_swagger_contact_name: 'Marcus Cvjeticanin'
     sys_swagger_contact_email: 'mjovanc@icloud.com'
-    sys_swagger_contact_url: 'https://github.com/kryptokrona/hugin-cache/issues'
+    sys_swagger_contact_url: 'https://github.com/kryptokrona/hugin-api/issues'
 
     sys_api_port: '3000'
     sys_ws_port: '8080'
     sys_hugin_syncer_sleep: '2000'
 
-    sys_project_name: 'Hugin Cache'
+    sys_project_name: 'Hugin API'
 
   roles:
   #- base

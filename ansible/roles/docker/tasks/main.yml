@@ -35,7 +35,7 @@
     repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable"
     state: present
     update_cache: yes
-  
+
 - name: Install Docker and it's dependencies
   apt:
     pkg:
@@ -72,7 +72,7 @@
 
 - name: Checkout Repo
   git:
-    repo=https://github.com/kryptokrona/hugin-cache.git
+    repo=https://github.com/kryptokrona/hugin-api.git
     dest=/root/tmp/checkout
     update=yes
     accept_hostkey=yes
@@ -80,7 +80,7 @@
     update=false
   register: gitresult
 
-- name: Create Hugin Cache Container
+- name: Create Hugin API Container
   docker_container:
     name: "{{ docker_container_name }}"
     image: "{{ docker_image }}:{{ gitresult.after[:7] }}"
@@ -91,7 +91,7 @@
     networks:
       - name: "host"
 
-- name: Start Hugin Cache Container
+- name: Start Hugin API Container
   docker_container:
     name: "{{ docker_container_name }}"
     image: "{{ docker_image }}:{{ gitresult.after[:7] }}"

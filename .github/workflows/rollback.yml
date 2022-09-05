@@ -1,4 +1,4 @@
-name: Hugin Cache Rollback Pipeline
+name: Hugin API Rollback Pipeline
 
 on:
   workflow_dispatch

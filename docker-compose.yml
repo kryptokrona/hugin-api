@@ -21,7 +21,7 @@ services:
     container_name: postgres
     restart: always
     environment:
-      POSTGRES_DB: hugin_cache_dev
+      POSTGRES_DB: hugin_api_dev
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: test1234
     volumes:
