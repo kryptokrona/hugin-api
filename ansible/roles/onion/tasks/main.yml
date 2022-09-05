@@ -59,9 +59,10 @@
 
     - name: Test your web server.
       uri:
-        url: "https://{{ domain_name }}/api/v1/posts"
+        url: "https://{{ domain_name }}/api/v2/posts"
 
     - name: Configure your Tor Onion Service (HiddenServiceDir).
+      become: yes
       lineinfile:
         path: /etc/tor/torrc
         line: "HiddenServiceDir /var/lib/tor/{{ website_name }}/"
