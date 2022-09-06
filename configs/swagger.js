@@ -34,15 +34,15 @@ let swaggerOptions = {
         description: 'The Official Hugin API hosted by Kryptokrona project'
       },
       {
-        url: `https://hugin-api.novastack.org`,
+        url: `https://api.novastack.org`,
         description: 'High Performance Hugin API Powered by Novastack Hosting'
       },
       {
-        url: `https://api-test.novastack.org`,
+        url: `https://test-api.novastack.org`,
         description: 'Used to test new/latest features before running on main Novastack Hugin API'
       },
       {
-        url: `https://hugin-api.norpool.org`,
+        url: `https://cache.norpool.org`,
         description: 'Norpool Hugin API'
       }
     ]
