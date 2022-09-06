@@ -48,7 +48,7 @@ server {
         proxy_set_header Host $host;
     }
 
-    location /api {
+    location ~ ^/(v1|v2|docs) {
         proxy_pass http://{{ hugin_api_name }}_api;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
@@ -64,6 +64,7 @@ server {
             add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range' always;
         }
     }
+
     location /monitoring {
   set $prometheusUrl {{ hugin_api_name }}_monitoring;
 
