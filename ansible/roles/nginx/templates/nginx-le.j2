@@ -48,7 +48,7 @@ server {
         proxy_set_header Host $host;
     }
 
-    location ~* ^/(v1|v2|docs) {
+    location /v1 {
         proxy_pass http://{{ hugin_api_name }}_api;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
@@ -65,43 +65,78 @@ server {
         }
     }
 
+    location /v2 {
+            proxy_pass http://{{ hugin_api_name }}_api;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection 'upgrade';
+            proxy_set_header Host $host;
+            proxy_cache_bypass $http_upgrade;
+            proxy_hide_header 'Access-Control-Allow-Origin';
+
+            if ($request_method = 'GET') {
+                add_header 'Access-Control-Allow-Origin' '*' always;
+                add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
+                add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range' always;
+                add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range' always;
+            }
+    }
+
+    location /docs {
+            proxy_pass http://{{ hugin_api_name }}_api;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection 'upgrade';
+            proxy_set_header Host $host;
+            proxy_cache_bypass $http_upgrade;
+            proxy_hide_header 'Access-Control-Allow-Origin';
+
+            if ($request_method = 'GET') {
+                add_header 'Access-Control-Allow-Origin' '*' always;
+                add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
+                add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range' always;
+                add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range' always;
+            }
+        }
+
     location /monitoring {
-  set $prometheusUrl {{ hugin_api_name }}_monitoring;
+      set $prometheusUrl {{ hugin_api_name }}_monitoring;
 
-  proxy_set_header Accept-Encoding "";
-  proxy_pass $prometheusUrl;
-  proxy_redirect off;
-  proxy_set_header Host $host;
-  proxy_set_header X-Real-IP $remote_addr;
-  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-  proxy_set_header X-Forwarded-Proto $scheme;
+      proxy_set_header Accept-Encoding "";
+      proxy_pass $prometheusUrl;
+      proxy_redirect off;
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
 
-  sub_filter_types text/html;
-  sub_filter_once off;
-  sub_filter '="/' '="/monitoring/';
-  sub_filter 'var PATH_PREFIX = "";' 'var PATH_PREFIX = "/monitoring";';
+      sub_filter_types text/html;
+      sub_filter_once off;
+      sub_filter '="/' '="/monitoring/';
+      sub_filter 'var PATH_PREFIX = "";' 'var PATH_PREFIX = "/monitoring";';
 
-  rewrite ^/monitoring/?$ /monitoring/graph redirect;
-  rewrite ^/monitoring/(.*)$ /$1 break;
-}
-    location /prometheus {
-     proxy_pass http://{{ hugin_api_name }}_monitoring/api/v1;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "Upgrade";
-        proxy_set_header Host $host;
-    }
-     location /metrics {
-     proxy_pass http://{{ hugin_api_name }}_stats/metrics;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "Upgrade";
-        proxy_set_header Host $host;
-    }
-      location /dashboard {
+      rewrite ^/monitoring/?$ /monitoring/graph redirect;
+      rewrite ^/monitoring/(.*)$ /$1 break;
+  }
+
+  location /prometheus {
+    proxy_pass http://{{ hugin_api_name }}_monitoring/v2;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "Upgrade";
+    proxy_set_header Host $host;
+  }
+
+  location /metrics {
+    proxy_pass http://{{ hugin_api_name }}_stats/metrics;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "Upgrade";
+    proxy_set_header Host $host;
+  }
+
+  location /dashboard {
     alias /var/www/html/;
     index graphs.html;
-    }
-
-
+  }
 }
