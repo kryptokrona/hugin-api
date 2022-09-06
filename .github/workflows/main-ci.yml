@@ -149,7 +149,7 @@ jobs:
       - name: Smoke Test
         run: |
           pip3 install requests
-          python3 tests/requests/smoke-test.py api.novastack.org
+          python3 tests/requests/smoke-test.py test-api.novastack.org
 
   deploy-prod:
     name: Deploy Prod
