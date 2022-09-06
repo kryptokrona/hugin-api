@@ -7,66 +7,66 @@ try:
     base_url = 'https://{}/{}'
 
     # trying v1 posts endpoints
-    print('GET ' + base_url.format(domain ,'api/v1/posts'))
-    posts = requests.get(base_url.format(domain, 'api/v1/posts'))
+    print('GET ' + base_url.format(domain ,'/v1/posts'))
+    posts = requests.get(base_url.format(domain, '/v1/posts'))
     assert posts.status_code == requests.codes.ok
 
-    print('GET ' + base_url.format(domain, 'api/v1/posts/latest'))
-    posts = requests.get(base_url.format(domain, 'api/v1/posts/latest'))
+    print('GET ' + base_url.format(domain, '/v1/posts/latest'))
+    posts = requests.get(base_url.format(domain, '/v1/posts/latest'))
     assert posts.status_code == requests.codes.ok
 
     # trying v2 posts endpoints
-    print('GET ' + base_url.format(domain ,'api/v2/posts'))
-    posts = requests.get(base_url.format(domain, 'api/v2/posts'))
+    print('GET ' + base_url.format(domain ,'/v2/posts'))
+    posts = requests.get(base_url.format(domain, '/v2/posts'))
     assert posts.status_code == requests.codes.ok
 
-    print('GET ' + base_url.format(domain, 'api/v2/posts/latest'))
-    posts = requests.get(base_url.format(domain, 'api/v2/posts/latest'))
+    print('GET ' + base_url.format(domain, '/v2/posts/latest'))
+    posts = requests.get(base_url.format(domain, '/v2/posts/latest'))
     assert posts.status_code == requests.codes.ok
 
     # trying hashtag endpoints
-    print('GET ' + base_url.format(domain, 'api/v1/hashtags'))
-    posts = requests.get(base_url.format(domain, 'api/v1/hashtags'))
+    print('GET ' + base_url.format(domain, '/v1/hashtags'))
+    posts = requests.get(base_url.format(domain, '/v1/hashtags'))
     assert posts.status_code == requests.codes.ok
 
-    print('GET ' + base_url.format(domain, 'api/v1/hashtags/latest'))
-    posts = requests.get(base_url.format(domain, 'api/v1/hashtags/latest'))
+    print('GET ' + base_url.format(domain, '/v1/hashtags/latest'))
+    posts = requests.get(base_url.format(domain, '/v1/hashtags/latest'))
     assert posts.status_code == requests.codes.ok
 
     # trying v1 encrypted posts endpoints
-    print('GET ' + base_url.format(domain ,'api/v1/posts-encrypted'))
-    posts = requests.get(base_url.format(domain, 'api/v1/posts-encrypted'))
+    print('GET ' + base_url.format(domain ,'/v1/posts-encrypted'))
+    posts = requests.get(base_url.format(domain, '/v1/posts-encrypted'))
     assert posts.status_code == requests.codes.ok
 
-    print('GET ' + base_url.format(domain, 'api/v1/posts-encrypted/latest'))
-    posts = requests.get(base_url.format(domain, 'api/v1/posts-encrypted/latest'))
+    print('GET ' + base_url.format(domain, '/v1/posts-encrypted/latest'))
+    posts = requests.get(base_url.format(domain, '/v1/posts-encrypted/latest'))
     assert posts.status_code == requests.codes.ok
 
     # trying v2 encrypted posts endpoints
-    print('GET ' + base_url.format(domain ,'api/v2/posts-encrypted'))
-    posts = requests.get(base_url.format(domain, 'api/v2/posts-encrypted'))
+    print('GET ' + base_url.format(domain ,'/v2/posts-encrypted'))
+    posts = requests.get(base_url.format(domain, '/v2/posts-encrypted'))
     assert posts.status_code == requests.codes.ok
 
-    print('GET ' + base_url.format(domain, 'api/v2/posts-encrypted/latest'))
-    posts = requests.get(base_url.format(domain, 'api/v2/posts-encrypted/latest'))
+    print('GET ' + base_url.format(domain, '/v2/posts-encrypted/latest'))
+    posts = requests.get(base_url.format(domain, '/v2/posts-encrypted/latest'))
     assert posts.status_code == requests.codes.ok
 
     # trying v1 hashtag endpoints
-    print('GET ' + base_url.format(domain, 'api/v1/hashtags'))
-    posts = requests.get(base_url.format(domain, 'api/v1/hashtags'))
+    print('GET ' + base_url.format(domain, '/v1/hashtags'))
+    posts = requests.get(base_url.format(domain, '/v1/hashtags'))
     assert posts.status_code == requests.codes.ok
 
-    print('GET ' + base_url.format(domain, 'api/v1/hashtags/latest'))
-    posts = requests.get(base_url.format(domain, 'api/v1/hashtags/latest'))
+    print('GET ' + base_url.format(domain, '/v1/hashtags/latest'))
+    posts = requests.get(base_url.format(domain, '/v1/hashtags/latest'))
     assert posts.status_code == requests.codes.ok
 
     # trying v2 hashtag endpoints
-    print('GET ' + base_url.format(domain, 'api/v2/hashtags'))
-    posts = requests.get(base_url.format(domain, 'api/v2/hashtags'))
+    print('GET ' + base_url.format(domain, '/v2/hashtags'))
+    posts = requests.get(base_url.format(domain, '/v2/hashtags'))
     assert posts.status_code == requests.codes.ok
 
-    print('GET ' + base_url.format(domain, 'api/v2/hashtags/latest'))
-    posts = requests.get(base_url.format(domain, 'api/v2/hashtags/latest'))
+    print('GET ' + base_url.format(domain, '/v2/hashtags/latest'))
+    posts = requests.get(base_url.format(domain, '/v2/hashtags/latest'))
     assert posts.status_code == requests.codes.ok
 
     # trying prometheus metrics
@@ -80,8 +80,8 @@ try:
     assert dashboard.status_code == requests.codes.ok
 
     # trying hugin api api docs
-    print('GET ' + base_url.format(domain, 'api/docs'))
-    api_docs = requests.get(base_url.format(domain, 'api/docs'))
+    print('GET ' + base_url.format(domain, '/docs'))
+    api_docs = requests.get(base_url.format(domain, '/docs'))
     assert api_docs.status_code == requests.codes.ok
 
     print('\nSMOKE TEST PASSED!')

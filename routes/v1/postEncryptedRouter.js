@@ -13,7 +13,7 @@ const controller = require('../../controllers/v1/postEncryptedController')
 
 /**
  * @openapi
- * /api/v1/posts-encrypted/latest:
+ * /v1/posts-encrypted/latest:
  *   get:
  *     description: Gets the latest encrypted posts.
  *     parameters:
@@ -59,7 +59,7 @@ router.get('/posts-encrypted/latest', controller.getLatest)
 
 /**
  * @openapi
- * /api/v1/posts-encrypted:
+ * /v1/posts-encrypted:
  *   get:
  *     description: Gets all encrypted posts.
  *     parameters:
@@ -105,7 +105,7 @@ router.get('/posts-encrypted', controller.getAll)
 
 /**
  * @openapi
- * /api/v1/posts-encrypted/{tx_hash}:
+ * /v1/posts-encrypted/{tx_hash}:
  *   get:
  *     description: Gets a specific encrypted post by given transaction hash value.
  *     parameters:
