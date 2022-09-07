@@ -16,6 +16,7 @@ on:
       - '.github/ISSUE_TEMPLATE/**'
       - 'docker-compose.yml'
       - 'http/**'
+      - 'queries.sql'
 
 jobs:
   build:
