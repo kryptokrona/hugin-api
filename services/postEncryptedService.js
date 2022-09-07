@@ -1,19 +1,19 @@
 /**
- * Post Service
+ * PostEncrypted Service
  */
 
 'use strict'
 
-const db = require('../../configs/postgresql')
-const models = require("../../database/models")
+const db = require('../configs/postgresql')
+const models = require("../database/models")
 const { Op } = require("sequelize")
 
-const postService = {}
+const postEncryptedService = {}
 
 /**
- * Get all posts
+ * Get all encrypted posts
  */
-postService.getAll = async (limit, offset, order, searchKeyword, startDate, endDate, excludeAvatar) => {
+postEncryptedService.getAll = async (limit, offset, order, searchKeyword, startDate, endDate) => {
     let query = {
         limit: limit,
         order: [
@@ -42,21 +42,14 @@ postService.getAll = async (limit, offset, order, searchKeyword, startDate, endD
         }
     }
 
-    // don't return avatar column if true
-    if (excludeAvatar) {
-      query.attributes = {
-        exclude: ['avatar'],
-      }
-    }
-
-    return models.Post.findAndCountAll(query)
+    return models.PostEncrypted.findAndCountAll(query)
 }
 
 /**
- * Get post by tx_hash
+ * Get encrypted post by tx_hash
  */
-postService.getPostByTxHash = async (req) => {
-    return models.Post.findOne({
+postEncryptedService.getEncryptedPostByTxHash = async (req) => {
+    return models.PostEncrypted.findOne({
         where: {
             tx_hash: req.params.tx_hash
         }
@@ -64,9 +57,9 @@ postService.getPostByTxHash = async (req) => {
 }
 
 /**
- * Get latest posts
+ * Get latest encrypted posts
  */
-postService.getLatest = async (limit, offset, order, searchKeyword, startDate, endDate, excludeAvatar) => {
+postEncryptedService.getLatest = async (limit, offset, order, searchKeyword, startDate, endDate) => {
     let query = {
         limit: limit,
         order: [
@@ -79,7 +72,7 @@ postService.getLatest = async (limit, offset, order, searchKeyword, startDate, e
 
     // checking if startDate or endDate is true - we must have both true
     if (startDate && endDate) {
-        opOrList.push({ created_at: { [Op.between]: [startDate, endDate] } })
+        opOrList.push({ qcreated_at: { [Op.between]: [startDate, endDate] } })
     }
 
     // checking if we have a searchKeyword
@@ -95,14 +88,7 @@ postService.getLatest = async (limit, offset, order, searchKeyword, startDate, e
         }
     }
 
-    // don't return avatar column if true
-    if (excludeAvatar) {
-      query.attributes = {
-        exclude: ['avatar'],
-      }
-    }
-
-    return models.Post.findAndCountAll(query)
+    return models.PostEncrypted.findAndCountAll(query)
 }
 
-module.exports = postService
+module.exports = postEncryptedService

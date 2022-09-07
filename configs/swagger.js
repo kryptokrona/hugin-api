@@ -12,7 +12,7 @@ let swaggerOptions = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: `${process.env.SYS_PROJECT_NAME} API`,
+      title: `${process.env.SYS_PROJECT_NAME}`,
       version: '2.0.0',
       contact: {
         name: process.env.SYS_SWAGGER_CONTACT_NAME,
@@ -63,7 +63,7 @@ if (process.env.NODE_ENV === 'development') {
 
 const swaggerCustomOptions = {
   customCss: fs.readFileSync('./public/static/css/openapi.css').toString(),
-  customSiteTitle: `${process.env.SYS_PROJECT_NAME} API Docs`,
+  customSiteTitle: `${process.env.SYS_PROJECT_NAME} Docs`,
   customfavIcon: process.env.NODE_ENV === 'development' ? '/static/img/favicon.ico' : '/static/img/favicon.ico',
 }
 

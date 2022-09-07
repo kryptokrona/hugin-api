@@ -11,7 +11,7 @@ let db = require("../../configs/postgresql"),
 
 const Op = db.Sequelize.Op;
 
-const postEncryptedService = require('../../services/v1/postEncryptedService')
+const postEncryptedService = require('../../services/postEncryptedService')
 const { getPagination, getPagingData} = require('../../utils/pagination')
 const { getTimestamp } = require("../../utils/time")
 
