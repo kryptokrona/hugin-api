@@ -35,14 +35,16 @@ postController.getAll = async (req, res) => {
 
     postService.getAll(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate, excludeAvatar)
         .then(data => {
-            // converts the standard UTC to unix timestamp
-            data.rows.forEach(row => {
-              row.dataValues.createdAt = convertDateTimeToUnix(row.dataValues.createdAt)
-              row.dataValues.updatedAt = convertDateTimeToUnix(row.dataValues.updatedAt)
-            })
-            const response = getPagingData(data, page, limit)
-            log.info(getTimestamp() + ' INFO: Successful response.')
-            res.json(response)
+          // converts the standard UTC to unix timestamp
+          data.rows.forEach(row => {
+            row.dataValues.createdAt = convertDateTimeToUnix(row.dataValues.createdAt)
+            row.dataValues.updatedAt = convertDateTimeToUnix(row.dataValues.updatedAt)
+            row.dataValues.replies = postService.getAllRepliesOfPost(row.dataValues.tx_hash)
+          })
+          const response = getPagingData(data, page, limit)
+          log.info(getTimestamp() + ' INFO: Successful response.')
+          res.json(response)
+
         })
         .catch(err => {
             log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data. ' + err)

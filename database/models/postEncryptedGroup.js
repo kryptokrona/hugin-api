@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'PostEncryptedGroup',
-    tableName: 'post_encrypted_group'
+    tableName: 'postencryptedgroup'
   });
   return PostEncryptedGroup;
 };

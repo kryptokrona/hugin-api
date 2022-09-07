@@ -105,4 +105,17 @@ postService.getLatest = async (limit, offset, order, searchKeyword, startDate, e
     return models.Post.findAndCountAll(query)
 }
 
+/**
+ * Get replies of a post
+ */
+postService.getAllRepliesOfPost = async (txHash) => {
+  return models.Post.findAll({
+    attributes: ['tx_hash'],
+    where: {
+      reply: txHash
+    },
+    raw: true
+  }).then(replies => replies.map(reply => reply.tx_hash));
+}
+
 module.exports = postService
