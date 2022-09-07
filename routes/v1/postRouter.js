@@ -13,7 +13,7 @@ const controller = require('../../controllers/v1/postController')
 
 /**
  * @openapi
- * /v1/posts/latest:
+ * /api/v1/posts/latest:
  *   get:
  *     description: Gets the latest posts.
  *     parameters:
@@ -65,7 +65,7 @@ router.get('/posts/latest', controller.getLatest)
 
 /**
  * @openapi
- * /v1/posts:
+ * /api/v1/posts:
  *   get:
  *     description: Gets all posts.
  *     parameters:
@@ -117,7 +117,7 @@ router.get('/posts', controller.getAll)
 
 /**
  * @openapi
- * /v1/posts/{tx_hash}:
+ * /api/v1/posts/{tx_hash}:
  *   get:
  *     description: Gets a specific post by given transaction hash value.
  *     parameters:

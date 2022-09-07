@@ -48,7 +48,7 @@ server {
         proxy_set_header Host $host;
     }
 
-    location / {
+    location /api {
         proxy_pass http://{{ hugin_api_name }}_api;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;

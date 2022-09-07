@@ -57,10 +57,10 @@ const post3 = {
 describe('POST API ENDPOINTS', () => {
 
     // GET ALL LATEST POSTS
-    describe(`GET ${process.env.API_BASE_PATH}v1/posts/latest`, () => {
+    describe(`GET ${process.env.API_BASE_PATH}/v1/posts/latest`, () => {
         it('It should return all latest posts', async () => {
             return request(server)
-                .get(`${process.env.API_BASE_PATH}v1/posts/latest`)
+                .get(`${process.env.API_BASE_PATH}/v1/posts/latest`)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200)
@@ -74,10 +74,10 @@ describe('POST API ENDPOINTS', () => {
     })
 
     // GET ALL POSTS
-    describe(`GET ${process.env.API_BASE_PATH}v1/posts`, () => {
+    describe(`GET ${process.env.API_BASE_PATH}/v1/posts`, () => {
         it('It should return all posts', async () => {
             return request(server)
-                .get(`${process.env.API_BASE_PATH}v1/posts`)
+                .get(`${process.env.API_BASE_PATH}/v1/posts`)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200)
@@ -91,10 +91,10 @@ describe('POST API ENDPOINTS', () => {
     })
 
     // GET ALL POSTS QUERY PARAMS
-    describe(`GET ${process.env.API_BASE_PATH}v1/posts/latest?size=3&page=0`, () => {
+    describe(`GET ${process.env.API_BASE_PATH}/v1/posts/latest?size=3&page=0`, () => {
         it('It should return all posts', async () => {
             return request(server)
-                .get(`${process.env.API_BASE_PATH}v1/posts/latest?size=3&page=0`)
+                .get(`${process.env.API_BASE_PATH}/v1/posts/latest?size=3&page=0`)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200)
@@ -108,10 +108,10 @@ describe('POST API ENDPOINTS', () => {
     })
 
     // GET POST BY TX HASH
-    describe(`GET ${process.env.API_BASE_PATH}v1/posts/57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e7`, () => {
+    describe(`GET ${process.env.API_BASE_PATH}/v1/posts/57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e7`, () => {
         it('It should return 1 post with a specific tx hash', async () => {
             return request(server)
-                .get(`${process.env.API_BASE_PATH}v1/posts/57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e7`)
+                .get(`${process.env.API_BASE_PATH}/v1/posts/57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e7`)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200)
@@ -123,10 +123,10 @@ describe('POST API ENDPOINTS', () => {
     })
 
     // GET POST BY TX HASH THAT DOESN'T EXIST
-    describe(`GET ${process.env.API_BASE_PATH}v1/posts/57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e3`, () => {
+    describe(`GET ${process.env.API_BASE_PATH}/v1/posts/57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e3`, () => {
         it('It should return 1 post with a specific tx hash', async () => {
             return request(server)
-                .get(`${process.env.API_BASE_PATH}v1/posts/57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e3`)
+                .get(`${process.env.API_BASE_PATH}/v1/posts/57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e3`)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(404)

@@ -13,7 +13,7 @@ const controller = require('../../controllers/latest/hashtagController')
 
 /**
  * @openapi
- * /v2/hashtags/latest:
+ * /api/v2/hashtags/latest:
  *   get:
  *     description: Gets the latest hashtags.
  *     parameters:
@@ -47,7 +47,7 @@ router.get('/hashtags/latest', controller.getLatest)
 
 /**
  * @openapi
- * /v2/hashtags/trending:
+ * /api/v2/hashtags/trending:
  *   get:
  *     description: Gets the trending hashtags.
  *     parameters:
@@ -81,7 +81,7 @@ router.get('/hashtags/trending', controller.getTrending)
 
 /**
  * @openapi
- * /v2/hashtags:
+ * /api/v2/hashtags:
  *   get:
  *     description: Gets all hashtags.
  *     parameters:
@@ -115,7 +115,7 @@ router.get('/hashtags', controller.getAll)
 
 /**
  * @openapi
- * /v2/hashtags/{id}:
+ * /api/v2/hashtags/{id}:
  *   get:
  *     description: Gets a specific hashtag by id.
  *     parameters:
