@@ -13,7 +13,7 @@ const Op = db.Sequelize.Op;
 
 const postEncryptedService = require('../../services/postEncryptedService')
 const { getPagination, getPagingData} = require('../../utils/pagination')
-const { getTimestamp, convertDateTimeToUnix} = require("../../utils/time")
+const { getTimestamp, convertDateTimeToUnix, convertUnixToDateTime} = require("../../utils/time")
 
 const postEncryptedController = {}
 
@@ -27,7 +27,11 @@ postEncryptedController.getAll = async (req, res) => {
     const { page, size, order, search, startDate, endDate } = req.query;
     const { limit, offset } = getPagination(page, size)
 
-    postEncryptedService.getAll(limit, offset, order, search, startDate ? new Date(startDate) : startDate, endDate ? new Date(endDate) : endDate)
+    // converts to datetime format since it's stored in the db as such
+    const startDateParam = convertUnixToDateTime(startDate)
+    const endDateParam = convertUnixToDateTime(endDate)
+
+    postEncryptedService.getAll(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate)
         .then(data => {
             // converts the standard UTC to unix timestamp
             data.rows.forEach(row => {
@@ -85,7 +89,11 @@ postEncryptedController.getLatest = async (req, res) => {
     const { page, size, order, search, startDate, endDate } = req.query;
     const { limit, offset } = getPagination(page, size)
 
-    postEncryptedService.getLatest(limit, offset, order, search, startDate ? new Date(startDate) : startDate, endDate ? new Date(endDate) : endDate)
+    // converts to datetime format since it's stored in the db as such
+    const startDateParam = convertUnixToDateTime(startDate)
+    const endDateParam = convertUnixToDateTime(endDate)
+
+    postEncryptedService.getLatest(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate)
         .then(data => {
             // converts the standard UTC to unix timestamp
             data.rows.forEach(row => {
