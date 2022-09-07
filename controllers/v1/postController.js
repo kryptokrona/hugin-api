@@ -33,8 +33,8 @@ postController.getAll = async (req, res) => {
       limit, offset, order, search, startDate ? new Date(startDate) : startDate,
       endDate ? new Date(endDate) : endDate, excludeAvatar
     )
-        .then(data => {
-            const response = getPagingData(data, page, limit)
+        .then(async data => {
+            const response = await getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
             res.json(response)
         })
@@ -87,8 +87,8 @@ postController.getLatest = async (req, res) => {
     postService.getLatest(limit, offset, order, search, startDate ? new Date(startDate) : startDate,
       endDate ? new Date(endDate) : endDate, excludeAvatar
     )
-        .then(data => {
-            const response = getPagingData(data, page, limit)
+        .then(async data => {
+            const response = await getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
             res.json(response)
         })

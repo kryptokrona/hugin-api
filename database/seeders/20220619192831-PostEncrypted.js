@@ -3,7 +3,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
       queryInterface.bulkInsert(
-          'post_encrypted',
+          'postencrypted',
           [
             {
                 id: 1,
@@ -33,5 +33,5 @@ module.exports = {
           {}
       ),
   down: (queryInterface, Sequelize) =>
-      queryInterface.bulkDelete('post_encrypted', null, {}),
+      queryInterface.bulkDelete('postencrypted', null, {}),
 }

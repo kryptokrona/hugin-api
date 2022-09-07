@@ -337,7 +337,7 @@ async function savePost(messageObj, txHash) {
         log.info(getTimestamp() + ` INFO: Queries to took ${endTime - startTime} seconds`)
 
     } catch (err) {
-        log.info(getTimestamp() + ' ERROR: An error adding a Post transaction - Rolling back. ' + err)
+        log.error(getTimestamp() + ' ERROR: An error adding a Post transaction - Rolling back. ' + err)
     }
 }
 

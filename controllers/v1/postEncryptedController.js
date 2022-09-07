@@ -28,8 +28,8 @@ postEncryptedController.getAll = async (req, res) => {
     const { limit, offset } = getPagination(page, size)
 
     postEncryptedService.getAll(limit, offset, order, search, startDate ? new Date(startDate) : startDate, endDate ? new Date(endDate) : endDate)
-        .then(data => {
-            const response = getPagingData(data, page, limit)
+        .then(async data => {
+            const response = await getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
             res.json(response)
         })
@@ -78,8 +78,8 @@ postEncryptedController.getLatest = async (req, res) => {
     const { limit, offset } = getPagination(page, size)
 
     postEncryptedService.getLatest(limit, offset, order, search, startDate ? new Date(startDate) : startDate, endDate ? new Date(endDate) : endDate)
-        .then(data => {
-            const response = getPagingData(data, page, limit)
+        .then(async data => {
+            const response = await getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
             res.json(response)
         })

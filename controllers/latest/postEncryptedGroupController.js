@@ -32,13 +32,13 @@ postEncryptedController.getAll = async (req, res) => {
   const endDateParam = convertUnixToDateTime(endDate)
 
   postEncryptedGroupService.getAll(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate)
-    .then(data => {
+    .then(async data => {
       // converts the standard UTC to unix timestamp
       data.rows.forEach(row => {
         row.dataValues.createdAt = convertDateTimeToUnix(row.dataValues.createdAt)
         row.dataValues.updatedAt = convertDateTimeToUnix(row.dataValues.updatedAt)
       })
-      const response = getPagingData(data, page, limit)
+      const response = await getPagingData(data, page, limit)
       log.info(getTimestamp() + ' INFO: Successful response.')
       res.json(response)
     })
@@ -58,7 +58,7 @@ postEncryptedController.getAll = async (req, res) => {
  */
 postEncryptedController.getEncryptedGroupPostByTxHash = async (req, res) => {
   postEncryptedGroupService.getEncryptedGroupPostByTxHash(req)
-    .then(data => {
+    .then(async data => {
       log.info(getTimestamp() + ' INFO: Successful response.')
 
       // send empty object if we can not find the post
@@ -94,13 +94,13 @@ postEncryptedController.getLatest = async (req, res) => {
   const endDateParam = convertUnixToDateTime(endDate)
 
   postEncryptedGroupService.getLatest(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate)
-    .then(data => {
+    .then(async data => {
       // converts the standard UTC to unix timestamp
       data.rows.forEach(row => {
         row.dataValues.createdAt = convertDateTimeToUnix(row.dataValues.createdAt)
         row.dataValues.updatedAt = convertDateTimeToUnix(row.dataValues.updatedAt)
       })
-      const response = getPagingData(data, page, limit)
+      const response = await getPagingData(data, page, limit)
       log.info(getTimestamp() + ' INFO: Successful response.')
       res.json(response)
     })

@@ -28,8 +28,8 @@ hashtagController.getAll = (req, res) => {
     const { limit, offset } = getPagination(page, size)
 
     hashtagService.getAll(limit, offset, order, search)
-        .then(data => {
-            const response = getPagingData(data, page, limit)
+        .then(async data => {
+            const response = await getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
             res.json(response)
         })
@@ -78,8 +78,8 @@ hashtagController.getLatest = async (req, res) => {
     const { limit, offset } = getPagination(page, size)
 
     hashtagService.getLatest(limit, offset, order)
-        .then(data => {
-            const response = getPagingData(data, page, limit)
+        .then(async data => {
+            const response = await getPagingData(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
             res.json(response)
         })
@@ -102,8 +102,8 @@ hashtagController.getTrending = async (req, res) => {
     const { limit, offset } = getPagination(page, size)
 
     hashtagService.getTrending(page, size, limit, offset)
-        .then(data => {
-            let response = getPagingData(data, page, limit)
+        .then(async data => {
+            let response = await getPagingData(data, page, limit)
 
             //TODO: this is a temporary fix (check the hashtagService and modify it to avoid this method)
             // we want to do a SQL query instead of this

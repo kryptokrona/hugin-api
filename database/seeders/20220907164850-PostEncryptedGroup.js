@@ -3,7 +3,7 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert(
-      'post_encrypted_group',
+      'postencryptedgroup',
       [
         {
           id: 1,
@@ -35,6 +35,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('post_encrypted_group', null, {})
+    await queryInterface.bulkDelete('postencryptedgroup', null, {})
   }
 };
