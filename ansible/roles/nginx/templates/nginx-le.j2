@@ -86,7 +86,7 @@ server {
   }
 
   location /prometheus {
-    proxy_pass http://{{ hugin_api_name }}_monitoring/v2;
+    proxy_pass http://{{ hugin_api_name }}_monitoring/api/v1;
     proxy_http_version 1.1;
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection "Upgrade";
