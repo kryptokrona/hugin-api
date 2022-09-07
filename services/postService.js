@@ -115,7 +115,7 @@ postService.getAllRepliesOfPost = async (txHash) => {
       reply: txHash
     },
     raw: true
-  }).then(replies => replies.map(reply => reply.tx_hash));
+  })
 }
 
 module.exports = postService

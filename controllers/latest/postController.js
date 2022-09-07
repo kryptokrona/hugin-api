@@ -34,14 +34,15 @@ postController.getAll = async (req, res) => {
     excludeAvatar = (excludeAvatar === undefined || excludeAvatar === 'true')
 
     postService.getAll(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate, excludeAvatar)
-        .then(data => {
+        .then(async data => {
           // converts the standard UTC to unix timestamp
-          data.rows.forEach(row => {
+          for (const row of data.rows) {
             row.dataValues.createdAt = convertDateTimeToUnix(row.dataValues.createdAt)
             row.dataValues.updatedAt = convertDateTimeToUnix(row.dataValues.updatedAt)
-            row.dataValues.replies = postService.getAllRepliesOfPost(row.dataValues.tx_hash)
-          })
-          const response = getPagingData(data, page, limit)
+            row.dataValues.replies = await postService.getAllRepliesOfPost(row.dataValues.tx_hash).then(replies => replies.map(reply => reply.tx_hash))
+          }
+
+          const response = await getPagingData(data, page, limit)
           log.info(getTimestamp() + ' INFO: Successful response.')
           res.json(response)
 
@@ -62,7 +63,7 @@ postController.getAll = async (req, res) => {
  */
 postController.getPostByTxHash = async (req, res) => {
     postService.getPostByTxHash(req)
-        .then(data => {
+        .then(async data => {
             log.info(getTimestamp() + ' INFO: Successful response.')
 
             // send empty object if we can not find the post
@@ -72,6 +73,7 @@ postController.getPostByTxHash = async (req, res) => {
                 // converts the standard UTC to unix timestamp
                 data.dataValues.createdAt = convertDateTimeToUnix(data.dataValues.createdAt)
                 data.dataValues.updatedAt = convertDateTimeToUnix(data.dataValues.updatedAt)
+                data.dataValues.replies = await postService.getAllRepliesOfPost(data.dataValues.tx_hash).then(replies => replies.map(reply => reply.tx_hash))
                 res.json(data)
             }
         })
@@ -100,15 +102,17 @@ postController.getLatest = async (req, res) => {
     excludeAvatar = (excludeAvatar === undefined || excludeAvatar === 'true')
 
     postService.getLatest(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate, excludeAvatar)
-        .then(data => {
-            // converts the standard UTC to unix timestamp
-            data.rows.forEach(row => {
-              row.dataValues.createdAt = convertDateTimeToUnix(row.dataValues.createdAt)
-              row.dataValues.updatedAt = convertDateTimeToUnix(row.dataValues.updatedAt)
-            })
-            const response = getPagingData(data, page, limit)
-            log.info(getTimestamp() + ' INFO: Successful response.')
-            res.json(response)
+      .then(async data => {
+          // converts the standard UTC to unix timestamp
+          for (const row of data.rows) {
+            row.dataValues.createdAt = convertDateTimeToUnix(row.dataValues.createdAt)
+            row.dataValues.updatedAt = convertDateTimeToUnix(row.dataValues.updatedAt)
+            row.dataValues.replies = await postService.getAllRepliesOfPost(row.dataValues.tx_hash).then(replies => replies.map(reply => reply.tx_hash))
+          }
+
+          const response = await getPagingData(data, page, limit)
+          log.info(getTimestamp() + ' INFO: Successful response.')
+          res.json(response)
         })
         .catch(err => {
             log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data. ' + err)
