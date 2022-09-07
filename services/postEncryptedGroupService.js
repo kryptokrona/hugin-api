@@ -11,7 +11,7 @@ const { Op } = require("sequelize")
 const postEncryptedGroupService = {}
 
 /**
- * Get all encrypted posts
+ * Get all encrypted group posts
  */
 postEncryptedGroupService.getAll = async (limit, offset, order, searchKeyword, startDate, endDate) => {
   let query = {
@@ -46,7 +46,7 @@ postEncryptedGroupService.getAll = async (limit, offset, order, searchKeyword, s
 }
 
 /**
- * Get encrypted post by tx_hash
+ * Get encrypted group post by tx_hash
  */
 postEncryptedGroupService.getEncryptedGroupPostByTxHash = async (req) => {
   return models.PostEncryptedGroup.findOne({
@@ -57,7 +57,7 @@ postEncryptedGroupService.getEncryptedGroupPostByTxHash = async (req) => {
 }
 
 /**
- * Get latest encrypted posts
+ * Get latest encrypted group posts
  */
 postEncryptedGroupService.getLatest = async (limit, offset, order, searchKeyword, startDate, endDate) => {
   let query = {

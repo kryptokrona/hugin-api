@@ -13,12 +13,12 @@ const Op = db.Sequelize.Op;
 
 const postEncryptedGroupService = require('../../services/postEncryptedGroupService')
 const { getPagination, getPagingData} = require('../../utils/pagination')
-const { getTimestamp, convertDateTimeToUnix} = require("../../utils/time")
+const { getTimestamp, convertDateTimeToUnix, convertUnixToDateTime} = require("../../utils/time")
 
 const postEncryptedController = {}
 
 /**
- * Get all encrypted posts
+ * Get all encrypted group posts
  *
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
@@ -27,7 +27,11 @@ postEncryptedController.getAll = async (req, res) => {
   const { page, size, order, search, startDate, endDate } = req.query;
   const { limit, offset } = getPagination(page, size)
 
-  postEncryptedGroupService.getAll(limit, offset, order, search, startDate ? new Date(startDate) : startDate, endDate ? new Date(endDate) : endDate)
+  // converts to datetime format since it's stored in the db as such
+  const startDateParam = convertUnixToDateTime(startDate)
+  const endDateParam = convertUnixToDateTime(endDate)
+
+  postEncryptedGroupService.getAll(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate)
     .then(data => {
       // converts the standard UTC to unix timestamp
       data.rows.forEach(row => {
@@ -47,7 +51,7 @@ postEncryptedController.getAll = async (req, res) => {
 }
 
 /**
- * Get a specific encrypted posts by tx_hash
+ * Get a specific encrypted group posts by tx_hash
  *
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
@@ -76,7 +80,7 @@ postEncryptedController.getEncryptedGroupPostByTxHash = async (req, res) => {
 }
 
 /**
- * Get latest encrypted posts
+ * Get latest encrypted group posts
  *
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
@@ -85,7 +89,11 @@ postEncryptedController.getLatest = async (req, res) => {
   const { page, size, order, search, startDate, endDate } = req.query;
   const { limit, offset } = getPagination(page, size)
 
-  postEncryptedGroupService.getLatest(limit, offset, order, search, startDate ? new Date(startDate) : startDate, endDate ? new Date(endDate) : endDate)
+  // converts to datetime format since it's stored in the db as such
+  const startDateParam = convertUnixToDateTime(startDate)
+  const endDateParam = convertUnixToDateTime(endDate)
+
+  postEncryptedGroupService.getLatest(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate)
     .then(data => {
       // converts the standard UTC to unix timestamp
       data.rows.forEach(row => {

@@ -13,7 +13,7 @@ const Op = db.Sequelize.Op;
 
 const postService = require('../../services/postService')
 const { getPagination, getPagingData} = require('../../utils/pagination')
-const { getTimestamp, convertDateTimeToUnix } = require("../../utils/time")
+const { getTimestamp, convertDateTimeToUnix, convertUnixToDateTime} = require("../../utils/time")
 
 const postController = {}
 
@@ -27,12 +27,13 @@ postController.getAll = async (req, res) => {
     let { page, size, order, search, startDate, endDate, excludeAvatar } = req.query;
     const { limit, offset } = getPagination(page, size)
 
+    // converts to datetime format since it's stored in the db as such
+    const startDateParam = convertUnixToDateTime(startDate)
+    const endDateParam = convertUnixToDateTime(endDate)
+
     excludeAvatar = (excludeAvatar === undefined || excludeAvatar === 'true')
 
-    postService.getAll(
-      limit, offset, order, search, startDate ? new Date(startDate) : startDate,
-      endDate ? new Date(endDate) : endDate, excludeAvatar
-    )
+    postService.getAll(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate, excludeAvatar)
         .then(data => {
             // converts the standard UTC to unix timestamp
             data.rows.forEach(row => {
@@ -90,11 +91,13 @@ postController.getLatest = async (req, res) => {
     let { page, size, order, search, startDate, endDate, excludeAvatar } = req.query;
     const { limit, offset } = getPagination(page, size)
 
+    // converts to datetime format since it's stored in the db as such
+    const startDateParam = convertUnixToDateTime(startDate)
+    const endDateParam = convertUnixToDateTime(endDate)
+
     excludeAvatar = (excludeAvatar === undefined || excludeAvatar === 'true')
 
-    postService.getLatest(limit, offset, order, search, startDate ? new Date(startDate) : startDate,
-      endDate ? new Date(endDate) : endDate, excludeAvatar
-    )
+    postService.getLatest(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate, excludeAvatar)
         .then(data => {
             // converts the standard UTC to unix timestamp
             data.rows.forEach(row => {
