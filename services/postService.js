@@ -6,7 +6,7 @@
 
 const db = require('../configs/postgresql')
 const models = require("../database/models")
-const { Op } = require("sequelize")
+const { Sequelize, Op } = require("sequelize")
 
 const postService = {}
 
@@ -114,6 +114,22 @@ postService.getAllRepliesOfPost = async (txHash) => {
     where: {
       reply: txHash
     },
+    raw: true
+  })
+}
+
+/**
+ * Get all popular posts based on replies
+ */
+postService.getPopularPosts = async () => {
+  return models.Post.findAll({
+    attributes: [[Sequelize.literal('COUNT(*)'), 'replies'], ['reply', 'post']],
+    where: {
+      reply: {
+        [Op.ne]: null
+      }
+    },
+    group: 'reply',
     raw: true
   })
 }

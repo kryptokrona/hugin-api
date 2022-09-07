@@ -19,6 +19,7 @@ var postRouterLatest = require('./routes/latest/postRouter')
 var postEncryptedRouterLatest = require('./routes/latest/postEncryptedRouter')
 var postEncryptedGroupRouterLatest = require('./routes/latest/postEncryptedGroupRouter')
 var hashtagRouterLatest = require('./routes/latest/hashtagRouter')
+var statisticsRouterLatest = require('./routes/latest/statisticsRouter')
 
 // v1 routers
 var postRouter = require('./routes/v1/postRouter')
@@ -63,6 +64,7 @@ app.use(`${process.env.API_BASE_PATH}/v2/`, postRouterLatest)
 app.use(`${process.env.API_BASE_PATH}/v2/`, postEncryptedRouterLatest)
 app.use(`${process.env.API_BASE_PATH}/v2/`, postEncryptedGroupRouterLatest)
 app.use(`${process.env.API_BASE_PATH}/v2/`, hashtagRouterLatest)
+app.use(`${process.env.API_BASE_PATH}/v2/`, statisticsRouterLatest)
 
 // v1 routes
 app.use(`${process.env.API_BASE_PATH}/v1/`, postRouter)
