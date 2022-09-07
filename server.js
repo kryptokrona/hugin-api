@@ -17,6 +17,7 @@ const swaggerUi = require('swagger-ui-express')
 // latest routers
 var postRouterLatest = require('./routes/latest/postRouter')
 var postEncryptedRouterLatest = require('./routes/latest/postEncryptedRouter')
+var postEncryptedGroupRouterLatest = require('./routes/latest/postEncryptedGroupRouter')
 var hashtagRouterLatest = require('./routes/latest/hashtagRouter')
 
 // v1 routers
@@ -55,11 +56,12 @@ app.use(limiter)
 app.set('trust proxy', 1)
 
 // api routes
-app.use(`${process.env.API_BASE_PATH}docs`, swaggerUi.serve, swaggerUi.setup(openapiSpecification, swaggerCustomOptions))
+app.use(`${process.env.API_BASE_PATH}/docs`, swaggerUi.serve, swaggerUi.setup(openapiSpecification, swaggerCustomOptions))
 
 // latest routes
 app.use(`${process.env.API_BASE_PATH}/v2/`, postRouterLatest)
 app.use(`${process.env.API_BASE_PATH}/v2/`, postEncryptedRouterLatest)
+app.use(`${process.env.API_BASE_PATH}/v2/`, postEncryptedGroupRouterLatest)
 app.use(`${process.env.API_BASE_PATH}/v2/`, hashtagRouterLatest)
 
 // v1 routes

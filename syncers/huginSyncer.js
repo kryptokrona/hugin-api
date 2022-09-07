@@ -88,7 +88,16 @@ module.exports.backgroundSyncMessages = async () => {
                         })
                     }
 
-                    message = await extraDataToMessage(thisExtra, knownk, keypair)
+                  if (boxObj.sb) {
+                      // checking if encrypted group post with txHash already exists in db - if not create a new record
+                      encryptedGroupPostExists(txHash).then(result => {
+                        if (result === null) {
+                          saveEncryptedGroupPost(txHash, boxObj)
+                        }
+                      })
+                  }
+
+                  message = await extraDataToMessage(thisExtra, knownk, keypair)
                 }
 
                 if (!message) {
@@ -168,6 +177,28 @@ async function encryptedPostExists(txHash) {
 }
 
 /**
+ * Check if encrypted group post exists in database.
+ *
+ * @param {String} txHash - Hash value.
+ * @returns {Boolean} Resolves to true if found.
+ */
+async function encryptedGroupPostExists(txHash) {
+  try {
+    const postEncryptedGroupTxHashLookup = models.PostEncryptedGroup.findOne({
+      where: {
+        tx_hash: txHash
+      },
+      order: [[ 'id', 'DESC' ]],
+      raw: true,
+    })
+
+    return postEncryptedGroupTxHashLookup
+  } catch (err) {
+    log.error(getTimestamp() + ' ERROR: Sync error. ' + err)
+  }
+}
+
+/**
  * Check if post exists in database.
  *
  * @param {String} txHash - Hash value.
@@ -208,6 +239,27 @@ async function saveEncryptedPost(txHash, boxObj) {
     } catch(err) {
         log.error(getTimestamp() + ' ERROR: ' + err)
     }
+}
+
+/**
+ * Save an encrypted group post to database.
+ *
+ * @param {String} txHash - Transaction Hash Value.
+ * @param {Object} boxObj - Box Object.
+ * @returns {Promise} Resolves to this if transaction to database succeeded.
+ */
+async function saveEncryptedGroupPost(txHash, boxObj) {
+  try {
+    await sequelize.transaction(async (t) => {
+      return models.PostEncryptedGroup.create({
+        tx_hash: txHash,
+        tx_sb: boxObj.sb,
+        tx_timestamp: boxObj.t.toString(),
+      })
+    })
+  } catch(err) {
+    log.error(getTimestamp() + ' ERROR: ' + err)
+  }
 }
 
 /**
