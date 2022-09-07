@@ -129,6 +129,9 @@ postService.getPopularPosts = async () => {
         [Op.ne]: null
       }
     },
+    order: [
+      ['replies', 'DESC'],
+    ],
     group: 'reply',
     raw: true
   })
