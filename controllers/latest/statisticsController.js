@@ -30,7 +30,7 @@ statisticsController.getPopularPosts = async (req, res) => {
   postService.getPopularPosts(limit, offset, order)
     .then(async data => {
       // setting correct amount of row count
-      data.count[0].count = data.rows.length
+      data.count = data.count.length
 
       // setting time property
       for (const row of data.rows) {
