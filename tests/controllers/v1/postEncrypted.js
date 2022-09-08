@@ -50,7 +50,6 @@ describe('POST ENCRYPTED API ENDPOINTS', () => {
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .then(response => {
-                    console.log(response.body.items)
                     expect(response.body.items).to.deep.include(postEncrypted1)
                     expect(response.body.items).to.deep.include(postEncrypted2)
                     expect(response.body.items).to.deep.include(postEncrypted3)

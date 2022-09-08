@@ -21,7 +21,7 @@ const post1 = {
     time: '1651680078',
     nickname: 'kryptoknugen',
     tx_hash: '57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e7',
-    reply: '638ca916c88704e61318cf853ccf4b347aa649f841437939471fc9f6bc448cce',
+    reply: null,
     replies: [],
     createdAt: 0,
     updatedAt: 0,
@@ -36,7 +36,7 @@ const post2 = {
     time: '1651680078',
     nickname: 'mjovanc',
     tx_hash: '57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e7',
-    reply: '638ca916c88704e61318cf853ccf4b347aa649f841437939471fc9f6bc448cce',
+    reply: null,
     replies: [],
     createdAt: 0,
     updatedAt: 0,
@@ -51,7 +51,7 @@ const post3 = {
     time: '1651680078',
     nickname: 'Swepool',
     tx_hash: '57a2c0bb62f6ea2521fe214e89bd52dc2433cbe597b5632c7aef73d0bc2496e7',
-    reply: '638ca916c88704e61318cf853ccf4b347aa649f841437939471fc9f6bc448cce',
+    reply: null,
     replies: [],
     createdAt: 0,
     updatedAt: 0,
@@ -68,6 +68,7 @@ describe('POST API ENDPOINTS', () => {
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .then(response => {
+
                     expect(response.body.items).to.deep.include(post1)
                     expect(response.body.items).to.deep.include(post2)
                     expect(response.body.items).to.deep.include(post3)

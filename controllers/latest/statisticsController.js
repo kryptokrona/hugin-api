@@ -24,10 +24,23 @@ const statisticsController = {}
  * @param {object} res - Express response object.
  */
 statisticsController.getPopularPosts = async (req, res) => {
-  postService.getPopularPosts()
+  let { page, size, order } = req.query;
+  const { limit, offset } = getPagination(page, size)
+
+  postService.getPopularPosts(limit, offset, order)
     .then(async data => {
+      // setting correct amount of row count
+      data.count[0].count = data.rows.length
+
+      // setting time property
+      for (const row of data.rows) {
+        row.dataValues.time = await postService.getPostByTxHash(row.dataValues.post).then(post => post.time)
+      }
+
+      const response = await getPagingData(data, page, limit)
+
       log.info(getTimestamp() + ' INFO: Successful response.')
-      res.json(data)
+      res.json(response)
     })
     .catch(err => {
       log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data. ' + err)
