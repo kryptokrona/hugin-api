@@ -121,19 +121,21 @@ postService.getAllRepliesOfPost = async (txHash) => {
 /**
  * Get all popular posts based on replies
  */
-postService.getPopularPosts = async () => {
-  return models.Post.findAll({
+postService.getPopularPosts = async (limit, offset, order) => {
+  return models.Post.findAndCountAll({
     attributes: [[Sequelize.literal('COUNT(*)'), 'replies'], ['reply', 'post']],
+    limit: limit,
+    order: [
+      ['replies', order ? order.toUpperCase() : 'DESC'],
+    ],
+    distinct: true,
+    offset: offset,
     where: {
       reply: {
         [Op.ne]: null
       }
     },
-    order: [
-      ['replies', 'DESC'],
-    ],
-    group: 'reply',
-    raw: true
+    group: 'reply'
   })
 }
 
