@@ -34,7 +34,7 @@ statisticsController.getPopularPosts = async (req, res) => {
 
       // setting time property
       for (const row of data.rows) {
-        row.dataValues.time = await postService.getPostByTxHash(row.dataValues.post).then(post => post.time)
+        row.dataValues.time = await postService.getPostByTxHashStr(row.dataValues.post).then(post => post.time)
       }
 
       const response = await getPagingData(data, page, limit)

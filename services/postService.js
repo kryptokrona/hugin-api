@@ -119,6 +119,17 @@ postService.getAllRepliesOfPost = async (txHash) => {
 }
 
 /**
+ * Get post by tx_hash
+ */
+postService.getPostByTxHashStr = async (txHash) => {
+  return models.Post.findOne({
+    where: {
+      tx_hash: txHash
+    }
+  })
+}
+
+/**
  * Get all popular posts based on replies
  */
 postService.getPopularPosts = async (limit, offset, order) => {
