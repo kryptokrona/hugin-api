@@ -150,4 +150,25 @@ postService.getPopularPosts = async (limit, offset, order) => {
   })
 }
 
+/**
+ * Get all popular posts based on replies
+ */
+postService.getPopularBoards = async (limit, offset, order) => {
+  return models.Post.findAndCountAll({
+    attributes: [[Sequelize.literal('COUNT(*)'), 'posts'], 'board'],
+    limit: limit,
+    order: [
+      ['posts', order ? order.toUpperCase() : 'DESC'],
+    ],
+    distinct: true,
+    offset: offset,
+    where: {
+      reply: {
+        [Op.ne]: null
+      }
+    },
+    group: 'board',
+  })
+}
+
 module.exports = postService

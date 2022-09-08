@@ -50,4 +50,32 @@ statisticsController.getPopularPosts = async (req, res) => {
     })
 }
 
+/**
+ * Get most popular boards
+ *
+ * @param {object} req - Express request object.
+ * @param {object} res - Express response object.
+ */
+statisticsController.getPopularBoards = async (req, res) => {
+  let { page, size, order } = req.query;
+  const { limit, offset } = getPagination(page, size)
+
+  postService.getPopularBoards(limit, offset, order)
+    .then(async data => {
+      // setting correct amount of row count
+      data.count = data.count.length
+
+      const response = await getPagingData(data, page, limit)
+
+      log.info(getTimestamp() + ' INFO: Successful response.')
+      res.json(response)
+    })
+    .catch(err => {
+      log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data. ' + err)
+      res.status(400).send({
+        message: err.message || 'Some error occurred while retrieving data.'
+      })
+    })
+}
+
 module.exports = statisticsController
