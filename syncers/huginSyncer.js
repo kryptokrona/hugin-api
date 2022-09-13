@@ -14,6 +14,7 @@ let ws = new WebSocket(`ws://localhost:${process.env.SYS_WS_PORT}`)
 
 const { getTimestamp } = require('../utils/time')
 const { messageCriteria } = require('../utils/messageCriteria')
+const { validateMessage } = require('../validators/messageValidator')
 let avatar = require('../utils/avatar')
 
 let db = require("../configs/postgresql"),
@@ -21,6 +22,7 @@ let db = require("../configs/postgresql"),
     Sequelize = db.Sequelize
 
 let models = require('../database/models')
+const {logger} = require("sequelize/lib/utils/logger");
 
 let known_pool_txs = [];
 
@@ -122,25 +124,32 @@ module.exports.backgroundSyncMessages = async () => {
                         avatar: avatarStr || null,
                     }
 
-                    // skipping based on criteria - if criteria exists
-                    const criteriaFulfilled = messageCriteria(messageObj)
+                    const messageValidated = validateMessage(messageObj)
 
-                    // criteria guard
-                    if (!criteriaFulfilled) {
+                    if (messageValidated) {
+                      log.info(getTimestamp() + ' INFO: Message was validated.')
+                      // skipping based on criteria - if criteria exists
+                      const criteriaFulfilled = messageCriteria(messageObj)
+
+                      // criteria guard
+                      if (!criteriaFulfilled) {
                         log.info(getTimestamp() + ' INFO: Message does not meet criteria based on configuration: ' + JSON.stringify(message))
                         continue
-                    }
-                    log.info(getTimestamp() + ' INFO: Criteria fulfilled.')
+                      }
+                      log.info(getTimestamp() + ' INFO: Criteria fulfilled.')
 
-                    // broadcast message object to websocket server
-                    ws.send(JSON.stringify(messageObj))
+                      // broadcast message object to websocket server
+                      ws.send(JSON.stringify(messageObj))
 
-                    // checking if post with txHash already exists in db - if not create a new record
-                    postExists(txHash).then(result => {
+                      // checking if post with txHash already exists in db - if not create a new record
+                      postExists(txHash).then(result => {
                         if (result === null) {
-                            savePost(messageObj, txHash)
+                          savePost(messageObj, txHash)
                         }
-                    })
+                      })
+                    } else {
+                      log.info(getTimestamp() + ' INFO: Message was not validated, ignoring.')
+                    }
                 } else {
                     log.info(getTimestamp() + ' INFO: No message.')
                 }
