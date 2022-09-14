@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Represents a Post Encrypted Controller.
+ * Post Encrypted Controller.
  *
  * @author Marcus Cvjeticanin
  */
