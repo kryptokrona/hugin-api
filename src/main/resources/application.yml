@@ -1,0 +1,30 @@
+server:
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+  application:
+    name: Hugin Cache
+  main:
+    allow-bean-definition-overriding: true
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api/v1/docs
+  swagger-ui:
+    enabled: true
+    path: /api/v1/docs/index.html
+    operationsSorter: method
+    syntaxHighlight:
+      theme: obsidian
+    disable-swagger-default-url: true
+    supported-submit-methods: []
+
+apiTitle: ${apiTitle}
+apiDescription: ${apiDescription}
+apiVersion: ${apiVersion}
+apiContactName: ${apiContactName}
+apiContactEmail: ${apiContactEmail}
+apiContactUrl: ${apiContactUrl}
