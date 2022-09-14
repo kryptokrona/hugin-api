@@ -70,6 +70,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-websocket")
 	implementation("io.github.classgraph:classgraph:4.8.149")
 	implementation("com.h2database:h2:2.1.214")
+	// implementation("com.kryptokrona.sdk:kryptokrona-sdk:0.1.0")
 	implementation("org.springdoc:springdoc-openapi-ui:1.6.11") { // might get this version to use in libs
 		exclude("org.webjars:swagger-ui") // exlcuding this module so we can use the custom below
 	}
