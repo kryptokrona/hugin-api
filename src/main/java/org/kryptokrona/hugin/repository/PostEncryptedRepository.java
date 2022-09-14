@@ -1,6 +1,6 @@
 package org.kryptokrona.hugin.repository;
 
-import org.kryptokrona.hugincache.model.PostEncrypted;
+import org.kryptokrona.hugin.model.PostEncrypted;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
