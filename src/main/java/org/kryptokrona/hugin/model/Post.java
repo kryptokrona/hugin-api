@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Represents a Post entity.
+ * Post entity.
  *
  * @author Marcus Cvjeticanin
  */

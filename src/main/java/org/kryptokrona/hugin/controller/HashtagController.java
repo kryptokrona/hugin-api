@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Represents a Hashtag Controller.
+ * Hashtag Controller.
  *
  * @author Marcus Cvjeticanin
  */

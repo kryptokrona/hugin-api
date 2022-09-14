@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Represents a Hashtag entity.
+ * Hashtag entity.
  *
  * @author Marcus Cvjeticanin
  */
