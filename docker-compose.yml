@@ -1,21 +1,6 @@
 version: '3.7'
 
 services:
-  # hugin-api:
-  #   build: .
-  #   container_name: hugin-api
-  #   environment:
-  #     DEV_DATABASE_URL: postgres://postgres:test1234@127.0.0.1:5432/hugin_api_dev
-  #     NODE_ENV: development
-  #   ports:
-  #     - "3000:3000"
-  #   links:
-  #     - postgres
-  #   depends_on:
-  #     - postgres
-  #   networks:
-  #     - hugin-net
-
   postgres:
     image: postgres
     container_name: postgres
