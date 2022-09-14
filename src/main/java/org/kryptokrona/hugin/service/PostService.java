@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
- * Represents a Post Service.
+ * Post Service.
  *
  * @author Marcus Cvjeticanin
  */

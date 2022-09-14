@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Represents a Post Encrypted entity.
+ * Post Encrypted entity.
  *
  * @author Marcus Cvjeticanin
  */
