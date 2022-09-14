@@ -1,6 +1,6 @@
 package org.kryptokrona.hugin.repository;
 
-import org.kryptokrona.hugincache.model.Post;
+import org.kryptokrona.hugin.model.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

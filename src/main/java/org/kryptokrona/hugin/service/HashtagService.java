@@ -1,7 +1,7 @@
 package org.kryptokrona.hugin.service;
 
-import org.kryptokrona.hugincache.model.Hashtag;
-import org.kryptokrona.hugincache.repository.HashtagRepository;
+import org.kryptokrona.hugin.model.Hashtag;
+import org.kryptokrona.hugin.repository.HashtagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
