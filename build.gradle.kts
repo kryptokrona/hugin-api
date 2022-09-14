@@ -48,8 +48,16 @@ tasks.processResources {
 //---------------------------------------------------------------------------------
 
 dependencies {
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-websocket")
+	implementation("io.github.classgraph:classgraph:4.8.149")
+	implementation("com.h2database:h2:2.1.214")
+	implementation("org.springdoc:springdoc-openapi-ui") { // might get this version to use in libs
+		exclude("org.webjars:swagger-ui") // exlcuding this module so we can use the custom below
+	}
+	implementation(files("libs/swagger-ui-3.49.0.jar")) // custom jar file for our custom swagger-ui theme
+
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("org.postgresql:postgresql")
 	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
