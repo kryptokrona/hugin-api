@@ -14,6 +14,12 @@ plugins {
 	kotlin("jvm") version "1.7.10"
 	kotlin("plugin.lombok") version "1.7.10"
 	id("io.freefair.lombok") version "5.3.0"
+//	id("com.dorongold.task-tree") version "2.1.0"
+//	id("checkstyle")
+//	id("pmd")
+//	id("de.aaschmid.cpd") version "3.3"
+//	id("com.github.spotbugs") version "5.0.4"
+//	id("jacoco")
 }
 
 group = "org.kryptokrona"
