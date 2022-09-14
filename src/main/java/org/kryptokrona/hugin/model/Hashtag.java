@@ -18,7 +18,6 @@ public class Hashtag {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@JsonProperty("name")
 	@Column(name = "name")
 	private String name;
 
