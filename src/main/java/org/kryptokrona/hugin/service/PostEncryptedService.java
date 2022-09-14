@@ -1,7 +1,7 @@
 package org.kryptokrona.hugin.service;
 
-import org.kryptokrona.hugincache.model.PostEncrypted;
-import org.kryptokrona.hugincache.repository.PostEncryptedRepository;
+import org.kryptokrona.hugin.model.PostEncrypted;
+import org.kryptokrona.hugin.repository.PostEncryptedRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
