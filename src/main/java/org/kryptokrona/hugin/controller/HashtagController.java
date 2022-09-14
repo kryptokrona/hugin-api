@@ -2,7 +2,6 @@ package org.kryptokrona.hugin.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.kryptokrona.hugin.service.HashtagService;
-import org.kryptokrona.hugin.service.PostService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
