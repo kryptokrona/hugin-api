@@ -2,7 +2,11 @@
   <configuration default="false" name="HuginApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <option name="ACTIVE_PROFILES" />
     <module name="hugin.main" />
+    <selectedOptions>
+      <option name="environmentVariables" />
+    </selectedOptions>
     <option name="SPRING_BOOT_MAIN_CLASS" value="org.kryptokrona.hugin.HuginApplication" />
+    <option name="VM_PARAMETERS" value="-Dspring.profiles.active=dev" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
