@@ -5,7 +5,7 @@ server:
 
 spring:
   application:
-    name: Hugin Cache
+    name: ${apiTitle}
   main:
     allow-bean-definition-overriding: true
 
