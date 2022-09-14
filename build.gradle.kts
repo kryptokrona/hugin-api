@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootWar
 
 plugins {
 	id("org.springframework.boot") version "2.7.3"
@@ -11,15 +12,29 @@ plugins {
 }
 
 group = "org.kryptokrona"
-version = "0.0.1-SNAPSHOT"
+val version: String by project
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_17
 	targetCompatibility = JavaVersion.VERSION_17
 }
 
+tasks.getByName<BootWar>("bootWar") {
+	enabled = false
+}
+
+tasks.getByName<War>("war") {
+	enabled = true
+}
+
 repositories {
 	mavenCentral()
+}
+
+tasks.processResources {
+	filesMatching("application.yml") {
+		expand(project.properties)
+	}
 }
 
 dependencies {
@@ -40,4 +55,10 @@ tasks.withType<Test> {
 
 tasks.withType<KotlinCompile> {
 	kotlinOptions.jvmTarget = "17"
+}
+
+tasks.register("printVersion") {
+	doLast {
+		println(project.version)
+	}
 }
