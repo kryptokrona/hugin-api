@@ -1,5 +1,6 @@
 package org.kryptokrona.hugin.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.kryptokrona.hugin.service.HashtagService;
 import org.kryptokrona.hugin.service.PostService;
 import org.slf4j.Logger;
@@ -20,7 +21,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin(origins="*")
 @RequestMapping("api/v1/hashtags")
-// @Tag(name = "posts", description = "Set of endpoints to get data of posts.")
+@Tag(name = "hashtags", description = "Set of endpoints to get data of hashtags.")
 public class HashtagController {
 
 	@Autowired
