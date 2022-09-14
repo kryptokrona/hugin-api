@@ -1,6 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootWar
 
+
+//---------------------------------------------------------------------------------
+// PLUGINS
+//---------------------------------------------------------------------------------
+
 plugins {
 	id("org.springframework.boot") version "2.7.3"
 	id("io.spring.dependency-management") version "1.0.13.RELEASE"
@@ -37,6 +42,11 @@ tasks.processResources {
 	}
 }
 
+
+//---------------------------------------------------------------------------------
+// DEPENDENCIES
+//---------------------------------------------------------------------------------
+
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-websocket")
@@ -49,6 +59,11 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
+
+//---------------------------------------------------------------------------------
+// TEST CONFIGURATION
+//---------------------------------------------------------------------------------
+
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
@@ -56,6 +71,11 @@ tasks.withType<Test> {
 tasks.withType<KotlinCompile> {
 	kotlinOptions.jvmTarget = "17"
 }
+
+
+//---------------------------------------------------------------------------------
+// TASKS
+//---------------------------------------------------------------------------------
 
 tasks.register("printVersion") {
 	doLast {
