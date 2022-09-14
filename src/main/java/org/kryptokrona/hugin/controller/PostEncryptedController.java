@@ -1,5 +1,6 @@
 package org.kryptokrona.hugin.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.kryptokrona.hugin.service.PostEncryptedService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +20,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin(origins="*")
 @RequestMapping("api/v1/posts-encrypted")
-// @Tag(name = "posts", description = "Set of endpoints to get data of posts.")
+@Tag(name = "posts-encrypted", description = "Set of endpoints to get data of encrypted posts.")
 public class PostEncryptedController {
 
 	@Autowired
