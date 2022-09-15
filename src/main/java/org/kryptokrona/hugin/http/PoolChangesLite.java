@@ -39,8 +39,8 @@ public class PoolChangesLite {
 		return isTailBlockActual;
 	}
 
-	public void setTailBlockActual(boolean tailBlockActual) {
-		isTailBlockActual = tailBlockActual;
+	public void setIsTailBlockActual(boolean isTailBlockActual) {
+		isTailBlockActual = isTailBlockActual;
 	}
 
 	public String getStatus() {

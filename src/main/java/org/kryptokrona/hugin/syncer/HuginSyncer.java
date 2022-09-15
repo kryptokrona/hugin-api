@@ -1,5 +1,6 @@
 package org.kryptokrona.hugin.syncer;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.hc.client5.http.fluent.Content;
 import org.apache.hc.client5.http.fluent.Form;
 import org.apache.hc.client5.http.fluent.Request;
@@ -14,6 +15,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -62,9 +65,11 @@ public class HuginSyncer {
 			getRequest("get_pool_changes_lite")
 					.subscribe(response -> {
 						System.out.println(response.asString());
-						// PoolChangesLite poolChangesLite = gson.fromJson(response.toString()), PoolChangesLite.class);
-						// JsonObject jsonObject = gson.fromJson(response, poolChangesLiteCollectionType);
-						// var test = jsonObject.getAsJsonObject("isTailBlockActual");
+						ObjectMapper objectMapper = new ObjectMapper();
+						Reader reader = new StringReader(response.asString());
+
+						PoolChangesLite poolChangesLite = objectMapper.readValue(reader, PoolChangesLite.class);
+						System.out.println(poolChangesLite.getStatus());
 					});
 		} catch(IOException e) {
 			logger.error("Sync error: " + e);
