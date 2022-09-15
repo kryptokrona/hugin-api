@@ -28,3 +28,4 @@ apiVersion: ${apiVersion}
 apiContactName: ${apiContactName}
 apiContactEmail: ${apiContactEmail}
 apiContactUrl: ${apiContactUrl}
+nodeHostname: ${SYS_NODE_HOSTNAME:blocksum.org:11898}

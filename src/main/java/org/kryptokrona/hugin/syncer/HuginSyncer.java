@@ -9,12 +9,18 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import inet.ipaddr.HostName;
 import io.reactivex.rxjava3.core.Observable;
-import org.kryptokrona.hugin.http.Post;
+import org.kryptokrona.hugin.model.http.KnownPoolTxs;
+import org.kryptokrona.hugin.model.http.Post;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Hugin Syncer.
@@ -28,13 +34,29 @@ public class HuginSyncer {
 
 	private final HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory();
 
-	private Type postCollectionType = new TypeToken<Post>(){}.getType();
+	private final Type postCollectionType = new TypeToken<Post>(){}.getType();
 
-	private HostName hostname = new HostName("");
+	@Value("${nodeHostname}")
+	private String nodeHostname;
+
+	private HostName hostname = new HostName(nodeHostname);
+
+	private List<String> knownPoolTxs = new ArrayList<>();
+
+	private static final Logger logger = LoggerFactory.getLogger(HuginSyncer.class);
 
 	@Scheduled(fixedRate=1000)
 	public void sync() {
-		//Check states and send mails
+		logger.info("Background syncing...");
+
+		try {
+			postRequest("get_pool_changes_lite", new KnownPoolTxs())
+					.subscribe(System.out::println);
+		} catch(IOException e) {
+			logger.error("Sync error: " + e);
+		}
+
+		// populate database with incoming data
 	}
 
 	public Observable<String> getRequest(String param) throws IOException {
