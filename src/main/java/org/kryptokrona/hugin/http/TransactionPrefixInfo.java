@@ -11,10 +11,10 @@ import com.google.gson.annotations.SerializedName;
  */
 public class TransactionPrefixInfo {
 
-	@SerializedName("txHash")
+	@SerializedName("transactionPrefixInfo.txHash")
 	private String transactionHash;
 
-	@SerializedName("txPrefix")
+	@SerializedName("transactionPrefixInfo.txPrefix")
 	private TransactionPrefix transactionPrefix;
 
 	public String getTransactionHash() {
