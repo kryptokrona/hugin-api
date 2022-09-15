@@ -1,6 +1,6 @@
 package org.kryptokrona.hugin.http;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -15,10 +15,10 @@ public class VinValue {
 
 	private long amount;
 
-	@SerializedName("k_image")
+	@JsonProperty("k_image")
 	private String kImage;
 
-	@SerializedName("key_offsets")
+	@JsonProperty("key_offsets")
 	private List<Long> keyOffsets;
 
 	public long getAmount() {
