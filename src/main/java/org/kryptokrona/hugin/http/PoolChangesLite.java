@@ -11,28 +11,28 @@ import java.util.List;
  */
 public class PoolChangesLite {
 
-	private List<TransactionPrefixInfo> transactionPrefixInfoList;
+	private List<TransactionPrefixInfo> addedTxs;
 
-	private List<String> deletedTxIds;
+	private List<String> deletedTxsIds;
 
 	private boolean isTailBlockActual;
 
 	private String status;
 
-	public List<TransactionPrefixInfo> getTransactionPrefixInfoList() {
-		return transactionPrefixInfoList;
+	public List<TransactionPrefixInfo> getAddedTxs() {
+		return addedTxs;
 	}
 
-	public void setTransactionPrefixInfoList(List<TransactionPrefixInfo> transactionPrefixInfoList) {
-		this.transactionPrefixInfoList = transactionPrefixInfoList;
+	public void setAddedTxs(List<TransactionPrefixInfo> addedTxs) {
+		this.addedTxs = addedTxs;
 	}
 
-	public List<String> getDeletedTxIds() {
-		return deletedTxIds;
+	public List<String> getDeletedTxsIds() {
+		return deletedTxsIds;
 	}
 
-	public void setDeletedTxIds(List<String> deletedTxIds) {
-		this.deletedTxIds = deletedTxIds;
+	public void setDeletedTxsIds(List<String> deletedTxsIds) {
+		this.deletedTxsIds = deletedTxsIds;
 	}
 
 	public boolean isTailBlockActual() {
