@@ -1,4 +1,4 @@
-upstream {{ hugin_api_name }}_api {
+upstream {{ hugin_api_name }} {
     server 127.0.0.1:8080;
 }
 upstream {{ hugin_api_name }}_monitoring {
@@ -45,7 +45,7 @@ server {
     #}
 
     location /api {
-        proxy_pass http://{{ hugin_api_name }}_api;
+        proxy_pass http://{{ hugin_api_name }};
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
