@@ -38,11 +38,15 @@
     # DO NOT CONFIGURE THE ABOVE YOURSELF
 
     removal_interval: '1 years 2 months 3 days 2 hours 1 minutes 1 second'
-    hugin_node_server: "blocksum.org:11898"
 
-    sys_swagger_contact_name: "Marcus Cvjeticanin"
-    sys_swagger_contact_email: "mjovanc@icloud.com"
-    sys_swagger_contact_url: "https://github.com/kryptokrona/hugin-api/issues"
+    sys_api_title: "Hugin API"
+    sys_api_description: "Hugin API is a Spring application that provides a RESTful API and Websocket server for the Hugin Messenger service."
+    sys_api_contact_name: "Marcus Cvjeticanin"
+    sys_api_contact_email: "mjovanc@icloud.com"
+    sys_api_contact_url: "https://github.com/kryptokrona/hugin-api"
+    sys_node_hostname: "blocksum.org:11898"
+
+
 
     sys_project_name: "Hugin API"
 
