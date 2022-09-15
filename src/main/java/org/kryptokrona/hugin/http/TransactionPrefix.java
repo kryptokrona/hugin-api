@@ -2,6 +2,11 @@ package org.kryptokrona.hugin.http;
 
 import java.util.List;
 
+/**
+ * Transaction Prefix HTTP model.
+ *
+ * @author Marcus Cvjeticanin
+ */
 public class TransactionPrefix {
 
 	private String extra;
@@ -13,4 +18,5 @@ public class TransactionPrefix {
 	private List<Vin> vinList;
 
 	private List<Vout> voutList;
+
 }
