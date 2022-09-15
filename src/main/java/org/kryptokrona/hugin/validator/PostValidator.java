@@ -1,6 +1,6 @@
 package org.kryptokrona.hugin.validator;
 
-import org.kryptokrona.hugin.http.Post;
+import org.kryptokrona.hugin.model.http.Post;
 
 /**
  * Post Validator.
