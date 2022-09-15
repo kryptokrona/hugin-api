@@ -1,4 +1,4 @@
-package org.kryptokrona.hugin.model.http;
+package org.kryptokrona.hugin.http;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package org.kryptokrona.hugin.model.http;
+package org.kryptokrona.hugin.http;
 
 /**
  * Post HTTP model that represent data we get from the node.
@@ -22,6 +22,17 @@ public class Post {
 	private String txHash;
 
 	private String replyTxHash;
+
+	public Post(String message, String key, String signature, String board, long time, String nickname, String txHash, String replyTxHash) {
+		this.message = message;
+		this.key = key;
+		this.signature = signature;
+		this.board = board;
+		this.time = time;
+		this.nickname = nickname;
+		this.txHash = txHash;
+		this.replyTxHash = replyTxHash;
+	}
 
 	public String getMessage() {
 		return message;
