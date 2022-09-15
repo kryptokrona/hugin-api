@@ -49,17 +49,17 @@ public class HuginSyncer {
 	public void sync() {
 		logger.info("Background syncing...");
 
-		/*try {
+		try {
 			postRequest("get_pool_changes_lite", new KnownPoolTxs())
 					.subscribe(System.out::println);
 		} catch(IOException e) {
 			logger.error("Sync error: " + e);
-		}*/
+		}
 
 		// populate database with incoming data
 	}
 
-	/*public Observable<String> getRequest(String param) throws IOException {
+	public Observable<String> getRequest(String param) throws IOException {
 		var request = requestFactory.buildGetRequest(
 				new GenericUrl(String.format("http://%s/%s", this.hostname.toString(), param)));
 
@@ -69,10 +69,11 @@ public class HuginSyncer {
 	public Observable<String> postRequest(String param, Object obj) throws IOException {
 		var request = requestFactory.buildPostRequest(
 				new GenericUrl(String.format("http://%s/%s", this.hostname.toString(), param)),
-				ByteArrayContent.fromString("application/json", gson.toJson(obj, new TypeToken<>() {
+				// when using typetoken, do not remove as suggested per IDE to remove the Object inside the <> below!
+				ByteArrayContent.fromString("application/json", gson.toJson(obj, new TypeToken<Object>() {
 				}.getType())));
 
 		return Observable.just(request.getHeaders().setContentType("application/json").toString());
-	}*/
+	}
 
 }
