@@ -1,6 +1,6 @@
 package org.kryptokrona.hugin.http;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Vin HTTP model.
@@ -14,7 +14,7 @@ public class Vin {
 
 	private String type;
 
-	@SerializedName("value")
+	@JsonProperty("value")
 	private VinValue vinValue;
 
 	public String getType() {

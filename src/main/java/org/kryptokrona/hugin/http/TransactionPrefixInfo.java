@@ -1,6 +1,6 @@
 package org.kryptokrona.hugin.http;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Transaction Prefix Info HTTP model.
@@ -11,10 +11,10 @@ import com.google.gson.annotations.SerializedName;
  */
 public class TransactionPrefixInfo {
 
-	@SerializedName("transactionPrefixInfo.txHash")
+	@JsonProperty("transactionPrefixInfo.txHash")
 	private String transactionHash;
 
-	@SerializedName("transactionPrefixInfo.txPrefix")
+	@JsonProperty("transactionPrefixInfo.txPrefix")
 	private TransactionPrefix transactionPrefix;
 
 	public String getTransactionHash() {

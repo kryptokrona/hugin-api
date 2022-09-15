@@ -1,6 +1,6 @@
 package org.kryptokrona.hugin.http;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -15,15 +15,15 @@ public class TransactionPrefix {
 
 	private String extra;
 
-	@SerializedName("unlock_time")
+	@JsonProperty("unlock_time")
 	private long unlockTime;
 
 	private int version;
 
-	@SerializedName("vin")
+	@JsonProperty("vin")
 	private List<Vin> vinList;
 
-	@SerializedName("vout")
+	@JsonProperty("vout")
 	private List<Vout> voutList;
 
 	public String getExtra() {
