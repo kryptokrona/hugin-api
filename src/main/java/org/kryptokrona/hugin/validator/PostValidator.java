@@ -32,7 +32,7 @@ public class PostValidator {
 	 * @return Returns true or false
 	 */
 	public static boolean validateKey(String key) {
-		return false;
+		return key.startsWith("SEKR");
 	}
 
 	/**
@@ -54,7 +54,8 @@ public class PostValidator {
 	 * @return Returns true or false
 	 */
 	public static boolean validateTime(long time) {
-		return false;
+		var timeStr = String.valueOf(time);
+		return timeStr.length() >= 10;
 	}
 
 	/**
@@ -64,6 +65,6 @@ public class PostValidator {
 	 * @return Returns true or false
 	 */
 	public static boolean validateTxHash(String txHash) {
-		return false;
+		return txHash.length() == 64;
 	}
 }
