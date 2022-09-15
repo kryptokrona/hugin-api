@@ -42,7 +42,7 @@ public class Post {
   private String txHash;
 
   @Column(name = "reply")
-  private String reply;
+  private String replyTxHash;
 
   @CreatedDate
   @Column(name = "created_at", nullable = false, updatable = false)
