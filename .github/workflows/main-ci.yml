@@ -78,7 +78,7 @@ jobs:
       - name: Smoke Test
         run: |
           pip3 install requests
-          python3 tests/requests/smoke-test.py test-api.novastack.org
+          python3 scripts/smoke-test.py test-api.novastack.org
 
   deploy-prod:
     name: Deploy Prod
@@ -116,4 +116,4 @@ jobs:
       - name: Smoke Test
         run: |
           pip3 install requests
-          python3 tests/requests/smoke-test.py api.hugin.chat
+          python3 scripts/smoke-test.py api.hugin.chat
