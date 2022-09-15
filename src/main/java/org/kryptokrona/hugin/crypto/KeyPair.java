@@ -1,5 +1,10 @@
 package org.kryptokrona.hugin.crypto;
 
+/**
+ * KeyPair.
+ *
+ * @author Marcus Cvjeticanin
+ */
 public class KeyPair {
 
 	private String privateSpendKey;

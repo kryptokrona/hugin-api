@@ -5,7 +5,9 @@ import inet.ipaddr.HostName;
 import io.reactivex.rxjava3.core.Observable;
 import org.apache.hc.client5.http.fluent.Content;
 import org.apache.hc.client5.http.fluent.Request;
+import org.kryptokrona.hugin.crypto.HuginCrypto;
 import org.kryptokrona.hugin.crypto.KeyPair;
+import org.kryptokrona.hugin.crypto.OpenBox;
 import org.kryptokrona.hugin.http.KnownPoolTxs;
 import org.kryptokrona.hugin.http.PoolChangesLite;
 import org.slf4j.Logger;
@@ -84,24 +86,25 @@ public class HuginSyncer {
 						logger.debug("Transaction is already known: " + txHash);
 					}
 
-					var knownk = new ArrayList<>();
+					var knownk = new ArrayList<String>();
 
 					var keyPair = new KeyPair();
 					keyPair.setPrivateSpendKey("0000000000000000000000000000000000000000000000000000000000000000");
 					keyPair.setPrivateViewKey("0000000000000000000000000000000000000000000000000000000000000000");
 
-					String message = null;
+					OpenBox openBox = null;
 
 					if (thisExtra != null && thisExtra.length() > 200) {
 						logger.debug("Extra data is less than 200 in length, skipping.");
-						// var boxObj =
+
+						openBox = HuginCrypto.extraDataToMessage(thisExtra, knownk, keyPair);
 					}
 
-					if (message == null) {
+					if (openBox == null) {
 						logger.debug("Caught null message, skipping.");
 					}
 
-					if (message != null) {
+					if (openBox != null) {
 
 					}
 
