@@ -30,7 +30,7 @@ public class HuginSyncer {
 	@Value("${SYS_NODE_HOSTNAME}")
 	private String nodeHostname;
 
-	private HostName hostname = new HostName(nodeHostname);
+	private HostName hostname;
 
 	private List<String> knownPoolTxsList = new ArrayList<>();
 
@@ -39,6 +39,8 @@ public class HuginSyncer {
 	@Scheduled(fixedRate=1000)
 	public void sync() {
 		logger.info("Background syncing...");
+
+		hostname = new HostName(nodeHostname);
 
 		getPoolChangesLite().subscribe(response -> {
 			System.out.println(response);
@@ -78,7 +80,7 @@ public class HuginSyncer {
 	}
 
 	public Observable<Content> getRequest(String param) throws IOException {
-		var request = Request.get(String.format("http://%s/%s", this.hostname.toString(), param))
+		var request = Request.get(String.format("http://%s/%s", hostname, param))
 				.execute().returnContent();
 
 		return Observable.just(request);
