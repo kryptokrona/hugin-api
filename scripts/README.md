@@ -1,5 +1,5 @@
-# Kryptokrona Java SDK Scripts
-Useful scripts for the Kryptokrona Java SDK. 
+# Hugin API Scripts
+Useful scripts for the Hugin API. 
 
 ## Setup Testnet
 
