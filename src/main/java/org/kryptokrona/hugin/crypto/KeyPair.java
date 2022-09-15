@@ -1,4 +1,4 @@
-package org.kryptokrona.hugin.http;
+package org.kryptokrona.hugin.crypto;
 
 public class KeyPair {
 
