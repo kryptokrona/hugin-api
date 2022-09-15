@@ -14,4 +14,19 @@ public class Vin {
 
 	private VinValue vinValue;
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public VinValue getVinValue() {
+		return vinValue;
+	}
+
+	public void setVinValue(VinValue vinValue) {
+		this.vinValue = vinValue;
+	}
 }

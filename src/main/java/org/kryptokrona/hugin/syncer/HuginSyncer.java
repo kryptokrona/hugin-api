@@ -10,8 +10,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import inet.ipaddr.HostName;
 import io.reactivex.rxjava3.core.Observable;
-import org.kryptokrona.hugin.http.KnownPoolTxs;
-import org.kryptokrona.hugin.http.Post;
+import org.kryptokrona.hugin.http.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,6 +35,22 @@ public class HuginSyncer {
 	private HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory();
 
 	private Type postCollectionType = new TypeToken<Post>(){}.getType();
+
+	private Type poolChangesLiteCollectionType = new TypeToken<PoolChangesLite>(){}.getType();
+
+	private Type transactionPrefixCollectionType = new TypeToken<TransactionPrefix>(){}.getType();
+
+	private Type transactionPrefixInfoCollectionType = new TypeToken<TransactionPrefixInfo>(){}.getType();
+
+	private Type vinCollectionType = new TypeToken<Vin>(){}.getType();
+
+	private Type vinValueCollectionType = new TypeToken<VinValue>(){}.getType();
+
+	private Type voutCollectionType = new TypeToken<Vout>(){}.getType();
+
+	private Type voutTargetCollectionType = new TypeToken<VoutTarget>(){}.getType();
+
+	private Type voutTargetDataCollectionType = new TypeToken<VoutTargetData>(){}.getType();
 
 	@Value("${SYS_NODE_HOSTNAME}")
 	private String nodeHostname;
@@ -62,30 +77,38 @@ public class HuginSyncer {
 		// populate database with incoming data
 	}
 
-	public Observable<JsonObject> getRequest(String param) throws IOException {
+	/**
+	 * Sends a POST request to /get_pool_changes lite
+	 *
+	 * @param responseStr The response string
+	 * @return Returns a JsonObject
+	 */
+	public Observable<PoolChangesLite> getPoolChangesLite(String responseStr) {
+		JsonObject response = gson.fromJson(
+				responseStr,
+				postCollectionType // should be another one here
+		);
+
+		return Observable.empty();
+	}
+
+	public Observable<String> getRequest(String param) throws IOException {
 		var request = requestFactory.buildGetRequest(
 				new GenericUrl(String.format("http://%s/%s", this.hostname.toString(), param)));
 
-		JsonObject response = gson.fromJson(request.execute().parseAsString(), postCollectionType);
+		// JsonObject response = gson.fromJson(, postCollectionType);
 
-		return Observable.just(response);
+		return Observable.just(request.execute().parseAsString());
 	}
 
-	public Observable<JsonObject> postRequest(String param, Object obj) throws IOException {
+	public Observable<String> postRequest(String param, Object obj) throws IOException {
 		var request = requestFactory.buildPostRequest(
 				new GenericUrl(String.format("http://%s/%s", this.hostname.toString(), param)),
 				// when using typetoken, do not remove as suggested per IDE to remove the Object inside the <> below!
 				ByteArrayContent.fromString("application/json", gson.toJson(obj, new TypeToken<Object>() {
 				}.getType())));
 
-		var test = request.getHeaders().setContentType("application/json").toString();
-
-		JsonObject response = gson.fromJson(
-				request.getHeaders().setContentType("application/json").toString(),
-				postCollectionType // should be another one here
-		);
-
-		return Observable.just(response);
+		return Observable.just(request.getHeaders().setContentType("application/json").toString());
 	}
 
 }
