@@ -64,12 +64,53 @@ public class HuginSyncer {
 		try {
 			getRequest("get_pool_changes_lite")
 					.subscribe(response -> {
-						System.out.println(response.asString());
+						// System.out.println(response.asString());
 						ObjectMapper objectMapper = new ObjectMapper();
 						Reader reader = new StringReader(response.asString());
 
 						PoolChangesLite poolChangesLite = objectMapper.readValue(reader, PoolChangesLite.class);
-						System.out.println(poolChangesLite.getStatus());
+						// System.out.println(poolChangesLite.getStatus());
+
+						var transactions = poolChangesLite.getAddedTxs();
+
+						if (transactions.size() == 0) {
+							logger.debug("Got empty transaction array.");
+						}
+
+						for (var transaction : transactions) {
+							var thisExtra = transaction.getTransactionPrefix().getExtra();
+							var txHash = transaction.getTransactionHash();
+
+							if (!knownPoolTxsList.contains(txHash)) {
+								knownPoolTxsList.add(txHash);
+							} else {
+								logger.debug("Transaction is already known: " + txHash);
+							}
+
+							var knownk = new ArrayList<>();
+
+							var keyPair = new KeyPair();
+							keyPair.setPrivateSpendKey("0000000000000000000000000000000000000000000000000000000000000000");
+							keyPair.setPrivateViewKey("0000000000000000000000000000000000000000000000000000000000000000");
+
+							String message = null;
+
+							if (thisExtra != null && thisExtra.length() > 200) {
+								logger.debug("Extra data is less than 200 in length, skipping.");
+								// var boxObj =
+							}
+
+							if (message == null) {
+								logger.debug("Caught null message, skipping.");
+							}
+
+							if (message != null) {
+
+							}
+
+
+
+						}
 					});
 		} catch(IOException e) {
 			logger.error("Sync error: " + e);
