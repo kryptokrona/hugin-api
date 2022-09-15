@@ -22,10 +22,10 @@ springdoc:
     disable-swagger-default-url: true
     supported-submit-methods: []
 
-apiTitle: ${apiTitle}
-apiDescription: ${apiDescription}
-apiVersion: ${apiVersion}
-apiContactName: ${apiContactName}
-apiContactEmail: ${apiContactEmail}
-apiContactUrl: ${apiContactUrl}
-nodeHostname: ${SYS_NODE_HOSTNAME:blocksum.org:11898}
+apiTitle: ${SYS_API_TITLE}
+apiDescription: ${SYS_API_DESCRIPTION}
+apiVersion: "0.3.0"
+apiContactName: ${SYS_API_CONTACT_NAME}
+apiContactEmail: ${SYS_API_CONTACT_EMAIL}
+apiContactUrl: ${SYS_API_CONTACT_URL}
+nodeHostname: ${SYS_NODE_HOSTNAME}

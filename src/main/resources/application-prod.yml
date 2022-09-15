@@ -7,4 +7,4 @@ spring:
     hibernate:
       ddl-auto: update
 
-apiServerUrl: https://api.hugin.chat
+apiServerUrl: ${SYS_API_SERVER_URL}
