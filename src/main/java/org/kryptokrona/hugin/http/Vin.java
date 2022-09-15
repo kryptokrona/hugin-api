@@ -1,5 +1,7 @@
 package org.kryptokrona.hugin.http;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Vin HTTP model.
  *
@@ -12,6 +14,7 @@ public class Vin {
 
 	private String type;
 
+	@SerializedName("value")
 	private VinValue vinValue;
 
 	public String getType() {

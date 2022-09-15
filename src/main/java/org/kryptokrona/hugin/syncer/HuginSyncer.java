@@ -64,15 +64,10 @@ public class HuginSyncer {
 	@Scheduled(fixedRate=1000)
 	public void sync() {
 		logger.info("Background syncing...");
-		var knownPoolTxs = new KnownPoolTxs();
-		knownPoolTxs.setKnownTxsIds(knownPoolTxsList);
 
-		try {
-			postRequest("get_pool_changes_lite", knownPoolTxs)
-					.subscribe(System.out::println);
-		} catch(IOException e) {
-			logger.error("Sync error: " + e);
-		}
+		getPoolChangesLite().subscribe(response -> {
+			System.out.println(response);
+		});
 
 		// populate database with incoming data
 	}
@@ -80,14 +75,29 @@ public class HuginSyncer {
 	/**
 	 * Sends a POST request to /get_pool_changes lite
 	 *
-	 * @param responseStr The response string
 	 * @return Returns a JsonObject
 	 */
-	public Observable<PoolChangesLite> getPoolChangesLite(String responseStr) {
-		JsonObject response = gson.fromJson(
+	public Observable<PoolChangesLite> getPoolChangesLite() {
+		var knownPoolTxs = new KnownPoolTxs();
+		knownPoolTxs.setKnownTxsIds(knownPoolTxsList);
+
+		try {
+			postRequest("get_pool_changes_lite", knownPoolTxs)
+					.subscribe(response -> {
+						System.out.println(response);
+						PoolChangesLite poolChangesLite = gson.fromJson(response, poolChangesLiteCollectionType);
+						// JsonObject jsonObject = gson.fromJson(response, poolChangesLiteCollectionType);
+						// var test = jsonObject.getAsJsonObject("isTailBlockActual");
+					});
+		} catch(IOException e) {
+			logger.error("Sync error: " + e);
+		}
+
+
+		/*JsonObject response = gson.fromJson(
 				responseStr,
-				postCollectionType // should be another one here
-		);
+				poolChangesLiteCollectionType
+		);*/
 
 		return Observable.empty();
 	}
@@ -95,8 +105,6 @@ public class HuginSyncer {
 	public Observable<String> getRequest(String param) throws IOException {
 		var request = requestFactory.buildGetRequest(
 				new GenericUrl(String.format("http://%s/%s", this.hostname.toString(), param)));
-
-		// JsonObject response = gson.fromJson(, postCollectionType);
 
 		return Observable.just(request.execute().parseAsString());
 	}
