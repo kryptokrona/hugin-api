@@ -5,6 +5,8 @@ import java.util.List;
 /**
  * Known Pool Transactions HTTP model.
  *
+ * Used in a POST request to send payload to node.
+ *
  * @author Marcus Cvjeticanin
  */
 public class KnownPoolTxs {

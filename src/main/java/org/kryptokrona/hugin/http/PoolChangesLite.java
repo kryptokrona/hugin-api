@@ -5,6 +5,8 @@ import java.util.List;
 /**
  * Pool Changes Lite HTTP model.
  *
+ * Response object after a POST request to /get_pool_changes_lite to a node.
+ *
  * @author Marcus Cvjeticanin
  */
 public class PoolChangesLite {
