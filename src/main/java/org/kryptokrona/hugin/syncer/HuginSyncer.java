@@ -45,9 +45,7 @@ public class HuginSyncer {
 
 		hostname = new HostName(nodeHostname);
 
-		getPoolChangesLite().subscribe(response -> {
-			System.out.println(response);
-		});
+		getPoolChangesLite().subscribe(System.out::println);
 
 		// populate database with incoming data
 	}
@@ -57,7 +55,7 @@ public class HuginSyncer {
 	 *
 	 * @return Returns a JsonObject
 	 */
-	public Observable<PoolChangesLite> getPoolChangesLite() {
+	public Observable<Void> getPoolChangesLite() {
 		var knownPoolTxs = new KnownPoolTxs();
 		knownPoolTxs.setKnownTxsIds(knownPoolTxsList);
 
@@ -107,20 +105,11 @@ public class HuginSyncer {
 					if (openBox != null) {
 
 					}
-
-
-
 				}
 			});
 		} catch(IOException e) {
 			logger.error("Sync error: " + e);
 		}
-
-
-		/*JsonObject response = gson.fromJson(
-				responseStr,
-				poolChangesLiteCollectionType
-		);*/
 
 		return Observable.empty();
 	}
