@@ -46,10 +46,6 @@
     sys_api_contact_url: "https://github.com/kryptokrona/hugin-api"
     sys_node_hostname: "blocksum.org:11898"
 
-
-
-    sys_project_name: "Hugin API"
-
   roles:
   #- base
   - postgres
