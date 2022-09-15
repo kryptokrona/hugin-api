@@ -13,4 +13,19 @@ public class VoutTarget {
 
 	private String type;
 
+	public VoutTargetData getVoutTargetData() {
+		return voutTargetData;
+	}
+
+	public void setVoutTargetData(VoutTargetData voutTargetData) {
+		this.voutTargetData = voutTargetData;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 }

@@ -13,4 +13,19 @@ public class TransactionPrefixInfo {
 
 	private TransactionPrefix transactionPrefix;
 
+	public String getTransactionHash() {
+		return transactionHash;
+	}
+
+	public void setTransactionHash(String transactionHash) {
+		this.transactionHash = transactionHash;
+	}
+
+	public TransactionPrefix getTransactionPrefix() {
+		return transactionPrefix;
+	}
+
+	public void setTransactionPrefix(TransactionPrefix transactionPrefix) {
+		this.transactionPrefix = transactionPrefix;
+	}
 }

@@ -14,4 +14,19 @@ public class Vout {
 
 	private VoutTarget voutTarget;
 
+	public long getAmount() {
+		return amount;
+	}
+
+	public void setAmount(long amount) {
+		this.amount = amount;
+	}
+
+	public VoutTarget getVoutTarget() {
+		return voutTarget;
+	}
+
+	public void setVoutTarget(VoutTarget voutTarget) {
+		this.voutTarget = voutTarget;
+	}
 }
