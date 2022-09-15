@@ -51,11 +51,7 @@ repositories {
 	mavenCentral()
 }
 
-tasks.processResources {
-	filesMatching("application.yml") {
-		expand(project.properties)
-	}
-}
+tasks.processResources {}
 
 
 //---------------------------------------------------------------------------------

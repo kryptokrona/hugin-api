@@ -30,13 +30,13 @@ import java.util.List;
 @Service
 public class HuginSyncer {
 
-	private final Gson gson = new Gson();
+	private Gson gson = new Gson();
 
-	private final HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory();
+	private HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory();
 
-	private final Type postCollectionType = new TypeToken<Post>(){}.getType();
+	private Type postCollectionType = new TypeToken<Post>(){}.getType();
 
-	@Value("${nodeHostname}")
+	@Value("${SYS_NODE_HOSTNAME}")
 	private String nodeHostname;
 
 	private HostName hostname = new HostName(nodeHostname);
@@ -49,17 +49,17 @@ public class HuginSyncer {
 	public void sync() {
 		logger.info("Background syncing...");
 
-		try {
+		/*try {
 			postRequest("get_pool_changes_lite", new KnownPoolTxs())
 					.subscribe(System.out::println);
 		} catch(IOException e) {
 			logger.error("Sync error: " + e);
-		}
+		}*/
 
 		// populate database with incoming data
 	}
 
-	public Observable<String> getRequest(String param) throws IOException {
+	/*public Observable<String> getRequest(String param) throws IOException {
 		var request = requestFactory.buildGetRequest(
 				new GenericUrl(String.format("http://%s/%s", this.hostname.toString(), param)));
 
@@ -73,6 +73,6 @@ public class HuginSyncer {
 				}.getType())));
 
 		return Observable.just(request.getHeaders().setContentType("application/json").toString());
-	}
+	}*/
 
 }

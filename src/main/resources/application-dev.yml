@@ -7,4 +7,4 @@ spring:
     hibernate:
       ddl-auto: update
 
-apiServerUrl: http://localhost:8080
+apiServerUrl: ${SYS_API_SERVER_URL}

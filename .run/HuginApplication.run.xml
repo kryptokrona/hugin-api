@@ -1,10 +1,16 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="HuginApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <option name="ACTIVE_PROFILES" />
+    <envs>
+      <env name="SYS_API_CONTACT_EMAIL" value="mjovanc@icloud.com" />
+      <env name="SYS_API_CONTACT_NAME" value="Marcus Cvjeticanin" />
+      <env name="SYS_API_CONTACT_URL" value="https://github.com/kryptokrona/hugin-api" />
+      <env name="SYS_API_DESCRIPTION" value="Hugin API is a Spring application that provides a RESTful API and Websocket server for the Hugin Messenger service." />
+      <env name="SYS_API_SERVER_URL" value="http://localhost:8080" />
+      <env name="SYS_API_TITLE" value="Hugin API" />
+      <env name="SYS_NODE_HOSTNAME" value="blocksum.org:11898" />
+    </envs>
     <module name="hugin.main" />
-    <selectedOptions>
-      <option name="environmentVariables" />
-    </selectedOptions>
     <option name="SPRING_BOOT_MAIN_CLASS" value="org.kryptokrona.hugin.HuginApplication" />
     <option name="VM_PARAMETERS" value="-Dspring.profiles.active=dev" />
     <method v="2">
