@@ -1,13 +1,9 @@
 package org.kryptokrona.hugin.syncer;
 
-import com.google.api.client.http.ByteArrayContent;
-import com.google.api.client.http.GenericUrl;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.javanet.NetHttpTransport;
+import org.apache.hc.client5.http.fluent.Content;
+import org.apache.hc.client5.http.fluent.Form;
+import org.apache.hc.client5.http.fluent.Request;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 import inet.ipaddr.HostName;
 import io.reactivex.rxjava3.core.Observable;
 import org.kryptokrona.hugin.http.*;
@@ -20,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -29,28 +26,6 @@ import java.util.List;
  */
 @Service
 public class HuginSyncer {
-
-	private Gson gson = new Gson();
-
-	private HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory();
-
-	private Type postCollectionType = new TypeToken<Post>(){}.getType();
-
-	private Type poolChangesLiteCollectionType = new TypeToken<PoolChangesLite>(){}.getType();
-
-	private Type transactionPrefixCollectionType = new TypeToken<TransactionPrefix>(){}.getType();
-
-	private Type transactionPrefixInfoCollectionType = new TypeToken<TransactionPrefixInfo>(){}.getType();
-
-	private Type vinCollectionType = new TypeToken<Vin>(){}.getType();
-
-	private Type vinValueCollectionType = new TypeToken<VinValue>(){}.getType();
-
-	private Type voutCollectionType = new TypeToken<Vout>(){}.getType();
-
-	private Type voutTargetCollectionType = new TypeToken<VoutTarget>(){}.getType();
-
-	private Type voutTargetDataCollectionType = new TypeToken<VoutTargetData>(){}.getType();
 
 	@Value("${SYS_NODE_HOSTNAME}")
 	private String nodeHostname;
@@ -82,10 +57,10 @@ public class HuginSyncer {
 		knownPoolTxs.setKnownTxsIds(knownPoolTxsList);
 
 		try {
-			postRequest("get_pool_changes_lite", knownPoolTxs)
+			getRequest("get_pool_changes_lite")
 					.subscribe(response -> {
-						System.out.println(response);
-						// PoolChangesLite poolChangesLite = gson.fromJson(response.substring(1, response.length() - 1), PoolChangesLite.class);
+						System.out.println(response.asString());
+						// PoolChangesLite poolChangesLite = gson.fromJson(response.toString()), PoolChangesLite.class);
 						// JsonObject jsonObject = gson.fromJson(response, poolChangesLiteCollectionType);
 						// var test = jsonObject.getAsJsonObject("isTailBlockActual");
 					});
@@ -102,23 +77,10 @@ public class HuginSyncer {
 		return Observable.empty();
 	}
 
-	public Observable<String> getRequest(String param) throws IOException {
-		var request = requestFactory.buildGetRequest(
-				new GenericUrl(String.format("http://%s/%s", this.hostname.toString(), param)));
+	public Observable<Content> getRequest(String param) throws IOException {
+		var request = Request.get(String.format("http://%s/%s", this.hostname.toString(), param))
+				.execute().returnContent();
 
-		return Observable.just(request.execute().toString());
+		return Observable.just(request);
 	}
-
-	public Observable<String> postRequest(String param, Object payload) throws IOException {
-		var request = requestFactory.buildPostRequest(
-				new GenericUrl(String.format("http://%s/%s", this.hostname.toString(), param)),
-				// when using typetoken, do not remove as suggested per IDE to remove the Object inside the <> below!
-				ByteArrayContent.fromString("application/json", gson.toJson(payload, new TypeToken<Object>() {
-				}.getType())));
-
-		System.out.println(request.getHeaders());
-
-		return Observable.just(request.getHeaders().setContentType("application/json").toString());
-	}
-
 }

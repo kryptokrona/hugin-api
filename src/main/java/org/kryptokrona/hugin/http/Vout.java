@@ -1,6 +1,6 @@
 package org.kryptokrona.hugin.http;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Vout HTTP model.
@@ -14,7 +14,7 @@ public class Vout {
 
 	private long amount;
 
-	@SerializedName("target")
+	@JsonProperty("target")
 	private VoutTarget voutTarget;
 
 	public long getAmount() {
