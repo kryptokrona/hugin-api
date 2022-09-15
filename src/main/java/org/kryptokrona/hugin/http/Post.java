@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Post model that represent data we get from the node.
+ * Post HTTP model that represent data we get from the node.
  *
  * @author Marcus Cvjeticanin
  */
