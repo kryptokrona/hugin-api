@@ -66,10 +66,13 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-websocket")
+	implementation("org.springframework.data:spring-data-commons:2.7.2")
+	implementation("org.springframework.session:spring-session-core:2.7.0")
 	implementation("io.github.classgraph:classgraph:4.8.149")
+	implementation("org.springframework.boot:spring-boot-starter-thymeleaf:2.7.3")
 	implementation("com.h2database:h2:2.1.214")
 	// implementation("com.kryptokrona.sdk:kryptokrona-sdk:0.1.0")
-	implementation("org.springdoc:springdoc-openapi-ui:1.6.11") { // might get this version to use in libs
+	implementation("org.springdoc:springdoc-openapi-ui:1.5.9") { // might get this version to use in libs
 		exclude("org.webjars:swagger-ui") // exlcuding this module so we can use the custom below
 	}
 	implementation(files("libs/swagger-ui-3.49.0.jar")) // custom jar file for our custom swagger-ui theme
