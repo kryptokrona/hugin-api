@@ -1,9 +1,5 @@
-upstream {{ hugin_api_name }}_ws {
-    server 127.0.0.1:8080;
-}
-
 upstream {{ hugin_api_name }}_api {
-    server 127.0.0.1:3000;
+    server 127.0.0.1:8080;
 }
 upstream {{ hugin_api_name }}_monitoring {
     server 127.0.0.1:9090;
@@ -40,13 +36,13 @@ server {
 
     root /var/www/html/;
 
-    location /ws {
-        proxy_pass http://{{ hugin_api_name }}_ws;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "Upgrade";
-        proxy_set_header Host $host;
-    }
+    #location /ws {
+    #    proxy_pass http://{{ hugin_api_name }}_ws;
+    #    proxy_http_version 1.1;
+    #    proxy_set_header Upgrade $http_upgrade;
+    #    proxy_set_header Connection "Upgrade";
+    #    proxy_set_header Host $host;
+    #}
 
     location /api {
         proxy_pass http://{{ hugin_api_name }}_api;
