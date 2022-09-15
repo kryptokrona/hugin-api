@@ -1,11 +1,11 @@
 package org.kryptokrona.hugin.crypto;
 
 /**
- * Extra Data.
+ * OpenBox.
  *
  * @author Marcus Cvjeticanin
  */
-public class ExtraData {
+public class OpenBox {
 
 	private String key;
 
