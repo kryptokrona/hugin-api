@@ -85,7 +85,7 @@ public class HuginSyncer {
 			postRequest("get_pool_changes_lite", knownPoolTxs)
 					.subscribe(response -> {
 						System.out.println(response);
-						PoolChangesLite poolChangesLite = gson.fromJson(response, poolChangesLiteCollectionType);
+						// PoolChangesLite poolChangesLite = gson.fromJson(response.substring(1, response.length() - 1), PoolChangesLite.class);
 						// JsonObject jsonObject = gson.fromJson(response, poolChangesLiteCollectionType);
 						// var test = jsonObject.getAsJsonObject("isTailBlockActual");
 					});
@@ -106,15 +106,17 @@ public class HuginSyncer {
 		var request = requestFactory.buildGetRequest(
 				new GenericUrl(String.format("http://%s/%s", this.hostname.toString(), param)));
 
-		return Observable.just(request.execute().parseAsString());
+		return Observable.just(request.execute().toString());
 	}
 
-	public Observable<String> postRequest(String param, Object obj) throws IOException {
+	public Observable<String> postRequest(String param, Object payload) throws IOException {
 		var request = requestFactory.buildPostRequest(
 				new GenericUrl(String.format("http://%s/%s", this.hostname.toString(), param)),
 				// when using typetoken, do not remove as suggested per IDE to remove the Object inside the <> below!
-				ByteArrayContent.fromString("application/json", gson.toJson(obj, new TypeToken<Object>() {
+				ByteArrayContent.fromString("application/json", gson.toJson(payload, new TypeToken<Object>() {
 				}.getType())));
+
+		System.out.println(request.getHeaders());
 
 		return Observable.just(request.getHeaders().setContentType("application/json").toString());
 	}
