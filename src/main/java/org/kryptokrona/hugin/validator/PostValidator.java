@@ -42,7 +42,9 @@ public class PostValidator {
 	 * @return Returns true or false
 	 */
 	public static boolean validateSignature(String signature) {
-		return false;
+		var minimumLength = 64;
+		var maximumLength = 200;
+		return signature.length() >= minimumLength && signature.length() <= maximumLength;
 	}
 
 	/**
