@@ -1,6 +1,5 @@
 package org.kryptokrona.hugin.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
