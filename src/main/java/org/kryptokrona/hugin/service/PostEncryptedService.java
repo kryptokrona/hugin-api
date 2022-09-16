@@ -26,4 +26,14 @@ public class PostEncryptedService {
 		return postEncryptedRepository.findAll(paging);
 	}
 
+	/**
+	 * Checks if the encrypted post exists in the database.
+	 *
+	 * @param txHash The unique transaction hash connected to the encrypted post object
+	 * @return Returns if it exists or not
+	 */
+	public boolean encryptedPostExists(String txHash) {
+		return postEncryptedRepository.existsPostByTxHash(txHash);
+	}
+
 }

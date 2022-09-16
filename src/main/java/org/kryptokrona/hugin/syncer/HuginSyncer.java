@@ -124,36 +124,6 @@ public class HuginSyncer {
 	}
 
 	/**
-	 * Checks if the post exists in the database.
-	 *
-	 * @param txHash The unique transaction hash connected to the post object
-	 * @return Returns if it exists or not
-	 */
-	public boolean postExist(String txHash) {
-		return postRepository.existsPostByTxHash(txHash);
-	}
-
-	/**
-	 * Checks if the encrypted post exists in the database.
-	 *
-	 * @param txHash The unique transaction hash connected to the encrypted post object
-	 * @return Returns if it exists or not
-	 */
-	public boolean encryptedPostExists(String txHash) {
-		return postEncryptedRepository.existsPostByTxHash(txHash);
-	}
-
-	/**
-	 * Checks if the encrypted group post exists in the database.
-	 *
-	 * @param txHash The unique transaction hash connected to the encrypted group post object
-	 * @return Returns if it exists or not
-	 */
-	public boolean encryptedPostGroupExists(String txHash) {
-		return postEncryptedGroupRepository.existsPostByTxHash(txHash);
-	}
-
-	/**
 	 * Sends a GET request.
 	 *
 	 * @param param The endpoint to use in the GET request
