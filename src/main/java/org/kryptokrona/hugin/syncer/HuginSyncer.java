@@ -56,9 +56,6 @@ public class HuginSyncer {
 	 * @return Returns a JsonObject
 	 */
 	public Observable<Void> getPoolChangesLite() {
-		var knownPoolTxs = new KnownPoolTxs();
-		knownPoolTxs.setKnownTxsIds(knownPoolTxsList);
-
 		try {
 			getRequest("get_pool_changes_lite").subscribe(response -> {
 				// System.out.println(response.asString());
