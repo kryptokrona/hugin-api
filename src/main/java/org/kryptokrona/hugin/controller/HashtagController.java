@@ -1,6 +1,8 @@
 package org.kryptokrona.hugin.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.kryptokrona.hugin.model.Hashtag;
 import org.kryptokrona.hugin.service.HashtagService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +38,7 @@ public class HashtagController {
 	 * @return ResponseEntity
 	 */
 	@GetMapping
-	// @Operation(summary = "Get all cryptocurrencies", description = "Get all posts with pagination.")
+	@Operation(summary = "Get all hashtags", description = "Get all hashtags with pagination.")
 	public ResponseEntity<Map<String, Object>> getAll(
 			@RequestParam(required = false, defaultValue = "0") int page,
 			@RequestParam(required = false, defaultValue = "25") int size
@@ -52,5 +54,20 @@ public class HashtagController {
 		logger.info("Getting all hashtags was successful");
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
+	@GetMapping("{id}")
+	@Operation(
+			summary = "Get a specific hashtag by ID",
+			description = "Get a specific hashtag by ID."
+	)
+	public ResponseEntity<Hashtag> getHashtagById(long id) {
+		var hashtag = hashtagService.getById(id);
+
+		if (hashtag == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<>(hashtag, HttpStatus.OK);
 	}
 }
