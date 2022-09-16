@@ -1,6 +1,5 @@
 package org.kryptokrona.hugin.service;
 
-import org.kryptokrona.hugin.model.Hashtag;
 import org.kryptokrona.hugin.model.Post;
 import org.kryptokrona.hugin.repository.PostRepository;
 import org.slf4j.Logger;
