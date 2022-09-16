@@ -25,4 +25,15 @@ public class PostService {
 
     return postRepository.findAll(paging);
   }
+
+  /**
+   * Checks if the post exists in the database.
+   *
+   * @param txHash The unique transaction hash connected to the post object
+   * @return Returns if it exists or not
+   */
+  public boolean postExist(String txHash) {
+    return postRepository.existsPostByTxHash(txHash);
+  }
+
 }
