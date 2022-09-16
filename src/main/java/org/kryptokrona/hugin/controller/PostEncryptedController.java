@@ -23,7 +23,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin(origins="*")
 @RequestMapping("api/v1/posts-encrypted")
-@Tag(name = "posts-encrypted", description = "Set of endpoints to get data of encrypted posts.")
+@Tag(name = "encrypted posts", description = "Set of endpoints to get data of encrypted posts.")
 public class PostEncryptedController {
 
 	@Autowired
