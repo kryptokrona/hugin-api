@@ -42,7 +42,7 @@ public class PostService {
         return postRepository.existsPostByTxHash(txHash);
     }
 
-    public void savePost(Post post) {
+    public void save(Post post) {
         try {
             postRepository.save(post);
             logger.info("Post with tx hash was added: " + post.getTxHash());
