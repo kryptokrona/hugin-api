@@ -41,6 +41,11 @@ public class PostEncryptedService {
 		return postEncryptedRepository.existsPostByTxHash(txHash);
 	}
 
+	/**
+	 * Saves the post to the database.
+	 *
+	 * @param postEncrypted The encrypted post object to save.
+	 */
 	public void save(PostEncrypted postEncrypted) {
 		try {
 			postEncryptedRepository.save(postEncrypted);
