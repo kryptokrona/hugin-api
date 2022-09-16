@@ -1,11 +1,11 @@
 package org.kryptokrona.hugin.http;
 
 /**
- * Post HTTP model that represent data we get from the node.
+ * Board Post HTTP model that represent data we get from the node.
  *
  * @author Marcus Cvjeticanin
  */
-public class Post {
+public class BoardPost {
 
 	private String message;
 
@@ -23,7 +23,7 @@ public class Post {
 
 	private String replyTxHash;
 
-	public Post(String message, String key, String signature, String board, long time, String nickname, String txHash, String replyTxHash) {
+	public BoardPost(String message, String key, String signature, String board, long time, String nickname, String txHash, String replyTxHash) {
 		this.message = message;
 		this.key = key;
 		this.signature = signature;

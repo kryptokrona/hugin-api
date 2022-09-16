@@ -1,7 +1,10 @@
 package org.kryptokrona.hugin.service;
 
+import org.kryptokrona.hugin.http.EncryptedPost;
 import org.kryptokrona.hugin.model.PostEncrypted;
 import org.kryptokrona.hugin.repository.PostEncryptedRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +21,8 @@ public class PostEncryptedService {
 
 	@Autowired
 	private PostEncryptedRepository postEncryptedRepository;
+
+	private static final Logger logger = LoggerFactory.getLogger(PostEncryptedService.class);
 
 	public Page<PostEncrypted> getAll(int page, int size) {
 		Page<PostEncrypted> pageTuts = null;
@@ -36,8 +41,13 @@ public class PostEncryptedService {
 		return postEncryptedRepository.existsPostByTxHash(txHash);
 	}
 
-	public void saveEncryptedPost() {
-
+	public void saveEncryptedPost(PostEncrypted postEncrypted) {
+		try {
+			postEncryptedRepository.save(postEncrypted);
+			logger.info("Encrypted post with tx hash was added: " + postEncrypted.getTxHash());
+		} catch (Exception e) {
+			logger.error("Unable to add encrypted post with tx hash: " + postEncrypted.getTxHash());
+		}
 	}
 
 }
