@@ -111,6 +111,18 @@ public class HuginSyncer {
 		return Observable.empty();
 	}
 
+	public Observable<Boolean> postExist(String txHash) {
+		return Observable.empty();
+	}
+
+	public Observable<Boolean> encryptedPostExists(String txHash) {
+		return Observable.empty();
+	}
+
+	public Observable<Boolean> encryptedPostGroupExists(String txHash) {
+		return Observable.empty();
+	}
+
 	public Observable<Content> getRequest(String param) throws IOException {
 		var request = Request.get(String.format("http://%s/%s", hostname, param))
 				.execute().returnContent();
