@@ -1,5 +1,6 @@
 package org.kryptokrona.hugin.service;
 
+import org.kryptokrona.hugin.model.PostEncrypted;
 import org.kryptokrona.hugin.model.PostEncryptedGroup;
 import org.kryptokrona.hugin.repository.PostEncryptedGroupRepository;
 import org.slf4j.Logger;
@@ -28,6 +29,18 @@ public class PostEncryptedGroupService {
 		Pageable paging = PageRequest.of(page, size);
 
 		return postEncryptedGroupRepository.findAll(paging);
+	}
+
+	public PostEncryptedGroup getById(long id) {
+		if (postEncryptedGroupRepository.existsById(id)) {
+			PostEncryptedGroup postEncryptedGroup = postEncryptedGroupRepository.findById(id).get();
+			logger.info("Encrypted group post found with ID: " + id);
+			return postEncryptedGroup;
+		} else {
+			logger.error("Unable to find encrypted group post with ID: " + id);
+		}
+
+		return null;
 	}
 
 	/**
