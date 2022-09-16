@@ -1,5 +1,7 @@
 package org.kryptokrona.hugin.util;
 
+import static org.kryptokrona.hugin.util.IdenticonGeneratorUtil.*;
+
 /**
  * Avatar Util.
  *
@@ -15,12 +17,23 @@ public class AvatarUtil {
 	 * @return Returns a base64 encoded svg string
 	 */
 	public static String generateBase64EncodedSvg(String hash, String format) {
+		var hashCode = getHashCode(hash);
+
+		// get custom color scheme based on address
+		int red = (int) hashCode >> 16;
+		int green = (int) hashCode - (red << 16);
+		int blue = (int) hashCode - (red << 16) - (green << 8);
+
+		String md5 = md5Hex(hash.toLowerCase());
+		saveImage(generateIdenticons(md5, 500, 500), md5, format);
+
+
 		return "";
 	}
 
 	/**
 	 * Method overloading for generateBase64EncodedSvg method to not be forced
-	 * to use the format parameter.
+	 * to use the format parameter. Defaults to png.
 	 *
 	 * @param hash The hash to use to generate the svg
 	 * @return Returns a base64 encoded svg string
@@ -54,9 +67,8 @@ public class AvatarUtil {
 		}
 
 		for (int i = 0; i < str.length(); i++) {
-			var test = Character.codePointAt(str, i);
-			hash = ((hash<<5) - hash) + test;
-			hash = hash & hash;
+			var tmp = Character.codePointAt(str, i);
+			hash = ((hash<<5) - hash) + tmp;
 		}
 
 		return hash;
