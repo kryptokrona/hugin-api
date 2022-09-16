@@ -1,6 +1,7 @@
 package org.kryptokrona.hugin.util;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -22,6 +23,10 @@ import java.security.NoSuchAlgorithmException;
  */
 public class IdenticonGeneratorUtil {
 
+	static String preamble = "<?xml version=\"1.0\" standalone=\"no\"?>\n<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \n  \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n<svg xmlns=\"http://www.w3.org/2000/svg\"\n     version=\"1.1\" width=\"$widthpx\" height=\"$heightpx\">\n";
+
+	static String end = "</svg>";
+
 	public static BufferedImage generateIdenticons(String text, int image_width, int image_height) {
 		int width = 5, height = 5;
 
@@ -34,11 +39,11 @@ public class IdenticonGeneratorUtil {
 		int[] foreground = new int[] {hash[0] & 255, hash[1] & 255, hash[2] & 255, 255};
 
 		for(int x = 0; x < width; x++) {
-			//Enforce horizontal symmetry
+			// enforce horizontal symmetry
 			int i = x < 3 ? x : 4 - x;
 			for(int y = 0; y < height; y++) {
 				int[] pixelColor;
-				//toggle pixels based on bit being on/off
+				// toggle pixels based on bit being on/off
 				if ((hash[i] >> y & 1) == 1)
 					pixelColor = foreground;
 				else
@@ -49,7 +54,7 @@ public class IdenticonGeneratorUtil {
 
 		BufferedImage finalImage = new BufferedImage(image_width, image_height, BufferedImage.TYPE_INT_ARGB);
 
-		//Scale image to the size you want
+		// scale image to the size you want
 		AffineTransform at = new AffineTransform();
 		at.scale(image_width / width, image_height / height);
 		AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
@@ -78,13 +83,23 @@ public class IdenticonGeneratorUtil {
 		return null;
 	}
 
-	public static void saveImage(BufferedImage bufferedImage, String name, String format) {
-		File outputfile = new File(name + String.format(".%s", format.toLowerCase()));
-		try {
-			ImageIO.write(bufferedImage, "png", outputfile);
-		} catch (IOException e) {
-			e.printStackTrace();
+	public static String getIdenticon(BufferedImage bufferedImage) {
+		int width = bufferedImage.getWidth();
+		int height = bufferedImage.getHeight();
+		preamble = preamble.replaceAll("\\$width", "" + width);
+		preamble = preamble.replaceAll("\\$height", "" + height);
+		String midSVG = "";
+
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				Color color = new Color(bufferedImage.getRGB(x, y), true);
+				if (!(color.getAlpha() == 0)) {
+					midSVG += ("    <rect x=\""+x+"px\" y=\""+y+"px\" width=\"1px\" height=\"1px\" fill=\""+ "#"+Integer.toHexString(color.getRGB()).substring(2) +"\"/>\n");
+				}
+			}
 		}
+
+		return midSVG;
 	}
 
 }
