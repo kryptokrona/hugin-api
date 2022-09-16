@@ -61,7 +61,7 @@ public class HashtagController {
 			summary = "Get a specific hashtag by ID",
 			description = "Get a specific hashtag by ID."
 	)
-	public ResponseEntity<Hashtag> getHashtagById(long id) {
+	public ResponseEntity<Hashtag> getHashtagById(@PathVariable long id) {
 		var hashtag = hashtagService.getById(id);
 
 		if (hashtag == null) {
