@@ -57,6 +57,12 @@ public class PostEncryptedController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
+	/**
+	 * Get a specific encrypted post by ID.
+	 *
+	 * @param id The id to look for.
+	 * @return Returns the specific encrypted post.
+	 */
 	@GetMapping("{id}")
 	@Operation(
 			summary = "Get a specific encrypted post by ID",

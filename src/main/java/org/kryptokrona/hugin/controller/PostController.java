@@ -57,6 +57,12 @@ public class PostController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    /**
+     * Get a specific post by ID.
+     *
+     * @param id The id to look for.
+     * @return Returns the specific post.
+     */
     @GetMapping("{id}")
     @Operation(
             summary = "Get a specific post by ID",
