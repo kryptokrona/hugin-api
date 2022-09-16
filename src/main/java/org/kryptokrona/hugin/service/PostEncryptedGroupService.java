@@ -42,6 +42,11 @@ public class PostEncryptedGroupService {
 		return postEncryptedGroupRepository.existsPostByTxHash(txHash);
 	}
 
+	/**
+	 * Saves the encrypted group post to the database.
+	 *
+	 * @param postEncryptedGroup The encrypted group post object to save.
+	 */
 	public void save(PostEncryptedGroup postEncryptedGroup) {
 		try {
 			postEncryptedGroupRepository.save(postEncryptedGroup);
