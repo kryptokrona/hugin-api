@@ -12,6 +12,7 @@ import java.util.Date;
  * @author Marcus Cvjeticanin
  */
 @Entity
+@Table(name = "postencrypted")
 public class PostEncrypted {
 
 	@Id
