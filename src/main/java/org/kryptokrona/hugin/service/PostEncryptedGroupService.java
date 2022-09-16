@@ -38,7 +38,7 @@ public class PostEncryptedGroupService {
 	 * @param txHash The unique transaction hash connected to the encrypted group post object
 	 * @return Returns if it exists or not
 	 */
-	public boolean encryptedGroupPostExists(String txHash) {
+	public boolean exists(String txHash) {
 		return postEncryptedGroupRepository.existsPostByTxHash(txHash);
 	}
 
