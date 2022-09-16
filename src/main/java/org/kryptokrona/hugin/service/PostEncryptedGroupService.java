@@ -26,4 +26,14 @@ public class PostEncryptedGroupService {
 		return postEncryptedGroupRepository.findAll(paging);
 	}
 
+	/**
+	 * Checks if the encrypted group post exists in the database.
+	 *
+	 * @param txHash The unique transaction hash connected to the encrypted group post object
+	 * @return Returns if it exists or not
+	 */
+	public boolean encryptedPostGroupExists(String txHash) {
+		return postEncryptedGroupRepository.existsPostByTxHash(txHash);
+	}
+
 }
