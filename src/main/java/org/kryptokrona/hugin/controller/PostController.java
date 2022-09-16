@@ -2,7 +2,6 @@ package org.kryptokrona.hugin.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.kryptokrona.hugin.model.Hashtag;
 import org.kryptokrona.hugin.model.Post;
 import org.kryptokrona.hugin.service.PostService;
 import org.slf4j.Logger;
