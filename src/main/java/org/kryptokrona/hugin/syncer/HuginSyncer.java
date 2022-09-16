@@ -10,8 +10,13 @@ import org.kryptokrona.hugin.crypto.KeyPair;
 import org.kryptokrona.hugin.crypto.OpenBox;
 import org.kryptokrona.hugin.http.KnownPoolTxs;
 import org.kryptokrona.hugin.http.PoolChangesLite;
+import org.kryptokrona.hugin.model.Post;
+import org.kryptokrona.hugin.repository.PostEncryptedGroupRepository;
+import org.kryptokrona.hugin.repository.PostEncryptedRepository;
+import org.kryptokrona.hugin.repository.PostRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -21,6 +26,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Hugin Syncer.
@@ -29,6 +35,15 @@ import java.util.List;
  */
 @Service
 public class HuginSyncer {
+
+	@Autowired
+	private PostRepository postRepository;
+
+	@Autowired
+	private PostEncryptedRepository postEncryptedRepository;
+
+	@Autowired
+	private PostEncryptedGroupRepository postEncryptedGroupRepository;
 
 	@Value("${SYS_NODE_HOSTNAME}")
 	private String nodeHostname;
@@ -111,18 +126,42 @@ public class HuginSyncer {
 		return Observable.empty();
 	}
 
-	public Observable<Boolean> postExist(String txHash) {
-		return Observable.empty();
+	/**
+	 * Checks if the post exists in the database.
+	 *
+	 * @param txHash The unique transaction hash connected to the post object
+	 * @return Returns if it exists or not
+	 */
+	public boolean postExist(String txHash) {
+		return postRepository.existsPostByTxHash(txHash);
 	}
 
-	public Observable<Boolean> encryptedPostExists(String txHash) {
-		return Observable.empty();
+	/**
+	 * Checks if the encrypted post exists in the database.
+	 *
+	 * @param txHash The unique transaction hash connected to the encrypted post object
+	 * @return Returns if it exists or not
+	 */
+	public boolean encryptedPostExists(String txHash) {
+		return postEncryptedRepository.existsPostByTxHash(txHash);
 	}
 
-	public Observable<Boolean> encryptedPostGroupExists(String txHash) {
-		return Observable.empty();
+	/**
+	 * Checks if the encrypted group post exists in the database.
+	 *
+	 * @param txHash The unique transaction hash connected to the encrypted group post object
+	 * @return Returns if it exists or not
+	 */
+	public boolean encryptedPostGroupExists(String txHash) {
+		return postEncryptedGroupRepository.existsPostByTxHash(txHash);
 	}
 
+	/**
+	 * Sends a GET request.
+	 *
+	 * @param param The endpoint to use in the GET request
+	 * @return Returns if it exists or not
+	 */
 	public Observable<Content> getRequest(String param) throws IOException {
 		var request = Request.get(String.format("http://%s/%s", hostname, param))
 				.execute().returnContent();
