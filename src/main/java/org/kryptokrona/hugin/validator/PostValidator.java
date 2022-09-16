@@ -1,6 +1,6 @@
 package org.kryptokrona.hugin.validator;
 
-import org.kryptokrona.hugin.http.Post;
+import org.kryptokrona.hugin.http.BoardPost;
 
 /**
  * Post Validator.
@@ -15,7 +15,7 @@ public class PostValidator {
 	 * @param post - Post HTTP object
 	 * @return Returns true or false
 	 */
-	public static boolean validatePost(Post post) {
+	public static boolean validatePost(BoardPost post) {
 		var isKeyValidated = validateKey(post.getKey());
 		var isSignatureValidated = validateSignature(post.getSignature());
 		var isTimeValidated = validateTime(post.getTime());
