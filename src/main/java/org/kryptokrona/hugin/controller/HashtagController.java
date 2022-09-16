@@ -56,6 +56,12 @@ public class HashtagController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
+	/**
+	 * Get a specific hashtag by ID.
+	 *
+	 * @param id The id to look for.
+	 * @return Returns the specific hashtag.
+	 */
 	@GetMapping("{id}")
 	@Operation(
 			summary = "Get a specific hashtag by ID",

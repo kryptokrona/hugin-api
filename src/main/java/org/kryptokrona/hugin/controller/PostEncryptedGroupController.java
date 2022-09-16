@@ -2,6 +2,7 @@ package org.kryptokrona.hugin.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import org.kryptokrona.hugin.model.PostEncrypted;
+import org.kryptokrona.hugin.model.PostEncryptedGroup;
 import org.kryptokrona.hugin.service.PostEncryptedGroupService;
 import org.kryptokrona.hugin.service.PostEncryptedService;
 import org.slf4j.Logger;
@@ -52,12 +53,18 @@ public class PostEncryptedGroupController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
+	/**
+	 * Get a specific encrypted group post by ID.
+	 *
+	 * @param id The id to look for.
+	 * @return Returns the specific encrypted group post.
+	 */
 	@GetMapping("{id}")
 	@Operation(
 			summary = "Get a specific encrypted group post by ID",
 			description = "Get a specific encrypted group post by ID."
 	)
-	public ResponseEntity<PostEncrypted> getById(@PathVariable long id) {
+	public ResponseEntity<PostEncryptedGroup> getById(@PathVariable long id) {
 		var obj = postEncryptedGroupService.getById(id);
 
 		if (obj == null) {
