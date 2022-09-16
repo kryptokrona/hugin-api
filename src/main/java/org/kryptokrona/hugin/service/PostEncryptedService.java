@@ -24,6 +24,13 @@ public class PostEncryptedService {
 
 	private static final Logger logger = LoggerFactory.getLogger(PostEncryptedService.class);
 
+	/**
+	 * Get all encrypted posts with pagination.
+	 *
+	 * @param page The current page.
+	 * @param size The size per page.
+	 * @return Returns all encrypted posts with pagination.
+	 */
 	public Page<PostEncrypted> getAll(int page, int size) {
 		Page<PostEncrypted> pageTuts = null;
 		Pageable paging = PageRequest.of(page, size);
@@ -31,6 +38,12 @@ public class PostEncryptedService {
 		return postEncryptedRepository.findAll(paging);
 	}
 
+	/**
+	 * Get encrypted post by id.
+	 *
+	 * @param id The id to look for in the database.
+	 * @return Returns the encrypted post object.
+	 */
 	public PostEncrypted getById(long id) {
 		if (postEncryptedRepository.existsById(id)) {
 			PostEncrypted postEncrypted = postEncryptedRepository.findById(id).get();
