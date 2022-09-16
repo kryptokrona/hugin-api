@@ -12,10 +12,10 @@ spring:
 springdoc:
   api-docs:
     enabled: true
-    path: /api/v1/docs
+    path: /api/docs
   swagger-ui:
     enabled: true
-    path: /api/v1/docs/index.html
+    path: /api/docs/index.html
     operationsSorter: method
     syntaxHighlight:
       theme: obsidian
