@@ -37,7 +37,7 @@ public class PostEncryptedService {
 	 * @param txHash The unique transaction hash connected to the encrypted post object
 	 * @return Returns if it exists or not
 	 */
-	public boolean encryptedPostExists(String txHash) {
+	public boolean exists(String txHash) {
 		return postEncryptedRepository.existsPostByTxHash(txHash);
 	}
 

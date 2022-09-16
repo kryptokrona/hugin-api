@@ -38,7 +38,7 @@ public class PostService {
      * @param txHash The unique transaction hash connected to the post object
      * @return Returns if it exists or not
      */
-    public boolean postExist(String txHash) {
+    public boolean exists(String txHash) {
         return postRepository.existsPostByTxHash(txHash);
     }
 
