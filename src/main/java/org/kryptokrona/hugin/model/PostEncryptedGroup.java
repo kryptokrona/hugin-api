@@ -1,34 +1,30 @@
 package org.kryptokrona.hugin.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Post Encrypted entity.
+ * Post Encrypted Group entity.
  *
  * @author Marcus Cvjeticanin
  */
 @Entity
-public class PostEncrypted {
+public class PostEncryptedGroup {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@JsonProperty("tx_hash")
 	@Column(name = "tx_hash")
 	private String txHash;
 
-	@JsonProperty("tx_box")
-	@Column(name = "tx_box")
-	private String txBox;
+	@Column(name = "tx_sb")
+	private String txSb;
 
-	@JsonProperty("tx_timestamp")
 	@Column(name = "tx_timestamp")
-	private String txTimestamp;
+	private long txTimestamp;
 
 	@CreatedDate
 	@Column(name = "created_at", nullable = false, updatable = false)
