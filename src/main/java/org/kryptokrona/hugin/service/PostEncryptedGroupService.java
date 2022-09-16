@@ -42,7 +42,7 @@ public class PostEncryptedGroupService {
 		return postEncryptedGroupRepository.existsPostByTxHash(txHash);
 	}
 
-	public void saveEncryptedGroupPost(PostEncryptedGroup postEncryptedGroup) {
+	public void save(PostEncryptedGroup postEncryptedGroup) {
 		try {
 			postEncryptedGroupRepository.save(postEncryptedGroup);
 			logger.info("Encrypted group post with tx hash was added: " + postEncryptedGroup.getTxHash());
