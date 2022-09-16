@@ -1,5 +1,6 @@
 package org.kryptokrona.hugin.service;
 
+import org.kryptokrona.hugin.model.Hashtag;
 import org.kryptokrona.hugin.model.Post;
 import org.kryptokrona.hugin.repository.PostRepository;
 import org.slf4j.Logger;
@@ -28,6 +29,18 @@ public class PostService {
         Pageable paging = PageRequest.of(page, size);
 
         return postRepository.findAll(paging);
+    }
+
+    public Post getById(long id) {
+        if (postRepository.existsById(id)) {
+            Post post = postRepository.findById(id).get();
+            logger.info("Post found with ID: " + id);
+            return post;
+        } else {
+            logger.error("Unable to find post with ID: " + id);
+        }
+
+        return null;
     }
 
     /**
