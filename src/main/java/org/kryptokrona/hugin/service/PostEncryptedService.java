@@ -41,7 +41,7 @@ public class PostEncryptedService {
 		return postEncryptedRepository.existsPostByTxHash(txHash);
 	}
 
-	public void saveEncryptedPost(PostEncrypted postEncrypted) {
+	public void save(PostEncrypted postEncrypted) {
 		try {
 			postEncryptedRepository.save(postEncrypted);
 			logger.info("Encrypted post with tx hash was added: " + postEncrypted.getTxHash());
