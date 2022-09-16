@@ -1,6 +1,15 @@
 package org.kryptokrona.hugin.crypto;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.kryptokrona.hugin.syncer.HuginSyncer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.net.URLDecoder;
 
 /**
  * Hugin Crypto.
@@ -9,12 +18,62 @@ import java.util.List;
  */
 public class HuginCrypto {
 
+	private static final Logger logger = LoggerFactory.getLogger(HuginCrypto.class);
+
 	public static String trimExtra(String extra) {
-		return null;
+		try {
+			var payload = fromHex(extra.substring(66));
+			return fromHex(extra.substring(66));
+		} catch (Exception e) {
+			// return fromHex(Buffer);
+			return null;
+		}
 	}
 
-	public static String fromHex(int hex, String str) {
-		return null;
+	/**
+	 * Converts hex value to string.
+	 *
+	 * @param hex - Hex value.
+	 * @param str - String value.
+	 * @return Returns hex value to string
+	 */
+	public static String fromHex(String hex) {
+		var str = "";
+
+		try {
+			str = decodeURIComponent(hex.replace("/(..)/g,'%$1'", ""), "UTF-8");
+		} catch (Exception e) {
+			str = hex;
+			logger.error("Invalid hex input.");
+		}
+
+		return str;
+	}
+
+	/**
+	 * Decodes the passed String using an algorithm that's compatible with
+	 * JavaScript's <code>decodeURIComponent</code> function. Returns
+	 * <code>null</code> if the String is <code>null</code>.
+	 *
+	 * @param s The encoded String to be decoded
+	 * @param charset The charset to use
+	 * @return Returns the decoded String
+	 */
+	public static String decodeURIComponent(String s, String charset) {
+		if (s == null) {
+			return null;
+		}
+
+		String result = null;
+
+		try {
+			result = URLDecoder.decode(s, charset);
+		} catch (UnsupportedEncodingException e) {
+			// this exception should never occur.
+			result = s;
+		}
+
+		return result;
 	}
 
 	/**
