@@ -31,7 +31,7 @@ public class Hashtag {
 	List<Post> posts;
 
 	@JsonGetter("posts")
-	public List<String> getAllWallets() {
+	public List<String> getAllPosts() {
 		if (posts != null) {
 			return posts.stream()
 					.map(p -> {
