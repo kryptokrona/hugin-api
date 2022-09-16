@@ -1,7 +1,5 @@
 package org.kryptokrona.hugin.service;
 
-import org.kryptokrona.hugin.controller.PostEncryptedController;
-import org.kryptokrona.hugin.http.EncryptedGroupPost;
 import org.kryptokrona.hugin.model.PostEncryptedGroup;
 import org.kryptokrona.hugin.repository.PostEncryptedGroupRepository;
 import org.slf4j.Logger;
