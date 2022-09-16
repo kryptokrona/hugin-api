@@ -42,6 +42,11 @@ public class PostService {
         return postRepository.existsPostByTxHash(txHash);
     }
 
+    /**
+     * Saves the post to the database.
+     *
+     * @param post The post object to save.
+     */
     public void save(Post post) {
         try {
             postRepository.save(post);
