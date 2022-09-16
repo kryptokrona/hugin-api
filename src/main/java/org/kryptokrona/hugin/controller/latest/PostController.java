@@ -1,4 +1,4 @@
-package org.kryptokrona.hugin.controller;
+package org.kryptokrona.hugin.controller.latest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.kryptokrona.hugin.controller.latest.HashtagController.VERSION;
+
 /**
  * Post Controller.
  *
@@ -21,9 +23,11 @@ import java.util.Map;
  */
 @RestController
 @CrossOrigin(origins="*")
-@RequestMapping("api/v1/posts")
+@RequestMapping("api/v" + VERSION + "/posts")
 @Tag(name = "posts", description = "Set of endpoints to get data of posts.")
 public class PostController {
+
+    static final String VERSION = "1";
 
     @Autowired
     private PostService postService;
