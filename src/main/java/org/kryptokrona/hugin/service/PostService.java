@@ -1,7 +1,11 @@
 package org.kryptokrona.hugin.service;
 
+import org.kryptokrona.hugin.controller.PostEncryptedController;
+import org.kryptokrona.hugin.http.BoardPost;
 import org.kryptokrona.hugin.model.Post;
 import org.kryptokrona.hugin.repository.PostRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +22,8 @@ public class PostService {
 
     @Autowired
     private PostRepository postRepository;
+
+    private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 
     public Page<Post> getAll(int page, int size) {
         Page<Post> pageTuts = null;
@@ -36,8 +42,13 @@ public class PostService {
         return postRepository.existsPostByTxHash(txHash);
     }
 
-    public void savePost() {
-
+    public void savePost(Post post) {
+        try {
+            postRepository.save(post);
+            logger.info("Post with tx hash was added: " + post.getTxHash());
+        } catch (Exception e) {
+            logger.error("Unable to add post with tx hash: " + post.getTxHash());
+        }
     }
 
 }

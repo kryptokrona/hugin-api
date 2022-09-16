@@ -35,4 +35,43 @@ public class PostEncrypted {
 	@Column(name = "created_at", nullable = false, updatable = false)
 	private Date createdAt;
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getTxHash() {
+		return txHash;
+	}
+
+	public void setTxHash(String txHash) {
+		this.txHash = txHash;
+	}
+
+	public String getTxBox() {
+		return txBox;
+	}
+
+	public void setTxBox(String txBox) {
+		this.txBox = txBox;
+	}
+
+	public String getTxTimestamp() {
+		return txTimestamp;
+	}
+
+	public void setTxTimestamp(String txTimestamp) {
+		this.txTimestamp = txTimestamp;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
 }
