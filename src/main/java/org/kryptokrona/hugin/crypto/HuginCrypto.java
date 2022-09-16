@@ -1,15 +1,11 @@
 package org.kryptokrona.hugin.crypto;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.kryptokrona.hugin.syncer.HuginSyncer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.Reader;
-import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
-import java.util.List;
 import java.net.URLDecoder;
+import java.util.List;
 
 /**
  * Hugin Crypto.
