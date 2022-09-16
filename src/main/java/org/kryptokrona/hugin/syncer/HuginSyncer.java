@@ -22,6 +22,8 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.kryptokrona.hugin.util.AvatarUtil.generateBase64EncodedSvg;
+
 /**
  * Hugin Syncer.
  *

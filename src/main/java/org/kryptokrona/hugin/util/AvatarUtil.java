@@ -19,16 +19,10 @@ public class AvatarUtil {
 	public static String generateBase64EncodedSvg(String hash, String format) {
 		var hashCode = getHashCode(hash);
 
-		// get custom color scheme based on address
-		int red = (int) hashCode >> 16;
-		int green = (int) hashCode - (red << 16);
-		int blue = (int) hashCode - (red << 16) - (green << 8);
-
+		//TODO: do not work yet...
 		String md5 = md5Hex(hash.toLowerCase());
-		saveImage(generateIdenticons(md5, 500, 500), md5, format);
 
-
-		return "";
+		return getIdenticon(generateIdenticons(md5, 420, 420));
 	}
 
 	/**
@@ -48,7 +42,7 @@ public class AvatarUtil {
 	 * @param str The string to get hashcode from
 	 * @return Returns a hashcode in double value
 	 */
-	private static double getHashCode(String str) {
+	public static double getHashCode(String str) {
 		var hash = Math.abs(generateHashCode(str)) * 0.007812499538;
 		return Math.floor(hash);
 	}
@@ -59,7 +53,7 @@ public class AvatarUtil {
 	 * @param str The hashcode to use this should be the return value from getHashCode method
 	 * @return Returns a new hashcode in string format
 	 */
-	private static long generateHashCode(String str) {
+	public static long generateHashCode(String str) {
 		var hash = 0;
 
 		if (str.length() == 0) {
