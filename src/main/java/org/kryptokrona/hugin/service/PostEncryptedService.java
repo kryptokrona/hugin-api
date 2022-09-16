@@ -36,4 +36,8 @@ public class PostEncryptedService {
 		return postEncryptedRepository.existsPostByTxHash(txHash);
 	}
 
+	public void saveEncryptedPost() {
+
+	}
+
 }
