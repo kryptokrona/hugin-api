@@ -8,9 +8,7 @@ import org.apache.hc.client5.http.fluent.Request;
 import org.kryptokrona.hugin.crypto.HuginCrypto;
 import org.kryptokrona.hugin.crypto.KeyPair;
 import org.kryptokrona.hugin.crypto.OpenBox;
-import org.kryptokrona.hugin.http.KnownPoolTxs;
 import org.kryptokrona.hugin.http.PoolChangesLite;
-import org.kryptokrona.hugin.model.Post;
 import org.kryptokrona.hugin.repository.PostEncryptedGroupRepository;
 import org.kryptokrona.hugin.repository.PostEncryptedRepository;
 import org.kryptokrona.hugin.repository.PostRepository;
@@ -26,7 +24,6 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Hugin Syncer.

@@ -1,6 +1,5 @@
 package org.kryptokrona.hugin.util;
 
-import org.kryptokrona.hugin.controller.PostEncryptedController;
 import org.kryptokrona.hugin.repository.HashtagRepository;
 import org.kryptokrona.hugin.repository.PostEncryptedGroupRepository;
 import org.kryptokrona.hugin.repository.PostEncryptedRepository;
