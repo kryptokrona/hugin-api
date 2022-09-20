@@ -32,7 +32,7 @@ async function getAll(limit: number, offset: number, order: string, searchKeywor
 /**
  * Get hashtag by id
  */
-async function getHashTagById(hashtagId: string) {
+async function getById(hashtagId: string) {
     return models.Hashtag.findOne({
         where: {
             id: hashtagId
@@ -55,6 +55,6 @@ async function getLatest(limit: number, offset: number, order: string) {
 
 export {
     getAll,
-    getHashTagById,
+    getById,
     getLatest
 };

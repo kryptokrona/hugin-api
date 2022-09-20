@@ -13,8 +13,8 @@ const Op = db.Sequelize.Op;
 
 import { Request, Response } from "express";
 
-import { getAllHashtags, getHashtagById, getLatestHashtags } from "../../services/hashtagService";
-import Time from "../../util/time";
+import { getAll, getById, getLatest } from "../../service/hashtagService";
+import { getTimestamp } from "../../util/time";
 import { getPagination, getPagingData } from "../../util/pagination";
 
 /**
@@ -23,11 +23,11 @@ import { getPagination, getPagingData } from "../../util/pagination";
  * @param {Request} req - Express request object.
  * @param {Response} res - Express response object.
  */
-async function getAll(req: Request, res: Response) {
+async function getAllHashtags(req: Request, res: Response) {
     const { page, size, order, search } = req.query;
     const { limit, offset } = getPagination(Number(page), Number(size))
 
-    getAllHashtags(limit, offset, order, search)
+    getAll(limit, offset, String(order), String(search))
         .then(async (data: any) => {
             const response = await getPagingData(data, Number(page), limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
@@ -47,8 +47,8 @@ async function getAll(req: Request, res: Response) {
  * @param {Request} req - Express request object.
  * @param {Response} res - Express response object.
  */
-async function getHashTagById(req: Request, res: Response) {
-    getHashtagById(req.params.id)
+async function getHashagById(req: Request, res: Response) {
+    getById(req.params.id)
         .then((data: any) => {
             log.info(getTimestamp() + ' INFO: Successful response.')
 
@@ -73,11 +73,11 @@ async function getHashTagById(req: Request, res: Response) {
  * @param {Request} req - Express request object.
  * @param {Response} res - Express response object.
  */
-async function getLatest(req: Request, res: Response) {
+async function getLatestHashtag(req: Request, res: Response) {
     const { page, size, order } = req.query
     const { limit, offset } = getPagination(Number(page), Number(size))
 
-    getLatestHashtags(limit, offset, order)
+    getLatest(limit, offset, String(order))
         .then(async (data: any) => {
             const response = await getPagingData(data, Number(page), limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
@@ -93,6 +93,6 @@ async function getLatest(req: Request, res: Response) {
 
 export {
     getAll,
-    getHashTagById,
+    getLatestHashtag,
     getLatest
 };
