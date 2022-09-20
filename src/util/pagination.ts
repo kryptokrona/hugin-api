@@ -10,7 +10,7 @@
  * @param {object} limit - Limit object.
  * @returns {object} pagination data - Get the pagination data object.
  */
-async function getPagingData(data, page: Number, limit: Number) {
+async function getPagingData(data: any, page: number, limit: number) {
     const { count: totalItems, rows: items } = data;
     const currentPage = page ? +page : 0;
     const totalPages = Math.ceil(totalItems / limit);
@@ -25,7 +25,7 @@ async function getPagingData(data, page: Number, limit: Number) {
  * @param {object} size - Size object.
  * @returns {object} pagination - Get the pagination object.
  */
-function getPagination(page: Number, size: Number) {
+function getPagination(page: number, size: number) {
     const limit = size ? +size : 3;
     const offset = page ? page * limit : 0;
 
