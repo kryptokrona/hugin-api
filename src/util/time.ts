@@ -24,11 +24,11 @@ function sleep(ms: number) {
 }
 
 /**
- * Convert date object to unix timestamp
+ * Convert date to unix timestamp
  *
  * @returns {number}
  */
-function convertDateTimeToUnix(dateObj: Date) {
+function convertDateTimeToUnix(dateObj: string) {
   return Math.floor(Date.parse(dateObj) / 1000)
 }
 
