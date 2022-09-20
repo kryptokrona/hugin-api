@@ -31,7 +31,7 @@ let known_pool_txs = [];
  *
  * @returns {Promise} Resolves to this if connection succeeded.
  */
-module.exports.backgroundSyncMessages = async () => {
+async function backgroundSyncMessages() {
     log.info(getTimestamp() + ' INFO: Background syncing.')
     let message_was_unknown
 
@@ -385,3 +385,5 @@ function trimExtra(extra) {
         return fromHex(Buffer.from(extra.substring(78)).toString())
     }
 }
+
+export default backgroundSyncMessages;
