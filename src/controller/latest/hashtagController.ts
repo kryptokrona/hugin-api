@@ -11,34 +11,32 @@ let db = require("../../configs/postgresql"),
 
 const Op = db.Sequelize.Op;
 
-import HashtagService from "../../services/hashtagService";
-import getTimeStamp from "../../util/time";
+import { Request, Response } from "express";
+
+import { getAllHashtags, getHashtagById, getLatestHashtags} from "../../services/hashtagService";
+import Time from "../../util/time";
 import { getPagination, getPagingData } from "../../util/pagination";
-
-class HashtagController {
-
-}
 
 /**
  * Get all hashtags
  *
- * @param {object} req - Express request object.
- * @param {object} res - Express response object.
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object.
  */
-hashtagController.getAll = (req, res) => {
+async function getAll(req: Request, res: Response) {
     const { page, size, order, search } = req.query;
-    const { limit, offset } = getPagination(page, size)
+    const { limit, offset } = getPagination(Number(page), Number(size))
 
-    hashtagService.getAll(limit, offset, order, search)
-        .then(async data => {
-            const response = await getPagingData(data, page, limit)
+    getAllHashtags(limit, offset, order, search)
+        .then(async (data: any) => {
+            const response = await getPagingData(data, Number(page), limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
             res.json(response)
         })
-        .catch(err => {
+        .catch((err: unknown) => {
             log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data. ' + err)
             res.status(400).send({
-                message: err.message || 'Some error occurred while retrieving data.'
+                message: err || 'Some error occurred while retrieving data.'
             })
         })
 }
@@ -46,12 +44,12 @@ hashtagController.getAll = (req, res) => {
 /**
  * Get hashtag by id
  *
- * @param {object} req - Express request object.
- * @param {object} res - Express response object.
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object.
  */
-hashtagController.getHashTagById = (req, res) => {
-    hashtagService.getHashTagById(req.params.id)
-        .then(data => {
+async function getHashTagById(req: Request, res: Response) {
+    getHashtagById(req.params.id)
+        .then((data: any) => {
             log.info(getTimestamp() + ' INFO: Successful response.')
 
             // send empty object if we can not find the post
@@ -61,10 +59,10 @@ hashtagController.getHashTagById = (req, res) => {
                 res.json(data)
             }
         })
-        .catch(err => {
+        .catch((err: unknown) => {
             log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data. ' + err)
             res.status(400).send({
-                message: err.message || 'Some error occurred while retrieving data.'
+                message: err || 'Some error occurred while retrieving data.'
             })
         })
 }
@@ -72,59 +70,29 @@ hashtagController.getHashTagById = (req, res) => {
 /**
  * Get latest hashtags
  *
- * @param {object} req - Express request object.
- * @param {object} res - Express response object.
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object.
  */
-hashtagController.getLatest = async (req, res) => {
+async function getLatest(req: Request, res: Response) {
     const { page, size, order } = req.query
-    const { limit, offset } = getPagination(page, size)
+    const { limit, offset } = getPagination(Number(page), Number(size))
 
-    hashtagService.getLatest(limit, offset, order)
-        .then(async data => {
-            const response = await getPagingData(data, page, limit)
+    getLatestHashtags(limit, offset, order)
+        .then(async (data: any) => {
+            const response = await getPagingData(data, Number(page), limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
             res.json(response)
         })
-        .catch(err => {
+        .catch((err: unknown) => {
             log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data. ' + err)
             res.status(400).send({
-                message: err.message || 'Some error occurred while retrieving data.'
+                message: err || 'Some error occurred while retrieving data.'
             })
         })
 }
 
-/**
- * Get trending hashtags
- *
- * @param {object} req - Express request object.
- * @param {object} res - Express response object.
- */
-hashtagController.getTrending = async (req, res) => {
-    const { page, size } = req.query;
-    const { limit, offset } = getPagination(page, size)
-
-    hashtagService.getTrending(page, size, limit, offset)
-        .then(async data => {
-            let response = await getPagingData(data, page, limit)
-
-            //TODO: this is a temporary fix (check the hashtagService and modify it to avoid this method)
-            // we want to do a SQL query instead of this
-            /* let jsonStr = JSON.stringify(response)
-            let newData = JSON.parse(jsonStr)
-
-            newData.items.forEach(item => {
-                item.posts = item.posts.length
-            }) */
-
-            log.info(getTimestamp() + ' INFO: Successful response.')
-            res.json(response)
-        })
-        .catch(err => {
-            log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data. ' + err)
-            res.status(400).send({
-                message: err.message || 'Some error occurred while retrieving data.'
-            })
-        })
-}
-
-export default HashtagController;
+export {
+    getAll,
+    getHashTagById,
+    getLatest
+};
