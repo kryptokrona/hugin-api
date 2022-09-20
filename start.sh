@@ -1,4 +1,4 @@
 #!/bin/sh
 
-npm run db:migrate
-npm start
+yarn run db:migrate
+yarn start

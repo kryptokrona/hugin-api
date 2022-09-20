@@ -12,7 +12,7 @@ RUN pip3 install --no-cache --upgrade pip setuptools
 
 # Install app dependencies
 COPY package*.json ./
-RUN npm install
+RUN yarn
 
 ENV NODE_ENV=production
 
