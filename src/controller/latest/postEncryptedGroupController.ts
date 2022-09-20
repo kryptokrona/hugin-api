@@ -15,7 +15,9 @@ const postEncryptedGroupService = require('../../services/postEncryptedGroupServ
 const { getPagination, getPagingData} = require('../../utils/pagination')
 const { getTimestamp, convertDateTimeToUnix, convertUnixToDateTime} = require("../../utils/time")
 
-const postEncryptedController = {}
+class PostEncryptedGroupController {
+    
+}
 
 /**
  * Get all encrypted group posts
@@ -112,4 +114,4 @@ postEncryptedController.getLatest = async (req, res) => {
     })
 }
 
-module.exports = postEncryptedController
+export default PostEncryptedGroupController;

@@ -15,7 +15,9 @@ const postService = require('../../services/postService')
 const { getPagination, getPagingData} = require('../../utils/pagination')
 const { getTimestamp, convertDateTimeToUnix, convertUnixToDateTime} = require("../../utils/time")
 
-const postController = {}
+class PostController {
+    
+}
 
 /**
  * Get all posts
@@ -122,4 +124,4 @@ postController.getLatest = async (req, res) => {
         })
 }
 
-module.exports = postController
+export default PostController;
