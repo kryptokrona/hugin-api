@@ -19,11 +19,11 @@ import { getPagination, getPagingData } from "../../util/pagination";
  */
 async function getAllPosts(req: Request, res: Response) {
     let { page, size, order, search, startDate, endDate, excludeAvatar } = req.query;
-    const { limit, offset } = getPagination(Number(page), Number(size))
+    const { limit, offset } = getPagination(Number(page), Number(size));
 
     // converts to datetime format since it's stored in the db as such
-    const startDateParam = convertUnixToDateTime(Number(startDate))
-    const endDateParam = convertUnixToDateTime(Number(startDate))
+    const startDateParam = convertUnixToDateTime(Number(startDate));
+    const endDateParam = convertUnixToDateTime(Number(endDate));
     const excludeAvatarParam = (excludeAvatar === "true");
 
     getAll(limit, offset, String(order), String(search), startDateParam, endDateParam, excludeAvatarParam)
@@ -45,7 +45,7 @@ async function getAllPosts(req: Request, res: Response) {
             res.status(400).send({
                 message: err.message || 'Some error occurred while retrieving data.'
             })
-        })
+        });
 }
 
 /**

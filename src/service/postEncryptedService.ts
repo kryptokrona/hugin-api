@@ -4,19 +4,17 @@
 
 'use strict'
 
+import { Request } from "express"
+
 const db = require('../configs/postgresql')
 const models = require("../database/models")
 const { Op } = require("sequelize")
 
-class PostEncryptedService {
-    
-}
-
 /**
  * Get all encrypted posts
  */
-postEncryptedService.getAll = async (limit, offset, order, searchKeyword, startDate, endDate) => {
-    let query = {
+async function getAll(limit: number, offset: number, order: string, searchKeyword: string, startDate: Date, endDate: Date) {
+    let query: any = {
         limit: limit,
         order: [
             ['id', order ? order.toUpperCase() : 'DESC'],
@@ -50,7 +48,7 @@ postEncryptedService.getAll = async (limit, offset, order, searchKeyword, startD
 /**
  * Get encrypted post by tx_hash
  */
-postEncryptedService.getEncryptedPostByTxHash = async (req) => {
+ async function getByTxHash(req: Request) {
     return models.PostEncrypted.findOne({
         where: {
             tx_hash: req.params.tx_hash
@@ -61,8 +59,8 @@ postEncryptedService.getEncryptedPostByTxHash = async (req) => {
 /**
  * Get latest encrypted posts
  */
-postEncryptedService.getLatest = async (limit, offset, order, searchKeyword, startDate, endDate) => {
-    let query = {
+ async function getLatest(limit: number, offset: number, order: string, searchKeyword: string, startDate: Date, endDate: Date) {
+    let query: any = {
         limit: limit,
         order: [
             ['id', order ? order.toUpperCase() : 'DESC'],
@@ -93,4 +91,8 @@ postEncryptedService.getLatest = async (limit, offset, order, searchKeyword, sta
     return models.PostEncrypted.findAndCountAll(query)
 }
 
-export default PostEncryptedService;
+export {
+    getAll,
+    getByTxHash,
+    getLatest
+};
