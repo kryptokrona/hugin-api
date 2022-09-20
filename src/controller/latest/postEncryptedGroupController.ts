@@ -7,7 +7,7 @@
 import log from "loglevel";
 import { Request, Response } from "express";
 
-import {  } from "../../service/postEncryptedGroupService";
+import { getLatest, getByTxHash, getAll } from "../../service/postEncryptedGroupService";
 import { getTimestamp, convertUnixToDateTime, convertDateTimeToUnix } from "../../util/time";
 import { getPagination, getPagingData } from "../../util/pagination";
 
@@ -19,20 +19,20 @@ import { getPagination, getPagingData } from "../../util/pagination";
  */
 async function getAllEncryptedGroupPosts(req: Request, res: Response) {
   const { page, size, order, search, startDate, endDate } = req.query;
-  const { limit, offset } = getPagination(page, size)
+  const { limit, offset } = getPagination(Number(page), Number(size))
 
   // converts to datetime format since it's stored in the db as such
-  const startDateParam = convertUnixToDateTime(startDate)
-  const endDateParam = convertUnixToDateTime(endDate)
+  const startDateParam = convertUnixToDateTime(Number(startDate))
+  const endDateParam = convertUnixToDateTime(Number(endDate))
 
-  postEncryptedGroupService.getAll(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate)
+  getAll(limit, offset, String(order), String(search), startDateParam, endDateParam)
     .then(async data => {
       // converts the standard UTC to unix timestamp
-      data.rows.forEach(row => {
+      data.rows.forEach((row: any) => {
         row.dataValues.createdAt = convertDateTimeToUnix(row.dataValues.createdAt)
         row.dataValues.updatedAt = convertDateTimeToUnix(row.dataValues.updatedAt)
       })
-      const response = await getPagingData(data, page, limit)
+      const response = await getPagingData(data, Number(page), limit)
       log.info(getTimestamp() + ' INFO: Successful response.')
       res.json(response)
     })
@@ -51,7 +51,7 @@ async function getAllEncryptedGroupPosts(req: Request, res: Response) {
  * @param {Response} res - Express response object.
  */
 async function getEncryptedGroupPostsByTxHash(req: Request, res: Response) {
-  postEncryptedGroupService.getEncryptedGroupPostByTxHash(req)
+  getByTxHash(req)
     .then(async data => {
       log.info(getTimestamp() + ' INFO: Successful response.')
 
@@ -81,20 +81,20 @@ async function getEncryptedGroupPostsByTxHash(req: Request, res: Response) {
  */
 async function getLatestEncryptedGroupPosts(req: Request, res: Response) {
   const { page, size, order, search, startDate, endDate } = req.query;
-  const { limit, offset } = getPagination(page, size)
+  const { limit, offset } = getPagination(Number(page), Number(size))
 
   // converts to datetime format since it's stored in the db as such
-  const startDateParam = convertUnixToDateTime(startDate)
-  const endDateParam = convertUnixToDateTime(endDate)
+  const startDateParam = convertUnixToDateTime(Number(startDate))
+  const endDateParam = convertUnixToDateTime(Number(endDate))
 
-  postEncryptedGroupService.getLatest(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate)
+  getLatest(limit, offset, String(order), String(search), startDateParam, endDateParam)
     .then(async data => {
       // converts the standard UTC to unix timestamp
-      data.rows.forEach(row => {
+      data.rows.forEach((row: any) => {
         row.dataValues.createdAt = convertDateTimeToUnix(row.dataValues.createdAt)
         row.dataValues.updatedAt = convertDateTimeToUnix(row.dataValues.updatedAt)
       })
-      const response = await getPagingData(data, page, limit)
+      const response = await getPagingData(data, Number(page), limit)
       log.info(getTimestamp() + ' INFO: Successful response.')
       res.json(response)
     })
