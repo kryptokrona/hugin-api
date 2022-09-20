@@ -1,19 +1,14 @@
 /**
- * Time module.
+ * Time.
  */
-
-class Time {
-
-}
-
 
 /**
  * Gets timestamp
  *
- * @returns {String}
+ * @returns {string}
  */
-module.exports.getTimestamp = () => {
-    const pad = (n,s=2) => (`${new Array(s).fill(0)}${n}`).slice(-s);
+function getTimestamp() {
+    const pad = (n: any, s=2) => (`${new Array(s).fill(0)}${n}`).slice(-s);
     const d = new Date();
 
     return `${pad(d.getFullYear(),4)}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
@@ -24,7 +19,7 @@ module.exports.getTimestamp = () => {
  *
  * @returns {Promise}
  */
-module.exports.sleep = (ms) => {
+function sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms))
 }
 
@@ -33,7 +28,7 @@ module.exports.sleep = (ms) => {
  *
  * @returns {number}
  */
-module.exports.convertDateTimeToUnix = (dateObj) => {
+function convertDateTimeToUnix(dateObj: Date) {
   return Math.floor(Date.parse(dateObj) / 1000)
 }
 
@@ -42,8 +37,13 @@ module.exports.convertDateTimeToUnix = (dateObj) => {
  *
  * @returns {Date}
  */
-module.exports.convertUnixToDateTime = (unixTimestamp) => {
+function convertUnixToDateTime(unixTimestamp: number) {
   return new Date(unixTimestamp * 1000)
 }
 
-export default Time;
+export {
+  getTimestamp,
+  sleep,
+  convertDateTimeToUnix,
+  convertUnixToDateTime
+};
