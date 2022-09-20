@@ -13,7 +13,7 @@ const Op = db.Sequelize.Op;
 
 import { Request, Response } from "express";
 
-import { getAllHashtags, getHashtagById, getLatestHashtags} from "../../services/hashtagService";
+import { getAllHashtags, getHashtagById, getLatestHashtags } from "../../services/hashtagService";
 import Time from "../../util/time";
 import { getPagination, getPagingData } from "../../util/pagination";
 
