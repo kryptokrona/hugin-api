@@ -21,11 +21,6 @@ var postEncryptedGroupRouterLatest = require('./routes/latest/postEncryptedGroup
 var hashtagRouterLatest = require('./routes/latest/hashtagRouter')
 var statisticsRouterLatest = require('./routes/latest/statisticsRouter')
 
-// v1 routers
-var postRouter = require('./routes/v1/postRouter')
-var postEncryptedRouter = require('./routes/v1/postEncryptedRouter')
-var hashtagRouter = require('./routes/v1/hashtagRouter')
-
 // syncers
 var huginSyncer = require('./syncers/huginSyncer')
 
