@@ -9,7 +9,9 @@ const router = express.Router()
 
 const controller = require('../../controllers/latest/postController')
 
-// NOTE: the ordering here is important
+class PostRouter {
+
+}
 
 /**
  * @openapi
@@ -136,4 +138,4 @@ router.get('/posts', controller.getAll)
 router.get('/posts/:tx_hash', controller.getPostByTxHash)
 
 
-module.exports = router
+export default PostRouter;

@@ -9,7 +9,9 @@ const router = express.Router()
 
 const controller = require('../../controllers/latest/statisticsController')
 
-// NOTE: the ordering here is important
+class StatisticsRouter {
+
+}
 
 /**
  * @openapi
@@ -69,4 +71,4 @@ router.get('/statistics/posts/popular', controller.getPopularPosts)
  */
 router.get('/statistics/boards/popular', controller.getPopularBoards)
 
-module.exports = router
+export default StatisticsRouter;
