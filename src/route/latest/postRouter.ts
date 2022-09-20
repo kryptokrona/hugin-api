@@ -7,7 +7,7 @@
 import express from "express";
 const router = express.Router();
 
-import { getAllHashtags, getHashtagById, getLatestHashtag } from "../../controller/latest/postController";
+import { getAllPosts, getPostByTxHash, getLatestPosts } from "../../controller/latest/postController";
 
 /**
  * @openapi
@@ -59,7 +59,7 @@ import { getAllHashtags, getHashtagById, getLatestHashtag } from "../../controll
  *       200:
  *         description: Returns the latest posts.
  */
-router.get('/posts/latest', controller.getLatest)
+router.get('/posts/latest', getLatestPosts)
 
 /**
  * @openapi
@@ -111,7 +111,7 @@ router.get('/posts/latest', controller.getLatest)
  *       200:
  *         description: Returns all posts.
  */
-router.get('/posts', controller.getAll)
+router.get('/posts', getPostByTxHash)
 
 /**
  * @openapi
@@ -131,9 +131,7 @@ router.get('/posts', controller.getAll)
  *       200:
  *         description: Returns the specific post.
  */
-router.get('/posts/:tx_hash', controller.getPostByTxHash)
+router.get('/posts/:tx_hash', getAllPosts)
 
 
-export {
-    router
-};
+export default router;
