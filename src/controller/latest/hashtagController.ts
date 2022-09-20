@@ -11,12 +11,12 @@ let db = require("../../configs/postgresql"),
 
 const Op = db.Sequelize.Op;
 
-const hashtagService = require('../../services/hashtagService')
-const { getPagination, getPagingData} = require('../../utils/pagination')
-const { getTimestamp } = require("../../utils/time")
+import HashtagService from "../../services/hashtagService";
+import getTimeStamp from "../../util/time";
+import { getPagination, getPagingData } from "../../util/pagination";
 
 class HashtagController {
-    
+
 }
 
 /**
