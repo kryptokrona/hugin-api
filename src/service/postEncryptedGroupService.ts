@@ -8,15 +8,11 @@ const db = require('../configs/postgresql')
 const models = require("../database/models")
 const { Op } = require("sequelize")
 
-class PostEncryptedGroupService {
-    
-}
-
 /**
  * Get all encrypted group posts
  */
-postEncryptedGroupService.getAll = async (limit, offset, order, searchKeyword, startDate, endDate) => {
-  let query = {
+ async function getAll(limit, offset, order, searchKeyword, startDate, endDate) {
+  let query: any = {
     limit: limit,
     order: [
       ['id', order ? order.toUpperCase() : 'DESC'],
@@ -50,7 +46,7 @@ postEncryptedGroupService.getAll = async (limit, offset, order, searchKeyword, s
 /**
  * Get encrypted group post by tx_hash
  */
-postEncryptedGroupService.getEncryptedGroupPostByTxHash = async (req) => {
+ async function getByTxHash(req) {
   return models.PostEncryptedGroup.findOne({
     where: {
       tx_hash: req.params.tx_hash
@@ -61,8 +57,8 @@ postEncryptedGroupService.getEncryptedGroupPostByTxHash = async (req) => {
 /**
  * Get latest encrypted group posts
  */
-postEncryptedGroupService.getLatest = async (limit, offset, order, searchKeyword, startDate, endDate) => {
-  let query = {
+async function getLatest(limit, offset, order, searchKeyword, startDate, endDate) {
+  let query: any = {
     limit: limit,
     order: [
       ['id', order ? order.toUpperCase() : 'DESC'],
@@ -93,4 +89,8 @@ postEncryptedGroupService.getLatest = async (limit, offset, order, searchKeyword
   return models.PostEncryptedGroup.findAndCountAll(query)
 }
 
-export default PostEncryptedGroupService;
+export {
+  getAll,
+  getByTxHash,
+  getLatest
+};
