@@ -4,6 +4,8 @@
 
 'use strict'
 
+import { Request } from "express"
+
 const db = require('../configs/postgresql')
 const models = require("../database/models")
 const { Op } = require("sequelize")
@@ -11,7 +13,7 @@ const { Op } = require("sequelize")
 /**
  * Get all encrypted group posts
  */
- async function getAll(limit, offset, order, searchKeyword, startDate, endDate) {
+ async function getAll(limit: number, offset: number, order: string, searchKeyword: string, startDate: Date, endDate: Date) {
   let query: any = {
     limit: limit,
     order: [
@@ -46,7 +48,7 @@ const { Op } = require("sequelize")
 /**
  * Get encrypted group post by tx_hash
  */
- async function getByTxHash(req) {
+ async function getByTxHash(req: Request) {
   return models.PostEncryptedGroup.findOne({
     where: {
       tx_hash: req.params.tx_hash
@@ -57,7 +59,7 @@ const { Op } = require("sequelize")
 /**
  * Get latest encrypted group posts
  */
-async function getLatest(limit, offset, order, searchKeyword, startDate, endDate) {
+async function getLatest(limit: number, offset: number, order: string, searchKeyword: string, startDate: Date, endDate: Date) {
   let query: any = {
     limit: limit,
     order: [
