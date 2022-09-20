@@ -24,7 +24,7 @@ let db = require("../configs/postgresql"),
 let models = require('../database/models')
 const {logger} = require("sequelize/lib/utils/logger");
 
-let known_pool_txs = [];
+let known_pool_txs: any = [];
 
 /**
  * Background sync to fetch data
@@ -69,7 +69,7 @@ async function backgroundSyncMessages() {
                     continue
                 }
 
-                let knownk =  []
+                let knownk: any = []
                 let keypair = {
                     privateSpendKey: '0000000000000000000000000000000000000000000000000000000000000000',
                     privateViewKey:  '0000000000000000000000000000000000000000000000000000000000000000'
@@ -169,7 +169,7 @@ async function backgroundSyncMessages() {
  * @param {String} txHash - Hash value.
  * @returns {Boolean} Resolves to true if found.
  */
-async function encryptedPostExists(txHash) {
+async function encryptedPostExists(txHash: string) {
     try {
         const postEncryptedTxHashLookup = models.PostEncrypted.findOne({
             where: {
@@ -191,7 +191,7 @@ async function encryptedPostExists(txHash) {
  * @param {String} txHash - Hash value.
  * @returns {Boolean} Resolves to true if found.
  */
-async function encryptedGroupPostExists(txHash) {
+async function encryptedGroupPostExists(txHash: string) {
   try {
     const postEncryptedGroupTxHashLookup = models.PostEncryptedGroup.findOne({
       where: {
@@ -213,7 +213,7 @@ async function encryptedGroupPostExists(txHash) {
  * @param {String} txHash - Hash value.
  * @returns {Boolean} Resolves to true if found.
  */
-async function postExists(txHash) {
+async function postExists(txHash: string) {
     try {
         const postTxHashLookup = models.Post.findOne({
             where: {
@@ -236,7 +236,7 @@ async function postExists(txHash) {
  * @param {Object} boxObj - Box Object.
  * @returns {Promise} Resolves to this if transaction to database succeeded.
  */
-async function saveEncryptedPost(txHash, boxObj) {
+async function saveEncryptedPost(txHash: string, boxObj: any) {
     try {
         await sequelize.transaction(async (t) => {
             return models.PostEncrypted.create({
@@ -257,7 +257,7 @@ async function saveEncryptedPost(txHash, boxObj) {
  * @param {Object} boxObj - Box Object.
  * @returns {Promise} Resolves to this if transaction to database succeeded.
  */
-async function saveEncryptedGroupPost(txHash, boxObj) {
+async function saveEncryptedGroupPost(txHash: string, boxObj: any) {
   try {
     await sequelize.transaction(async (t) => {
       return models.PostEncryptedGroup.create({
@@ -278,7 +278,7 @@ async function saveEncryptedGroupPost(txHash, boxObj) {
  * @param {String} txHash - Hash value.
  * @returns {Promise} Resolves to this if transaction to database succeeded.
  */
-async function savePost(messageObj, txHash) {
+async function savePost(messageObj: any, txHash: string) {
     let startTime = performance.now()
 
     try {
@@ -357,12 +357,12 @@ async function savePost(messageObj, txHash) {
  * @param {String} str - String value.
  * @returns {String} Returns .
  */
-function fromHex(hex, str) {
+function fromHex(hex: string, str?: string) {
     try{
         str = decodeURIComponent(hex.replace(/(..)/g,'%$1'))
     } catch (e) {
         str = hex
-        log.error(getTimestamp() + ' ERROR: Invalid hex input. ' + err)
+        log.error(getTimestamp() + ' ERROR: Invalid hex input. ' + e)
     }
     return str
 }
@@ -373,7 +373,7 @@ function fromHex(hex, str) {
  * @param {String} extra - Extra data.
  * @returns {String} Returns extra data to Box.
  */
-function trimExtra(extra) {
+function trimExtra(extra: string) {
     // Extra data contains either a 66 or 78 prefix that isn't used for messages
     try {
         // Transaction from kryptokrona-service
