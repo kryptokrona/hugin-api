@@ -4,8 +4,7 @@
 
 'use strict'
 
-let log = require('loglevel')
-
+import log from "loglevel";
 import { Request, Response } from "express";
 
 import { getAll, getByTxHash, getLatest, getAllRepliesOfPost } from "../../service/postService";
@@ -25,10 +24,9 @@ async function getAllPosts(req: Request, res: Response) {
     // converts to datetime format since it's stored in the db as such
     const startDateParam = convertUnixToDateTime(Number(startDate))
     const endDateParam = convertUnixToDateTime(Number(startDate))
+    const excludeAvatarParam = (excludeAvatar === "true");
 
-    excludeAvatar = (excludeAvatar === undefined || excludeAvatar === 'true')
-
-    getAll(limit, offset, String(order), String(search), startDate ? startDateParam : startDate, endDate ? endDateParam : endDate, excludeAvatar)
+    getAll(limit, offset, String(order), String(search), startDateParam, endDateParam, excludeAvatarParam)
         .then(async data => {
           // converts the standard UTC to unix timestamp
           for (const row of data.rows) {
@@ -93,10 +91,9 @@ async function getAllPosts(req: Request, res: Response) {
     // converts to datetime format since it's stored in the db as such
     const startDateParam = convertUnixToDateTime(Number(startDate))
     const endDateParam = convertUnixToDateTime(Number(endDate))
+    const excludeAvatarParam = (excludeAvatar === "true");
 
-    excludeAvatar = (excludeAvatar === undefined || excludeAvatar === 'true')
-
-    getLatest(limit, offset, String(order), String(search), startDate ? startDateParam : startDate, endDate ? endDateParam : endDate, excludeAvatar)
+    getLatest(limit, offset, String(order), String(search), startDateParam, endDateParam, excludeAvatarParam)
       .then(async data => {
           // converts the standard UTC to unix timestamp
           for (const row of data.rows) {
