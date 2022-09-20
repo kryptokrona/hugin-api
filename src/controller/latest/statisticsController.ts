@@ -8,7 +8,7 @@ import log from "loglevel";
 import { Request, Response } from "express";
 
 import { getPostByTxHashStr, getPopularPosts, getPopularBoards } from "../../service/postService";
-import { getTimestamp, convertUnixToDateTime, convertDateTimeToUnix } from "../../util/time";
+import { getTimestamp } from "../../util/time";
 import { getPagination, getPagingData } from "../../util/pagination";
 
 /**
@@ -45,21 +45,21 @@ async function getPopularBoardPosts(req: Request, res: Response) {
 }
 
 /**
- * Get most popular boards
+ * Get most popular boards by replies
  *
  * @param {Request} req - Express request object.
  * @param {Response} res - Express response object.
  */
- async function getPopularBoards(req: Request, res: Response) {
+ async function getPopularBoardsByReplies(req: Request, res: Response) {
   let { page, size, order } = req.query;
-  const { limit, offset } = getPagination(page, size)
+  const { limit, offset } = getPagination(Number(page), Number(size))
 
-  getPopularBoards(limit, offset, order)
+  getPopularBoards(limit, offset, String(order))
     .then(async data => {
       // setting correct amount of row count
       data.count = data.count.length
 
-      const response = await getPagingData(data, page, limit)
+      const response = await getPagingData(data, Number(page), limit)
 
       log.info(getTimestamp() + ' INFO: Successful response.')
       res.json(response)
@@ -73,6 +73,7 @@ async function getPopularBoardPosts(req: Request, res: Response) {
 }
 
 export {
-
+  getPopularBoardPosts,
+  getPopularBoardsByReplies
 };
 
