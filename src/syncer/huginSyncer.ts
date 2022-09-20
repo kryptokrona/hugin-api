@@ -6,18 +6,19 @@
 
 import { Transaction } from "sequelize"
 
-require('dotenv').config()
+import * as dotenv from "dotenv";
+dotenv.config({ path: __dirname+'/.env' });
 
-let log = require('loglevel')
+import log from "loglevel";
+
 const { extraDataToMessage } = require('hugin-crypto')
-const { performance } = require('perf_hooks')
-const { WebSocket } = require('ws')
+import performance from "perf_hooks";
+import WebSocket from "ws";
 let ws = new WebSocket(`ws://localhost:${process.env.SYS_WS_PORT}`)
 
-const { getTimestamp } = require('../utils/time')
-const { messageCriteria } = require('../utils/messageCriteria')
-const { validateMessage } = require('../validators/messageValidator')
-let avatar = require('../utils/avatar')
+import { getTimestamp } from "../util/time";
+import { validateMessage } from "../validator/messageValidator";
+import { generateAvatar } from "../util/avatar";
 
 let db = require("../configs/postgresql"),
     sequelize = db.sequelize,
@@ -112,7 +113,7 @@ async function backgroundSyncMessages() {
                 if ((message || true) && (message.brd || message.brd !== undefined)) {
                     log.info(getTimestamp() + ' INFO: Got 1 message. Message: ' + JSON.stringify(message))
 
-                    let avatarStr = avatar.generate(message.k)
+                    let avatarStr = generateAvatar(message.k)
 
                     let messageObj = {
                         message: message.m || null,
@@ -130,15 +131,6 @@ async function backgroundSyncMessages() {
 
                     if (messageValidated) {
                       log.info(getTimestamp() + ' INFO: Message was validated.')
-                      // skipping based on criteria - if criteria exists
-                      const criteriaFulfilled = messageCriteria(messageObj)
-
-                      // criteria guard
-                      if (!criteriaFulfilled) {
-                        log.info(getTimestamp() + ' INFO: Message does not meet criteria based on configuration: ' + JSON.stringify(message))
-                        continue
-                      }
-                      log.info(getTimestamp() + ' INFO: Criteria fulfilled.')
 
                       // broadcast message object to websocket server
                       ws.send(JSON.stringify(messageObj))
@@ -281,7 +273,7 @@ async function saveEncryptedGroupPost(txHash: string, boxObj: any) {
  * @returns {Promise} Resolves to this if transaction to database succeeded.
  */
 async function savePost(messageObj: any, txHash: string) {
-    let startTime = performance.now()
+    let startTime = performance.performance.now()
 
     try {
         await sequelize.transaction(async (t: Transaction) => {
@@ -344,7 +336,7 @@ async function savePost(messageObj: any, txHash: string) {
         })
 
         // calculating queries for debug reasons
-        let endTime = performance.now()
+        let endTime = performance.performance.now()
         log.info(getTimestamp() + ` INFO: Queries to took ${endTime - startTime} seconds`)
 
     } catch (err) {
