@@ -1,6 +1,6 @@
-const { colors, symbols } = require('mocha/lib/reporters/base')
+import { colors, symbols } from "mocha/lib/reporters/base";
 colors.pass = 32
-symbols.ok = '✅'
+symbols.ok = "✅"
 
 // example config from Mocha repo       
 module.exports = {
@@ -13,4 +13,4 @@ module.exports = {
     ui: 'bdd',
     'watch-files': ['lib/**/*.js','test/**/*.js'],
     'watch-ignore': ['lib/vendor']
-}
+};
