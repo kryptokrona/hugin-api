@@ -1,10 +1,13 @@
 'use strict';
+
+import { Sequelize, DataType, Model } from "sequelize";
+
 const {
   Model
 } = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
+export = (sequelize: Sequelize, DataTypes: DataType) => {
   class Hashtag extends Model {
-    static associate(models) {
+    static associate(models: Models) {
       this.belongsToMany(models.Post, {
         through: models.PostHashtag,
         as: 'posts',

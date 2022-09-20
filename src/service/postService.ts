@@ -4,19 +4,17 @@
 
 'use strict'
 
+import { Request } from "express"
+
 const db = require('../configs/postgresql')
 const models = require("../database/models")
 const { Sequelize, Op } = require("sequelize")
 
-class PostService {
-    
-}
-
 /**
  * Get all posts
  */
-postService.getAll = async (limit, offset, order, searchKeyword, startDate, endDate, excludeAvatar) => {
-    let query = {
+async function getAll(limit: number, offset: number, order: string, searchKeyword: string, startDate: string, endDate: string, excludeAvatar: boolean) {
+    let query: any = {
         limit: limit,
         order: [
             ['id', order ? order.toUpperCase() : 'DESC'],
@@ -57,7 +55,7 @@ postService.getAll = async (limit, offset, order, searchKeyword, startDate, endD
 /**
  * Get post by tx_hash
  */
-postService.getPostByTxHash = async (req) => {
+ async function getByTxHash(req: Request) {
     return models.Post.findOne({
         where: {
             tx_hash: req.params.tx_hash
@@ -68,8 +66,8 @@ postService.getPostByTxHash = async (req) => {
 /**
  * Get latest posts
  */
-postService.getLatest = async (limit, offset, order, searchKeyword, startDate, endDate, excludeAvatar) => {
-    let query = {
+ async function getLatest(limit: number, offset: number, order: string, searchKeyword: string, startDate: string, endDate: string, excludeAvatar: boolean) {
+    let query: any = {
         limit: limit,
         order: [
             ['id', order ? order.toUpperCase() : 'DESC'],
@@ -110,7 +108,7 @@ postService.getLatest = async (limit, offset, order, searchKeyword, startDate, e
 /**
  * Get replies of a post
  */
-postService.getAllRepliesOfPost = async (txHash) => {
+ async function getAllRepliesOfPost(txHash: string) {
   return models.Post.findAll({
     attributes: ['tx_hash'],
     where: {
@@ -123,7 +121,7 @@ postService.getAllRepliesOfPost = async (txHash) => {
 /**
  * Get post by tx_hash
  */
-postService.getPostByTxHashStr = async (txHash) => {
+ async function getPostByTxHashStr(txHash: string) {
   return models.Post.findOne({
     where: {
       tx_hash: txHash
@@ -134,7 +132,7 @@ postService.getPostByTxHashStr = async (txHash) => {
 /**
  * Get all popular posts based on replies
  */
-postService.getPopularPosts = async (limit, offset, order) => {
+async function getPopularPosts(limit: number, offset: number, order: string) {
   return models.Post.findAndCountAll({
     attributes: [[Sequelize.literal('COUNT(*)'), 'replies'], ['reply', 'post']],
     limit: limit,
@@ -155,7 +153,7 @@ postService.getPopularPosts = async (limit, offset, order) => {
 /**
  * Get all popular posts based on replies
  */
-postService.getPopularBoards = async (limit, offset, order) => {
+async function getPopularBoards(limit: number, offset: number, order: string) {
   return models.Post.findAndCountAll({
     attributes: [[Sequelize.literal('COUNT(*)'), 'posts'], 'board'],
     limit: limit,
@@ -173,4 +171,12 @@ postService.getPopularBoards = async (limit, offset, order) => {
   })
 }
 
-export default PostService;
+export {
+  getAll,
+  getByTxHash,
+  getLatest,
+  getAllRepliesOfPost,
+  getPostByTxHashStr,
+  getPopularPosts,
+  getPopularBoards
+};

@@ -4,9 +4,10 @@
 
 'use strict'
 
-require('dotenv').config()
+import * as dotenv from "dotenv";
+dotenv.config({ path: __dirname+'/.env' });
 
-const fs = require('fs')
+import fs from "fs";
 
 let swaggerOptions = {
   definition: {
@@ -67,6 +68,7 @@ const swaggerCustomOptions = {
   customfavIcon: process.env.NODE_ENV === 'development' ? '/static/img/favicon.ico' : '/static/img/favicon.ico',
 }
 
-module.exports = {
-  swaggerOptions, swaggerCustomOptions
+export = {
+  swaggerOptions, 
+  swaggerCustomOptions
 }
