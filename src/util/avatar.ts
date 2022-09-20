@@ -8,7 +8,7 @@ import Identicon from "identicon.js";
 let intToRGB = require("int-to-rgb");
 
 
-function generate(hash: string, format='png') {
+function generateAvatar(hash: string, format='png') {
     // get custom color scheme based on address
     let rgb = intToRGB(hashCode(hash))
 
@@ -47,7 +47,7 @@ function generateHashCode(str: string) {
 }
 
 export {
-    generate,
+    generateAvatar,
     hashCode,
     generateHashCode
 };
