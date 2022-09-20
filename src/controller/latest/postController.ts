@@ -13,8 +13,8 @@ const Op = db.Sequelize.Op;
 
 import { Request, Response } from "express";
 
-import { getAll, getById, getLatest } from "../../service/postService";
-import { getTimestamp } from "../../util/time";
+import { getAll, getByTxHash, getLatest } from "../../service/postService";
+import { getTimestamp, convertUnixToDateTime, convertDateTimeToUnix } from "../../util/time";
 import { getPagination, getPagingData } from "../../util/pagination";
 
 /**
@@ -25,15 +25,15 @@ import { getPagination, getPagingData } from "../../util/pagination";
  */
 async function getAllPosts(req: Request, res: Response) {
     let { page, size, order, search, startDate, endDate, excludeAvatar } = req.query;
-    const { limit, offset } = getPagination(page, size)
+    const { limit, offset } = getPagination(Number(page), Number(size))
 
     // converts to datetime format since it's stored in the db as such
     const startDateParam = convertUnixToDateTime(startDate)
     const endDateParam = convertUnixToDateTime(endDate)
 
-    excludeAvatar = (excludeAvatar === undefined || excludeAvatar === 'true')
+    excludeAvatar: boolean = (excludeAvatar === undefined || excludeAvatar === 'true')
 
-    postService.getAll(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate, excludeAvatar)
+    getAll(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate, excludeAvatar)
         .then(async data => {
           // converts the standard UTC to unix timestamp
           for (const row of data.rows) {
@@ -62,7 +62,7 @@ async function getAllPosts(req: Request, res: Response) {
  * @param {Response} res - Express response object.
  */
  async function getPostByTxHash(req: Request, res: Response) {
-    postService.getPostByTxHash(req)
+    getByTxHash(req)
         .then(async data => {
             log.info(getTimestamp() + ' INFO: Successful response.')
 
@@ -93,7 +93,7 @@ async function getAllPosts(req: Request, res: Response) {
  */
  async function getLatestPosts(req: Request, res: Response) {
     let { page, size, order, search, startDate, endDate, excludeAvatar } = req.query;
-    const { limit, offset } = getPagination(page, size)
+    const { limit, offset } = getPagination(Number(page), Number(size))
 
     // converts to datetime format since it's stored in the db as such
     const startDateParam = convertUnixToDateTime(startDate)
@@ -101,7 +101,7 @@ async function getAllPosts(req: Request, res: Response) {
 
     excludeAvatar = (excludeAvatar === undefined || excludeAvatar === 'true')
 
-    postService.getLatest(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate, excludeAvatar)
+    getLatest(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate, excludeAvatar)
       .then(async data => {
           // converts the standard UTC to unix timestamp
           for (const row of data.rows) {
