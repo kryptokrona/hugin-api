@@ -24,15 +24,15 @@ import hashtagRouterLatest from "./route/latest/hashtagRouter";
 import statisticsRouterLatest from "./route/latest/statisticsRouter";
 
 // syncers
-import huginSyncer from "./syncer/huginSyncer";
+import backgroundSyncMessages from "./syncer/huginSyncer";
 
 // utils
 import { getTimestamp, sleep } from "./util/time";
 
 // configs
-import { swaggerOptions, swaggerCustomOptions } from "./config/swagger";
-import { setCache } from "./config/cacheControl";
-import { limiter } from "./config/rateLimit";
+let { swaggerOptions, swaggerCustomOptions } = require("./config/swagger");
+import setCache from "./config/cacheControl";
+import limiter from "./config/rateLimit";
 
 var app = express()
 
@@ -112,7 +112,7 @@ app.listen(process.env.SYS_API_PORT, async () => {
         // starting hugin sync
         while (true) {
             await sleep(Number(process.env.SYS_HUGIN_SYNCER_SLEEP))
-            await huginSyncer.backgroundSyncMessages()
+            await backgroundSyncMessages()
         }
     }
 })
