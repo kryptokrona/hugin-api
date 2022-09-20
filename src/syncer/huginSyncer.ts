@@ -4,6 +4,8 @@
 
 'use strict'
 
+import { Transaction } from "sequelize"
+
 require('dotenv').config()
 
 let log = require('loglevel')
@@ -43,8 +45,8 @@ async function backgroundSyncMessages() {
 
         let json = await resp.json()
         json = JSON.stringify(json)
-            .replaceAll('.txPrefix', '')
-            .replaceAll('transactionPrefixInfo.txHash', 'transactionPrefixInfotxHash')
+            .replace('.txPrefix', '')
+            .replace('transactionPrefixInfo.txHash', 'transactionPrefixInfotxHash')
         json = JSON.parse(json)
 
         let transactions = json.addedTxs
@@ -238,7 +240,7 @@ async function postExists(txHash: string) {
  */
 async function saveEncryptedPost(txHash: string, boxObj: any) {
     try {
-        await sequelize.transaction(async (t) => {
+        await sequelize.transaction(async (t: Transaction) => {
             return models.PostEncrypted.create({
                 tx_hash: txHash,
                 tx_box: boxObj.box,
@@ -259,7 +261,7 @@ async function saveEncryptedPost(txHash: string, boxObj: any) {
  */
 async function saveEncryptedGroupPost(txHash: string, boxObj: any) {
   try {
-    await sequelize.transaction(async (t) => {
+    await sequelize.transaction(async (t: Transaction) => {
       return models.PostEncryptedGroup.create({
         tx_hash: txHash,
         tx_sb: boxObj.sb,
@@ -282,8 +284,8 @@ async function savePost(messageObj: any, txHash: string) {
     let startTime = performance.now()
 
     try {
-        await sequelize.transaction(async (t) => {
-            return models.Post.create(messageObj).then(postObj => {
+        await sequelize.transaction(async (t: Transaction) => {
+            return models.Post.create(messageObj).then((postObj: any) => {
                 log.info(getTimestamp() + ` INFO: Post transaction was successful - Post with ID ${postObj.id} was created.`)
 
                 // extract hashtags from message and save it do db and add relationship in post_hashtag table
@@ -295,7 +297,7 @@ async function savePost(messageObj: any, txHash: string) {
 
                     if (hashtags) {
                         // going through all hashtags and do separate lookups
-                        hashtags.forEach(hashtag => {
+                        hashtags.forEach((hashtag: string) => {
                             // removing the # and making it lowercase, so we have proper input for query
                             let hashtagName = hashtag.replace('#', '').toLowerCase()
 
@@ -308,13 +310,13 @@ async function savePost(messageObj: any, txHash: string) {
                             })
 
                             // create hashtag if it does not exist otherwise get the hashtag ID
-                            hashtagLookup.then(async result => {
+                            hashtagLookup.then(async (result: any) => {
                                 if (result === null) {
-                                    await sequelize.transaction(async (t1) => {
+                                    await sequelize.transaction(async (t1: Transaction) => {
                                         return models.Hashtag.create({
                                             name: hashtagName
-                                        }).then(async hashtagObj => {
-                                            await sequelize.transaction(async (t2) => {
+                                        }).then(async (hashtagObj: any) => {
+                                            await sequelize.transaction(async (t2: Transaction) => {
                                                 return models.PostHashtag.create({
                                                     post_id: postObj.id,
                                                     hashtag_id: hashtagObj.id
@@ -324,7 +326,7 @@ async function savePost(messageObj: any, txHash: string) {
                                     })
                                 } else {
                                     // hashtag exists, so we add a new row in post_hashtag with its ID
-                                    await sequelize.transaction(async (t3) => {
+                                    await sequelize.transaction(async (t3: Transaction) => {
                                         return models.PostHashtag.create({
                                             post_id: postObj.id,
                                             hashtag_id: result.id
