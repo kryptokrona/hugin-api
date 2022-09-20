@@ -7,11 +7,7 @@
 import express from "express";
 const router = express.Router();
 
-const controller = require('../../controllers/latest/postEncryptedGroupController')
-
-class PostEncryptedGroupRouter {
-
-}
+import { getAllEncryptedGroupPosts, getEncryptedGroupPostsByTxHash, getLatestEncryptedGroupPosts } from "../../controller/latest/postEncryptedGroupController";
 
 /**
  * @openapi
@@ -57,7 +53,7 @@ class PostEncryptedGroupRouter {
  *       200:
  *         description: Returns the latest encrypted posts.
  */
-router.get('/posts-encrypted-group/latest', controller.getLatest)
+router.get('/posts-encrypted-group/latest', getLatestEncryptedGroupPosts)
 
 /**
  * @openapi
@@ -103,7 +99,7 @@ router.get('/posts-encrypted-group/latest', controller.getLatest)
  *       200:
  *         description: Returns all encrypted posts.
  */
-router.get('/posts-encrypted-group', controller.getAll)
+router.get('/posts-encrypted-group', getEncryptedGroupPostsByTxHash)
 
 /**
  * @openapi
@@ -123,7 +119,7 @@ router.get('/posts-encrypted-group', controller.getAll)
  *       200:
  *         description: Returns the specific encrypted group post.
  */
-router.get('/posts-encrypted-group/:tx_hash', controller.getEncryptedGroupPostByTxHash)
+router.get('/posts-encrypted-group/:tx_hash', getAllEncryptedGroupPosts)
 
 
-export default PostEncryptedGroupRouter;
+export default router;
