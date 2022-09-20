@@ -9,7 +9,9 @@ const router = express.Router()
 
 const controller = require('../../controllers/latest/hashtagController')
 
-// NOTE: the ordering here is important
+class HashtagRouter {
+
+}
 
 /**
  * @openapi
@@ -133,4 +135,4 @@ router.get('/hashtags', controller.getAll)
  */
 router.get('/hashtags/:id', controller.getHashTagById)
 
-module.exports = router
+export default HashtagRouter;

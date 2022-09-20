@@ -9,7 +9,9 @@ const router = express.Router()
 
 const controller = require('../../controllers/latest/postEncryptedGroupController')
 
-// NOTE: the ordering here is important
+class PostEncryptedGroupRouter {
+
+}
 
 /**
  * @openapi
@@ -124,4 +126,4 @@ router.get('/posts-encrypted-group', controller.getAll)
 router.get('/posts-encrypted-group/:tx_hash', controller.getEncryptedGroupPostByTxHash)
 
 
-module.exports = router
+export default PostEncryptedGroupRouter;
