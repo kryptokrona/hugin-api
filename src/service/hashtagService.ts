@@ -8,7 +8,9 @@ const { Op, QueryTypes } = require("sequelize")
 const db = require('../configs/postgresql')
 const models = require("../database/models")
 
-const hashtagService = {}
+class HashtagService {
+
+}
 
 /**
  * Get all hashtags
@@ -79,4 +81,4 @@ hashtagService.getTrending = async (limit, offset) => {
     })
 }
 
-module.exports = hashtagService
+export default HashtagService;

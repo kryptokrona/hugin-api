@@ -8,7 +8,9 @@ const db = require('../configs/postgresql')
 const models = require("../database/models")
 const { Op } = require("sequelize")
 
-const postEncryptedService = {}
+class PostEncryptedService {
+    
+}
 
 /**
  * Get all encrypted posts
@@ -91,4 +93,4 @@ postEncryptedService.getLatest = async (limit, offset, order, searchKeyword, sta
     return models.PostEncrypted.findAndCountAll(query)
 }
 
-module.exports = postEncryptedService
+export default PostEncryptedService;
