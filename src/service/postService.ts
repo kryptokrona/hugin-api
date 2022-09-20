@@ -8,7 +8,9 @@ const db = require('../configs/postgresql')
 const models = require("../database/models")
 const { Sequelize, Op } = require("sequelize")
 
-const postService = {}
+class PostService {
+    
+}
 
 /**
  * Get all posts
@@ -171,4 +173,4 @@ postService.getPopularBoards = async (limit, offset, order) => {
   })
 }
 
-module.exports = postService
+export default PostService;
