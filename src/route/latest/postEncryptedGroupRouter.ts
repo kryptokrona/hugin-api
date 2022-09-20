@@ -13,7 +13,7 @@ const controller = require('../../controllers/latest/postEncryptedGroupControlle
 
 /**
  * @openapi
- * /api/v2/posts-encrypted-group/latest:
+ * /api/v1/posts-encrypted-group/latest:
  *   get:
  *     description: Gets the latest encrypted group posts.
  *     parameters:
@@ -59,7 +59,7 @@ router.get('/posts-encrypted-group/latest', controller.getLatest)
 
 /**
  * @openapi
- * /api/v2/posts-encrypted-group:
+ * /api/v1/posts-encrypted-group:
  *   get:
  *     description: Gets all encrypted group posts.
  *     parameters:
@@ -105,7 +105,7 @@ router.get('/posts-encrypted-group', controller.getAll)
 
 /**
  * @openapi
- * /api/v2/posts-encrypted-group/{tx_hash}:
+ * /api/v1/posts-encrypted-group/{tx_hash}:
  *   get:
  *     description: Gets a specific encrypted group post by given transaction hash value.
  *     parameters:

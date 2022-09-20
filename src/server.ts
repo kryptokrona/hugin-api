@@ -60,16 +60,11 @@ app.set('trust proxy', 1)
 app.use(`${process.env.API_BASE_PATH}/docs`, swaggerUi.serve, swaggerUi.setup(openapiSpecification, swaggerCustomOptions))
 
 // latest routes
-app.use(`${process.env.API_BASE_PATH}/v2/`, postRouterLatest)
-app.use(`${process.env.API_BASE_PATH}/v2/`, postEncryptedRouterLatest)
-app.use(`${process.env.API_BASE_PATH}/v2/`, postEncryptedGroupRouterLatest)
-app.use(`${process.env.API_BASE_PATH}/v2/`, hashtagRouterLatest)
-app.use(`${process.env.API_BASE_PATH}/v2/`, statisticsRouterLatest)
-
-// v1 routes
-app.use(`${process.env.API_BASE_PATH}/v1/`, postRouter)
-app.use(`${process.env.API_BASE_PATH}/v1/`, postEncryptedRouter)
-app.use(`${process.env.API_BASE_PATH}/v1/`, hashtagRouter)
+app.use(`${process.env.API_BASE_PATH}/v1/`, postRouterLatest)
+app.use(`${process.env.API_BASE_PATH}/v1/`, postEncryptedRouterLatest)
+app.use(`${process.env.API_BASE_PATH}/v1/`, postEncryptedGroupRouterLatest)
+app.use(`${process.env.API_BASE_PATH}/v1/`, hashtagRouterLatest)
+app.use(`${process.env.API_BASE_PATH}/v1/`, statisticsRouterLatest)
 
 app.use(bodyParser.json());
 
