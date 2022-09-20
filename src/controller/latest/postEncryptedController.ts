@@ -15,7 +15,9 @@ const postEncryptedService = require('../../services/postEncryptedService')
 const { getPagination, getPagingData} = require('../../utils/pagination')
 const { getTimestamp, convertDateTimeToUnix, convertUnixToDateTime} = require("../../utils/time")
 
-const postEncryptedController = {}
+class PostEncryptedController {
+    
+}
 
 /**
  * Get all encrypted posts
@@ -112,4 +114,4 @@ postEncryptedController.getLatest = async (req, res) => {
         })
 }
 
-module.exports = postEncryptedController
+export default PostEncryptedController;

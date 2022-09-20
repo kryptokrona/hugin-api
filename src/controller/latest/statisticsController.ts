@@ -15,7 +15,9 @@ const postService = require('../../services/postService')
 const { getTimestamp } = require("../../utils/time")
 const {getPagination, getPagingData} = require("../../utils/pagination");
 
-const statisticsController = {}
+class StatisticsController {
+    
+}
 
 /**
  * Get most popular posts
@@ -78,4 +80,5 @@ statisticsController.getPopularBoards = async (req, res) => {
     })
 }
 
-module.exports = statisticsController
+export default StatisticsController;
+
