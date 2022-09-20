@@ -7,11 +7,7 @@
 import express from "express";
 const router = express.Router();
 
-const controller = require('../../controllers/latest/hashtagController')
-
-class HashtagRouter {
-
-}
+import { getAllHashtags, getHashtagById, getLatestHashtag } from "../../controller/latest/hashtagController";
 
 /**
  * @openapi
@@ -45,41 +41,7 @@ class HashtagRouter {
  *       200:
  *         description: Returns the latest hashtags.
  */
-router.get('/hashtags/latest', controller.getLatest)
-
-/**
- * @openapi
- * /api/v1/hashtags/trending:
- *   get:
- *     description: Gets the trending hashtags.
- *     parameters:
- *       - in: query
- *         name: order
- *         schema:
- *           type: string
- *         description: Ordering of posts (asc/desc)
- *       - in: query
- *         name: search
- *         schema:
- *           type: string
- *         description: Search keyword of posts
- *       - in: query
- *         name: size
- *         schema:
- *           type: integer
- *         description: The amount of posts per page
- *       - in: query
- *         name: page
- *         schema:
- *           type: integer
- *         description: Page number
- *     tags:
- *       - hashtags
- *     responses:
- *       200:
- *         description: Returns the trending hashtags.
- */
-router.get('/hashtags/trending', controller.getTrending)
+router.get('/hashtags/latest', getLatestHashtag)
 
 /**
  * @openapi
@@ -113,7 +75,7 @@ router.get('/hashtags/trending', controller.getTrending)
  *       200:
  *         description: Returns all hashtags.
  */
-router.get('/hashtags', controller.getAll)
+router.get('/hashtags', getAllHashtags)
 
 /**
  * @openapi
@@ -133,6 +95,6 @@ router.get('/hashtags', controller.getAll)
  *       200:
  *         description: Returns the specific hashtag.
  */
-router.get('/hashtags/:id', controller.getHashTagById)
+router.get('/hashtags/:id', getHashtagById)
 
-export default HashtagRouter;
+export default router;

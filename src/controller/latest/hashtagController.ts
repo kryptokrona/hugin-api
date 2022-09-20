@@ -47,7 +47,7 @@ async function getAllHashtags(req: Request, res: Response) {
  * @param {Request} req - Express request object.
  * @param {Response} res - Express response object.
  */
-async function getHashagById(req: Request, res: Response) {
+async function getHashtagById(req: Request, res: Response) {
     getById(req.params.id)
         .then((data: any) => {
             log.info(getTimestamp() + ' INFO: Successful response.')
@@ -92,7 +92,7 @@ async function getLatestHashtag(req: Request, res: Response) {
 }
 
 export {
-    getAll,
-    getLatestHashtag,
-    getLatest
+    getAllHashtags,
+    getHashtagById,
+    getLatestHashtag
 };
