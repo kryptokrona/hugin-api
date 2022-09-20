@@ -4,13 +4,7 @@
 
 'use strict'
 
-let log = require('loglevel')
-let db = require("../../configs/postgresql"),
-    sequelize = db.sequelize,
-    Sequelize = db.Sequelize
-
-const Op = db.Sequelize.Op;
-
+import log from "loglevel";
 import { Request, Response } from "express";
 
 import { getAll, getById, getLatest } from "../../service/hashtagService";
