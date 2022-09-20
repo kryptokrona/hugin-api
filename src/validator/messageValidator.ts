@@ -10,11 +10,11 @@
  * @param {Object} messageObj - Message object
  * @returns {Boolean}
  */
-module.exports.validateMessage = (messageObj) => {
-  const keyValidated = validateKey(messageObj.key)
-  const signatureValidated = validateSignature(messageObj.signature)
-  const timeValidated = validateTime(messageObj.time)
-  const txHashValidated = validateTxHash(messageObj.tx_hash)
+function validateMessage(messageObj: any) {
+  const keyValidated = validateKey(messageObj.key);
+  const signatureValidated = validateSignature(messageObj.signature);
+  const timeValidated = validateTime(messageObj.time);
+  const txHashValidated = validateTxHash(messageObj.tx_hash);
 
   return keyValidated && signatureValidated && timeValidated && txHashValidated;
 }
@@ -25,8 +25,8 @@ module.exports.validateMessage = (messageObj) => {
  * @param {Object} key - Message key
  * @returns {Boolean}
  */
-const validateKey = (key) => {
-  return key.startsWith('SEKR') && key.length === 99
+function validateKey(key: string) {
+  return key.startsWith('SEKR') && key.length === 99;
 }
 
 /**
@@ -35,10 +35,10 @@ const validateKey = (key) => {
  * @param {Object} signature - Message signature
  * @returns {Boolean}
  */
-const validateSignature = (signature) => {
-  const minimumLength = 64
-  const maximumLength = 200
-  return signature.length >= minimumLength && signature.length <= maximumLength
+function validateSignature(signature: string) {
+  const minimumLength = 64;
+  const maximumLength = 200;
+  return signature.length >= minimumLength && signature.length <= maximumLength;
 }
 
 /**
@@ -47,9 +47,9 @@ const validateSignature = (signature) => {
  * @param {Object} time - Message time
  * @returns {Boolean}
  */
-const validateTime = (time) => {
-  const timeStr = time.toString()
-  return timeStr.length >= 10
+function validateTime(time: number) {
+  const timeStr = time.toString();
+  return timeStr.length >= 10;
 }
 
 /**
@@ -58,6 +58,14 @@ const validateTime = (time) => {
  * @param {Object} txHash - Message transaction hash
  * @returns {Boolean}
  */
-const validateTxHash = (txHash) => {
-  return txHash.length === 64
+function validateTxHash(txHash: string) {
+  return txHash.length === 64;
 }
+
+export {
+  validateMessage,
+  validateKey,
+  validateSignature,
+  validateTime,
+  validateTxHash
+};
