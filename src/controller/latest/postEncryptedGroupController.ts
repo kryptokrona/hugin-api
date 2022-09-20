@@ -4,28 +4,20 @@
 
 'use strict'
 
-let log = require('loglevel')
-let db = require("../../configs/postgresql"),
-  sequelize = db.sequelize,
-  Sequelize = db.Sequelize
+import log from "loglevel";
+import { Request, Response } from "express";
 
-const Op = db.Sequelize.Op;
-
-import PostEncryptedGroupService from "../../service/postEncryptedGroupService";
-import getTimeStamp from "../../util/time";
+import {  } from "../../service/postEncryptedGroupService";
+import { getTimestamp, convertUnixToDateTime, convertDateTimeToUnix } from "../../util/time";
 import { getPagination, getPagingData } from "../../util/pagination";
-
-class PostEncryptedGroupController {
-    
-}
 
 /**
  * Get all encrypted group posts
  *
- * @param {object} req - Express request object.
- * @param {object} res - Express response object.
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object.
  */
-postEncryptedController.getAll = async (req, res) => {
+async function getAllEncryptedGroupPosts(req: Request, res: Response) {
   const { page, size, order, search, startDate, endDate } = req.query;
   const { limit, offset } = getPagination(page, size)
 
@@ -55,10 +47,10 @@ postEncryptedController.getAll = async (req, res) => {
 /**
  * Get a specific encrypted group posts by tx_hash
  *
- * @param {object} req - Express request object.
- * @param {object} res - Express response object.
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object.
  */
-postEncryptedController.getEncryptedGroupPostByTxHash = async (req, res) => {
+async function getEncryptedGroupPostsByTxHash(req: Request, res: Response) {
   postEncryptedGroupService.getEncryptedGroupPostByTxHash(req)
     .then(async data => {
       log.info(getTimestamp() + ' INFO: Successful response.')
@@ -84,10 +76,10 @@ postEncryptedController.getEncryptedGroupPostByTxHash = async (req, res) => {
 /**
  * Get latest encrypted group posts
  *
- * @param {object} req - Express request object.
- * @param {object} res - Express response object.
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object.
  */
-postEncryptedController.getLatest = async (req, res) => {
+async function getLatestEncryptedGroupPosts(req: Request, res: Response) {
   const { page, size, order, search, startDate, endDate } = req.query;
   const { limit, offset } = getPagination(page, size)
 
@@ -114,4 +106,8 @@ postEncryptedController.getLatest = async (req, res) => {
     })
 }
 
-export default PostEncryptedGroupController;
+export {
+  getAllEncryptedGroupPosts,
+  getEncryptedGroupPostsByTxHash,
+  getLatestEncryptedGroupPosts
+};
