@@ -4,44 +4,36 @@
 
 'use strict'
 
-let log = require('loglevel')
-let db = require("../../configs/postgresql"),
-    sequelize = db.sequelize,
-    Sequelize = db.Sequelize
+import log from "loglevel";
+import { Request, Response } from "express";
 
-const Op = db.Sequelize.Op;
-
-import PostEncryptedService from "../../services/postEncryptedService";
-import getTimeStamp from "../../util/time";
+import { getAll, getByTxHash, getLatest } from "../../service/postEncryptedService";
+import { getTimestamp, convertUnixToDateTime, convertDateTimeToUnix } from "../../util/time";
 import { getPagination, getPagingData } from "../../util/pagination";
 
-
-class PostEncryptedController {
-    
-}
 
 /**
  * Get all encrypted posts
  *
- * @param {object} req - Express request object.
- * @param {object} res - Express response object.
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object.
  */
-postEncryptedController.getAll = async (req, res) => {
+async function getAllEncryptedPosts(req: Request, res: Response) {
     const { page, size, order, search, startDate, endDate } = req.query;
-    const { limit, offset } = getPagination(page, size)
+    const { limit, offset } = getPagination(Number(page), Number(size))
 
     // converts to datetime format since it's stored in the db as such
-    const startDateParam = convertUnixToDateTime(startDate)
-    const endDateParam = convertUnixToDateTime(endDate)
+    const startDateParam = convertUnixToDateTime(Number(startDate))
+    const endDateParam = convertUnixToDateTime(Number(endDate))
 
-    postEncryptedService.getAll(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate)
+    getAll(limit, offset, String(order), String(search), startDateParam, endDateParam)
       .then(async data => {
             // converts the standard UTC to unix timestamp
             data.rows.forEach(row => {
               row.dataValues.createdAt = convertDateTimeToUnix(row.dataValues.createdAt)
               row.dataValues.updatedAt = convertDateTimeToUnix(row.dataValues.updatedAt)
             })
-            const response = await getPagingData(data, page, limit)
+            const response = await getPagingData(data, Number(page), limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
             res.json(response)
         })
@@ -56,11 +48,11 @@ postEncryptedController.getAll = async (req, res) => {
 /**
  * Get a specific encrypted posts by tx_hash
  *
- * @param {object} req - Express request object.
- * @param {object} res - Express response object.
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object.
  */
-postEncryptedController.getEncryptedPostByTxHash = async (req, res) => {
-    postEncryptedService.getEncryptedPostByTxHash(req)
+ async function getEncryptedPostByTxHash(req: Request, res: Response) {
+    getByTxHash(req)
         .then(data => {
             log.info(getTimestamp() + ' INFO: Successful response.')
 
@@ -85,25 +77,25 @@ postEncryptedController.getEncryptedPostByTxHash = async (req, res) => {
 /**
  * Get latest encrypted posts
  *
- * @param {object} req - Express request object.
- * @param {object} res - Express response object.
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object.
  */
-postEncryptedController.getLatest = async (req, res) => {
+ async function getLatestEncryptedPosts(req: Request, res: Response) {
     const { page, size, order, search, startDate, endDate } = req.query;
-    const { limit, offset } = getPagination(page, size)
+    const { limit, offset } = getPagination(Number(page), Number(size))
 
     // converts to datetime format since it's stored in the db as such
-    const startDateParam = convertUnixToDateTime(startDate)
-    const endDateParam = convertUnixToDateTime(endDate)
+    const startDateParam = convertUnixToDateTime(Number(startDate))
+    const endDateParam = convertUnixToDateTime(Number(endDate))
 
-    postEncryptedService.getLatest(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate)
+    getLatest(limit, offset, String(order), String(search), startDateParam, endDateParam)
         .then(async data => {
             // converts the standard UTC to unix timestamp
             data.rows.forEach(row => {
               row.dataValues.createdAt = convertDateTimeToUnix(row.dataValues.createdAt)
               row.dataValues.updatedAt = convertDateTimeToUnix(row.dataValues.updatedAt)
             })
-            const response = await getPagingData(data, page, limit)
+            const response = await getPagingData(data, Number(page), limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
             res.json(response)
         })
@@ -115,4 +107,8 @@ postEncryptedController.getLatest = async (req, res) => {
         })
 }
 
-export default PostEncryptedController;
+export {
+    getAllEncryptedPosts,
+    getEncryptedPostByTxHash,
+    getLatestEncryptedPosts
+};
