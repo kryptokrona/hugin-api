@@ -9,7 +9,9 @@ const router = express.Router()
 
 const controller = require('../../controllers/latest/postEncryptedController')
 
-// NOTE: the ordering here is important
+class PostEncryptedRouter {
+
+}
 
 /**
  * @openapi
@@ -124,4 +126,4 @@ router.get('/posts-encrypted', controller.getAll)
 router.get('/posts-encrypted/:tx_hash', controller.getEncryptedPostByTxHash)
 
 
-module.exports = router
+export default PostEncryptedRouter;
