@@ -13,7 +13,7 @@ const controller = require('../../controllers/latest/statisticsController')
 
 /**
  * @openapi
- * /api/v2/statistics/posts/popular:
+ * /api/v1/statistics/posts/popular:
  *   get:
  *     description: Gets the most popular posts based on replies.
  *     parameters:
@@ -42,7 +42,7 @@ router.get('/statistics/posts/popular', controller.getPopularPosts)
 
 /**
  * @openapi
- * /api/v2/statistics/boards/popular:
+ * /api/v1/statistics/boards/popular:
  *   get:
  *     description: Gets the most popular boards based on posts.
  *     parameters:
