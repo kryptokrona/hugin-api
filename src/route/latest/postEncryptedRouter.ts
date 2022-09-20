@@ -7,7 +7,7 @@
 import express from "express";
 const router = express.Router();
 
-const controller = require('../../controllers/latest/postEncryptedController')
+import {getAllEncryptedPosts, getEncryptedPostByTxHash, getLatestEncryptedPosts } from "../../controller/latest/postEncryptedController";
 
 /**
  * @openapi
@@ -53,7 +53,7 @@ const controller = require('../../controllers/latest/postEncryptedController')
  *       200:
  *         description: Returns the latest encrypted posts.
  */
-router.get('/posts-encrypted/latest', controller.getLatest)
+router.get('/posts-encrypted/latest', getLatestEncryptedPosts)
 
 /**
  * @openapi
@@ -99,7 +99,7 @@ router.get('/posts-encrypted/latest', controller.getLatest)
  *       200:
  *         description: Returns all encrypted posts.
  */
-router.get('/posts-encrypted', controller.getAll)
+router.get('/posts-encrypted', getAllEncryptedPosts)
 
 /**
  * @openapi
@@ -119,7 +119,7 @@ router.get('/posts-encrypted', controller.getAll)
  *       200:
  *         description: Returns the specific encrypted post.
  */
-router.get('/posts-encrypted/:tx_hash', controller.getEncryptedPostByTxHash)
+router.get('/posts-encrypted/:tx_hash', getEncryptedPostByTxHash)
 
 
 export default router;
