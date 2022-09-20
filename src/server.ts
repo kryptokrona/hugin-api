@@ -5,6 +5,7 @@ dotenv.config({ path: __dirname+'/.env' });
 
 import createError from "http-errors";
 import express from "express";
+import { Request, Response, NextFunction } from "express";
 import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
@@ -73,7 +74,7 @@ app.use(function (req, res, next) {
 })
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
     // 404 Not Found.
     if (err.status === 404) {
         log.error(getTimestamp() + ' ERROR: 404 - Page could not be found.')
@@ -110,13 +111,13 @@ app.listen(process.env.SYS_API_PORT, async () => {
     if (process.env.NODE_ENV !== 'test') {
         // starting hugin sync
         while (true) {
-            await sleep(process.env.SYS_HUGIN_SYNCER_SLEEP)
+            await sleep(Number(process.env.SYS_HUGIN_SYNCER_SLEEP))
             await huginSyncer.backgroundSyncMessages()
         }
     }
 })
 
-const wss = new WebSocketServer({ port: process.env.SYS_WS_PORT })
+const wss = new WebSocketServer({ port: Number(process.env.SYS_WS_PORT) })
 
 wss.on('connection', function connection(ws) {
     // broadcasting to all listening clients
