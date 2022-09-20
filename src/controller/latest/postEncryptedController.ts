@@ -11,9 +11,10 @@ let db = require("../../configs/postgresql"),
 
 const Op = db.Sequelize.Op;
 
-const postEncryptedService = require('../../services/postEncryptedService')
-const { getPagination, getPagingData} = require('../../utils/pagination')
-const { getTimestamp, convertDateTimeToUnix, convertUnixToDateTime} = require("../../utils/time")
+import PostEncryptedService from "../../services/postEncryptedService";
+import getTimeStamp from "../../util/time";
+import { getPagination, getPagingData } from "../../util/pagination";
+
 
 class PostEncryptedController {
     

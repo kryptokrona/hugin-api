@@ -11,9 +11,9 @@ let db = require("../../configs/postgresql"),
 
 const Op = db.Sequelize.Op;
 
-const postService = require('../../services/postService')
-const { getTimestamp } = require("../../utils/time")
-const {getPagination, getPagingData} = require("../../utils/pagination");
+import PostService from "../../service/postService";
+import getTimeStamp from "../../util/time";
+import { getPagination, getPagingData } from "../../util/pagination";
 
 class StatisticsController {
     
