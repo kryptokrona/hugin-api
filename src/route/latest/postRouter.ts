@@ -7,11 +7,7 @@
 import express from "express";
 const router = express.Router();
 
-const controller = require('../../controllers/latest/postController')
-
-class PostRouter {
-
-}
+import { getAllHashtags, getHashtagById, getLatestHashtag } from "../../controller/latest/postController";
 
 /**
  * @openapi
@@ -138,4 +134,6 @@ router.get('/posts', controller.getAll)
 router.get('/posts/:tx_hash', controller.getPostByTxHash)
 
 
-export default PostRouter;
+export {
+    router
+};

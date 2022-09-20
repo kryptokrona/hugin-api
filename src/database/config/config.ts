@@ -1,6 +1,13 @@
-require('dotenv').config()
+/**
+ * Database Config
+ */
 
-module.exports = {
+ 'use strict'
+
+import * as dotenv from "dotenv";
+dotenv.config({ path: __dirname+'/.env' });
+
+export = {
   development: {
     url: process.env.DEV_DATABASE_URL,
     dialect: 'postgres',
