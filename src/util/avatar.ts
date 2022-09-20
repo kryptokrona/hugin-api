@@ -4,19 +4,16 @@
 
 'use strict'
 
-let Identicon  = require('identicon.js')
-let intToRGB = require('int-to-rgb')
+import Identicon from "identicon.js";
+let intToRGB = require("int-to-rgb");
 
-class Avatar {
 
-}
-
-module.exports.generate = (hash, format='png') => {
+function generate(hash: string, format='png') {
     // get custom color scheme based on address
     let rgb = intToRGB(hashCode(hash))
 
     // options for avatar
-    let options = {
+    let options: any = {
         foreground: [rgb.red, rgb.green, rgb.blue, 255], // rgba black
         background: [
             parseInt(rgb.red / 10),
@@ -31,12 +28,12 @@ module.exports.generate = (hash, format='png') => {
     return new Identicon(hash, options).toString();
 }
 
-const hashCode = (str) => {
+function hashCode(str: string) {
     let hash = Math.abs(generateHashCode(str))*0.007812499538;
     return Math.floor(hash);
 }
 
-const generateHashCode = (str) => {
+function generateHashCode(str: string) {
     let hash = 0;
     if (str.length == 0) {
         return hash;
@@ -49,4 +46,8 @@ const generateHashCode = (str) => {
     return hash;
 }
 
-export default Avatar;
+export {
+    generate,
+    hashCode,
+    generateHashCode
+};
