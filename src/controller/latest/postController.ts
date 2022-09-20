@@ -5,11 +5,6 @@
 'use strict'
 
 let log = require('loglevel')
-let db = require("../../configs/postgresql"),
-    sequelize = db.sequelize,
-    Sequelize = db.Sequelize
-
-const Op = db.Sequelize.Op;
 
 import { Request, Response } from "express";
 
