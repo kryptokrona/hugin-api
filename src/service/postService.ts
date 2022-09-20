@@ -13,7 +13,7 @@ const { Sequelize, Op } = require("sequelize")
 /**
  * Get all posts
  */
-async function getAll(limit: number, offset: number, order: string, searchKeyword: string, startDate: string, endDate: string, excludeAvatar: boolean) {
+async function getAll(limit: number, offset: number, order: string, searchKeyword: string, startDate: Date, endDate: Date, excludeAvatar: boolean) {
     let query: any = {
         limit: limit,
         order: [
@@ -66,7 +66,7 @@ async function getAll(limit: number, offset: number, order: string, searchKeywor
 /**
  * Get latest posts
  */
- async function getLatest(limit: number, offset: number, order: string, searchKeyword: string, startDate: string, endDate: string, excludeAvatar: boolean) {
+ async function getLatest(limit: number, offset: number, order: string, searchKeyword: string, startDate: Date, endDate: Date, excludeAvatar: boolean) {
     let query: any = {
         limit: limit,
         order: [
