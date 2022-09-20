@@ -4,9 +4,11 @@
 
 'use strict'
 
-require('dotenv').config()
+import * as dotenv from "dotenv";
+import { NextFunction, Request, Response } from "express";
+dotenv.config({ path: __dirname+'/.env' });
 
-const setCache = (req, res, next) => {
+const setCache = (req: Request, res: Response, next: NextFunction) => {
   // period in seconds, currently 5 minutes
   // set this lower if we need to have more frequent update
   const period = 10
@@ -24,4 +26,4 @@ const setCache = (req, res, next) => {
   next()
 }
 
-module  .exports = { setCache }
+export default setCache;
