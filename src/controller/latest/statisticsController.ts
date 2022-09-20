@@ -4,42 +4,34 @@
 
 'use strict'
 
-let log = require('loglevel')
-let db = require("../../configs/postgresql"),
-  sequelize = db.sequelize,
-  Sequelize = db.Sequelize
+import log from "loglevel";
+import { Request, Response } from "express";
 
-const Op = db.Sequelize.Op;
-
-import PostService from "../../service/postService";
-import getTimeStamp from "../../util/time";
+import { getPostByTxHashStr, getPopularPosts, getPopularBoards } from "../../service/postService";
+import { getTimestamp, convertUnixToDateTime, convertDateTimeToUnix } from "../../util/time";
 import { getPagination, getPagingData } from "../../util/pagination";
-
-class StatisticsController {
-    
-}
 
 /**
  * Get most popular posts
  *
- * @param {object} req - Express request object.
- * @param {object} res - Express response object.
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object.
  */
-statisticsController.getPopularPosts = async (req, res) => {
+async function getPopularBoardPosts(req: Request, res: Response) {
   let { page, size, order } = req.query;
-  const { limit, offset } = getPagination(page, size)
+  const { limit, offset } = getPagination(Number(page), Number(size))
 
-  postService.getPopularPosts(limit, offset, order)
+  getPopularPosts(limit, offset, String(order))
     .then(async data => {
       // setting correct amount of row count
       data.count = data.count.length
 
       // setting time property
       for (const row of data.rows) {
-        row.dataValues.time = await postService.getPostByTxHashStr(row.dataValues.post).then(post => post.time)
+        row.dataValues.time = await getPostByTxHashStr(row.dataValues.post).then(post => post.time)
       }
 
-      const response = await getPagingData(data, page, limit)
+      const response = await getPagingData(data, Number(page), limit)
 
       log.info(getTimestamp() + ' INFO: Successful response.')
       res.json(response)
@@ -55,14 +47,14 @@ statisticsController.getPopularPosts = async (req, res) => {
 /**
  * Get most popular boards
  *
- * @param {object} req - Express request object.
- * @param {object} res - Express response object.
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object.
  */
-statisticsController.getPopularBoards = async (req, res) => {
+ async function getPopularBoards(req: Request, res: Response) {
   let { page, size, order } = req.query;
   const { limit, offset } = getPagination(page, size)
 
-  postService.getPopularBoards(limit, offset, order)
+  getPopularBoards(limit, offset, order)
     .then(async data => {
       // setting correct amount of row count
       data.count = data.count.length
@@ -80,5 +72,7 @@ statisticsController.getPopularBoards = async (req, res) => {
     })
 }
 
-export default StatisticsController;
+export {
+
+};
 
