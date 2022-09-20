@@ -11,8 +11,8 @@ const models = require("../database/models")
 /**
  * Get all hashtags
  */
-async function getAll(limit, offset, order, searchKeyword) {
-    let query = {
+async function getAll(limit: number, offset: number, order: string, searchKeyword: string) {
+    let query: any = {
         limit: limit,
         order: [
             ['id', order ? order.toUpperCase() : 'DESC'],
@@ -32,7 +32,7 @@ async function getAll(limit, offset, order, searchKeyword) {
 /**
  * Get hashtag by id
  */
-async function getHashTagById(hashtagId) {
+async function getHashTagById(hashtagId: string) {
     return models.Hashtag.findOne({
         where: {
             id: hashtagId
@@ -43,7 +43,7 @@ async function getHashTagById(hashtagId) {
 /**
  * Get latest hashtags
  */
-async function getLatest(limit, offset, order) {
+async function getLatest(limit: number, offset: number, order: string) {
     return models.Hashtag.findAndCountAll({
         limit: limit,
         order: [
