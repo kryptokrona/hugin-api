@@ -2,6 +2,10 @@
  * Time module.
  */
 
+class Time {
+
+}
+
 
 /**
  * Gets timestamp
@@ -41,3 +45,5 @@ module.exports.convertDateTimeToUnix = (dateObj) => {
 module.exports.convertUnixToDateTime = (unixTimestamp) => {
   return new Date(unixTimestamp * 1000)
 }
+
+export default Time;
