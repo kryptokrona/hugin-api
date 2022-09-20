@@ -15,7 +15,9 @@ const hashtagService = require('../../services/hashtagService')
 const { getPagination, getPagingData} = require('../../utils/pagination')
 const { getTimestamp } = require("../../utils/time")
 
-const hashtagController = {}
+class HashtagController {
+    
+}
 
 /**
  * Get all hashtags
@@ -125,4 +127,4 @@ hashtagController.getTrending = async (req, res) => {
         })
 }
 
-module.exports = hashtagController
+export default HashtagController;
