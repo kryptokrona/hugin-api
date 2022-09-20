@@ -29,7 +29,7 @@ async function getAllEncryptedPosts(req: Request, res: Response) {
     getAll(limit, offset, String(order), String(search), startDateParam, endDateParam)
       .then(async data => {
             // converts the standard UTC to unix timestamp
-            data.rows.forEach(row => {
+            data.rows.forEach((row: any) => {
               row.dataValues.createdAt = convertDateTimeToUnix(row.dataValues.createdAt)
               row.dataValues.updatedAt = convertDateTimeToUnix(row.dataValues.updatedAt)
             })
@@ -91,7 +91,7 @@ async function getAllEncryptedPosts(req: Request, res: Response) {
     getLatest(limit, offset, String(order), String(search), startDateParam, endDateParam)
         .then(async data => {
             // converts the standard UTC to unix timestamp
-            data.rows.forEach(row => {
+            data.rows.forEach((row: any) => {
               row.dataValues.createdAt = convertDateTimeToUnix(row.dataValues.createdAt)
               row.dataValues.updatedAt = convertDateTimeToUnix(row.dataValues.updatedAt)
             })
