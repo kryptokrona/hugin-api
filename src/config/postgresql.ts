@@ -4,7 +4,8 @@
 
 'use strict'
 
-require('dotenv').config()
+import * as dotenv from "dotenv";
+dotenv.config({ path: __dirname+'/.env' });
 
 const { Sequelize } = require('sequelize')
 const log = require("loglevel")
