@@ -13,7 +13,7 @@ const Op = db.Sequelize.Op;
 
 import { Request, Response } from "express";
 
-import { getAll, getByTxHash, getLatest } from "../../service/postService";
+import { getAll, getByTxHash, getLatest, getAllRepliesOfPost } from "../../service/postService";
 import { getTimestamp, convertUnixToDateTime, convertDateTimeToUnix } from "../../util/time";
 import { getPagination, getPagingData } from "../../util/pagination";
 
@@ -28,21 +28,21 @@ async function getAllPosts(req: Request, res: Response) {
     const { limit, offset } = getPagination(Number(page), Number(size))
 
     // converts to datetime format since it's stored in the db as such
-    const startDateParam = convertUnixToDateTime(startDate)
-    const endDateParam = convertUnixToDateTime(endDate)
+    const startDateParam = convertUnixToDateTime(Number(startDate))
+    const endDateParam = convertUnixToDateTime(Number(startDate))
 
-    excludeAvatar: boolean = (excludeAvatar === undefined || excludeAvatar === 'true')
+    excludeAvatar = (excludeAvatar === undefined || excludeAvatar === 'true')
 
-    getAll(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate, excludeAvatar)
+    getAll(limit, offset, String(order), String(search), startDate ? startDateParam : startDate, endDate ? endDateParam : endDate, excludeAvatar)
         .then(async data => {
           // converts the standard UTC to unix timestamp
           for (const row of data.rows) {
             row.dataValues.createdAt = convertDateTimeToUnix(row.dataValues.createdAt)
             row.dataValues.updatedAt = convertDateTimeToUnix(row.dataValues.updatedAt)
-            row.dataValues.replies = await postService.getAllRepliesOfPost(row.dataValues.tx_hash).then(replies => replies.map(reply => reply.tx_hash))
+            row.dataValues.replies = await getAllRepliesOfPost(row.dataValues.tx_hash).then(replies => replies.map(reply => reply.tx_hash))
           }
 
-          const response = await getPagingData(data, page, limit)
+          const response = await getPagingData(data, Number(page), limit)
           log.info(getTimestamp() + ' INFO: Successful response.')
           res.json(response)
 
@@ -73,7 +73,7 @@ async function getAllPosts(req: Request, res: Response) {
                 // converts the standard UTC to unix timestamp
                 data.dataValues.createdAt = convertDateTimeToUnix(data.dataValues.createdAt)
                 data.dataValues.updatedAt = convertDateTimeToUnix(data.dataValues.updatedAt)
-                data.dataValues.replies = await postService.getAllRepliesOfPost(data.dataValues.tx_hash).then(replies => replies.map(reply => reply.tx_hash))
+                data.dataValues.replies = await getAllRepliesOfPost(data.dataValues.tx_hash).then(replies => replies.map(reply => reply.tx_hash))
                 res.json(data)
             }
         })
@@ -96,21 +96,21 @@ async function getAllPosts(req: Request, res: Response) {
     const { limit, offset } = getPagination(Number(page), Number(size))
 
     // converts to datetime format since it's stored in the db as such
-    const startDateParam = convertUnixToDateTime(startDate)
-    const endDateParam = convertUnixToDateTime(endDate)
+    const startDateParam = convertUnixToDateTime(Number(startDate))
+    const endDateParam = convertUnixToDateTime(Number(endDate))
 
     excludeAvatar = (excludeAvatar === undefined || excludeAvatar === 'true')
 
-    getLatest(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate, excludeAvatar)
+    getLatest(limit, offset, String(order), String(search), startDate ? startDateParam : startDate, endDate ? endDateParam : endDate, excludeAvatar)
       .then(async data => {
           // converts the standard UTC to unix timestamp
           for (const row of data.rows) {
             row.dataValues.createdAt = convertDateTimeToUnix(row.dataValues.createdAt)
             row.dataValues.updatedAt = convertDateTimeToUnix(row.dataValues.updatedAt)
-            row.dataValues.replies = await postService.getAllRepliesOfPost(row.dataValues.tx_hash).then(replies => replies.map(reply => reply.tx_hash))
+            row.dataValues.replies = await getAllRepliesOfPost(row.dataValues.tx_hash).then(replies => replies.map(reply => reply.tx_hash))
           }
 
-          const response = await getPagingData(data, page, limit)
+          const response = await getPagingData(data, Number(page), limit)
           log.info(getTimestamp() + ' INFO: Successful response.')
           res.json(response)
         })
