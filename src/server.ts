@@ -1,33 +1,37 @@
 'use strict'
 
-require('dotenv').config()
+import * as dotenv from "dotenv";
+dotenv.config({ path: __dirname+'/.env' });
 
-var createError = require('http-errors')
-var express = require('express')
-var path = require('path')
-var cookieParser = require('cookie-parser')
-var logger = require('morgan')
-var log = require('loglevel')
-var bodyParser = require('body-parser')
+import createError from "http-errors";
+import express from "express";
+import path from "path";
+import cookieParser from "cookie-parser";
+import logger from "morgan";
+import log from "loglevel";
+import bodyParser from "body-parser";
 
-const { WebSocket, WebSocketServer } = require('ws')
-const swaggerJsdoc = require('swagger-jsdoc')
-const swaggerUi = require('swagger-ui-express')
+import { WebSocket, WebSocketServer } from "ws";
+import swaggerJsDoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
 
-// latest routers
-var postRouterLatest = require('./routes/latest/postRouter')
-var postEncryptedRouterLatest = require('./routes/latest/postEncryptedRouter')
-var postEncryptedGroupRouterLatest = require('./routes/latest/postEncryptedGroupRouter')
-var hashtagRouterLatest = require('./routes/latest/hashtagRouter')
-var statisticsRouterLatest = require('./routes/latest/statisticsRouter')
+// latest routes
+import postRouterLatest from "./route/latest/postRouter";
+import postEncryptedRouterLatest from "./route/latest/postEncryptedRouter";
+import postEncryptedGroupRouterLatest from "./route/latest/postEncryptedGroupRouter";
+import hashtagRouterLatest from "./route/latest/hashtagRouter";
+import statisticsRouterLatest from "./route/latest/statisticsRouter";
 
 // syncers
-var huginSyncer = require('./syncers/huginSyncer')
+import huginSyncer from "./syncer/huginSyncer";
 
-const { getTimestamp, sleep } = require('./utils/time')
-const { swaggerOptions, swaggerCustomOptions } = require('./configs/swagger')
-const { setCache } = require('./configs/cacheControl')
-const { limiter } = require('./configs/rateLimit')
+// utils
+import { getTimestamp, sleep } from "./util/time";
+
+// configs
+import { swaggerOptions, swaggerCustomOptions } from "./config/swagger";
+import { setCache } from "./config/cacheControl";
+import { limiter } from "./config/rateLimit";
 
 var app = express()
 
