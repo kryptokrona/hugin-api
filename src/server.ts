@@ -46,7 +46,7 @@ app.use('/public', express.static(__dirname + '/public'));
 app.locals.sitetitle = 'Hugin API'
 
 // swagger
-const openapiSpecification = swaggerJsdoc(swaggerOptions)
+const openapiSpecification = swaggerJsDoc(swaggerOptions)
 
 // cache control middleware
 app.use(setCache)
@@ -69,7 +69,7 @@ app.use(`${process.env.API_BASE_PATH}/v1/`, statisticsRouterLatest)
 app.use(bodyParser.json());
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function (req: Request, res: Response, next: NextFunction) {
     next(createError(404))
 })
 
@@ -131,4 +131,6 @@ wss.on('connection', function connection(ws) {
 })
 console.log(`The WebSocket server is running on port ${process.env.SYS_WS_PORT}`);
 
-module.exports = app
+export {
+    app
+};

@@ -4,9 +4,8 @@
 
 'use strict'
 
-const { Op, QueryTypes } = require("sequelize")
-const db = require('../configs/postgresql')
-const models = require("../database/models")
+import { Op, QueryTypes } from "sequelize";
+import { Hashtag } from "../database/models/hashtag";
 
 /**
  * Get all hashtags

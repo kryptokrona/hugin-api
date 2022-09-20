@@ -11,21 +11,19 @@ let db = require("../../configs/postgresql"),
 
 const Op = db.Sequelize.Op;
 
-import PostService from "../../services/postService";
-import getTimeStamp from "../../util/time";
-import { getPagination, getPagingData } from "../../util/pagination";
+import { Request, Response } from "express";
 
-class PostController {
-    
-}
+import { getAll, getById, getLatest } from "../../service/postService";
+import { getTimestamp } from "../../util/time";
+import { getPagination, getPagingData } from "../../util/pagination";
 
 /**
  * Get all posts
  *
- * @param {object} req - Express request object.
- * @param {object} res - Express response object.
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object.
  */
-postController.getAll = async (req, res) => {
+async function getAllPosts(req: Request, res: Response) {
     let { page, size, order, search, startDate, endDate, excludeAvatar } = req.query;
     const { limit, offset } = getPagination(page, size)
 
@@ -60,10 +58,10 @@ postController.getAll = async (req, res) => {
 /**
  * Get a specific posts by tx_hash
  *
- * @param {object} req - Express request object.
- * @param {object} res - Express response object.
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object.
  */
-postController.getPostByTxHash = async (req, res) => {
+ async function getPostByTxHash(req: Request, res: Response) {
     postService.getPostByTxHash(req)
         .then(async data => {
             log.info(getTimestamp() + ' INFO: Successful response.')
@@ -90,10 +88,10 @@ postController.getPostByTxHash = async (req, res) => {
 /**
  * Get latest posts
  *
- * @param {object} req - Express request object.
- * @param {object} res - Express response object.
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object.
  */
-postController.getLatest = async (req, res) => {
+ async function getLatestPosts(req: Request, res: Response) {
     let { page, size, order, search, startDate, endDate, excludeAvatar } = req.query;
     const { limit, offset } = getPagination(page, size)
 
@@ -124,4 +122,8 @@ postController.getLatest = async (req, res) => {
         })
 }
 
-export default PostController;
+export {
+    getAllPosts,
+    getPostByTxHash,
+    getLatestPosts
+};
