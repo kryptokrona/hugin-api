@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +50,10 @@ public class HuginSyncer {
 	private static final Logger logger = LoggerFactory.getLogger(HuginSyncer.class);
 
 	@Autowired
-	public HuginSyncer(PostRepository postRepository, PostEncryptedRepository postEncryptedRepository, PostEncryptedGroupRepository postEncryptedGroupRepository) {
+	public HuginSyncer(
+			PostRepository postRepository, PostEncryptedRepository postEncryptedRepository,
+			PostEncryptedGroupRepository postEncryptedGroupRepository
+	) {
 		this.postRepository = postRepository;
 		this.postEncryptedRepository = postEncryptedRepository;
 		this.postEncryptedGroupRepository = postEncryptedGroupRepository;
@@ -58,6 +62,7 @@ public class HuginSyncer {
 	@Scheduled(fixedRate=1000)
 	public void sync() {
 		logger.info("Background syncing...");
+		// this.brokerMessagingTemplate.convertAndSend("/user", "foo");
 
 		hostname = new HostName(nodeHostname);
 

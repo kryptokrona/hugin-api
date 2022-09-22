@@ -34,7 +34,7 @@ public class OpenApiConfig {
 			@Value("${apiContactUrl}") String apiContactUrl,
 			@Value("${apiServerUrl}") String apiServerUrl
 	) {
-		Server server = new Server();
+		var server = new Server();
 		server.setUrl(apiServerUrl);
 
 		return new OpenAPI()
