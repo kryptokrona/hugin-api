@@ -48,9 +48,9 @@ public class PostEncryptedService {
 			PostEncrypted postEncrypted = postEncryptedRepository.findById(id).get();
 			logger.info("Encrypted post found with ID: " + id);
 			return postEncrypted;
-		} else {
-			logger.error("Unable to find encrypted post with ID: " + id);
 		}
+
+		logger.info("Unable to find encrypted post with ID: " + id);
 
 		return null;
 	}

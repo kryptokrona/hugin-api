@@ -31,7 +31,6 @@ public class PostService {
      * @return Returns all posts with pagination.
      */
     public Page<Post> getAll(int page, int size) {
-        Page<Post> pageTuts = null;
         Pageable paging = PageRequest.of(page, size);
 
         return postRepository.findAll(paging);
@@ -48,9 +47,9 @@ public class PostService {
             Post post = postRepository.findById(id).get();
             logger.info("Post found with ID: " + id);
             return post;
-        } else {
-            logger.error("Unable to find post with ID: " + id);
         }
+
+        logger.info("Unable to find post with ID: " + id);
 
         return null;
     }

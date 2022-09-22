@@ -31,7 +31,6 @@ public class PostEncryptedGroupService {
 	 * @return Returns all encrypted group posts with pagination.
 	 */
 	public Page<PostEncryptedGroup> getAll(int page, int size) {
-		Page<PostEncryptedGroup> pageTuts = null;
 		Pageable paging = PageRequest.of(page, size);
 
 		return postEncryptedGroupRepository.findAll(paging);
@@ -48,9 +47,9 @@ public class PostEncryptedGroupService {
 			PostEncryptedGroup postEncryptedGroup = postEncryptedGroupRepository.findById(id).get();
 			logger.info("Encrypted group post found with ID: " + id);
 			return postEncryptedGroup;
-		} else {
-			logger.error("Unable to find encrypted group post with ID: " + id);
 		}
+
+		logger.info("Unable to find encrypted group post with ID: " + id);
 
 		return null;
 	}
