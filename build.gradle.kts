@@ -78,10 +78,7 @@ dependencies {
 	}
 	implementation(files("libs/swagger-ui-3.49.0.jar")) // custom jar file for our custom swagger-ui theme
 	implementation("org.webjars:webjars-locator-core:0.52")
-	implementation("org.webjars:sockjs-client:1.5.1")
 	implementation("org.webjars:stomp-websocket:2.3.4")
-	implementation("org.webjars:bootstrap:5.2.0")
-	implementation("org.webjars.bower:jquery:3.6.1")
 
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("org.postgresql:postgresql")
