@@ -29,10 +29,14 @@ public class PostController {
 
     static final String VERSION = "1";
 
-    @Autowired
-    private PostService postService;
+    private final PostService postService;
 
     private static final Logger logger = LoggerFactory.getLogger(PostController.class);
+
+    @Autowired
+    public PostController(PostService postService) {
+        this.postService = postService;
+    }
 
     /**
      * Get all posts.

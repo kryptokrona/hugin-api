@@ -29,10 +29,14 @@ public class PostEncryptedController {
 
 	static final String VERSION = "1";
 
-	@Autowired
-	private PostEncryptedService postEncryptedService;
+	private final PostEncryptedService postEncryptedService;
 
 	private static final Logger logger = LoggerFactory.getLogger(PostEncryptedController.class);
+
+	@Autowired
+	public PostEncryptedController(PostEncryptedService postEncryptedService) {
+		this.postEncryptedService = postEncryptedService;
+	}
 
 	/**
 	 * Get all encrypted posts.

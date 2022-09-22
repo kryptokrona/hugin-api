@@ -33,13 +33,10 @@ import java.util.List;
 @Service
 public class HuginSyncer {
 
-	@Autowired
 	private PostRepository postRepository;
 
-	@Autowired
 	private PostEncryptedRepository postEncryptedRepository;
 
-	@Autowired
 	private PostEncryptedGroupRepository postEncryptedGroupRepository;
 
 	@Value("${SYS_NODE_HOSTNAME}")
@@ -50,6 +47,13 @@ public class HuginSyncer {
 	private List<String> knownPoolTxsList = new ArrayList<>();
 
 	private static final Logger logger = LoggerFactory.getLogger(HuginSyncer.class);
+
+	@Autowired
+	public HuginSyncer(PostRepository postRepository, PostEncryptedRepository postEncryptedRepository, PostEncryptedGroupRepository postEncryptedGroupRepository) {
+		this.postRepository = postRepository;
+		this.postEncryptedRepository = postEncryptedRepository;
+		this.postEncryptedGroupRepository = postEncryptedGroupRepository;
+	}
 
 	@Scheduled(fixedRate=1000)
 	public void sync() {

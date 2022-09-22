@@ -18,10 +18,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class PostEncryptedGroupService {
 
-	@Autowired
 	private PostEncryptedGroupRepository postEncryptedGroupRepository;
 
 	private static final Logger logger = LoggerFactory.getLogger(PostEncryptedGroupService.class);
+
+	@Autowired
+	public PostEncryptedGroupService(PostEncryptedGroupRepository postEncryptedGroupRepository) {
+		this.postEncryptedGroupRepository = postEncryptedGroupRepository;
+	}
 
 	/**
 	 * Get all encrypted group posts with pagination.
