@@ -41,11 +41,15 @@ public class PostService {
     public Page<Post> getAll(int page, int size, String order, boolean avatar) {
         if (Objects.equals(order, "asc".toLowerCase())) {
             var paging = PageRequest.of(page, size, Sort.by("id").ascending());
-            return postRepository.findAll(paging);
+            return avatar ?
+                    postRepository.findAll(paging) :
+                    postRepository.findAllExcludeAvatar(paging);
         }
 
         var paging = PageRequest.of(page, size, Sort.by("id").descending());
-        return postRepository.findAll(paging);
+        return avatar ?
+                postRepository.findAll(paging) :
+                postRepository.findAllExcludeAvatar(paging);
     }
 
     /**
