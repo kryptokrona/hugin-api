@@ -22,19 +22,26 @@ import org.springframework.stereotype.Component;
 @Component
 public class SeederUtil implements ApplicationRunner {
 
-	@Autowired
-	private HashtagRepository hashtagRepository;
+	private final HashtagRepository hashtagRepository;
 
-	@Autowired
-	private PostEncryptedGroupRepository postEncryptedGroupRepository;
+	private final PostEncryptedGroupRepository postEncryptedGroupRepository;
 
-	@Autowired
-	private PostEncryptedRepository postEncryptedRepository;
+	private final PostEncryptedRepository postEncryptedRepository;
 
-	@Autowired
-	private PostRepository postRepository;
+	private final PostRepository postRepository;
 
 	private static final Logger logger = LoggerFactory.getLogger(SeederUtil.class);
+
+	@Autowired
+	public SeederUtil(
+			HashtagRepository hashtagRepository, PostEncryptedGroupRepository postEncryptedGroupRepository,
+			PostEncryptedRepository postEncryptedRepository, PostRepository postRepository
+	) {
+		this.hashtagRepository = hashtagRepository;
+		this.postEncryptedGroupRepository = postEncryptedGroupRepository;
+		this.postEncryptedRepository = postEncryptedRepository;
+		this.postRepository = postRepository;
+	}
 
 	public void seed() {
 		logger.info("Seeding data into development DB.");
