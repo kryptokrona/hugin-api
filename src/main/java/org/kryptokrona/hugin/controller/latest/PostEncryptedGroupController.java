@@ -41,8 +41,9 @@ public class PostEncryptedGroupController {
 	/**
 	 * Get all encrypted group posts.
 	 *
-	 * @param page : int
-	 * @param size : int
+	 * @param page The page number
+	 * @param size The total amount of entries per page
+	 * @param order The order in form av desc/asc
 	 * @return ResponseEntity
 	 */
 	@GetMapping
