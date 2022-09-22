@@ -30,14 +30,6 @@ public class HashtagService {
 		this.hashtagRepository = hashtagRepository;
 	}
 
-	/**
-	 * Get all hashtags with pagination.
-	 *
-	 * @param page The page number
-	 * @param size The total amount of entries per page
-	 * @param order The order in form av desc/asc
-	 * @return Returns all hashtag with pagination.
-	 */
 	public Page<Hashtag> getAll(int page, int size, String order) {
 		if (Objects.equals(order, "asc".toLowerCase())) {
 			var paging = PageRequest.of(page, size, Sort.by("id").ascending());
@@ -48,12 +40,6 @@ public class HashtagService {
 		return hashtagRepository.findAll(paging);
 	}
 
-	/**
-	 * Get hashtag by id.
-	 *
-	 * @param id The id to look for in the database.
-	 * @return Returns the hashtag object.
-	 */
 	public Hashtag getById(long id) {
 		if (hashtagRepository.existsById(id)) {
 			Hashtag hashtag = hashtagRepository.findById(id).get();
@@ -66,21 +52,10 @@ public class HashtagService {
 		return null;
 	}
 
-	/**
-	 * Checks if the hashtag exists in the database.
-	 *
-	 * @param name The unique name connected to the post object
-	 * @return Returns if it exists or not
-	 */
 	public boolean exists(String name) {
 		return hashtagRepository.existsHashtagByName(name);
 	}
 
-	/**
-	 * Saves the hashtag to the database.
-	 *
-	 * @param hashtag The hashtag object to save.
-	 */
 	public void save(Hashtag hashtag) {
 		try {
 			hashtagRepository.save(hashtag);

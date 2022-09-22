@@ -30,16 +30,11 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    /**
-     * Get all posts with pagination.
-     *
-     * @param page The page number
-     * @param size The total amount of entries per page
-     * @param order The order in form av desc/asc
-     * @param avatar If the avatar field be included
-     * @return Returns all posts with pagination.
-     */
     public Page<Post> getAll(int page, int size, String order, boolean avatar) {
+        return getAll(page, size, order,0, 0, avatar);
+    }
+
+    public Page<Post> getAll(int page, int size, String order, long startUnixTime, long endUnixTime, boolean avatar) {
         if (Objects.equals(order, "asc".toLowerCase())) {
             var paging = PageRequest.of(page, size, Sort.by("id").ascending());
             return avatar ?
@@ -53,12 +48,6 @@ public class PostService {
                 postRepository.findAllExcludeAvatar(paging);
     }
 
-    /**
-     * Get post by id.
-     *
-     * @param id The id to look for in the database.
-     * @return Returns the post object.
-     */
     public Post getById(long id) {
         if (postRepository.existsById(id)) {
             Post post = postRepository.findById(id).get();
@@ -71,21 +60,10 @@ public class PostService {
         return null;
     }
 
-    /**
-     * Checks if the post exists in the database.
-     *
-     * @param txHash The unique transaction hash connected to the post object
-     * @return Returns if it exists or not
-     */
     public boolean exists(String txHash) {
         return postRepository.existsPostByTxHash(txHash);
     }
 
-    /**
-     * Saves the post to the database.
-     *
-     * @param post The post object to save.
-     */
     public void save(Post post) {
         try {
             postRepository.save(post);

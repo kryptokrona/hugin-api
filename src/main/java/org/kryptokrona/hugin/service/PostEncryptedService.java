@@ -30,14 +30,6 @@ public class PostEncryptedService {
 		this.postEncryptedRepository = postEncryptedRepository;
 	}
 
-	/**
-	 * Get all encrypted posts with pagination.
-	 *
-	 * @param page The page number
-	 * @param size The total amount of entries per page
-	 * @param order The order in form av desc/asc
-	 * @return Returns all encrypted posts with pagination.
-	 */
 	public Page<PostEncrypted> getAll(int page, int size, String order) {
 		if (Objects.equals(order, "asc".toLowerCase())) {
 			var paging = PageRequest.of(page, size, Sort.by("id").ascending());
@@ -48,12 +40,6 @@ public class PostEncryptedService {
 		return postEncryptedRepository.findAll(paging);
 	}
 
-	/**
-	 * Get encrypted post by id.
-	 *
-	 * @param id The id to look for in the database.
-	 * @return Returns the encrypted post object.
-	 */
 	public PostEncrypted getById(long id) {
 		if (postEncryptedRepository.existsById(id)) {
 			PostEncrypted postEncrypted = postEncryptedRepository.findById(id).get();
@@ -66,21 +52,10 @@ public class PostEncryptedService {
 		return null;
 	}
 
-	/**
-	 * Checks if the encrypted post exists in the database.
-	 *
-	 * @param txHash The unique transaction hash connected to the encrypted post object
-	 * @return Returns if it exists or not
-	 */
 	public boolean exists(String txHash) {
 		return postEncryptedRepository.existsPostByTxHash(txHash);
 	}
 
-	/**
-	 * Saves the post to the database.
-	 *
-	 * @param postEncrypted The encrypted post object to save.
-	 */
 	public void save(PostEncrypted postEncrypted) {
 		try {
 			postEncryptedRepository.save(postEncrypted);

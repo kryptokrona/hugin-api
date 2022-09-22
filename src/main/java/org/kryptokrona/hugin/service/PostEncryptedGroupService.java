@@ -30,14 +30,6 @@ public class PostEncryptedGroupService {
 		this.postEncryptedGroupRepository = postEncryptedGroupRepository;
 	}
 
-	/**
-	 * Get all encrypted group posts with pagination.
-	 *
-	 * @param page The page number
-	 * @param size The total amount of entries per page
-	 * @param order The order in form av desc/asc
-	 * @return Returns all encrypted group posts with pagination.
-	 */
 	public Page<PostEncryptedGroup> getAll(int page, int size, String order) {
 		if (Objects.equals(order, "asc".toLowerCase())) {
 			var paging = PageRequest.of(page, size, Sort.by("id").ascending());
@@ -48,12 +40,6 @@ public class PostEncryptedGroupService {
 		return postEncryptedGroupRepository.findAll(paging);
 	}
 
-	/**
-	 * Get encrypted group post by id.
-	 *
-	 * @param id The id to look for in the database.
-	 * @return Returns the encrypted group post object.
-	 */
 	public PostEncryptedGroup getById(long id) {
 		if (postEncryptedGroupRepository.existsById(id)) {
 			PostEncryptedGroup postEncryptedGroup = postEncryptedGroupRepository.findById(id).get();
@@ -66,21 +52,10 @@ public class PostEncryptedGroupService {
 		return null;
 	}
 
-	/**
-	 * Checks if the encrypted group post exists in the database.
-	 *
-	 * @param txHash The unique transaction hash connected to the encrypted group post object
-	 * @return Returns if it exists or not
-	 */
 	public boolean exists(String txHash) {
 		return postEncryptedGroupRepository.existsPostByTxHash(txHash);
 	}
 
-	/**
-	 * Saves the encrypted group post to the database.
-	 *
-	 * @param postEncryptedGroup The encrypted group post object to save.
-	 */
 	public void save(PostEncryptedGroup postEncryptedGroup) {
 		try {
 			postEncryptedGroupRepository.save(postEncryptedGroup);
