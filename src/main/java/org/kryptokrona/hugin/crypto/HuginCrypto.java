@@ -29,8 +29,7 @@ public class HuginCrypto {
 	/**
 	 * Converts hex value to string.
 	 *
-	 * @param hex - Hex value.
-	 * @param str - String value.
+	 * @param hex - Hex value.ß
 	 * @return Returns hex value to string
 	 */
 	public static String fromHex(String hex) {

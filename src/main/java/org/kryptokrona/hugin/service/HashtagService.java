@@ -31,7 +31,6 @@ public class HashtagService {
 	 * @return Returns all hashtag with pagination.
 	 */
 	public Page<Hashtag> getAll(int page, int size) {
-		Page<Hashtag> pageTuts = null;
 		Pageable paging = PageRequest.of(page, size);
 
 		return hashtagRepository.findAll(paging);
@@ -48,9 +47,9 @@ public class HashtagService {
 			Hashtag hashtag = hashtagRepository.findById(id).get();
 			logger.info("Hashtag found with ID: " + id);
 			return hashtag;
-		} else {
-			logger.error("Unable to find hashtag with ID: " + id);
 		}
+
+		logger.info("Unable to find hashtag with ID: " + id);
 
 		return null;
 	}
