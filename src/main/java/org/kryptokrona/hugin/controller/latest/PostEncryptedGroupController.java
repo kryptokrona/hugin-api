@@ -52,9 +52,10 @@ public class PostEncryptedGroupController {
 	)
 	public ResponseEntity<Map<String, Object>> getAll(
 			@RequestParam(required = false, defaultValue = "0") int page,
-			@RequestParam(required = false, defaultValue = "25") int size
+			@RequestParam(required = false, defaultValue = "25") int size,
+			@RequestParam(required = false, defaultValue = "desc") String order
 	) {
-		var pagination = postEncryptedGroupService.getAll(page, size);
+		var pagination = postEncryptedGroupService.getAll(page, size, order);
 
 		Map<String, Object> response = new HashMap<>();
 		response.put("encrypted_group_posts", pagination);

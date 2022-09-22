@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 /**
  * Post Encrypted Group Service.
@@ -32,11 +35,16 @@ public class PostEncryptedGroupService {
 	 *
 	 * @param page The current page.
 	 * @param size The size per page.
+	 * @param order desc or asc order.
 	 * @return Returns all encrypted group posts with pagination.
 	 */
-	public Page<PostEncryptedGroup> getAll(int page, int size) {
-		Pageable paging = PageRequest.of(page, size);
+	public Page<PostEncryptedGroup> getAll(int page, int size, String order) {
+		if (Objects.equals(order, "asc".toLowerCase())) {
+			var paging = PageRequest.of(page, size, Sort.by("id").ascending());
+			return postEncryptedGroupRepository.findAll(paging);
+		}
 
+		var paging = PageRequest.of(page, size, Sort.by("id").descending());
 		return postEncryptedGroupRepository.findAll(paging);
 	}
 

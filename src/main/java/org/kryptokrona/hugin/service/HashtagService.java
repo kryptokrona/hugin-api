@@ -38,14 +38,12 @@ public class HashtagService {
 	 * @return Returns all hashtag with pagination.
 	 */
 	public Page<Hashtag> getAll(int page, int size, String order) {
-		Pageable paging;
-
 		if (Objects.equals(order, "asc".toLowerCase())) {
-			paging = PageRequest.of(page, size, Sort.by("id").ascending());
+			var paging = PageRequest.of(page, size, Sort.by("id").ascending());
 			return hashtagRepository.findAll(paging);
 		}
 
-		paging = PageRequest.of(page, size, Sort.by("id").descending());
+		var paging = PageRequest.of(page, size, Sort.by("id").descending());
 		return hashtagRepository.findAll(paging);
 	}
 
