@@ -38,7 +38,7 @@ public class PostService {
      * @param order The order in form av desc/asc
      * @return Returns all posts with pagination.
      */
-    public Page<Post> getAll(int page, int size, String order) {
+    public Page<Post> getAll(int page, int size, String order, boolean avatar) {
         if (Objects.equals(order, "asc".toLowerCase())) {
             var paging = PageRequest.of(page, size, Sort.by("id").ascending());
             return postRepository.findAll(paging);
