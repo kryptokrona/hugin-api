@@ -53,6 +53,8 @@ public class PostController {
       @RequestParam(required = false, defaultValue = "0") int page,
       @RequestParam(required = false, defaultValue = "25") int size,
       @RequestParam(required = false, defaultValue = "desc") String order,
+      @RequestParam(required = false) long startUnixTime,
+      @RequestParam(required = false) long endUnixTime,
       @RequestParam(required = false, defaultValue = "false") boolean avatar
     ) {
         var pagination = postService.getAll(page, size, order, avatar);
