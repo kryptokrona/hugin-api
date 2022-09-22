@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 /**
  * Hashtag Service.
  *
@@ -35,9 +37,15 @@ public class HashtagService {
 	 * @param size The size per page.
 	 * @return Returns all hashtag with pagination.
 	 */
-	public Page<Hashtag> getAll(int page, int size, Sort sort) {
-		Pageable paging = PageRequest.of(page, size, sort);
+	public Page<Hashtag> getAll(int page, int size, String order) {
+		Pageable paging;
 
+		if (Objects.equals(order, "asc".toLowerCase())) {
+			paging = PageRequest.of(page, size, Sort.by("id").ascending());
+			return hashtagRepository.findAll(paging);
+		}
+
+		paging = PageRequest.of(page, size, Sort.by("id").descending());
 		return hashtagRepository.findAll(paging);
 	}
 
