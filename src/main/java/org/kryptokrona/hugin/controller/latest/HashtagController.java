@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Version;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -52,9 +53,10 @@ public class HashtagController {
 	@Operation(summary = "Get all hashtags", description = "Get all hashtags with pagination.")
 	public ResponseEntity<Map<String, Object>> getAll(
 			@RequestParam(required = false, defaultValue = "0") int page,
-			@RequestParam(required = false, defaultValue = "25") int size
+			@RequestParam(required = false, defaultValue = "25") int size,
+			@RequestParam(required = false, defaultValue = "id,desc") String[] sort
 	) {
-		var pagination = hashtagService.getAll(page, size);
+		var pagination = hashtagService.getAll(page, size, Sort.by(sort));
 
 		Map<String, Object> response = new HashMap<>();
 		response.put("hashtags", pagination);

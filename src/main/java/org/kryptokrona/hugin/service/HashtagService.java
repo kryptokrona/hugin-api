@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 /**
@@ -34,8 +35,8 @@ public class HashtagService {
 	 * @param size The size per page.
 	 * @return Returns all hashtag with pagination.
 	 */
-	public Page<Hashtag> getAll(int page, int size) {
-		Pageable paging = PageRequest.of(page, size);
+	public Page<Hashtag> getAll(int page, int size, Sort sort) {
+		Pageable paging = PageRequest.of(page, size, sort);
 
 		return hashtagRepository.findAll(paging);
 	}
