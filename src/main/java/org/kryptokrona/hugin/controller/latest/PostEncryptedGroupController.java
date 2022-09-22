@@ -29,10 +29,14 @@ public class PostEncryptedGroupController {
 
 	static final String VERSION = "1";
 
-	@Autowired
-	private PostEncryptedGroupService postEncryptedGroupService;
+	private final PostEncryptedGroupService postEncryptedGroupService;
 
 	private static final Logger logger = LoggerFactory.getLogger(PostEncryptedController.class);
+
+	@Autowired
+	public PostEncryptedGroupController(PostEncryptedGroupService postEncryptedGroupService) {
+		this.postEncryptedGroupService = postEncryptedGroupService;
+	}
 
 	/**
 	 * Get all encrypted group posts.

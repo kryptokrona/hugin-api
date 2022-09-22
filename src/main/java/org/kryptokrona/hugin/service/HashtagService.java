@@ -18,10 +18,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class HashtagService {
 
-	@Autowired
-	private HashtagRepository hashtagRepository;
+	private final HashtagRepository hashtagRepository;
 
 	private static final Logger logger = LoggerFactory.getLogger(HashtagService.class);
+
+	@Autowired
+	public HashtagService(HashtagRepository hashtagRepository) {
+		this.hashtagRepository = hashtagRepository;
+	}
 
 	/**
 	 * Get all hashtags with pagination.

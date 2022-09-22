@@ -18,10 +18,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class PostService {
 
-    @Autowired
     private PostRepository postRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(PostService.class);
+
+    @Autowired
+    public PostService(PostRepository postRepository) {
+        this.postRepository = postRepository;
+    }
 
     /**
      * Get all posts with pagination.

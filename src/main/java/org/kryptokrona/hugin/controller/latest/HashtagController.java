@@ -30,10 +30,14 @@ public class HashtagController {
 
 	static final String VERSION = "1";
 
-	@Autowired
-	private HashtagService hashtagService;
+	private final HashtagService hashtagService;
 
 	private static final Logger logger = LoggerFactory.getLogger(HashtagController.class);
+
+	@Autowired
+	public HashtagController(HashtagService hashtagService) {
+		this.hashtagService = hashtagService;
+	}
 
 	/**
 	 * Get all hashtags.
