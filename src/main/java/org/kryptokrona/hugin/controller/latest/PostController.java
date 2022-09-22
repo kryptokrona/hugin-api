@@ -52,9 +52,10 @@ public class PostController {
     public ResponseEntity<Map<String, Object>> getAll(
       @RequestParam(required = false, defaultValue = "0") int page,
       @RequestParam(required = false, defaultValue = "25") int size,
-      @RequestParam(required = false, defaultValue = "desc") String order
+      @RequestParam(required = false, defaultValue = "desc") String order,
+      @RequestParam(required = false, defaultValue = "false") boolean avatar
     ) {
-        var pagination = postService.getAll(page, size, order);
+        var pagination = postService.getAll(page, size, order, avatar);
 
         Map<String, Object> response = new HashMap<>();
         response.put("posts", pagination);
