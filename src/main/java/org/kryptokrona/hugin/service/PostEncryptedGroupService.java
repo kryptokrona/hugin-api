@@ -33,9 +33,9 @@ public class PostEncryptedGroupService {
 	/**
 	 * Get all encrypted group posts with pagination.
 	 *
-	 * @param page The current page.
-	 * @param size The size per page.
-	 * @param order desc or asc order.
+	 * @param page The page number
+	 * @param size The total amount of entries per page
+	 * @param order The order in form av desc/asc
 	 * @return Returns all encrypted group posts with pagination.
 	 */
 	public Page<PostEncryptedGroup> getAll(int page, int size, String order) {
