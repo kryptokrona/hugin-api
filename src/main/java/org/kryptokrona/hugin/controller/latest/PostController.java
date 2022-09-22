@@ -38,13 +38,13 @@ public class PostController {
         this.postService = postService;
     }
 
-    //TODO: implement the rest of this: https://spring.io/guides/gs/messaging-stomp-websocket/
     /**
      * Get all posts.
      *
      * @param page The page number
      * @param size The total amount of entries per page
      * @param order The order in form av desc/asc
+     * @param avatar If the avatar field be included
      * @return ResponseEntity
      */
     @GetMapping
