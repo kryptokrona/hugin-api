@@ -38,6 +38,7 @@ public class PostController {
         this.postService = postService;
     }
 
+    //TODO: implement the rest of this: https://spring.io/guides/gs/messaging-stomp-websocket/
     /**
      * Get all posts.
      *
