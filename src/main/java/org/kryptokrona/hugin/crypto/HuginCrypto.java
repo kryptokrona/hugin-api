@@ -22,6 +22,7 @@ public class HuginCrypto {
 			return fromHex(extra.substring(66));
 		} catch (Exception e) {
 			// return fromHex(Buffer);
+			//TODO not done
 			return null;
 		}
 	}
@@ -80,6 +81,7 @@ public class HuginCrypto {
 	 * @return Returns open sealed box from the extra data
 	 */
 	public static OpenBox extraDataToMessage(String extra, List<String> knownKeys, KeyPair xkrKeyPair) {
+		extra = trimExtra(extra);
 		return null;
 	}
 }

@@ -77,6 +77,7 @@ dependencies {
 		exclude("org.webjars:swagger-ui") // exlcuding this module so we can use the custom below
 	}
 	implementation(files("libs/swagger-ui-3.49.0.jar")) // custom jar file for our custom swagger-ui theme
+	implementation("software.pando.crypto:salty-coffee:1.1.0")
 
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("org.postgresql:postgresql")
