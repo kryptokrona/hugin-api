@@ -5,10 +5,7 @@ import inet.ipaddr.HostName;
 import io.reactivex.rxjava3.core.Observable;
 import org.apache.hc.client5.http.fluent.Content;
 import org.apache.hc.client5.http.fluent.Request;
-import org.kryptokrona.hugin.crypto.HuginCrypto;
-import org.kryptokrona.hugin.crypto.KeyPair;
-import org.kryptokrona.hugin.crypto.OpenBox;
-import org.kryptokrona.hugin.crypto.SealedBox;
+import org.kryptokrona.hugin.crypto.*;
 import org.kryptokrona.hugin.http.PoolChangesLite;
 import org.kryptokrona.hugin.repository.PostEncryptedGroupRepository;
 import org.kryptokrona.hugin.repository.PostEncryptedRepository;
@@ -108,13 +105,13 @@ public class HuginSyncer {
 					keyPair.setPrivateSpendKey("0000000000000000000000000000000000000000000000000000000000000000");
 					keyPair.setPrivateViewKey("0000000000000000000000000000000000000000000000000000000000000000");
 
-					OpenBox openBox = null;
+					Box boxObj = null;
 
 					// skipping this if extra data is less than 200 - we skip this statement
 					if (thisExtra != null && thisExtra.length() > 200) {
 
 
-						openBox = HuginCrypto.extraDataToMessage(thisExtra, knownKeys, keyPair);
+						boxObj = HuginCrypto.extraDataToMessage(thisExtra, knownKeys, keyPair);
 					}
 
 					if (openBox == null) {
