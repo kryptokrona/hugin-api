@@ -5,11 +5,9 @@ package org.kryptokrona.hugin.crypto;
  *
  * @author Marcus Cvjeticanin
  */
-public class OpenBox {
+public class OpenBox extends Box {
 
 	private String box;
-
-	private String timestamp;
 
 	public String getBox() {
 		return box;
@@ -17,14 +15,6 @@ public class OpenBox {
 
 	public void setBox(String box) {
 		this.box = box;
-	}
-
-	public String getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(String timestamp) {
-		this.timestamp = timestamp;
 	}
 
 }

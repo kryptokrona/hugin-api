@@ -8,6 +8,7 @@ import org.apache.hc.client5.http.fluent.Request;
 import org.kryptokrona.hugin.crypto.HuginCrypto;
 import org.kryptokrona.hugin.crypto.KeyPair;
 import org.kryptokrona.hugin.crypto.OpenBox;
+import org.kryptokrona.hugin.crypto.SealedBox;
 import org.kryptokrona.hugin.http.PoolChangesLite;
 import org.kryptokrona.hugin.repository.PostEncryptedGroupRepository;
 import org.kryptokrona.hugin.repository.PostEncryptedRepository;
@@ -109,8 +110,12 @@ public class HuginSyncer {
 
 					OpenBox openBox = null;
 
+					// skipping this if extra data is less than 200 - we skip this statement
 					if (thisExtra != null && thisExtra.length() > 200) {
-						logger.debug("Extra data is less than 200 in length, skipping.");
+						var sealedBox = new SealedBox();
+						sealedBox.setSb("sb here");
+						sealedBox.setTimestamp(100); // set correct timestamp here later when we obtain the info
+
 
 						openBox = HuginCrypto.extraDataToMessage(thisExtra, knownKeys, keyPair);
 					}
