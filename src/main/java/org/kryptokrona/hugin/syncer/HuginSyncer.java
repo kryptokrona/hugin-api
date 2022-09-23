@@ -109,8 +109,6 @@ public class HuginSyncer {
 
 					// skipping this if extra data is less than 200 - we skip this statement
 					if (thisExtra != null && thisExtra.length() > 200) {
-
-
 						boxObj = HuginCrypto.extraDataToMessage(thisExtra, knownKeys, keyPair);
 					}
 
