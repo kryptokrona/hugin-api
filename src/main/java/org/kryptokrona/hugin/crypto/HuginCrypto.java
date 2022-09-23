@@ -46,6 +46,10 @@ public class HuginCrypto {
 		return str;
 	}
 
+	public static KeyPair convertXKRKeypairToNaCl(KeyPair keypair) {
+		return null;
+	}
+
 	/**
 	 * Decodes the passed String using an algorithm that's compatible with
 	 * JavaScript's <code>decodeURIComponent</code> function. Returns
@@ -82,6 +86,10 @@ public class HuginCrypto {
 	 */
 	public static OpenBox extraDataToMessage(String extra, List<String> knownKeys, KeyPair xkrKeyPair) {
 		extra = trimExtra(extra);
+		System.out.println(extra);
+
+		var keyPair = convertXKRKeypairToNaCl(xkrKeyPair);
+
 		return null;
 	}
 }
