@@ -101,7 +101,7 @@ public class HuginSyncer {
 						logger.debug("Transaction is already known: " + txHash);
 					}
 
-					var knownk = new ArrayList<String>();
+					var knownKeys = new ArrayList<String>();
 
 					var keyPair = new KeyPair();
 					keyPair.setPrivateSpendKey("0000000000000000000000000000000000000000000000000000000000000000");
@@ -112,11 +112,12 @@ public class HuginSyncer {
 					if (thisExtra != null && thisExtra.length() > 200) {
 						logger.debug("Extra data is less than 200 in length, skipping.");
 
-						openBox = HuginCrypto.extraDataToMessage(thisExtra, knownk, keyPair);
+						openBox = HuginCrypto.extraDataToMessage(thisExtra, knownKeys, keyPair);
 					}
 
 					if (openBox == null) {
 						logger.debug("Caught null message, skipping.");
+						continue;
 					}
 
 					if (openBox != null) {
