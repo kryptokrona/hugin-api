@@ -84,7 +84,7 @@ public class HuginCrypto {
 	 * @param xkrKeyPair Regular Kryptokrona key pair
 	 * @return Returns open sealed box from the extra data
 	 */
-	public static OpenBox extraDataToMessage(String extra, List<String> knownKeys, KeyPair xkrKeyPair) {
+	public static Box extraDataToMessage(String extra, List<String> knownKeys, KeyPair xkrKeyPair) {
 		extra = trimExtra(extra);
 		System.out.println(extra);
 
