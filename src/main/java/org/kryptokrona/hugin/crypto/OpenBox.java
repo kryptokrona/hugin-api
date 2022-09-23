@@ -7,12 +7,8 @@ package org.kryptokrona.hugin.crypto;
  */
 public class OpenBox {
 
-	private String key;
+	private String box;
 
-	private String from;
-
-	private String message;
-
-	private long timestamp;
+	private String timestamp;
 
 }
