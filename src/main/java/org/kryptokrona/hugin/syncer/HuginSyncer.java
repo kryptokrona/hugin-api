@@ -114,12 +114,12 @@ public class HuginSyncer {
 						boxObj = HuginCrypto.extraDataToMessage(thisExtra, knownKeys, keyPair);
 					}
 
-					if (openBox == null) {
+					if (boxObj == null) {
 						logger.debug("Caught null message, skipping.");
 						continue;
 					}
 
-					if (openBox != null) {
+					if (boxObj != null) {
 
 					}
 				}
