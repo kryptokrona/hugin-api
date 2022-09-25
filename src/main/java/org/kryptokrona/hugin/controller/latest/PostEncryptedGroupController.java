@@ -2,7 +2,6 @@ package org.kryptokrona.hugin.controller.latest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.kryptokrona.hugin.model.PostEncrypted;
 import org.kryptokrona.hugin.model.PostEncryptedGroup;
 import org.kryptokrona.hugin.service.PostEncryptedGroupService;
 import org.slf4j.Logger;
