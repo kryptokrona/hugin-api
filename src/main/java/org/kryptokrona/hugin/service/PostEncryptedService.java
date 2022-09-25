@@ -63,6 +63,14 @@ public class PostEncryptedService {
 		return null;
 	}
 
+	public boolean existsTxHash(String txHash) {
+		return postEncryptedRepository.existsPostEncryptedByTxHash(txHash);
+	}
+
+	public boolean existsTxBox(String txBox) {
+		return postEncryptedRepository.existsPostEncryptedByTxBox(txBox);
+	}
+
 	public void save(PostEncrypted postEncrypted) {
 		try {
 			postEncryptedRepository.save(postEncrypted);
