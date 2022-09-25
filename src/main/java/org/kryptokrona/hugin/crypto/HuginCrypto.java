@@ -23,7 +23,6 @@ public class HuginCrypto {
 
 	public static String trimExtra(String extra) {
 		try {
-			var payload = fromHex(extra.substring(66));
 			return fromHex(extra.substring(66));
 		} catch (Exception e) {
 			// return fromHex(Buffer);
@@ -44,7 +43,7 @@ public class HuginCrypto {
 		try {
 			byte[] bytes = javax.xml.bind.DatatypeConverter.parseHexBinary(hex);
 			String result = new String(bytes, "UTF-8");
-			str = result.replaceAll("[^a-zA-Z0-9_,:{}[$]\s\"]", "");
+			str = result.replaceAll("[^a-zA-Z0-9_,:#!?/&%+-`(){}[$]\s\"]", "");
 		} catch (Exception e) {
 			str = hex;
 			logger.error("Invalid hex input.");
@@ -92,7 +91,6 @@ public class HuginCrypto {
 	 * @return Returns open sealed box from the extra data
 	 */
 	public static PostItem extraDataToPost(String extra, List<String> knownKeys, KeyPair xkrKeyPair) throws IOException {
-		extra = trimExtra(extra);
 		var isPostObj = isPostObject(extra);
 
 		if (isPostObj) {

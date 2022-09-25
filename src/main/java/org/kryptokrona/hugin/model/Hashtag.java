@@ -25,8 +25,6 @@ public class Hashtag {
 	@Column(name = "name")
 	private String name;
 
-	@CreatedDate
-	@Generated(GenerationTime.INSERT)
 	@Column(name = "created_at", nullable = false, updatable = false)
 	private Date createdAt;
 
@@ -74,6 +72,11 @@ public class Hashtag {
 
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
+	}
+
+	@PrePersist
+	protected void onCreate() {
+		createdAt = new Date();
 	}
 
 }
