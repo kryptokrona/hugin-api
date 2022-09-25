@@ -51,10 +51,6 @@ public class HashtagService {
 		return null;
 	}
 
-	public boolean exists(String name) {
-		return hashtagRepository.existsHashtagByName(name);
-	}
-
 	public void save(Hashtag hashtag) {
 		try {
 			hashtagRepository.save(hashtag);
