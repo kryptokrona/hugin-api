@@ -1,6 +1,7 @@
 package org.kryptokrona.hugin.crypto;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.kryptokrona.hugin.http.PostItem;
 import org.kryptokrona.hugin.model.Post;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,51 +91,30 @@ public class HuginCrypto {
 	 * @param xkrKeyPair Regular Kryptokrona key pair
 	 * @return Returns open sealed box from the extra data
 	 */
-	public static Post extraDataToPost(String extra, List<String> knownKeys, KeyPair xkrKeyPair) throws IOException {
+	public static PostItem extraDataToPost(String extra, List<String> knownKeys, KeyPair xkrKeyPair) throws IOException {
 		extra = trimExtra(extra);
-		var isBoxObj = HuginCrypto.isBoxObject(extra);
-		var isSealedBoxObj = HuginCrypto.isSealedBoxObject(extra);
-
-		var objectMapper = new ObjectMapper();
+		var isBoxObj = isPostObject(extra);
 
 		if (isBoxObj) {
-			var boxObj = objectMapper.readValue(new StringReader(extra), Box.class);
-			var i = 0;
-			var decryptBox = false;
+			var objectMapper = new ObjectMapper();
+			var postObj = objectMapper.readValue(new StringReader(extra), PostItem.class);
 
-			try {
+			var thisAddr = 0;
+			var verified = true;
 
-			} catch (Exception e) {
-				logger.error("Could not decrypt box.");
-			}
-
-			while (i < knownKeys.size() && !decryptBox) {
-				var possibleKey = knownKeys.get(i);
-
-				i = i + 1;
-
-				try {
-					System.out.println("Remove this later.");
-				} catch (Exception e) {
-					logger.error("Could not decrypt with all known keys.");
-				}
-			}
-
-			if (!decryptBox) {
+			if (!verified) {
 				return null;
+			} else {
+				return postObj;
 			}
-
-			logger.info("box obj");
 		}
 
-		if (isSealedBoxObj) {
-			var boxObj = objectMapper.readValue(new StringReader(extra), SealedBox.class);
-			logger.info("sealed box obj");
-		}
-
-		var keyPair = convertXKRKeypairToNaCl(xkrKeyPair);
 
 		return null;
+	}
+
+	public static boolean isPostObject(String str) {
+		return str.contains("brd");
 	}
 
 	public static boolean isBoxObject(String str) {

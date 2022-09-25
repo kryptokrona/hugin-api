@@ -10,12 +10,14 @@ import org.kryptokrona.hugin.crypto.HuginCrypto;
 import org.kryptokrona.hugin.crypto.KeyPair;
 import org.kryptokrona.hugin.crypto.SealedBox;
 import org.kryptokrona.hugin.http.PoolChangesLite;
+import org.kryptokrona.hugin.http.PostItem;
 import org.kryptokrona.hugin.model.Post;
 import org.kryptokrona.hugin.model.PostEncrypted;
 import org.kryptokrona.hugin.model.PostEncryptedGroup;
 import org.kryptokrona.hugin.service.PostEncryptedGroupService;
 import org.kryptokrona.hugin.service.PostEncryptedService;
 import org.kryptokrona.hugin.service.PostService;
+import org.kryptokrona.hugin.validator.PostValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,7 +110,7 @@ public class HuginSyncer {
 					keyPair.setPrivateSpendKey("0000000000000000000000000000000000000000000000000000000000000000");
 					keyPair.setPrivateViewKey("0000000000000000000000000000000000000000000000000000000000000000");
 
-					Post boardPost = null;
+					PostItem boardPost = null;
 
 					// skipping this if extra data is less than 200 - we skip this statement
 					if (thisExtra != null && thisExtra.length() > 200) {
@@ -152,9 +154,27 @@ public class HuginSyncer {
 					if (boardPost == null) {
 						logger.debug("Caught null message, skipping.");
 					} else {
-						logger.info("Got 1 post. Post with tx hash: " + boardPost.getTxHash());
+						logger.info("Got 1 post. Post with key: " + boardPost.getK());
 
+						var postObj = new Post();
+						postObj.setMessage(boardPost.getM());
+						postObj.setKey(boardPost.getK());
+						postObj.setSignature(boardPost.getS());
+						postObj.setBoard(boardPost.getBrd());
+						postObj.setTime(boardPost.getT());
+						postObj.setNickname(boardPost.getN());
+						postObj.setTxHash(txHash);
+						postObj.setReplyTxHash(boardPost.getR());
+						// postObj.setAvatar()
 						// logic here
+
+						var postValidated = PostValidator.validatePost(postObj);
+
+						if (postValidated) {
+							logger.debug("Post was validated.");
+
+
+						}
 					}
 
 
