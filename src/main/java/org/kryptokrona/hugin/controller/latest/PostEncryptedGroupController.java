@@ -50,8 +50,10 @@ public class PostEncryptedGroupController {
 	) {
 		var pagination = postEncryptedGroupService.getAll(page, size, order);
 
+		var entries = pagination.getContent();
+
 		Map<String, Object> response = new HashMap<>();
-		response.put("encrypted_group_posts", pagination);
+		response.put("encrypted_group_posts", entries);
 		response.put("current_page", pagination.getNumber());
 		response.put("total_items", pagination.getTotalElements());
 		response.put("total_pages", pagination.getTotalPages());

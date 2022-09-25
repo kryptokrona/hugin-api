@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.kryptokrona.hugin.controller.latest.HashtagController.VERSION;
@@ -47,8 +48,10 @@ public class HashtagController {
 	) {
 		var pagination = hashtagService.getAll(page, size, order);
 
+		var hashtags = pagination.getContent();
+
 		Map<String, Object> response = new HashMap<>();
-		response.put("hashtags", pagination);
+		response.put("hashtags", hashtags);
 		response.put("current_page", pagination.getNumber());
 		response.put("total_items", pagination.getTotalElements());
 		response.put("total_pages", pagination.getTotalPages());
