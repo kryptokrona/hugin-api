@@ -147,7 +147,7 @@ public class HuginSyncer {
 						}
 
 						// saving board post if the extra data is a post otherwise it will contain null
-						boardPost = HuginCrypto.extraDataToPost(thisExtra, knownKeys, keyPair);
+						boardPost = HuginCrypto.extraDataToPost(extra, knownKeys, keyPair);
 					}
 
 					if (boardPost == null) {

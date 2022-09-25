@@ -12,9 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -86,18 +84,27 @@ public class PostService {
 
     public void save(Post post) {
         try {
-            postRepository.save(post);
-
-            List<String> hashtagList = new ArrayList<>();
+            Set<Hashtag> hashtagList = new HashSet<>();
             Matcher matcher = Pattern.compile("\\B#\\w+").matcher(post.getMessage());
 
+            // if we find matches of hashtags in message
             while (matcher.find()) {
-                hashtagList.add(matcher.group());
-                System.out.println(matcher.group());
+
+                // create one if it doesn't already exist in db
+                if (hashtagRepository.existsHashtagByName(matcher.group())) {
+                    logger.debug("Hashtag already exists in db, skipping.");
+                } else {
+                    var hashtagObj = new Hashtag();
+                    hashtagObj.setName(matcher.group().replaceAll("#", ""));
+                    hashtagRepository.save(hashtagObj);
+
+                    // save the hashtag to the list of hashtags
+                    hashtagList.add(hashtagObj);
+                }
             }
 
-            // var hashtag = new Hashtag();
-            // hashtag.setName();
+            post.setHashtags(new ArrayList<>(hashtagList));
+            postRepository.save(post);
 
             logger.info("Post with tx hash was added: " + post.getTxHash());
         } catch (Exception e) {
