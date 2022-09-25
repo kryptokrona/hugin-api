@@ -11,5 +11,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface PostEncryptedGroupRepository extends JpaRepository<PostEncryptedGroup, Long> {
+
 	boolean existsPostByTxHash(String txHash);
+
+	PostEncryptedGroup findPostEncryptedGroupByTxHash(String txHash);
+
 }

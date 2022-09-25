@@ -22,4 +22,5 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 	Page<Post> findAllExcludeAvatar(Pageable pageable);
 
 	Post findPostByTxHash(String txHash);
+
 }
