@@ -36,10 +36,6 @@ public class PostService {
         this.hashtagRepository = hashtagRepository;
     }
 
-    public Page<Post> getAll(int page, int size, String order, boolean avatar) {
-        return getAll(page, size, order,null, null, avatar);
-    }
-
     public Page<Post> getAll(int page, int size, String order, Long startUnixTime, Long endUnixTime, boolean avatar) {
         PageRequest paging;
 
