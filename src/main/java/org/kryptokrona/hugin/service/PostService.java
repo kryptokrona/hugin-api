@@ -99,7 +99,11 @@ public class PostService {
                     hashtagRepository.save(hashtagObj);
 
                     // save the hashtag to the list of hashtags
-                    hashtagList.add(hashtagObj);
+                    var hashtagExists = hashtagList.stream().anyMatch(hashtag -> hashtag.getName().equals(hashtagObj.getName())); //TODO DOESNT WORK!
+
+                    if (!hashtagExists) {
+                        hashtagList.add(hashtagObj);
+                    }
                 }
             }
 
