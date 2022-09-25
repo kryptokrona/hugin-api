@@ -89,9 +89,28 @@ public class HuginCrypto {
 	 */
 	public static Post extraDataToPost(String extra, List<String> knownKeys, KeyPair xkrKeyPair) {
 		extra = trimExtra(extra);
+		var isBoxObj = HuginCrypto.isBoxObject(extra);
+		var isSealedBoxObj = HuginCrypto.isSealedBoxObject(extra);
+
+		if (isBoxObj) {
+			logger.info("box obj");
+		}
+
+		if (isSealedBoxObj) {
+			logger.info("sealed box obj");
+		}
 
 		var keyPair = convertXKRKeypairToNaCl(xkrKeyPair);
 
 		return null;
 	}
+
+	public static boolean isBoxObject(String str) {
+		return str.contains("box");
+	}
+
+	public static boolean isSealedBoxObject(String str) {
+		return str.contains("sb");
+	}
+
 }
