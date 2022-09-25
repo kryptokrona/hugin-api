@@ -1,5 +1,6 @@
 package org.kryptokrona.hugin.crypto;
 
+import org.kryptokrona.hugin.model.Post;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,14 +80,14 @@ public class HuginCrypto {
 	}
 
 	/**
-	 * Takes raw extra data from the blockchain and converts it to a message.
+	 * Takes raw extra data from the blockchain and converts it to a post object.
 	 *
 	 * @param extra The extra
 	 * @param knownKeys Public keys
 	 * @param xkrKeyPair Regular Kryptokrona key pair
 	 * @return Returns open sealed box from the extra data
 	 */
-	public static Box extraDataToMessage(String extra, List<String> knownKeys, KeyPair xkrKeyPair) {
+	public static Post extraDataToPost(String extra, List<String> knownKeys, KeyPair xkrKeyPair) {
 		extra = trimExtra(extra);
 
 		var keyPair = convertXKRKeypairToNaCl(xkrKeyPair);
