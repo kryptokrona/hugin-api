@@ -1,9 +1,12 @@
 package org.kryptokrona.hugin.crypto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class SealedBox {
 
 	private String sb;
 
+	@JsonProperty("t")
 	private long timestamp;
 
 	public String getSb() {

@@ -5,6 +5,6 @@ spring:
     password: ${POSTGRESQL_DB_PASSWORD:test1234}
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 
 apiServerUrl: ${SYS_API_SERVER_URL}

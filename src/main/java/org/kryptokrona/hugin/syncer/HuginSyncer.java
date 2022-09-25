@@ -84,12 +84,10 @@ public class HuginSyncer {
 	public Observable<Void> getPoolChangesLite() {
 		try {
 			getRequest("get_pool_changes_lite").subscribe(response -> {
-				// System.out.println(response.asString());
-				ObjectMapper objectMapper = new ObjectMapper();
-				Reader reader = new StringReader(response.asString());
+				var objectMapper = new ObjectMapper();
+				var reader = new StringReader(response.asString());
 
 				PoolChangesLite poolChangesLite = objectMapper.readValue(reader, PoolChangesLite.class);
-				// System.out.println(poolChangesLite.getStatus());
 
 				var transactions = poolChangesLite.getAddedTxs();
 
@@ -123,7 +121,7 @@ public class HuginSyncer {
 
 						// encrypted post
 						if (isBoxObj) {
-							var boxObj = objectMapper.readValue(reader, Box.class);
+							var boxObj = objectMapper.readValue(new StringReader(extra), Box.class);
 
 							var exists = postEncryptedService.existsTxBox(boxObj.getBox());
 
@@ -137,7 +135,7 @@ public class HuginSyncer {
 
 						// encrypted group post
 						if (isSealedBoxObj) {
-							var boxObj = objectMapper.readValue(reader, SealedBox.class);
+							var boxObj = objectMapper.readValue(new StringReader(extra), SealedBox.class);
 
 							var exists = postEncryptedGroupService.existsByTxSb(boxObj.getSb());
 
@@ -147,9 +145,6 @@ public class HuginSyncer {
 								postEncryptedGroupObj.setTxTimestamp(boxObj.getTimestamp());
 								postEncryptedGroupService.save(postEncryptedGroupObj);
 							}
-
-							// check if encrypted group post already exists in db
-
 						}
 
 						// boardPost = HuginCrypto.extraDataToMessage(thisExtra, knownKeys, keyPair);
@@ -179,10 +174,10 @@ public class HuginSyncer {
 	}
 
 	private boolean isBoxObject(String str) {
-		return false;
+		return str.contains("box");
 	}
 
 	private boolean isSealedBoxObject(String str) {
-		return false;
+		return str.contains("sb");
 	}
 }

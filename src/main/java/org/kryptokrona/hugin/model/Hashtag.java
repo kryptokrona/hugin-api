@@ -1,6 +1,8 @@
 package org.kryptokrona.hugin.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -24,6 +26,7 @@ public class Hashtag {
 	private String name;
 
 	@CreatedDate
+	@Generated(GenerationTime.INSERT)
 	@Column(name = "created_at", nullable = false, updatable = false)
 	private Date createdAt;
 
