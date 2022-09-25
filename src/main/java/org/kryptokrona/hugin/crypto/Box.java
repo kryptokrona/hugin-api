@@ -1,8 +1,23 @@
 package org.kryptokrona.hugin.crypto;
 
-public abstract class Box {
+/**
+ * OpenBox.
+ *
+ * @author Marcus Cvjeticanin
+ */
+public class Box {
+
+	private String box;
 
 	private long timestamp;
+
+	public String getBox() {
+		return box;
+	}
+
+	public void setBox(String box) {
+		this.box = box;
+	}
 
 	public long getTimestamp() {
 		return timestamp;
@@ -11,4 +26,5 @@ public abstract class Box {
 	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
 	}
+
 }
