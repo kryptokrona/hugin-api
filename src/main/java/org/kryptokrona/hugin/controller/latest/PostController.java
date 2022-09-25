@@ -50,8 +50,10 @@ public class PostController {
     ) {
         var pagination = postService.getAll(page, size, order, avatar);
 
+        var entries = pagination.getContent();
+
         Map<String, Object> response = new HashMap<>();
-        response.put("posts", pagination);
+        response.put("posts", entries);
         response.put("current_page", pagination.getNumber());
         response.put("total_items", pagination.getTotalElements());
         response.put("total_pages", pagination.getTotalPages());
