@@ -21,6 +21,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 	@Query(value = "SELECT id, message, key, signature, board, time, nickname, tx_hash, reply, created_at FROM post", nativeQuery = true)
 	Page<Post> findAllExcludeAvatar(Pageable pageable);
 
+	Page<Post> findAllByTimeBetween(Pageable pageable, long startTime, long endTime);
+
 	Post findPostByTxHash(String txHash);
 
 }

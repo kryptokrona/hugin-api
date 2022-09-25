@@ -48,7 +48,7 @@ public class PostController {
       @RequestParam(required = false) Long endUnixTime,
       @RequestParam(required = false, defaultValue = "false") Boolean avatar
     ) {
-        var pagination = postService.getAll(page, size, order, avatar);
+        var pagination = postService.getAll(page, size, order, startUnixTime, endUnixTime, avatar);
 
         var entries = pagination.getContent();
 
