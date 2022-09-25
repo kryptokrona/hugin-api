@@ -125,6 +125,7 @@ public class HuginSyncer {
 								var postEncryptedObj = new PostEncrypted();
 								postEncryptedObj.setTxBox(boxObj.getBox());
 								postEncryptedObj.setTxTimestamp(boxObj.getTimestamp());
+								postEncryptedObj.setTxHash(txHash);
 								postEncryptedService.save(postEncryptedObj);
 							}
 						}
@@ -139,6 +140,7 @@ public class HuginSyncer {
 								var postEncryptedGroupObj = new PostEncryptedGroup();
 								postEncryptedGroupObj.setTxSb(boxObj.getSb());
 								postEncryptedGroupObj.setTxTimestamp(boxObj.getTimestamp());
+								postEncryptedGroupObj.setTxHash(txHash);
 								postEncryptedGroupService.save(postEncryptedGroupObj);
 							}
 						}
