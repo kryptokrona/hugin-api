@@ -44,7 +44,7 @@ public class HuginCrypto {
 		try {
 			byte[] bytes = javax.xml.bind.DatatypeConverter.parseHexBinary(hex);
 			String result = new String(bytes, "UTF-8");
-			str = result.replaceAll("[^a-zA-Z0-9_,:{}[$]\"]", "");
+			str = result.replaceAll("[^a-zA-Z0-9_,:{}[$]\s\"]", "");
 		} catch (Exception e) {
 			str = hex;
 			logger.error("Invalid hex input.");
@@ -93,9 +93,9 @@ public class HuginCrypto {
 	 */
 	public static PostItem extraDataToPost(String extra, List<String> knownKeys, KeyPair xkrKeyPair) throws IOException {
 		extra = trimExtra(extra);
-		var isBoxObj = isPostObject(extra);
+		var isPostObj = isPostObject(extra);
 
-		if (isBoxObj) {
+		if (isPostObj) {
 			var objectMapper = new ObjectMapper();
 			var postObj = objectMapper.readValue(new StringReader(extra), PostItem.class);
 
