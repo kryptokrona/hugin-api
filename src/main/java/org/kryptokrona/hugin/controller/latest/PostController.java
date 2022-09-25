@@ -41,12 +41,12 @@ public class PostController {
     @GetMapping
     @Operation(summary = "Get all posts", description = "Get all posts with pagination.")
     public ResponseEntity<Map<String, Object>> getAll(
-      @RequestParam(required = false, defaultValue = "0") int page,
-      @RequestParam(required = false, defaultValue = "25") int size,
+      @RequestParam(required = false, defaultValue = "0") Integer page,
+      @RequestParam(required = false, defaultValue = "25") Integer size,
       @RequestParam(required = false, defaultValue = "desc") String order,
-      @RequestParam(required = false) long startUnixTime,
-      @RequestParam(required = false) long endUnixTime,
-      @RequestParam(required = false, defaultValue = "false") boolean avatar
+      @RequestParam(required = false) Long startUnixTime,
+      @RequestParam(required = false) Long endUnixTime,
+      @RequestParam(required = false, defaultValue = "false") Boolean avatar
     ) {
         var pagination = postService.getAll(page, size, order, avatar);
 
