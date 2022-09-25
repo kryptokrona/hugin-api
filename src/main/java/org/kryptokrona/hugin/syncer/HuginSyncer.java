@@ -9,6 +9,7 @@ import org.kryptokrona.hugin.crypto.Box;
 import org.kryptokrona.hugin.crypto.HuginCrypto;
 import org.kryptokrona.hugin.crypto.KeyPair;
 import org.kryptokrona.hugin.crypto.SealedBox;
+import org.kryptokrona.hugin.handler.SocketPostHandler;
 import org.kryptokrona.hugin.http.PoolChangesLite;
 import org.kryptokrona.hugin.http.PostItem;
 import org.kryptokrona.hugin.model.Post;
@@ -175,6 +176,7 @@ public class HuginSyncer {
 
 							if (!postExist) {
 								postService.save(postObj);
+
 							} else {
 								logger.debug("Post already exists in db.");
 							}
