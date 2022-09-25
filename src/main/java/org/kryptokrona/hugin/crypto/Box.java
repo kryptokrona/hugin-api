@@ -1,5 +1,7 @@
 package org.kryptokrona.hugin.crypto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * OpenBox.
  *
@@ -9,6 +11,7 @@ public class Box {
 
 	private String box;
 
+	@JsonProperty("t")
 	private long timestamp;
 
 	public String getBox() {

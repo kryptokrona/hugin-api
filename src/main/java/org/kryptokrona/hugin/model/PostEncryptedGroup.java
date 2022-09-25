@@ -1,5 +1,7 @@
 package org.kryptokrona.hugin.model;
 
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -18,16 +20,17 @@ public class PostEncryptedGroup {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(name = "tx_hash")
+	@Column(name = "tx_hash", length=64)
 	private String txHash;
 
-	@Column(name = "tx_sb")
+	@Column(name = "tx_sb", length=2000) //TODO: need to check how long this actually should be
 	private String txSb;
 
 	@Column(name = "tx_timestamp")
 	private long txTimestamp;
 
 	@CreatedDate
+	@Generated(GenerationTime.INSERT)
 	@Column(name = "created_at", nullable = false, updatable = false)
 	private Date createdAt;
 

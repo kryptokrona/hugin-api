@@ -2,6 +2,8 @@ package org.kryptokrona.hugin.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -21,13 +23,13 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "message")
+    @Column(name = "message", length=2000) //TODO: this value we might need to increase
     private String message;
 
-    @Column(name = "key")
+    @Column(name = "key", length=99)
     private String key;
 
-    @Column(name = "signature")
+    @Column(name = "signature", length=128)
     private String signature;
 
     @Column(name = "board")
@@ -41,13 +43,14 @@ public class Post {
     private String nickname;
 
     @JsonProperty("tx_hash")
-    @Column(name = "tx_hash")
+    @Column(name = "tx_hash", length=64)
     private String txHash;
 
-    @Column(name = "reply")
+    @Column(name = "reply", length=64)
     private String replyTxHash;
 
     @CreatedDate
+    @Generated(GenerationTime.INSERT)
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;
 

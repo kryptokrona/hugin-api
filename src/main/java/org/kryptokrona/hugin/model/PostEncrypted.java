@@ -1,6 +1,9 @@
 package org.kryptokrona.hugin.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -20,18 +23,17 @@ public class PostEncrypted {
 	private Long id;
 
 	@JsonProperty("tx_hash")
-	@Column(name = "tx_hash")
+	@Column(name = "tx_hash", length=64)
 	private String txHash;
 
 	@JsonProperty("tx_box")
-	@Column(name = "tx_box")
+	@Column(name = "tx_box", length = 2000) //TODO: need to check how long this actually can be
 	private String txBox;
 
 	@JsonProperty("tx_timestamp")
 	@Column(name = "tx_timestamp")
 	private long txTimestamp;
 
-	@CreatedDate
 	@Column(name = "created_at", nullable = false, updatable = false)
 	private Date createdAt;
 
@@ -73,5 +75,10 @@ public class PostEncrypted {
 
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+	}
+
+	@PrePersist
+	protected void onCreate() {
+		createdAt = new Date();
 	}
 }
