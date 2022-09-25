@@ -154,7 +154,7 @@ public class HuginSyncer {
 					if (boardPost == null) {
 						logger.debug("Caught null message, skipping.");
 					} else {
-						logger.info("Got 1 post. Post with tx hash: " + txHash);
+						logger.debug("Got 1 post. Post with tx hash: " + txHash);
 
 						var postObj = new Post();
 						postObj.setMessage(boardPost.getM());
@@ -184,8 +184,6 @@ public class HuginSyncer {
 							logger.debug("Post was not validated, skipping.");
 						}
 					}
-
-
 				}
 			});
 		} catch(IOException e) {
