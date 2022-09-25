@@ -10,6 +10,7 @@ import org.kryptokrona.hugin.crypto.HuginCrypto;
 import org.kryptokrona.hugin.crypto.KeyPair;
 import org.kryptokrona.hugin.crypto.SealedBox;
 import org.kryptokrona.hugin.http.PoolChangesLite;
+import org.kryptokrona.hugin.model.Post;
 import org.kryptokrona.hugin.model.PostEncrypted;
 import org.kryptokrona.hugin.model.PostEncryptedGroup;
 import org.kryptokrona.hugin.service.PostEncryptedGroupService;
@@ -62,7 +63,7 @@ public class HuginSyncer {
 
 	@Scheduled(fixedRate=1000)
 	public void sync() {
-		logger.info("Background syncing...");
+		logger.debug("Background syncing...");
 		// this.brokerMessagingTemplate.convertAndSend("/user", "foo");
 
 		hostname = new HostName(nodeHostname);
@@ -107,7 +108,7 @@ public class HuginSyncer {
 					keyPair.setPrivateSpendKey("0000000000000000000000000000000000000000000000000000000000000000");
 					keyPair.setPrivateViewKey("0000000000000000000000000000000000000000000000000000000000000000");
 
-					Box boardPost = null;
+					Post boardPost = null;
 
 					// skipping this if extra data is less than 200 - we skip this statement
 					if (thisExtra != null && thisExtra.length() > 200) {
@@ -145,7 +146,15 @@ public class HuginSyncer {
 							}
 						}
 
-						// boardPost = HuginCrypto.extraDataToMessage(thisExtra, knownKeys, keyPair);
+						boardPost = HuginCrypto.extraDataToPost(thisExtra, knownKeys, keyPair);
+					}
+
+					if (boardPost == null) {
+						logger.debug("Caught null message, skipping.");
+					} else {
+						logger.info("Got 1 post. Post with tx hash: " + boardPost.getTxHash());
+
+						// logic here
 					}
 
 
