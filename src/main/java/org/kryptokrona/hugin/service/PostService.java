@@ -1,6 +1,8 @@
 package org.kryptokrona.hugin.service;
 
+import org.kryptokrona.hugin.model.Hashtag;
 import org.kryptokrona.hugin.model.Post;
+import org.kryptokrona.hugin.repository.HashtagRepository;
 import org.kryptokrona.hugin.repository.PostRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +12,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Post Service.
@@ -22,11 +28,14 @@ public class PostService {
 
     private final PostRepository postRepository;
 
+    private final HashtagRepository hashtagRepository;
+
     private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 
     @Autowired
-    public PostService(PostRepository postRepository) {
+    public PostService(PostRepository postRepository, HashtagRepository hashtagRepository) {
         this.postRepository = postRepository;
+        this.hashtagRepository = hashtagRepository;
     }
 
     public Page<Post> getAll(int page, int size, String order, boolean avatar) {
@@ -78,6 +87,18 @@ public class PostService {
     public void save(Post post) {
         try {
             postRepository.save(post);
+
+            List<String> hashtagList = new ArrayList<>();
+            Matcher matcher = Pattern.compile("\\B#\\w+").matcher(post.getMessage());
+
+            while (matcher.find()) {
+                hashtagList.add(matcher.group());
+                System.out.println(matcher.group());
+            }
+
+            // var hashtag = new Hashtag();
+            // hashtag.setName();
+
             logger.info("Post with tx hash was added: " + post.getTxHash());
         } catch (Exception e) {
             logger.error("Unable to add post with tx hash: " + post.getTxHash());
