@@ -39,7 +39,7 @@ public class PostEncryptedService {
 				return postEncryptedRepository.findAll(paging);
 			}
 
-			return postEncryptedRepository.findAllByTimeBetween(paging, startUnixTime, endUnixTime);
+			return postEncryptedRepository.findAllByTxTimestampBetween(paging, startUnixTime, endUnixTime);
 		}
 
 		paging = PageRequest.of(page, size, Sort.by("id").descending());
@@ -48,7 +48,7 @@ public class PostEncryptedService {
 			return postEncryptedRepository.findAll(paging);
 		}
 
-		return postEncryptedRepository.findAllByTimeBetween(paging, startUnixTime, endUnixTime);
+		return postEncryptedRepository.findAllByTxTimestampBetween(paging, startUnixTime, endUnixTime);
 	}
 
 	public PostEncrypted getById(long id) {

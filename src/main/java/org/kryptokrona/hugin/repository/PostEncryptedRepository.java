@@ -21,6 +21,6 @@ public interface PostEncryptedRepository extends JpaRepository<PostEncrypted, Lo
 
 	PostEncrypted findPostEncryptedByTxHash(String txHash);
 
-	Page<PostEncrypted> findAllByTimeBetween(Pageable pageable, long startTime, long endTime);
+	Page<PostEncrypted> findAllByTxTimestampBetween(Pageable pageable, Long startTime, Long endTime);
 
 }
