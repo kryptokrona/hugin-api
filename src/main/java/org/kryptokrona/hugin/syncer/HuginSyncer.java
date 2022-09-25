@@ -71,8 +71,6 @@ public class HuginSyncer {
 		hostname = new HostName(nodeHostname);
 
 		getPoolChangesLite().subscribe(System.out::println);
-
-		// populate database with incoming data
 	}
 
 	/**
@@ -148,6 +146,7 @@ public class HuginSyncer {
 							}
 						}
 
+						// saving board post if the extra data is a post otherwise it will contain null
 						boardPost = HuginCrypto.extraDataToPost(thisExtra, knownKeys, keyPair);
 					}
 
@@ -166,7 +165,6 @@ public class HuginSyncer {
 						postObj.setTxHash(txHash);
 						postObj.setReplyTxHash(boardPost.getR());
 						// postObj.setAvatar()
-						// logic here
 
 						var postValidated = PostValidator.validatePost(postObj);
 
