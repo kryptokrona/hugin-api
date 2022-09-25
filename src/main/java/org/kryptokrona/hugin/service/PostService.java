@@ -51,8 +51,6 @@ public class PostService {
             return avatar ?
                     postRepository.findAllByTimeBetween(paging, startUnixTime, endUnixTime) :
                     postRepository.findAllExcludeAvatar(paging);
-
-
         }
 
         paging = PageRequest.of(page, size, Sort.by("id").descending());
@@ -66,7 +64,6 @@ public class PostService {
         return avatar ?
                 postRepository.findAllByTimeBetween(paging, startUnixTime, endUnixTime) :
                 postRepository.findAllExcludeAvatar(paging);
-
     }
 
     public Post getById(long id) {
