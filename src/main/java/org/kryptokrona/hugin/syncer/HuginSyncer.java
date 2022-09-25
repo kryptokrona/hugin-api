@@ -113,8 +113,8 @@ public class HuginSyncer {
 					// skipping this if extra data is less than 200 - we skip this statement
 					if (thisExtra != null && thisExtra.length() > 200) {
 						var extra = HuginCrypto.trimExtra(thisExtra);
-						var isBoxObj = isBoxObject(extra);
-						var isSealedBoxObj = isSealedBoxObject(extra);
+						var isBoxObj = HuginCrypto.isBoxObject(extra);
+						var isSealedBoxObj = HuginCrypto.isSealedBoxObject(extra);
 
 						// encrypted post
 						if (isBoxObj) {
@@ -178,13 +178,5 @@ public class HuginSyncer {
 				.execute().returnContent();
 
 		return Observable.just(request);
-	}
-
-	private boolean isBoxObject(String str) {
-		return str.contains("box");
-	}
-
-	private boolean isSealedBoxObject(String str) {
-		return str.contains("sb");
 	}
 }
