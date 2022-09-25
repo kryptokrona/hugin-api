@@ -52,7 +52,7 @@ public class PostEncryptedGroupService {
 	}
 
 	public PostEncryptedGroup getByTxHash(String txHash) {
-		if (postEncryptedGroupRepository.existsPostByTxHash(txHash)) {
+		if (postEncryptedGroupRepository.existsPostEncryptedGroupByTxHash(txHash)) {
 			PostEncryptedGroup postEncryptedGroup = postEncryptedGroupRepository.findPostEncryptedGroupByTxHash(txHash);
 			logger.info("Encrypted group post found with tx hash: " + postEncryptedGroup.getTxHash());
 			return postEncryptedGroup;
@@ -61,6 +61,14 @@ public class PostEncryptedGroupService {
 		logger.info("Unable to find encrypted group post with tx hash: " + txHash);
 
 		return null;
+	}
+
+	public boolean existsByTxHash(String txHash) {
+		return postEncryptedGroupRepository.existsPostEncryptedGroupByTxHash(txHash);
+	}
+
+	public boolean existsByTxSb(String txSb) {
+		return postEncryptedGroupRepository.existsPostEncryptedGroupByTxSb(txSb);
 	}
 
 	public void save(PostEncryptedGroup postEncryptedGroup) {

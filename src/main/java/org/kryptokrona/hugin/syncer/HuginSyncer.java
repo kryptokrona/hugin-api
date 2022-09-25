@@ -8,7 +8,10 @@ import org.apache.hc.client5.http.fluent.Request;
 import org.kryptokrona.hugin.crypto.Box;
 import org.kryptokrona.hugin.crypto.HuginCrypto;
 import org.kryptokrona.hugin.crypto.KeyPair;
+import org.kryptokrona.hugin.crypto.SealedBox;
 import org.kryptokrona.hugin.http.PoolChangesLite;
+import org.kryptokrona.hugin.model.PostEncrypted;
+import org.kryptokrona.hugin.model.PostEncryptedGroup;
 import org.kryptokrona.hugin.repository.PostEncryptedGroupRepository;
 import org.kryptokrona.hugin.repository.PostEncryptedRepository;
 import org.kryptokrona.hugin.repository.PostRepository;
@@ -120,20 +123,30 @@ public class HuginSyncer {
 
 						// encrypted post
 						if (isBoxObj) {
-							// parse box object
-							Box boxObj = objectMapper.readValue(reader, Box.class);
+							var boxObj = objectMapper.readValue(reader, Box.class);
 
-							// check if encrypted post already exists in db
-							var exists = postEncryptedRepository.existsPostEncryptedByTxBox(boxObj.getBox());
+							var exists = postEncryptedService.existsTxBox(boxObj.getBox());
 
 							if (!exists) {
-								postEncrypted.save(boxObj);
+								var postEncryptedObj = new PostEncrypted();
+								postEncryptedObj.setTxBox(boxObj.getBox());
+								postEncryptedObj.setTxTimestamp(boxObj.getTimestamp());
+								postEncryptedService.save(postEncryptedObj);
 							}
 						}
 
 						// encrypted group post
 						if (isSealedBoxObj) {
-							// parse box object
+							var boxObj = objectMapper.readValue(reader, SealedBox.class);
+
+							var exists = postEncryptedGroupService.existsByTxSb(boxObj.getSb());
+
+							if (!exists) {
+								var postEncryptedGroupObj = new PostEncryptedGroup();
+								postEncryptedGroupObj.setTxSb(boxObj.getSb());
+								postEncryptedGroupObj.setTxTimestamp(boxObj.getTimestamp());
+								postEncryptedGroupService.save(postEncryptedGroupObj);
+							}
 
 							// check if encrypted group post already exists in db
 

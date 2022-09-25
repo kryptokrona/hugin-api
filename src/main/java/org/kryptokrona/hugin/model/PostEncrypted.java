@@ -29,7 +29,7 @@ public class PostEncrypted {
 
 	@JsonProperty("tx_timestamp")
 	@Column(name = "tx_timestamp")
-	private String txTimestamp;
+	private long txTimestamp;
 
 	@CreatedDate
 	@Column(name = "created_at", nullable = false, updatable = false)
@@ -59,12 +59,12 @@ public class PostEncrypted {
 		this.txBox = txBox;
 	}
 
-	public String getTxTimestamp() {
+	public long getTxTimestamp() {
 		return txTimestamp;
 	}
 
-	public void setTxTimestamp(String txTimestamp) {
-		this.txTimestamp = txTimestamp;
+	public void setTxTimestamp(long timestamp) {
+		this.txTimestamp = timestamp;
 	}
 
 	public Date getCreatedAt() {
