@@ -7,4 +7,11 @@ spring:
     hibernate:
       ddl-auto: create
 
+logging:
+  level:
+    org:
+      kryptokrona:
+        hugin:
+          syncer: DEBUG
+
 apiServerUrl: ${SYS_API_SERVER_URL}
