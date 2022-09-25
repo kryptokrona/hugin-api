@@ -49,8 +49,6 @@ public class Post {
     @Column(name = "reply", length=64)
     private String replyTxHash;
 
-    @CreatedDate
-    @Generated(GenerationTime.INSERT)
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;
 
@@ -160,6 +158,11 @@ public class Post {
 
     public void setHashtags(List<Hashtag> hashtags) {
       this.hashtags = hashtags;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = new Date();
     }
 
 }
