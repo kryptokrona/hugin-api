@@ -1,5 +1,6 @@
 package org.kryptokrona.hugin.service;
 
+import org.kryptokrona.hugin.model.PostEncrypted;
 import org.kryptokrona.hugin.model.PostEncryptedGroup;
 import org.kryptokrona.hugin.repository.PostEncryptedGroupRepository;
 import org.slf4j.Logger;
@@ -51,8 +52,16 @@ public class PostEncryptedGroupService {
 		return null;
 	}
 
-	public boolean exists(String txHash) {
-		return postEncryptedGroupRepository.existsPostByTxHash(txHash);
+	public PostEncryptedGroup getByTxHash(String txHash) {
+		if (postEncryptedGroupRepository.existsPostByTxHash(txHash)) {
+			PostEncryptedGroup postEncryptedGroup = postEncryptedGroupRepository.findPostEncryptedGroupByTxHash(txHash);
+			logger.info("Encrypted group post found with tx hash: " + postEncryptedGroup.getTxHash());
+			return postEncryptedGroup;
+		}
+
+		logger.info("Unable to find encrypted group post with tx hash: " + txHash);
+
+		return null;
 	}
 
 	public void save(PostEncryptedGroup postEncryptedGroup) {
