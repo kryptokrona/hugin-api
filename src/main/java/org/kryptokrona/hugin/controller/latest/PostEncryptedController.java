@@ -43,7 +43,9 @@ public class PostEncryptedController {
 	public ResponseEntity<Map<String, Object>> getAll(
 			@RequestParam(required = false, defaultValue = "0") int page,
 			@RequestParam(required = false, defaultValue = "25") int size,
-			@RequestParam(required = false, defaultValue = "desc") String order
+			@RequestParam(required = false, defaultValue = "desc") String order,
+			@RequestParam(required = false) Long startUnixTime,
+			@RequestParam(required = false) Long endUnixTime
 	) {
 		var pagination = postEncryptedService.getAll(page, size, order);
 
