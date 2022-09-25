@@ -47,7 +47,7 @@ public class PostEncryptedController {
 			@RequestParam(required = false) Long startUnixTime,
 			@RequestParam(required = false) Long endUnixTime
 	) {
-		var pagination = postEncryptedService.getAll(page, size, order);
+		var pagination = postEncryptedService.getAll(page, size, order, startUnixTime, endUnixTime);
 
 		var entries = pagination.getContent();
 
