@@ -107,22 +107,30 @@ public class HuginSyncer {
 					keyPair.setPrivateSpendKey("0000000000000000000000000000000000000000000000000000000000000000");
 					keyPair.setPrivateViewKey("0000000000000000000000000000000000000000000000000000000000000000");
 
-					Box boxObj = null;
+					Box boardPost = null;
 
 					// skipping this if extra data is less than 200 - we skip this statement
 					if (thisExtra != null && thisExtra.length() > 200) {
 						var extra = HuginCrypto.trimExtra(thisExtra);
-						boxObj = HuginCrypto.extraDataToMessage(thisExtra, knownKeys, keyPair);
+						var isBoxObj = isBoxObject(extra);
+						var isSealedBoxObj = isSealedBoxObject(extra);
+
+						// encrypted post
+						if (isBoxObj) {
+							// check if encrypted post already exists in db
+
+						}
+
+						// encrypted group post
+						if (isSealedBoxObj) {
+							// check if encrypted group post already exists in db
+
+						}
+
+						// boardPost = HuginCrypto.extraDataToMessage(thisExtra, knownKeys, keyPair);
 					}
 
-					if (boxObj == null) {
-						logger.debug("Caught null message, skipping.");
-						continue;
-					}
 
-					if (boxObj != null) {
-
-					}
 				}
 			});
 		} catch(IOException e) {
@@ -143,5 +151,13 @@ public class HuginSyncer {
 				.execute().returnContent();
 
 		return Observable.just(request);
+	}
+
+	private boolean isBoxObject(String str) {
+		return false;
+	}
+
+	private boolean isSealedBoxObject(String str) {
+		return false;
 	}
 }

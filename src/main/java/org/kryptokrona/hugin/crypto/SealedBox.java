@@ -1,8 +1,10 @@
 package org.kryptokrona.hugin.crypto;
 
-public class SealedBox extends Box {
+public class SealedBox {
 
 	private String sb;
+
+	private long timestamp;
 
 	public String getSb() {
 		return sb;
@@ -12,4 +14,11 @@ public class SealedBox extends Box {
 		this.sb = sb;
 	}
 
+	public long getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
+	}
 }
