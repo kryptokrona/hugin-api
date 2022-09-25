@@ -38,15 +38,6 @@ public class PostController {
         this.postService = postService;
     }
 
-    /**
-     * Get all posts.
-     *
-     * @param page The page number
-     * @param size The total amount of entries per page
-     * @param order The order in form av desc/asc
-     * @param avatar If the avatar field be included
-     * @return ResponseEntity
-     */
     @GetMapping
     @Operation(summary = "Get all posts", description = "Get all posts with pagination.")
     public ResponseEntity<Map<String, Object>> getAll(
@@ -70,12 +61,6 @@ public class PostController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    /**
-     * Get a specific post by ID.
-     *
-     * @param id The id to look for.
-     * @return Returns the specific post.
-     */
     @GetMapping("{id}")
     @Operation(
             summary = "Get a specific post by ID",
@@ -83,6 +68,21 @@ public class PostController {
     )
     public ResponseEntity<Post> getById(@PathVariable long id) {
         var obj = postService.getById(id);
+
+        if (obj == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(obj, HttpStatus.OK);
+    }
+
+    @GetMapping("{tx_hash}")
+    @Operation(
+            summary = "Get a specific post by transaction hash",
+            description = "Get a specific post by transaction hash."
+    )
+    public ResponseEntity<Post> getByTxHash(@PathVariable String txHash) {
+        var obj = postService.getByTxHash(txHash);
 
         if (obj == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

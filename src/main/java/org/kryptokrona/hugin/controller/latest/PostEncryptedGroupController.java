@@ -38,14 +38,6 @@ public class PostEncryptedGroupController {
 		this.postEncryptedGroupService = postEncryptedGroupService;
 	}
 
-	/**
-	 * Get all encrypted group posts.
-	 *
-	 * @param page The page number
-	 * @param size The total amount of entries per page
-	 * @param order The order in form av desc/asc
-	 * @return ResponseEntity
-	 */
 	@GetMapping
 	@Operation(
 			summary = "Get all encrypted group posts",
@@ -69,12 +61,6 @@ public class PostEncryptedGroupController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
-	/**
-	 * Get a specific encrypted group post by ID.
-	 *
-	 * @param id The id to look for.
-	 * @return Returns the specific encrypted group post.
-	 */
 	@GetMapping("{id}")
 	@Operation(
 			summary = "Get a specific encrypted group post by ID",

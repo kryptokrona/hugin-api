@@ -59,6 +59,18 @@ public class PostService {
         return null;
     }
 
+    public Post getByTxHash(String txHash) {
+        if (postRepository.existsPostByTxHash(txHash)) {
+            Post post = postRepository.findPostByTxHash(txHash);
+            logger.info("Post found with tx hash: " + post.getTxHash());
+            return post;
+        }
+
+        logger.info("Unable to find post with tx hash: " + txHash);
+
+        return null;
+    }
+
     public boolean exists(String txHash) {
         return postRepository.existsPostByTxHash(txHash);
     }

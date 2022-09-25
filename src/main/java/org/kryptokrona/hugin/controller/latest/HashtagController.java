@@ -38,14 +38,6 @@ public class HashtagController {
 		this.hashtagService = hashtagService;
 	}
 
-	/**
-	 * Get all hashtags.
-	 *
-	 * @param page The page number
-	 * @param size The total amount of entries per page
-	 * @param order The order in form av desc/asc
-	 * @return ResponseEntity
-	 */
 	@GetMapping
 	@Operation(summary = "Get all hashtags", description = "Get all hashtags with pagination.")
 	public ResponseEntity<Map<String, Object>> getAll(
@@ -66,12 +58,6 @@ public class HashtagController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
-	/**
-	 * Get a specific hashtag by ID.
-	 *
-	 * @param id The id to look for.
-	 * @return Returns the specific hashtag.
-	 */
 	@GetMapping("{id}")
 	@Operation(
 			summary = "Get a specific hashtag by ID",
