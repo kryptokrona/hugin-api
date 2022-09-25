@@ -12,9 +12,6 @@ import org.kryptokrona.hugin.crypto.SealedBox;
 import org.kryptokrona.hugin.http.PoolChangesLite;
 import org.kryptokrona.hugin.model.PostEncrypted;
 import org.kryptokrona.hugin.model.PostEncryptedGroup;
-import org.kryptokrona.hugin.repository.PostEncryptedGroupRepository;
-import org.kryptokrona.hugin.repository.PostEncryptedRepository;
-import org.kryptokrona.hugin.repository.PostRepository;
 import org.kryptokrona.hugin.service.PostEncryptedGroupService;
 import org.kryptokrona.hugin.service.PostEncryptedService;
 import org.kryptokrona.hugin.service.PostService;
@@ -26,7 +23,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
