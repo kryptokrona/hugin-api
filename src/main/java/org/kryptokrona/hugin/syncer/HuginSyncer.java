@@ -154,7 +154,7 @@ public class HuginSyncer {
 					if (boardPost == null) {
 						logger.debug("Caught null message, skipping.");
 					} else {
-						logger.info("Got 1 post. Post with key: " + boardPost.getK());
+						logger.info("Got 1 post. Post with tx hash: " + txHash);
 
 						var postObj = new Post();
 						postObj.setMessage(boardPost.getM());
@@ -173,7 +173,15 @@ public class HuginSyncer {
 						if (postValidated) {
 							logger.debug("Post was validated.");
 
+							var postExist = postService.existsTxHash(txHash);
 
+							if (!postExist) {
+								postService.save(postObj);
+							} else {
+								logger.debug("Post already exists in db.");
+							}
+						} else {
+							logger.debug("Post was not validated, skipping.");
 						}
 					}
 
