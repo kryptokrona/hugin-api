@@ -12,6 +12,9 @@ import org.kryptokrona.hugin.http.PoolChangesLite;
 import org.kryptokrona.hugin.repository.PostEncryptedGroupRepository;
 import org.kryptokrona.hugin.repository.PostEncryptedRepository;
 import org.kryptokrona.hugin.repository.PostRepository;
+import org.kryptokrona.hugin.service.PostEncryptedGroupService;
+import org.kryptokrona.hugin.service.PostEncryptedService;
+import org.kryptokrona.hugin.service.PostService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +36,11 @@ import java.util.List;
 @Service
 public class HuginSyncer {
 
-	private PostRepository postRepository;
+	private PostService postService;
 
-	private PostEncryptedRepository postEncryptedRepository;
+	private PostEncryptedService postEncryptedService;
 
-	private PostEncryptedGroupRepository postEncryptedGroupRepository;
+	private PostEncryptedGroupService postEncryptedGroupService;
 
 	@Value("${SYS_NODE_HOSTNAME}")
 	private String nodeHostname;
@@ -50,12 +53,12 @@ public class HuginSyncer {
 
 	@Autowired
 	public HuginSyncer(
-			PostRepository postRepository, PostEncryptedRepository postEncryptedRepository,
-			PostEncryptedGroupRepository postEncryptedGroupRepository
+			PostService postService, PostEncryptedService postEncryptedService,
+			PostEncryptedGroupService postEncryptedGroupService
 	) {
-		this.postRepository = postRepository;
-		this.postEncryptedRepository = postEncryptedRepository;
-		this.postEncryptedGroupRepository = postEncryptedGroupRepository;
+		this.postService = postService;
+		this.postEncryptedService = postEncryptedService;
+		this.postEncryptedGroupService = postEncryptedGroupService;
 	}
 
 	@Scheduled(fixedRate=1000)
@@ -117,12 +120,21 @@ public class HuginSyncer {
 
 						// encrypted post
 						if (isBoxObj) {
-							// check if encrypted post already exists in db
+							// parse box object
+							Box boxObj = objectMapper.readValue(reader, Box.class);
 
+							// check if encrypted post already exists in db
+							var exists = postEncryptedRepository.existsPostEncryptedByTxBox(boxObj.getBox());
+
+							if (!exists) {
+								postEncrypted.save(boxObj);
+							}
 						}
 
 						// encrypted group post
 						if (isSealedBoxObj) {
+							// parse box object
+
 							// check if encrypted group post already exists in db
 
 						}

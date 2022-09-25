@@ -12,7 +12,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PostEncryptedRepository extends JpaRepository<PostEncrypted, Long> {
 
-	boolean existsPostByTxHash(String txHash);
+	boolean existsPostEncryptedByTxHash(String txHash);
+
+	boolean existsPostEncryptedByTxBox(String txBox);
 
 	PostEncrypted findPostEncryptedByTxHash(String txHash);
 

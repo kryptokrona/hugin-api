@@ -52,7 +52,7 @@ public class PostEncryptedService {
 	}
 
 	public PostEncrypted getByTxHash(String txHash) {
-		if (postEncryptedRepository.existsPostByTxHash(txHash)) {
+		if (postEncryptedRepository.existsPostEncryptedByTxHash(txHash)) {
 			PostEncrypted postEncrypted = postEncryptedRepository.findPostEncryptedByTxHash(txHash);
 			logger.info("Encrypted post found with tx hash: " + postEncrypted.getTxHash());
 			return postEncrypted;
