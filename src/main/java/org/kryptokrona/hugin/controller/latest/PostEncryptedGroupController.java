@@ -50,7 +50,7 @@ public class PostEncryptedGroupController {
 			@RequestParam(required = false) Long startUnixTime,
 			@RequestParam(required = false) Long endUnixTime
 	) {
-		var pagination = postEncryptedGroupService.getAll(page, size, order);
+		var pagination = postEncryptedGroupService.getAll(page, size, order, startUnixTime, endUnixTime);
 
 		var entries = pagination.getContent();
 

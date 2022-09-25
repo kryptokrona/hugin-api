@@ -1,6 +1,9 @@
 package org.kryptokrona.hugin.repository;
 
+import org.kryptokrona.hugin.model.PostEncrypted;
 import org.kryptokrona.hugin.model.PostEncryptedGroup;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -17,5 +20,7 @@ public interface PostEncryptedGroupRepository extends JpaRepository<PostEncrypte
 	boolean existsPostEncryptedGroupByTxSb(String txSb);
 
 	PostEncryptedGroup findPostEncryptedGroupByTxHash(String txHash);
+
+	Page<PostEncryptedGroup> findAllByTimeBetween(Pageable pageable, long startTime, long endTime);
 
 }

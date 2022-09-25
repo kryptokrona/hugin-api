@@ -29,14 +29,26 @@ public class PostEncryptedGroupService {
 		this.postEncryptedGroupRepository = postEncryptedGroupRepository;
 	}
 
-	public Page<PostEncryptedGroup> getAll(int page, int size, String order) {
+	public Page<PostEncryptedGroup> getAll(int page, int size, String order, Long startUnixTime, Long endUnixTime) {
+		PageRequest paging;
+
 		if (Objects.equals(order, "asc".toLowerCase())) {
-			var paging = PageRequest.of(page, size, Sort.by("id").ascending());
+			paging = PageRequest.of(page, size, Sort.by("id").ascending());
+
+			if (startUnixTime == null && endUnixTime == null) {
+				return postEncryptedGroupRepository.findAll(paging);
+			}
+
+			return postEncryptedGroupRepository.findAllByTimeBetween(paging, startUnixTime, endUnixTime);
+		}
+
+		paging = PageRequest.of(page, size, Sort.by("id").descending());
+
+		if (startUnixTime == null && endUnixTime == null) {
 			return postEncryptedGroupRepository.findAll(paging);
 		}
 
-		var paging = PageRequest.of(page, size, Sort.by("id").descending());
-		return postEncryptedGroupRepository.findAll(paging);
+		return postEncryptedGroupRepository.findAllByTimeBetween(paging, startUnixTime, endUnixTime);
 	}
 
 	public PostEncryptedGroup getById(long id) {
