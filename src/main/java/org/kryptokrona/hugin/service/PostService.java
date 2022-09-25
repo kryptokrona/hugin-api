@@ -37,21 +37,40 @@ public class PostService {
     }
 
     public Page<Post> getAll(int page, int size, String order, boolean avatar) {
-        return getAll(page, size, order,0, 0, avatar);
+        return getAll(page, size, order,null, null, avatar);
     }
 
-    public Page<Post> getAll(int page, int size, String order, long startUnixTime, long endUnixTime, boolean avatar) {
+    public Page<Post> getAll(int page, int size, String order, Long startUnixTime, Long endUnixTime, boolean avatar) {
+        PageRequest paging;
+
         if (Objects.equals(order, "asc".toLowerCase())) {
-            var paging = PageRequest.of(page, size, Sort.by("id").ascending());
+            paging = PageRequest.of(page, size, Sort.by("id").ascending());
+
+            if (startUnixTime == null && endUnixTime == null) {
+                return avatar ?
+                        postRepository.findAll(paging) :
+                        postRepository.findAllExcludeAvatar(paging);
+            }
+
+            return avatar ?
+                    postRepository.findAllByTimeBetween(paging, startUnixTime, endUnixTime) :
+                    postRepository.findAllExcludeAvatar(paging);
+
+
+        }
+
+        paging = PageRequest.of(page, size, Sort.by("id").descending());
+
+        if (startUnixTime == null && endUnixTime == null) {
             return avatar ?
                     postRepository.findAll(paging) :
                     postRepository.findAllExcludeAvatar(paging);
         }
 
-        var paging = PageRequest.of(page, size, Sort.by("id").descending());
         return avatar ?
-                postRepository.findAll(paging) :
+                postRepository.findAllByTimeBetween(paging, startUnixTime, endUnixTime) :
                 postRepository.findAllExcludeAvatar(paging);
+
     }
 
     public Post getById(long id) {
