@@ -1,5 +1,6 @@
 package org.kryptokrona.hugin.service;
 
+import org.kryptokrona.hugin.model.Post;
 import org.kryptokrona.hugin.model.PostEncrypted;
 import org.kryptokrona.hugin.repository.PostEncryptedRepository;
 import org.slf4j.Logger;
@@ -51,8 +52,16 @@ public class PostEncryptedService {
 		return null;
 	}
 
-	public boolean exists(String txHash) {
-		return postEncryptedRepository.existsPostByTxHash(txHash);
+	public PostEncrypted getByTxHash(String txHash) {
+		if (postEncryptedRepository.existsPostByTxHash(txHash)) {
+			PostEncrypted postEncrypted = postEncryptedRepository.findPostEncryptedByTxHash(txHash);
+			logger.info("Encrypted post found with tx hash: " + postEncrypted.getTxHash());
+			return postEncrypted;
+		}
+
+		logger.info("Unable to find encrypted post with tx hash: " + txHash);
+
+		return null;
 	}
 
 	public void save(PostEncrypted postEncrypted) {

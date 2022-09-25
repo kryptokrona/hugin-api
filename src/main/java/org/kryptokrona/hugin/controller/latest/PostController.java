@@ -76,7 +76,7 @@ public class PostController {
         return new ResponseEntity<>(obj, HttpStatus.OK);
     }
 
-    @GetMapping("{tx_hash}")
+    @GetMapping("{txHash}")
     @Operation(
             summary = "Get a specific post by transaction hash",
             description = "Get a specific post by transaction hash."
