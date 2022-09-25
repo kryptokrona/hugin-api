@@ -29,8 +29,6 @@ public class PostEncryptedGroup {
 	@Column(name = "tx_timestamp")
 	private long txTimestamp;
 
-	@CreatedDate
-	@Generated(GenerationTime.INSERT)
 	@Column(name = "created_at", nullable = false, updatable = false)
 	private Date createdAt;
 
@@ -72,5 +70,10 @@ public class PostEncryptedGroup {
 
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+	}
+
+	@PrePersist
+	protected void onCreate() {
+		createdAt = new Date();
 	}
 }
