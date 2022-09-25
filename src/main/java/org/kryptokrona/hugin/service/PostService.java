@@ -90,20 +90,17 @@ public class PostService {
             // if we find matches of hashtags in message
             while (matcher.find()) {
 
+                var hashtagName = matcher.group().replaceAll("#", "");
+
                 // create one if it doesn't already exist in db
-                if (hashtagRepository.existsHashtagByName(matcher.group())) {
+                if (hashtagRepository.existsHashtagByName(hashtagName)) {
                     logger.debug("Hashtag already exists in db, skipping.");
                 } else {
                     var hashtagObj = new Hashtag();
-                    hashtagObj.setName(matcher.group().replaceAll("#", ""));
+                    hashtagObj.setName(hashtagName);
                     hashtagRepository.save(hashtagObj);
 
-                    // save the hashtag to the list of hashtags
-                    var hashtagExists = hashtagList.stream().anyMatch(hashtag -> hashtag.getName().equals(hashtagObj.getName())); //TODO DOESNT WORK!
-
-                    if (!hashtagExists) {
-                        hashtagList.add(hashtagObj);
-                    }
+                    hashtagList.add(hashtagObj);
                 }
             }
 
