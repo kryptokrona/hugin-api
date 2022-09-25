@@ -2,6 +2,7 @@ package org.kryptokrona.hugin.controller.latest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.kryptokrona.hugin.model.PostEncrypted;
 import org.kryptokrona.hugin.model.PostEncryptedGroup;
 import org.kryptokrona.hugin.service.PostEncryptedGroupService;
 import org.slf4j.Logger;
@@ -68,6 +69,21 @@ public class PostEncryptedGroupController {
 	)
 	public ResponseEntity<PostEncryptedGroup> getById(@PathVariable long id) {
 		var obj = postEncryptedGroupService.getById(id);
+
+		if (obj == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<>(obj, HttpStatus.OK);
+	}
+
+	@GetMapping("{txHash}")
+	@Operation(
+			summary = "Get a specific encrypted group post by transaction hash",
+			description = "Get a specific encrypted group post by transaction hash."
+	)
+	public ResponseEntity<PostEncryptedGroup> getByTxHash(@PathVariable String txHash) {
+		var obj = postEncryptedGroupService.getByTxHash(txHash);
 
 		if (obj == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
