@@ -71,10 +71,6 @@ public class PostService {
         return null;
     }
 
-    public boolean exists(String txHash) {
-        return postRepository.existsPostByTxHash(txHash);
-    }
-
     public void save(Post post) {
         try {
             postRepository.save(post);
