@@ -20,9 +20,8 @@ public class PostValidator {
 		var isSignatureValidated = validateSignature(post.getSignature());
 		var isTimeValidated = validateTime(post.getTime());
 		var isTxHashValidated = validateTxHash(post.getTxHash());
-		var isReplyTxHashValidated = validateTxHash(post.getReplyTxHash());
 
-		return isKeyValidated && isSignatureValidated && isTimeValidated && isTxHashValidated && isReplyTxHashValidated;
+		return isKeyValidated && isSignatureValidated && isTimeValidated && isTxHashValidated;
 	}
 
 	/**
