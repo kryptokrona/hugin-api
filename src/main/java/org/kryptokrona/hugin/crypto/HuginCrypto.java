@@ -37,7 +37,9 @@ public class HuginCrypto {
 		var str = "";
 
 		try {
-			str = decodeURIComponent(hex.replace("/(..)/g,'%$1'", ""), "UTF-8");
+			byte[] bytes = javax.xml.bind.DatatypeConverter.parseHexBinary(hex);
+			String result = new String(bytes, "UTF-8");
+			str = result.replaceAll("[^a-zA-Z0-9_,:{}[$]\"]", "");
 		} catch (Exception e) {
 			str = hex;
 			logger.error("Invalid hex input.");
@@ -86,7 +88,6 @@ public class HuginCrypto {
 	 */
 	public static Box extraDataToMessage(String extra, List<String> knownKeys, KeyPair xkrKeyPair) {
 		extra = trimExtra(extra);
-		System.out.println(extra);
 
 		var keyPair = convertXKRKeypairToNaCl(xkrKeyPair);
 
