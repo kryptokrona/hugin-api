@@ -46,6 +46,9 @@ public class Post {
     @Column(name = "reply", length=64)
     private String replyTxHash;
 
+    @Column(length = 3676)
+    private String avatar;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;
 
@@ -139,6 +142,14 @@ public class Post {
 
     public void setReplyTxHash(String replyTxHash) {
       this.replyTxHash = replyTxHash;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public Date getCreatedAt() {
