@@ -10,12 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,12 +29,15 @@ public class PostService {
 
     private final HashtagRepository hashtagRepository;
 
+    private final SimpMessagingTemplate simpMessagingTemplate;
+
     private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 
     @Autowired
-    public PostService(PostRepository postRepository, HashtagRepository hashtagRepository) {
+    public PostService(PostRepository postRepository, HashtagRepository hashtagRepository, SimpMessagingTemplate simpMessagingTemplate) {
         this.postRepository = postRepository;
         this.hashtagRepository = hashtagRepository;
+        this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
     public Page<Post> getAll(int page, int size, String order, Long startUnixTime, Long endUnixTime, boolean avatar) {
@@ -121,6 +122,8 @@ public class PostService {
 
             post.setHashtags(new ArrayList<>(hashtagList));
             postRepository.save(post);
+
+            this.simpMessagingTemplate.convertAndSend("/ws", post); //TODO: how do we reach this endpoint?
 
             logger.info("Post with tx hash was added: " + post.getTxHash());
         } catch (Exception e) {

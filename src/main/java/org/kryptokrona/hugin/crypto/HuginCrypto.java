@@ -2,6 +2,7 @@ package org.kryptokrona.hugin.crypto;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.kryptokrona.hugin.http.PostItem;
+import org.kryptokrona.hugin.model.Post;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

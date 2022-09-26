@@ -5,10 +5,12 @@ import inet.ipaddr.HostName;
 import io.reactivex.rxjava3.core.Observable;
 import org.apache.hc.client5.http.fluent.Content;
 import org.apache.hc.client5.http.fluent.Request;
+import org.kryptokrona.hugin.controller.latest.PostController;
 import org.kryptokrona.hugin.crypto.Box;
 import org.kryptokrona.hugin.crypto.HuginCrypto;
 import org.kryptokrona.hugin.crypto.KeyPair;
 import org.kryptokrona.hugin.crypto.SealedBox;
+import org.kryptokrona.hugin.handler.SocketPostHandler;
 import org.kryptokrona.hugin.http.PoolChangesLite;
 import org.kryptokrona.hugin.http.PostItem;
 import org.kryptokrona.hugin.model.Post;
@@ -22,8 +24,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.messaging.simp.stomp.StompSession;
+import org.springframework.messaging.simp.stomp.StompSessionHandler;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.web.socket.messaging.WebSocketStompClient;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -43,6 +48,8 @@ public class HuginSyncer {
 	private PostEncryptedService postEncryptedService;
 
 	private PostEncryptedGroupService postEncryptedGroupService;
+
+	private PostController postController;
 
 	@Value("${SYS_NODE_HOSTNAME}")
 	private String nodeHostname;
@@ -175,7 +182,6 @@ public class HuginSyncer {
 
 							if (!postExist) {
 								postService.save(postObj);
-
 							} else {
 								logger.debug("Post already exists in db.");
 							}
