@@ -1,6 +1,5 @@
 package org.kryptokrona.hugin.repository;
 
-import org.kryptokrona.hugin.model.Post;
 import org.kryptokrona.hugin.model.PostEncrypted;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
