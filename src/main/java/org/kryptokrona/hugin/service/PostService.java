@@ -31,6 +31,8 @@ public class PostService {
 
     private final SimpMessagingTemplate simpMessagingTemplate;
 
+    private static final String WS_MESSAGE_TRANSFER_DESTINATION = "/topic/greeting";
+
     private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 
     @Autowired
@@ -39,6 +41,12 @@ public class PostService {
         this.hashtagRepository = hashtagRepository;
         this.simpMessagingTemplate = simpMessagingTemplate;
     }
+
+/*    public void sendMessages() {
+        logger.info("SENDING MESSAGES!!!");
+        simpMessagingTemplate.convertAndSend(WS_MESSAGE_TRANSFER_DESTINATION,
+                "Hallo ");
+    }*/
 
     public Page<Post> getAll(int page, int size, String order, Long startUnixTime, Long endUnixTime, boolean avatar) {
         PageRequest paging;
@@ -123,7 +131,8 @@ public class PostService {
             post.setHashtags(new ArrayList<>(hashtagList));
             postRepository.save(post);
 
-            this.simpMessagingTemplate.convertAndSend("/ws", post); //TODO: how do we reach this endpoint?
+            // this.simpMessagingTemplate.convertAndSend("/ws", post); //TODO: how do we reach this endpoint?
+            // sendMessages();
 
             logger.info("Post with tx hash was added: " + post.getTxHash());
         } catch (Exception e) {
