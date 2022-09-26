@@ -1,0 +1,3 @@
+[submodule "cockpit"]
+	path = cockpit
+	url = git@github.com:kryptokrona/cockpit.git
