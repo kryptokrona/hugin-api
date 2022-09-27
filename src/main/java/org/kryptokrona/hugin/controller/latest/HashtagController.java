@@ -65,7 +65,7 @@ public class HashtagController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
-	@GetMapping
+	/*@GetMapping
 	@Operation(summary = "Get all trending hashtags", description = "Get all trending hashtags with pagination.")
 	public ResponseEntity<Map<String, Object>> getAllTrending(
 			@RequestParam(required = false, defaultValue = "0") int page,
@@ -85,7 +85,7 @@ public class HashtagController {
 		logger.info("Getting all trending hashtags was successful");
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
-	}
+	}*/
 
 	@GetMapping("{id}")
 	@Operation(
