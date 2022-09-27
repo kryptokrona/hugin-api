@@ -34,24 +34,15 @@ public class PostService {
 
     private final HashtagRepository hashtagRepository;
 
-    private final SimpMessagingTemplate simpMessagingTemplate;
-
-    private static final String WS_MESSAGE_TRANSFER_DESTINATION = "/topic/greeting";
+    private final WebSocketService webSocketService;
 
     private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 
     @Autowired
-    public PostService(PostRepository postRepository, HashtagRepository hashtagRepository, SimpMessagingTemplate simpMessagingTemplate) {
+    public PostService(PostRepository postRepository, HashtagRepository hashtagRepository, WebSocketService webSocketService) {
         this.postRepository = postRepository;
         this.hashtagRepository = hashtagRepository;
-        this.simpMessagingTemplate = simpMessagingTemplate;
-    }
-
-    public void notifyFrontend(final Post post) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        String carAsString = objectMapper.writeValueAsString(post);
-
-        simpMessagingTemplate.convertAndSend("/topic/posts", carAsString);
+        this.webSocketService = webSocketService;
     }
 
     public Page<Post> getAll(int page, int size, String order, Long startUnixTime, Long endUnixTime, boolean avatar) {
@@ -137,7 +128,7 @@ public class PostService {
             post.setHashtags(new ArrayList<>(hashtagList));
             postRepository.save(post);
 
-            notifyFrontend(post);
+            webSocketService.notifyNewPost(post);
 
             logger.info("Post with tx hash was added: " + post.getTxHash());
         } catch (Exception e) {
