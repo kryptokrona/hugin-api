@@ -7,7 +7,10 @@
 import express from "express";
 const router = express.Router();
 
-import { getPopularBoardPosts, getPopularBoardsByReplies } from "../../controller/latest/statisticsController";
+import { 
+    getPopularBoardPosts, 
+    getPopularBoardsByReplies 
+} from "../../controller/latest/statisticsController";
 
 /**
  * @openapi
@@ -36,7 +39,7 @@ import { getPopularBoardPosts, getPopularBoardsByReplies } from "../../controlle
  *       200:
  *         description: Returns the most popular posts based on replies.
  */
-router.get('/statistics/posts/popular', getPopularBoardPosts)
+router.get('/statistics/posts/popular', getPopularBoardPosts);
 
 /**
  * @openapi
@@ -65,6 +68,6 @@ router.get('/statistics/posts/popular', getPopularBoardPosts)
  *       200:
  *         description: Returns the most popular boards based on posts.
  */
-router.get('/statistics/boards/popular', getPopularBoardsByReplies)
+router.get('/statistics/boards/popular', getPopularBoardsByReplies);
 
 export default router;
