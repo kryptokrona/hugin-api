@@ -42,7 +42,7 @@ public class HuginCrypto {
 		try {
 			byte[] bytes = javax.xml.bind.DatatypeConverter.parseHexBinary(hex);
 			String result = new String(bytes, "UTF-8");
-			str = result.replaceAll("[^a-zA-Z0-9_,:#!?/&%+-`(){}[$]\s\"]", "");
+			str = result.substring(6);
 		} catch (Exception e) {
 			str = hex;
 			logger.error("Invalid hex input.");
