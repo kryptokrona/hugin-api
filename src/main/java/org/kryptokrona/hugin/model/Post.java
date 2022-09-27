@@ -49,6 +49,7 @@ public class Post {
     @Column(length = 3676)
     private String avatar;
 
+    @JsonProperty("created_at")
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;
 

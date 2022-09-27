@@ -22,11 +22,14 @@ public class PostEncryptedService {
 
 	private final PostEncryptedRepository postEncryptedRepository;
 
+	private final WebSocketService webSocketService;
+
 	private static final Logger logger = LoggerFactory.getLogger(PostEncryptedService.class);
 
 	@Autowired
-	public PostEncryptedService(PostEncryptedRepository postEncryptedRepository) {
+	public PostEncryptedService(PostEncryptedRepository postEncryptedRepository, WebSocketService webSocketService) {
 		this.postEncryptedRepository = postEncryptedRepository;
+		this.webSocketService = webSocketService;
 	}
 
 	public Page<PostEncrypted> getAll(int page, int size, String order, Long startUnixTime, Long endUnixTime) {
@@ -86,6 +89,7 @@ public class PostEncryptedService {
 	public void save(PostEncrypted postEncrypted) {
 		try {
 			postEncryptedRepository.save(postEncrypted);
+			webSocketService.notifyNewPostEncrypted(postEncrypted);
 			logger.info("Encrypted post with tx hash was added: " + postEncrypted.getTxHash());
 		} catch (Exception e) {
 			logger.error("Unable to add encrypted post with tx hash: " + postEncrypted.getTxHash());

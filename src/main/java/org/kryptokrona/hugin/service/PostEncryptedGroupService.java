@@ -22,11 +22,14 @@ public class PostEncryptedGroupService {
 
 	private final PostEncryptedGroupRepository postEncryptedGroupRepository;
 
+	private final WebSocketService webSocketService;
+
 	private static final Logger logger = LoggerFactory.getLogger(PostEncryptedGroupService.class);
 
 	@Autowired
-	public PostEncryptedGroupService(PostEncryptedGroupRepository postEncryptedGroupRepository) {
+	public PostEncryptedGroupService(PostEncryptedGroupRepository postEncryptedGroupRepository, WebSocketService webSocketService) {
 		this.postEncryptedGroupRepository = postEncryptedGroupRepository;
+		this.webSocketService = webSocketService;
 	}
 
 	public Page<PostEncryptedGroup> getAll(int page, int size, String order, Long startUnixTime, Long endUnixTime) {
@@ -86,6 +89,7 @@ public class PostEncryptedGroupService {
 	public void save(PostEncryptedGroup postEncryptedGroup) {
 		try {
 			postEncryptedGroupRepository.save(postEncryptedGroup);
+			webSocketService.notifyNewPostEncryptedGroup(postEncryptedGroup);
 			logger.info("Encrypted group post with tx hash was added: " + postEncryptedGroup.getTxHash());
 		} catch (Exception e) {
 			logger.error("Unable to add encrypted group post with tx hash: " + postEncryptedGroup.getTxHash());

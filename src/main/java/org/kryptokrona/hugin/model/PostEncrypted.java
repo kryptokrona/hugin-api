@@ -30,6 +30,7 @@ public class PostEncrypted {
 	@Column(name = "tx_timestamp")
 	private long txTimestamp;
 
+	@JsonProperty("created_at")
 	@Column(name = "created_at", nullable = false, updatable = false)
 	private Date createdAt;
 

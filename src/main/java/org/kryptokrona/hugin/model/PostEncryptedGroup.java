@@ -1,5 +1,7 @@
 package org.kryptokrona.hugin.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -16,15 +18,19 @@ public class PostEncryptedGroup {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@JsonProperty("tx_hash")
 	@Column(name = "tx_hash", length=64)
 	private String txHash;
 
+	@JsonProperty("tx_sb")
 	@Column(name = "tx_sb", length=3000) //TODO: need to check how long this actually should be
 	private String txSb;
 
+	@JsonProperty("tx_timestamp")
 	@Column(name = "tx_timestamp")
 	private long txTimestamp;
 
+	@JsonProperty("created_at")
 	@Column(name = "created_at", nullable = false, updatable = false)
 	private Date createdAt;
 
