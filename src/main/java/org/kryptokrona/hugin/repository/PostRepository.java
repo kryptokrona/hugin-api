@@ -18,6 +18,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 	boolean existsPostByTxHash(String txHash);
 
 	//TODO: need to confirm this works, perhaps reserved keywords in SQL statement?
+	// We will not remove this since this will be implemented shortly.
 	@Query(value = "SELECT id, message, key, signature, board, time, nickname, tx_hash, reply, created_at FROM post", nativeQuery = true)
 	Page<Post> findAllExcludeAvatar(Pageable pageable);
 
