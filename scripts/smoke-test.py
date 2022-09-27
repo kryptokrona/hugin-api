@@ -23,7 +23,7 @@ try:
 
     # trying v2 encrypted group posts endpoints
     print('GET ' + base_url.format(domain ,'api/v1/posts-encrypted-group'))
-    posts = requests.get(base_url.format(domain, 'api/v2/posts-encrypted-group'))
+    posts = requests.get(base_url.format(domain, 'api/v1/posts-encrypted-group'))
     assert posts.status_code == requests.codes.ok
 
     # trying v1 hashtag endpoints
