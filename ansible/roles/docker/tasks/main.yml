@@ -101,18 +101,19 @@
     name: "{{ docker_container_name }}"
     image: "{{ docker_image }}:{{ gitresult.after[:7] }}"
     env: {
-       SYS_API_TITLE: "{{ sys_api_title }}",
-       SYS_API_DESCRIPTION: "{{ sys_api_description }}",
-       SYS_API_CONTACT_NAME: "{{ sys_api_contact_name }}",
-       SYS_API_CONTACT_EMAIL: "{{ sys_api_contact_email }}",
-       SYS_API_CONTACT_URL: "{{ sys_api_contact_url }}",
-       SYS_NODE_HOSTNAME: "{{ sys_node_hostname }}",
-       POSTGRESQL_HOSTNAME: "127.0.0.1",
-       POSTGRESQL_PORT: "5432",
-       POSTGRESQL_DB_NAME: "{{ vault_postgres_db_name }}",
-       POSTGRESQL_DB_USER: "{{ vault_postgres_db_user }}",
-       POSTGRESQL_DB_PASSWORD: "{{ vault_postgres_db_password }}",
-       SPRING_PROFILES_ACTIVE: prod
+      SYS_API_SERVER_URL: "https://{{ domain_name }}",
+      SYS_API_TITLE: "{{ sys_api_title }}",
+      SYS_API_DESCRIPTION: "{{ sys_api_description }}",
+      SYS_API_CONTACT_NAME: "{{ sys_api_contact_name }}",
+      SYS_API_CONTACT_EMAIL: "{{ sys_api_contact_email }}",
+      SYS_API_CONTACT_URL: "{{ sys_api_contact_url }}",
+      SYS_NODE_HOSTNAME: "{{ sys_node_hostname }}",
+      POSTGRESQL_HOSTNAME: "127.0.0.1",
+      POSTGRESQL_PORT: "5432",
+      POSTGRESQL_DB_NAME: "{{ vault_postgres_db_name }}",
+      POSTGRESQL_DB_USER: "{{ vault_postgres_db_user }}",
+      POSTGRESQL_DB_PASSWORD: "{{ vault_postgres_db_password }}",
+      SPRING_PROFILES_ACTIVE: prod
     }
     networks:
       - name: "host"
