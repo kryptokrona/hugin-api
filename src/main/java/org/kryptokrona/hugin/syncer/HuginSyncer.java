@@ -149,8 +149,10 @@ public class HuginSyncer {
 							}
 						}
 
-						// saving board post if the extra data is a post otherwise it will contain null
-						boardPost = HuginCrypto.extraDataToPost(extra, knownKeys, keyPair);
+						if (!isBoxObj && !isSealedBoxObj) {
+							// saving board post if the extra data is a post otherwise it will contain null
+							boardPost = HuginCrypto.extraDataToPost(extra, knownKeys, keyPair);
+						}
 					}
 
 					if (boardPost == null) {
@@ -167,7 +169,6 @@ public class HuginSyncer {
 						postObj.setNickname(boardPost.getN());
 						postObj.setTxHash(txHash);
 						postObj.setReplyTxHash(boardPost.getR());
-						// postObj.setAvatar()
 
 						var postValidated = PostValidator.validatePost(postObj);
 
