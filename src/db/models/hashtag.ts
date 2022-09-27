@@ -13,8 +13,8 @@ export interface HashtagInput extends Optional<HashtagAttributes, 'id'> {}
 export interface HashtagOuput extends Required<HashtagAttributes> {}
 
 class Hashtag extends Model<HashtagAttributes, HashtagInput> implements HashtagAttributes {
-  public id!: number
-  public name!: string
+  public id!: number;
+  public name!: string;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;

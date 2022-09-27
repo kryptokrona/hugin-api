@@ -25,7 +25,8 @@ class PostHashtag extends Model<PostHashtagAttributes, PostHashtagInput> impleme
 
 PostHashtag.init({
   id: {
-    type: DataTypes.INTEGER},
+    type: DataTypes.INTEGER
+  },
   postId: {
     type: DataTypes.INTEGER,
     references: {
