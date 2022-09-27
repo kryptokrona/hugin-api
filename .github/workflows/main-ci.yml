@@ -42,43 +42,43 @@ jobs:
       run: |
         docker push $GITHUB_REGISTRY/$GITHUB_OWNER/$GITHUB_DOCKER_IMAGE:${{ env.SHA }}
 
-  staging-deploy:
-    name: Staging Deploy
-    runs-on: ubuntu-latest
-    needs: build-docker
-
-    steps:
-    - name: Check out the codebase.
-      uses: actions/checkout@v2
-
-    - name: Run playbook
-      uses: dawidd6/action-ansible-playbook@v2
-      with:
-        playbook: provision_vps.yml
-        directory: ./ansible
-        key: ${{secrets.ANSIBLE_PRIVATE_KEY}}
-        vault_password: ${{secrets.ANSIBLE_VAULT_PASS}}
-        options: |
-          --inventory staging.inventory
-          --verbose
-
-  smoke-test-staging:
-    name: Smoke Test Staging
-    runs-on: ubuntu-latest
-    needs: [ staging-deploy ]
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Uses Python 3.11
-        uses: actions/setup-python@v3
-        with:
-          python-version: '3.11.0-alpha.1'
-
-      - name: Smoke Test
-        run: |
-          pip3 install requests
-          python3 scripts/smoke-test.py test-api.novastack.org
+#  staging-deploy:
+#    name: Staging Deploy
+#    runs-on: ubuntu-latest
+#    needs: build-docker
+#
+#    steps:
+#    - name: Check out the codebase.
+#      uses: actions/checkout@v2
+#
+#    - name: Run playbook
+#      uses: dawidd6/action-ansible-playbook@v2
+#      with:
+#        playbook: provision_vps.yml
+#        directory: ./ansible
+#        key: ${{secrets.ANSIBLE_PRIVATE_KEY}}
+#        vault_password: ${{secrets.ANSIBLE_VAULT_PASS}}
+#        options: |
+#          --inventory staging.inventory
+#          --verbose
+#
+#  smoke-test-staging:
+#    name: Smoke Test Staging
+#    runs-on: ubuntu-latest
+#    needs: [ staging-deploy ]
+#
+#    steps:
+#      - uses: actions/checkout@v3
+#
+#      - name: Uses Python 3.11
+#        uses: actions/setup-python@v3
+#        with:
+#          python-version: '3.11.0-alpha.1'
+#
+#      - name: Smoke Test
+#        run: |
+#          pip3 install requests
+#          python3 scripts/smoke-test.py test-api.novastack.org
 
   deploy-prod:
     name: Deploy Prod
