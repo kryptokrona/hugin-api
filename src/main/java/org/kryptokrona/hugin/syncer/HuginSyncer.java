@@ -152,7 +152,7 @@ public class HuginSyncer {
 
 						if (!isBoxObj && !isSealedBoxObj) {
 							// saving board post if the extra data is a post otherwise it will contain null
-							boardPost = HuginCrypto.extraDataToPost(extra, knownKeys, keyPair);
+							boardPost = HuginCrypto.extraDataToPost(extra);
 						}
 					}
 

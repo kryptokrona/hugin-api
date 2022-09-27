@@ -89,7 +89,7 @@ public class HuginCrypto {
 	 * @param xkrKeyPair Regular Kryptokrona key pair
 	 * @return Returns open sealed box from the extra data
 	 */
-	public static PostItem extraDataToPost(String extra, List<String> knownKeys, KeyPair xkrKeyPair) throws IOException {
+	public static PostItem extraDataToPost(String extra) throws IOException {
 		var isPostObj = isPostObject(extra);
 
 		if (isPostObj) {
