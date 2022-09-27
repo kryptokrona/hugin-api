@@ -100,7 +100,6 @@
   docker_container:
     name: "{{ docker_container_name }}"
     image: "{{ docker_image }}:{{ gitresult.after[:7] }}"
-    command: "./start.sh"
     env: {
        SYS_API_TITLE: "{{ sys_api_title }}",
        SYS_API_DESCRIPTION: "{{ sys_api_description }}",
