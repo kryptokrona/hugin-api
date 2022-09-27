@@ -1,6 +1,7 @@
 package org.kryptokrona.hugin.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -22,6 +23,7 @@ public class Hashtag {
 	@Column(name = "name")
 	private String name;
 
+	@JsonProperty("created_at")
 	@Column(name = "created_at", nullable = false, updatable = false)
 	private Date createdAt;
 

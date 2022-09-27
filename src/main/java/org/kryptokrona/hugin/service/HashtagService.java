@@ -62,7 +62,7 @@ public class HashtagService {
 		try {
 			hashtagRepository.save(hashtag);
 			webSocketService.notifyNewHashtag(hashtag);
-			logger.info("Post with name was added: " + hashtag.getName());
+			logger.info("Hashtag with name was added: " + hashtag.getName());
 		} catch (Exception e) {
 			logger.error("Unable to add hashtag with name: " + hashtag.getName());
 		}

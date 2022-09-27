@@ -25,5 +25,10 @@ function connect() {
             console.log("Encrypted Group Post: ")
             console.log(message)
         });
+
+        stompClient.subscribe('/topic/hashtags', function (message) {
+            console.log("Hashtag: ")
+            console.log(message)
+        });
     });
 }
