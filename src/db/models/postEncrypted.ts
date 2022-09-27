@@ -10,6 +10,7 @@ interface PostEncryptedAttributes {
   txBox?: string;
   txTimestamp?: bigint;
 }
+
 export interface PostEncryptedInput extends Optional<PostEncryptedAttributes, 'id'> {}
 export interface PostEncryptedOuput extends Required<PostEncryptedAttributes> {}
 
