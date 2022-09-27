@@ -58,7 +58,7 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GHCR_PAT }}
 
-    - name: Download hugin war file from assemble job
+    - name: Download hugin lib files from assemble job
       uses: actions/download-artifact@v3
       with:
         name: hugin-libs
