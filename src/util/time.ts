@@ -20,7 +20,7 @@ function getTimestamp() {
  * @returns {Promise}
  */
 function sleep(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms))
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 /**
@@ -29,7 +29,7 @@ function sleep(ms: number) {
  * @returns {number}
  */
 function convertDateTimeToUnix(dateObj: string) {
-  return Math.floor(Date.parse(dateObj) / 1000)
+  return Math.floor(Date.parse(dateObj) / 1000);
 }
 
 /**
@@ -38,7 +38,7 @@ function convertDateTimeToUnix(dateObj: string) {
  * @returns {Date}
  */
 function convertUnixToDateTime(unixTimestamp: number) {
-  return new Date(unixTimestamp * 1000)
+  return new Date(unixTimestamp * 1000);
 }
 
 export {
