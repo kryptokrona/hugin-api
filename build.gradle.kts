@@ -62,7 +62,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-websocket")
-	implementation("org.springframework.data:spring-data-commons:2.7.2")
+	implementation("org.springframework.data:spring-data-commons:2.7.3")
 	implementation("org.springframework.session:spring-session-core:2.7.0")
 	implementation("io.github.classgraph:classgraph:4.8.149")
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf:2.7.3")
@@ -70,7 +70,7 @@ dependencies {
 	implementation("org.apache.httpcomponents.client5:httpclient5:5.1.3")
 	implementation("org.apache.httpcomponents.client5:httpclient5-fluent:5.1.3")
 	implementation("com.github.seancfoley:ipaddress:5.3.4")
-	implementation("io.reactivex.rxjava3:rxjava:3.1.4")
+	implementation("io.reactivex.rxjava3:rxjava:3.1.5")
 	implementation("com.h2database:h2:2.1.214")
 	// implementation("com.kryptokrona.sdk:kryptokrona-sdk:0.1.0")
 	implementation("org.springdoc:springdoc-openapi-ui:1.5.9") { // might get this version to use in libs
@@ -80,11 +80,11 @@ dependencies {
 	implementation("software.pando.crypto:salty-coffee:1.1.0")
 
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
-	implementation("org.webjars:webjars-locator-core")
-	implementation("org.webjars:sockjs-client:1.0.2")
-	implementation("org.webjars:stomp-websocket:2.3.3")
-	implementation("org.webjars:bootstrap:3.3.7")
-	implementation("org.webjars:jquery:3.1.1-1")
+	developmentOnly("org.webjars:webjars-locator-core")
+	developmentOnly("org.webjars:sockjs-client:1.5.1")
+	developmentOnly("org.webjars:stomp-websocket:2.3.4")
+	developmentOnly("org.webjars:bootstrap:5.2.0")
+	developmentOnly("org.webjars:jquery:3.6.1")
 
 
 	runtimeOnly("org.postgresql:postgresql")
