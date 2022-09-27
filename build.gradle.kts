@@ -80,6 +80,13 @@ dependencies {
 	implementation("software.pando.crypto:salty-coffee:1.1.0")
 
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	implementation("org.webjars:webjars-locator-core")
+	implementation("org.webjars:sockjs-client:1.0.2")
+	implementation("org.webjars:stomp-websocket:2.3.3")
+	implementation("org.webjars:bootstrap:3.3.7")
+	implementation("org.webjars:jquery:3.1.1-1")
+
+
 	runtimeOnly("org.postgresql:postgresql")
 	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 

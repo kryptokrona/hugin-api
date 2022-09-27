@@ -19,7 +19,7 @@ public class PostEncryptedGroup {
 	@Column(name = "tx_hash", length=64)
 	private String txHash;
 
-	@Column(name = "tx_sb", length=2000) //TODO: need to check how long this actually should be
+	@Column(name = "tx_sb", length=3000) //TODO: need to check how long this actually should be
 	private String txSb;
 
 	@Column(name = "tx_timestamp")

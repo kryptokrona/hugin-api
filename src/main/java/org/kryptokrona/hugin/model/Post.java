@@ -20,7 +20,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "message", length=2000) //TODO: this value we might need to increase
+    @Column(name = "message", length=3000) //TODO: this value we might need to increase
     private String message;
 
     @Column(name = "key", length=99)

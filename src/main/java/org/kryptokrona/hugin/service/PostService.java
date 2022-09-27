@@ -1,5 +1,7 @@
 package org.kryptokrona.hugin.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.kryptokrona.hugin.model.Hashtag;
 import org.kryptokrona.hugin.model.Post;
 import org.kryptokrona.hugin.repository.HashtagRepository;
@@ -45,11 +47,12 @@ public class PostService {
         this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
-/*    public void sendMessages() {
-        logger.info("SENDING MESSAGES!!!");
-        simpMessagingTemplate.convertAndSend(WS_MESSAGE_TRANSFER_DESTINATION,
-                "Hallo ");
-    }*/
+    public void notifyFrontend(final Post post) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String carAsString = objectMapper.writeValueAsString(post);
+
+        simpMessagingTemplate.convertAndSend("/topic/posts", carAsString);
+    }
 
     public Page<Post> getAll(int page, int size, String order, Long startUnixTime, Long endUnixTime, boolean avatar) {
         PageRequest paging;
@@ -134,8 +137,7 @@ public class PostService {
             post.setHashtags(new ArrayList<>(hashtagList));
             postRepository.save(post);
 
-            // this.simpMessagingTemplate.convertAndSend("/ws", post); //TODO: how do we reach this endpoint?
-            // sendMessages();
+            notifyFrontend(post);
 
             logger.info("Post with tx hash was added: " + post.getTxHash());
         } catch (Exception e) {
