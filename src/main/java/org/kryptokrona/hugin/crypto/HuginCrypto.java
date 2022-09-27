@@ -85,14 +85,13 @@ public class HuginCrypto {
 	 * Takes raw extra data from the blockchain and converts it to a post object.
 	 *
 	 * @param extra The extra
-	 * @param knownKeys Public keys
-	 * @param xkrKeyPair Regular Kryptokrona key pair
 	 * @return Returns open sealed box from the extra data
 	 */
 	public static PostItem extraDataToPost(String extra) throws IOException {
 		var isPostObj = isPostObject(extra);
 
 		if (isPostObj) {
+			//TODO: need to parse emojies becuase now strings are empty when sending emojie
 			var objectMapper = new ObjectMapper();
 			var postObj = objectMapper.readValue(new StringReader(extra), PostItem.class);
 
