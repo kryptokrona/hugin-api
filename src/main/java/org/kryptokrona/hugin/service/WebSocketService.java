@@ -3,6 +3,8 @@ package org.kryptokrona.hugin.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.kryptokrona.hugin.model.Post;
+import org.kryptokrona.hugin.model.PostEncrypted;
+import org.kryptokrona.hugin.model.PostEncryptedGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,10 @@ import org.springframework.stereotype.Service;
 public class WebSocketService {
 
 	private static final String WS_POST_TRANSFER_DESTINATION = "/topic/posts";
+
+	private static final String WS_POST_ENCRYPTED_TRANSFER_DESTINATION = "/topic/posts-encrypted";
+
+	private static final String WS_POST_ENCRYPTED_GROUP_TRANSFER_DESTINATION = "/topic/posts-encrypted-group";
 
 	private final SimpMessagingTemplate simpMessagingTemplate;
 
@@ -21,9 +27,23 @@ public class WebSocketService {
 
 	public void notifyNewPost(final Post post) throws JsonProcessingException {
 		ObjectMapper objectMapper = new ObjectMapper();
-		String carAsString = objectMapper.writeValueAsString(post);
+		String objAsStr = objectMapper.writeValueAsString(post);
 
-		simpMessagingTemplate.convertAndSend(WS_POST_TRANSFER_DESTINATION, carAsString);
+		simpMessagingTemplate.convertAndSend(WS_POST_TRANSFER_DESTINATION, objAsStr);
+	}
+
+	public void notifyNewPostEncrypted(final PostEncrypted postEncrypted) throws JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		String objAsStr = objectMapper.writeValueAsString(postEncrypted);
+
+		simpMessagingTemplate.convertAndSend(WS_POST_ENCRYPTED_TRANSFER_DESTINATION, objAsStr);
+	}
+
+	public void notifyNewPostEncryptedGroup(final PostEncryptedGroup postEncryptedGroup) throws JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		String objAsStr = objectMapper.writeValueAsString(postEncryptedGroup);
+
+		simpMessagingTemplate.convertAndSend(WS_POST_ENCRYPTED_GROUP_TRANSFER_DESTINATION, objAsStr);
 	}
 
 }
