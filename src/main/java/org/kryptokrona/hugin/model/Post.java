@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -67,7 +68,7 @@ public class Post {
                   return "/api/v1/hashtags/" + h.getId();
                 }).collect(Collectors.toList());
       }
-      return null;
+      return Collections.emptyList();
     }
 
     public Long getId() {
