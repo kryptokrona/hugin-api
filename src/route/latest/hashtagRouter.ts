@@ -41,7 +41,7 @@ import { getAllHashtags, getHashtagById, getLatestHashtag } from "../../controll
  *       200:
  *         description: Returns the latest hashtags.
  */
-router.get('/hashtags/latest', getLatestHashtag)
+router.get('/hashtags/latest', getLatestHashtag);
 
 /**
  * @openapi
@@ -75,7 +75,7 @@ router.get('/hashtags/latest', getLatestHashtag)
  *       200:
  *         description: Returns all hashtags.
  */
-router.get('/hashtags', getAllHashtags)
+router.get('/hashtags', getAllHashtags);
 
 /**
  * @openapi
@@ -95,6 +95,6 @@ router.get('/hashtags', getAllHashtags)
  *       200:
  *         description: Returns the specific hashtag.
  */
-router.get('/hashtags/:id', getHashtagById)
+router.get('/hashtags/:id', getHashtagById);
 
 export default router;
