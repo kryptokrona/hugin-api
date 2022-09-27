@@ -44,6 +44,7 @@ public class Post {
     @Column(name = "tx_hash", length=64)
     private String txHash;
 
+    @JsonProperty("reply_tx_hash")
     @Column(name = "reply", length=64)
     private String replyTxHash;
 
