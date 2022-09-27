@@ -22,11 +22,14 @@ public class HashtagService {
 
 	private final HashtagRepository hashtagRepository;
 
+	private final WebSocketService webSocketService;
+
 	private static final Logger logger = LoggerFactory.getLogger(HashtagService.class);
 
 	@Autowired
-	public HashtagService(HashtagRepository hashtagRepository) {
+	public HashtagService(HashtagRepository hashtagRepository, WebSocketService webSocketService) {
 		this.hashtagRepository = hashtagRepository;
+		this.webSocketService = webSocketService;
 	}
 
 	public Page<Hashtag> getAll(int page, int size, String order) {
@@ -51,9 +54,14 @@ public class HashtagService {
 		return null;
 	}
 
+	public boolean existsByName(String hashtagName) {
+		return hashtagRepository.existsHashtagByName(hashtagName);
+	}
+
 	public void save(Hashtag hashtag) {
 		try {
 			hashtagRepository.save(hashtag);
+			webSocketService.notifyNewHashtag(hashtag);
 			logger.info("Post with name was added: " + hashtag.getName());
 		} catch (Exception e) {
 			logger.error("Unable to add hashtag with name: " + hashtag.getName());

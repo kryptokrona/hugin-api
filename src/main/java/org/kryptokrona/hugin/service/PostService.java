@@ -32,16 +32,16 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    private final HashtagRepository hashtagRepository;
+    private final HashtagService hashtagService;
 
     private final WebSocketService webSocketService;
 
     private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 
     @Autowired
-    public PostService(PostRepository postRepository, HashtagRepository hashtagRepository, WebSocketService webSocketService) {
+    public PostService(PostRepository postRepository, HashtagService hashtagService, WebSocketService webSocketService) {
         this.postRepository = postRepository;
-        this.hashtagRepository = hashtagRepository;
+        this.hashtagService = hashtagService;
         this.webSocketService = webSocketService;
     }
 
@@ -114,12 +114,12 @@ public class PostService {
                 var hashtagName = matcher.group().replaceAll("#", "");
 
                 // create one if it doesn't already exist in db
-                if (hashtagRepository.existsHashtagByName(hashtagName)) {
+                if (hashtagService.existsByName(hashtagName)) {
                     logger.debug("Hashtag already exists in db, skipping.");
                 } else {
                     var hashtagObj = new Hashtag();
                     hashtagObj.setName(hashtagName);
-                    hashtagRepository.save(hashtagObj);
+                    hashtagService.save(hashtagObj);
 
                     hashtagList.add(hashtagObj);
                 }

@@ -2,6 +2,7 @@ package org.kryptokrona.hugin.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.kryptokrona.hugin.model.Hashtag;
 import org.kryptokrona.hugin.model.Post;
 import org.kryptokrona.hugin.model.PostEncrypted;
 import org.kryptokrona.hugin.model.PostEncryptedGroup;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class WebSocketService {
+
+	private static final String WS_HASHTAG_TRANSFER_DESTINATION = "/topic/hashtags";
 
 	private static final String WS_POST_TRANSFER_DESTINATION = "/topic/posts";
 
@@ -23,6 +26,13 @@ public class WebSocketService {
 	@Autowired
 	public WebSocketService(SimpMessagingTemplate simpMessagingTemplate) {
 		this.simpMessagingTemplate = simpMessagingTemplate;
+	}
+
+	public void notifyNewHashtag(final Hashtag hashtag) throws JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		String objAsStr = objectMapper.writeValueAsString(hashtag);
+
+		simpMessagingTemplate.convertAndSend(WS_HASHTAG_TRANSFER_DESTINATION, objAsStr);
 	}
 
 	public void notifyNewPost(final Post post) throws JsonProcessingException {
