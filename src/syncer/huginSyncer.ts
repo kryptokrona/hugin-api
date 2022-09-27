@@ -4,17 +4,17 @@
 
 'use strict'
 
-import { Transaction } from "sequelize"
+import { Transaction } from "sequelize";
 
 import * as dotenv from "dotenv";
 dotenv.config({ path: __dirname+'/.env' });
 
 import log from "loglevel";
 
-const { extraDataToMessage } = require('hugin-crypto')
+const { extraDataToMessage } = require('hugin-crypto');
 import performance from "perf_hooks";
 import WebSocket from "ws";
-let ws = new WebSocket(`ws://localhost:${process.env.SYS_WS_PORT}`)
+let ws = new WebSocket(`ws://localhost:${process.env.SYS_WS_PORT}`);
 
 import { getTimestamp } from "../util/time";
 import { validateMessage } from "../validator/messageValidator";
@@ -24,7 +24,7 @@ let db = require("../configs/postgresql"),
     sequelize = db.sequelize,
     Sequelize = db.Sequelize
 
-let models = require('../database/models')
+let models = require('../database/models');
 const {logger} = require("sequelize/lib/utils/logger");
 
 let known_pool_txs: any = [];
@@ -35,23 +35,23 @@ let known_pool_txs: any = [];
  * @returns {Promise} Resolves to this if connection succeeded.
  */
 async function backgroundSyncMessages() {
-    log.info(getTimestamp() + ' INFO: Background syncing.')
-    let message_was_unknown
+    log.info(getTimestamp() + ' INFO: Background syncing.');
+    let message_was_unknown;
 
     try {
         const resp = await fetch('http://' + process.env.SYS_HUGIN_NODE_SERVER + '/get_pool_changes_lite', {
             method: 'POST',
             body: JSON.stringify({ knownTxsIds: known_pool_txs })
-        })
+        });
 
-        let json = await resp.json()
+        let json = await resp.json();
         json = JSON.stringify(json)
             .replace('.txPrefix', '')
-            .replace('transactionPrefixInfo.txHash', 'transactionPrefixInfotxHash')
-        json = JSON.parse(json)
+            .replace('transactionPrefixInfo.txHash', 'transactionPrefixInfotxHash');
+        json = JSON.parse(json);
 
-        let transactions = json.addedTxs
-        let transaction
+        let transactions = json.addedTxs;
+        let transaction;
 
         if (transactions.length === 0) {
             log.info(getTimestamp() + ' INFO: Got empty transaction array.')
@@ -60,28 +60,28 @@ async function backgroundSyncMessages() {
 
         for (transaction in transactions) {
             try {
-                let thisExtra = transactions[transaction].transactionPrefixInfo.extra
-                let txHash = transactions[transaction].transactionPrefixInfotxHash
+                let thisExtra = transactions[transaction].transactionPrefixInfo.extra;
+                let txHash = transactions[transaction].transactionPrefixInfotxHash;
 
                 if (known_pool_txs.indexOf(txHash) === -1) {
-                    known_pool_txs.push(txHash)
-                    message_was_unknown = true
+                    known_pool_txs.push(txHash);
+                    message_was_unknown = true;
                 } else {
-                    message_was_unknown = false
-                    console.log("This transaction is already known", txHash)
-                    continue
+                    message_was_unknown = false;
+                    console.log("This transaction is already known", txHash);
+                    continue;
                 }
 
-                let knownk: any = []
+                let knownk: any = [];
                 let keypair = {
                     privateSpendKey: '0000000000000000000000000000000000000000000000000000000000000000',
                     privateViewKey:  '0000000000000000000000000000000000000000000000000000000000000000'
-                }
+                };
 
                 // if extra is less than 200 length - skip
                 let message
                 if (thisExtra !== undefined && thisExtra.length > 200) {
-                    const boxObj = JSON.parse(trimExtra(thisExtra))
+                    const boxObj = JSON.parse(trimExtra(thisExtra));
 
                     // make sure that box exists before adding an encrypted post to db
                     if (boxObj.box) {
@@ -90,7 +90,7 @@ async function backgroundSyncMessages() {
                             if (result === null) {
                                 saveEncryptedPost(txHash, boxObj)
                             }
-                        })
+                        });
                     }
 
                   if (boxObj.sb) {
@@ -99,21 +99,21 @@ async function backgroundSyncMessages() {
                         if (result === null) {
                           saveEncryptedGroupPost(txHash, boxObj)
                         }
-                      })
+                      });
                   }
 
-                  message = await extraDataToMessage(thisExtra, knownk, keypair)
+                  message = await extraDataToMessage(thisExtra, knownk, keypair);
                 }
 
                 if (!message) {
                     log.info(getTimestamp() + ' INFO: Caught undefined null message, continue.')
-                    continue
+                    continue;
                 }
 
                 if ((message || true) && (message.brd || message.brd !== undefined)) {
-                    log.info(getTimestamp() + ' INFO: Got 1 message. Message: ' + JSON.stringify(message))
+                    log.info(getTimestamp() + ' INFO: Got 1 message. Message: ' + JSON.stringify(message));
 
-                    let avatarStr = generateAvatar(message.k)
+                    let avatarStr = generateAvatar(message.k);
 
                     let messageObj = {
                         message: message.m || null,
@@ -125,35 +125,35 @@ async function backgroundSyncMessages() {
                         tx_hash: txHash || null,
                         reply: message.r || null,
                         avatar: avatarStr || null,
-                    }
+                    };
 
-                    const messageValidated = validateMessage(messageObj)
+                    const messageValidated = validateMessage(messageObj);
 
                     if (messageValidated) {
-                      log.info(getTimestamp() + ' INFO: Message was validated.')
+                      log.info(getTimestamp() + ' INFO: Message was validated.');
 
                       // broadcast message object to websocket server
-                      ws.send(JSON.stringify(messageObj))
+                      ws.send(JSON.stringify(messageObj));
 
                       // checking if post with txHash already exists in db - if not create a new record
                       postExists(txHash).then(result => {
                         if (result === null) {
                           savePost(messageObj, txHash)
                         }
-                      })
+                      });
                     } else {
-                      log.info(getTimestamp() + ' INFO: Message was not validated, ignoring.')
+                      log.info(getTimestamp() + ' INFO: Message was not validated, ignoring.');
                     }
                 } else {
-                    log.info(getTimestamp() + ' INFO: No message.')
+                    log.info(getTimestamp() + ' INFO: No message.');
                 }
 
             } catch (err) {
-                log.error(getTimestamp() + ' ERROR: ' + err)
+                log.error(getTimestamp() + ' ERROR: ' + err);
             }
         }
     } catch (err) {
-        log.error(getTimestamp() + ' ERROR: Sync error. ' + err)
+        log.error(getTimestamp() + ' ERROR: Sync error. ' + err);
     }
 }
 
@@ -171,11 +171,11 @@ async function encryptedPostExists(txHash: string) {
             },
             order: [[ 'id', 'DESC' ]],
             raw: true,
-        })
+        });
 
-        return postEncryptedTxHashLookup
+        return postEncryptedTxHashLookup;
     } catch (err) {
-        log.error(getTimestamp() + ' ERROR: Sync error. ' + err)
+        log.error(getTimestamp() + ' ERROR: Sync error. ' + err);
     }
 }
 
@@ -193,11 +193,11 @@ async function encryptedGroupPostExists(txHash: string) {
       },
       order: [[ 'id', 'DESC' ]],
       raw: true,
-    })
+    });
 
-    return postEncryptedGroupTxHashLookup
+    return postEncryptedGroupTxHashLookup;
   } catch (err) {
-    log.error(getTimestamp() + ' ERROR: Sync error. ' + err)
+    log.error(getTimestamp() + ' ERROR: Sync error. ' + err);
   }
 }
 
@@ -215,11 +215,11 @@ async function postExists(txHash: string) {
             },
             order: [[ 'id', 'DESC' ]],
             raw: true,
-        })
+        });
 
-        return postTxHashLookup
+        return postTxHashLookup;
     } catch (err) {
-        log.error(getTimestamp() + ' ERROR: Sync error. ' + err)
+        log.error(getTimestamp() + ' ERROR: Sync error. ' + err);
     }
 }
 
@@ -237,10 +237,10 @@ async function saveEncryptedPost(txHash: string, boxObj: any) {
                 tx_hash: txHash,
                 tx_box: boxObj.box,
                 tx_timestamp: boxObj.t.toString(),
-            })
-        })
+            });
+        });
     } catch(err) {
-        log.error(getTimestamp() + ' ERROR: ' + err)
+        log.error(getTimestamp() + ' ERROR: ' + err);
     }
 }
 
@@ -258,10 +258,10 @@ async function saveEncryptedGroupPost(txHash: string, boxObj: any) {
         tx_hash: txHash,
         tx_sb: boxObj.sb,
         tx_timestamp: boxObj.t.toString(),
-      })
-    })
+      });
+    });
   } catch(err) {
-    log.error(getTimestamp() + ' ERROR: ' + err)
+    log.error(getTimestamp() + ' ERROR: ' + err);
   }
 }
 
@@ -312,35 +312,34 @@ async function savePost(messageObj: any, txHash: string) {
                                                 return models.PostHashtag.create({
                                                     post_id: postObj.id,
                                                     hashtag_id: hashtagObj.id
-                                                })
-                                            })
-                                        })
-                                    })
+                                                });
+                                            });
+                                        });
+                                    });
                                 } else {
                                     // hashtag exists, so we add a new row in post_hashtag with its ID
                                     await sequelize.transaction(async (t3: Transaction) => {
                                         return models.PostHashtag.create({
                                             post_id: postObj.id,
                                             hashtag_id: result.id
-                                        })
-                                    })
+                                        });
+                                    });
                                 }
-                            })
-
-                        })
+                            });
+                        });
                     }
                 } catch(TypeError)  {
-                    log.error(getTimestamp() + ' ERROR: Could not parse hashtags')
+                    log.error(getTimestamp() + ' ERROR: Could not parse hashtags');
                 }
             })
         })
 
         // calculating queries for debug reasons
-        let endTime = performance.performance.now()
-        log.info(getTimestamp() + ` INFO: Queries to took ${endTime - startTime} seconds`)
+        let endTime = performance.performance.now();
+        log.info(getTimestamp() + ` INFO: Queries to took ${endTime - startTime} seconds`);
 
     } catch (err) {
-        log.error(getTimestamp() + ' ERROR: An error adding a Post transaction - Rolling back. ' + err)
+        log.error(getTimestamp() + ' ERROR: An error adding a Post transaction - Rolling back. ' + err);
     }
 }
 
@@ -353,12 +352,12 @@ async function savePost(messageObj: any, txHash: string) {
  */
 function fromHex(hex: string, str?: string) {
     try{
-        str = decodeURIComponent(hex.replace(/(..)/g,'%$1'))
+        str = decodeURIComponent(hex.replace(/(..)/g,'%$1'));
     } catch (e) {
-        str = hex
-        log.error(getTimestamp() + ' ERROR: Invalid hex input. ' + e)
+        str = hex;
+        log.error(getTimestamp() + ' ERROR: Invalid hex input. ' + e);
     }
-    return str
+    return str;
 }
 
 /**
@@ -371,12 +370,12 @@ function trimExtra(extra: string) {
     // Extra data contains either a 66 or 78 prefix that isn't used for messages
     try {
         // Transaction from kryptokrona-service
-        let payload = fromHex(extra.substring(66))
-        let payload_json = JSON.parse(payload)
-        return fromHex(extra.substring(66))
+        let payload = fromHex(extra.substring(66));
+        let payload_json = JSON.parse(payload);
+        return fromHex(extra.substring(66));
     } catch (e) {
         // Transaction from kryptokrona-wallet-backend-js
-        return fromHex(Buffer.from(extra.substring(78)).toString())
+        return fromHex(Buffer.from(extra.substring(78)).toString());
     }
 }
 
