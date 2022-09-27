@@ -3,6 +3,7 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import sequelizeConnection from "../config/config";
 import Hashtag from "./Hashtag";
+import PostHashtag from "./PostHashtag";
 
 //TODO: check which attributes should be optional or not
 interface PostAttributes {

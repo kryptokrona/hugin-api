@@ -1,21 +1,36 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class PostEncryptedGroup extends Model {
-    static associate(models) {}
-  }
-  PostEncryptedGroup.init({
-    tx_hash:        {type: DataTypes.STRING,  allowNull: true},
-    tx_sb:          {type: DataTypes.TEXT,    allowNull: true},
-    tx_timestamp:   {type: DataTypes.BIGINT,  allowNull: true},
-    createdAt:      {type: DataTypes.DATE,    allowNull: false, field: 'created_at'},
-    updatedAt:      {type: DataTypes.DATE,    allowNull: false, field: 'updated_at'},
-  }, {
-    sequelize,
-    modelName: 'PostEncryptedGroup',
-    tableName: 'postencryptedgroup'
-  });
-  return PostEncryptedGroup;
-};
+
+import { DataTypes, Model, Optional } from "sequelize";
+import sequelizeConnection from "../config/config";
+
+//TODO: check which attributes should be optional or not
+interface PostEncryptedAttributes {
+  id: number;
+  txHash?: string;
+  txSb?: string;
+  txTimestamp?: bigint;
+}
+export interface PostEncryptedInput extends Optional<PostEncryptedAttributes, 'id'> {}
+export interface PostEncryptedOuput extends Required<PostEncryptedAttributes> {}
+
+class PostEncrypted extends Model<PostEncryptedAttributes, PostEncryptedInput> implements PostEncryptedAttributes {
+  public id!: number;
+  public txHash?: string;
+  public txSb?: string;
+  public txTimestamp?: bigint;
+
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+}
+
+PostEncrypted.init({
+  id:           {type: DataTypes.NUMBER, allowNull: false},
+  txHash:       {type: DataTypes.STRING, allowNull: true},
+  txSb:         {type: DataTypes.TEXT,   allowNull: true},
+  txTimestamp:  {type: DataTypes.BIGINT, allowNull: true},
+}, {
+  timestamps: true,
+  sequelize: sequelizeConnection
+})
+
+export default PostEncrypted;
