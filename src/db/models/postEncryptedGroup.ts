@@ -4,16 +4,17 @@ import { DataTypes, Model, Optional } from "sequelize";
 import sequelizeConnection from "../config/config";
 
 //TODO: check which attributes should be optional or not
-interface PostEncryptedAttributes {
+interface PostEncryptedGroupAttributes {
   id: number;
   txHash?: string;
   txSb?: string;
   txTimestamp?: bigint;
 }
-export interface PostEncryptedInput extends Optional<PostEncryptedAttributes, 'id'> {}
-export interface PostEncryptedOuput extends Required<PostEncryptedAttributes> {}
 
-class PostEncrypted extends Model<PostEncryptedAttributes, PostEncryptedInput> implements PostEncryptedAttributes {
+export interface PostEncryptedGroupInput extends Optional<PostEncryptedGroupAttributes, 'id'> {}
+export interface PostEncryptedGroupOuput extends Required<PostEncryptedGroupAttributes> {}
+
+class PostEncryptedGroup extends Model<PostEncryptedGroupAttributes, PostEncryptedGroupInput> implements PostEncryptedGroupAttributes {
   public id!: number;
   public txHash?: string;
   public txSb?: string;
@@ -23,7 +24,7 @@ class PostEncrypted extends Model<PostEncryptedAttributes, PostEncryptedInput> i
   public readonly updatedAt!: Date;
 }
 
-PostEncrypted.init({
+PostEncryptedGroup.init({
   id:           {type: DataTypes.NUMBER, allowNull: false},
   txHash:       {type: DataTypes.STRING, allowNull: true},
   txSb:         {type: DataTypes.TEXT,   allowNull: true},
@@ -33,4 +34,4 @@ PostEncrypted.init({
   sequelize: sequelizeConnection
 })
 
-export default PostEncrypted;
+export default PostEncryptedGroup;

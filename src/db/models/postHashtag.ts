@@ -11,6 +11,7 @@ interface PostHashtagAttributes {
   postId: number;
   hashtagId: number;
 }
+
 export interface PostHashtagInput extends Optional<PostHashtagAttributes, 'id'> {}
 export interface PostHashtagOuput extends Required<PostHashtagAttributes> {}
 
