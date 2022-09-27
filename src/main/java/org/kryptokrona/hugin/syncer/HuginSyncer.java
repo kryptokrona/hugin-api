@@ -121,6 +121,7 @@ public class HuginSyncer {
 
 						// encrypted post
 						if (isBoxObj) {
+							//TODO: some bug here, throws exception it cannot be deserialized in the box class
 							var boxObj = objectMapper.readValue(new StringReader(extra), Box.class);
 
 							var exists = postEncryptedService.existsTxBox(boxObj.getBox());
