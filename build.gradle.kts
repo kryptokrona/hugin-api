@@ -47,6 +47,10 @@ tasks.getByName<War>("war") {
 	enabled = true
 }
 
+tasks.withType<Jar> {
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
 repositories {
 	mavenCentral()
 }
