@@ -112,7 +112,7 @@
        POSTGRESQL_DB_NAME: "{{ vault_postgres_db_name }}",
        POSTGRESQL_DB_USER: "{{ vault_postgres_db_user }}",
        POSTGRESQL_DB_PASSWORD: "{{ vault_postgres_db_password }}",
-       JAVA_OPT: "-Dspring.profiles.active=prod"
+       SPRING_PROFILES_ACTIVE: prod
     }
     networks:
       - name: "host"

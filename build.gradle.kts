@@ -79,12 +79,13 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-ui:1.6.11")
 	implementation("org.webjars:swagger-ui")
 
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
-	developmentOnly("org.webjars:webjars-locator-core")
-	developmentOnly("org.webjars:sockjs-client:1.5.1")
-	developmentOnly("org.webjars:stomp-websocket:2.3.4")
-	developmentOnly("org.webjars:bootstrap:5.2.0")
-	developmentOnly("org.webjars:jquery:3.6.1")
+	// set these to active if the profile is dev only
+	//	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	//	developmentOnly("org.webjars:webjars-locator-core")
+	//	developmentOnly("org.webjars:sockjs-client:1.5.1")
+	//	developmentOnly("org.webjars:stomp-websocket:2.3.4")
+	//	developmentOnly("org.webjars:bootstrap:5.2.0")
+	//	developmentOnly("org.webjars:jquery:3.6.1")
 
 	runtimeOnly("org.postgresql:postgresql")
 	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
