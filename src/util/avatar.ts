@@ -10,7 +10,7 @@ let intToRGB = require("int-to-rgb");
 
 function generateAvatar(hash: string, format='png') {
     // get custom color scheme based on address
-    let rgb = intToRGB(hashCode(hash))
+    let rgb = intToRGB(hashCode(hash));
 
     // options for avatar
     let options: any = {
@@ -22,7 +22,7 @@ function generateAvatar(hash: string, format='png') {
         margin: 0.2, // 20% margin
         size: 40, // 420px square
         format: format // use svg instead of png
-    }
+    };
 
     // create a base64 encoded svg
     return new Identicon(hash, options).toString();
