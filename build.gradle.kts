@@ -76,12 +76,8 @@ dependencies {
 	implementation("com.github.seancfoley:ipaddress:5.3.4")
 	implementation("io.reactivex.rxjava3:rxjava:3.1.5")
 	implementation("com.h2database:h2:2.1.214")
-	// implementation("com.kryptokrona.sdk:kryptokrona-sdk:0.1.0")
-	implementation("org.springdoc:springdoc-openapi-ui:1.5.9") { // might get this version to use in libs
-		exclude("org.webjars:swagger-ui") // exlcuding this module so we can use the custom below
-	}
-	implementation(files("libs/swagger-ui-3.49.0.jar")) // custom jar file for our custom swagger-ui theme
-	implementation("software.pando.crypto:salty-coffee:1.1.0")
+	implementation("org.springdoc:springdoc-openapi-ui:1.6.11")
+	implementation("org.webjars:swagger-ui")
 
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	developmentOnly("org.webjars:webjars-locator-core")
@@ -89,7 +85,6 @@ dependencies {
 	developmentOnly("org.webjars:stomp-websocket:2.3.4")
 	developmentOnly("org.webjars:bootstrap:5.2.0")
 	developmentOnly("org.webjars:jquery:3.6.1")
-
 
 	runtimeOnly("org.postgresql:postgresql")
 	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
