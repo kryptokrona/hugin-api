@@ -42,6 +42,20 @@ public class HashtagService {
 		return hashtagRepository.findAll(paging);
 	}
 
+	public Page<Hashtag> getAllTrending(int page, int size, String order) {
+		PageRequest paging;
+
+		if (Objects.equals(order, "asc".toLowerCase())) {
+			paging = PageRequest.of(page, size, Sort.by("id").ascending());
+
+			return hashtagRepository.findAllTrending(paging);
+		}
+
+		paging = PageRequest.of(page, size, Sort.by("id").descending());
+
+		return hashtagRepository.findAllTrending(paging);
+	}
+
 	public Hashtag getById(long id) {
 		if (hashtagRepository.existsById(id)) {
 			Hashtag hashtag = hashtagRepository.findById(id).get();

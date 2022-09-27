@@ -3,16 +3,21 @@ package org.kryptokrona.hugin.controller.latest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.kryptokrona.hugin.model.Hashtag;
+import org.kryptokrona.hugin.model.Post;
 import org.kryptokrona.hugin.service.HashtagService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static org.kryptokrona.hugin.controller.latest.HashtagController.VERSION;
 
@@ -56,6 +61,28 @@ public class HashtagController {
 		response.put("total_pages", pagination.getTotalPages());
 
 		logger.info("Getting all hashtags was successful");
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
+	@GetMapping
+	@Operation(summary = "Get all trending hashtags", description = "Get all trending hashtags with pagination.")
+	public ResponseEntity<Map<String, Object>> getAllTrending(
+			@RequestParam(required = false, defaultValue = "0") int page,
+			@RequestParam(required = false, defaultValue = "25") int size,
+			@RequestParam(required = false, defaultValue = "desc") String order
+	) {
+		var pagination = hashtagService.getAllTrending(page, size, order);
+
+		var hashtags = pagination.getContent();
+
+		Map<String, Object> response = new HashMap<>();
+		response.put("hashtags", hashtags);
+		response.put("current_page", pagination.getNumber());
+		response.put("total_items", pagination.getTotalElements());
+		response.put("total_pages", pagination.getTotalPages());
+
+		logger.info("Getting all trending hashtags was successful");
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
