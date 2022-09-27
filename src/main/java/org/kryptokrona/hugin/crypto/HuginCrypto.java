@@ -96,7 +96,6 @@ public class HuginCrypto {
 			var objectMapper = new ObjectMapper();
 			var postObj = objectMapper.readValue(new StringReader(extra), PostItem.class);
 
-			var thisAddr = 0;
 			var verified = true;
 
 			if (!verified) {
@@ -105,7 +104,6 @@ public class HuginCrypto {
 				return postObj;
 			}
 		}
-
 
 		return null;
 	}

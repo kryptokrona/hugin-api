@@ -65,7 +65,7 @@ public class PostItem {
 	}
 
 	public String getR() {
-		return n;
+		return r;
 	}
 
 	public void setR(String r) {
