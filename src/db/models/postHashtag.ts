@@ -1,39 +1,48 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class PostHashtag extends Model {
-    static associate(models) {}
-  }
-  PostHashtag.init({
-    id: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER
-    },
-    post_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'post',
-        key: 'id',
-        as: 'user_id'
-      }
-    },
-    hashtag_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'hashtag',
-        key: 'id',
-        as: 'hashtag_id'
-      }
+
+import { DataTypes, Model, Optional } from "sequelize";
+import sequelizeConnection from "../config/config";
+import Hashtag from "./Hashtag";
+import Post from "./post";
+
+//TODO: check which attributes should be optional or not
+interface PostHashtagAttributes {
+  id: number;
+  postId: number;
+  hashtagId: number;
+}
+export interface PostHashtagInput extends Optional<PostHashtagAttributes, 'id'> {}
+export interface PostHashtagOuput extends Required<PostHashtagAttributes> {}
+
+class PostHashtag extends Model<PostHashtagAttributes, PostHashtagInput> implements PostHashtagAttributes {
+  public id!: number;
+  public postId!: number;
+  public hashtagId!: number;
+
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+}
+
+PostHashtag.init({
+  id: {
+    type: DataTypes.INTEGER},
+  postId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Post,
+      key: "id"
     }
-  }, {
-    sequelize,
-    timestamps: false,
-    modelName: 'PostHashtag',
-    tableName: 'post_hashtag'
-  });
-  return PostHashtag;
-};
+  },
+  hashtagId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Hashtag,
+      key: "id"
+    }
+  },
+}, {
+  timestamps: false,
+  sequelize: sequelizeConnection
+})
+
+export default PostHashtag;
