@@ -141,6 +141,13 @@ jobs:
         env:
           SPRING_PROFILES_ACTIVE: test
           POSTGRESQL_PORT: 5433
+          SYS_API_CONTACT_EMAIL: mjovanc@icloud.com
+          SYS_API_CONTACT_NAME: Marcus Cvjeticanin
+          SYS_API_CONTACT_URL: https://github.com/kryptokrona/hugin-api
+          SYS_API_DESCRIPTION: Hugin API Test
+          SYS_API_SERVER_URL: http://localhost:8080
+          SYS_API_TITLE: Hugin API Test
+          SYS_NODE_HOSTNAME: blocksum.org:11898
 
   code-coverage:
     name: Code Coverage
