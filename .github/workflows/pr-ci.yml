@@ -137,7 +137,9 @@ jobs:
           path: build/libs
 
       - name: Run Unit Test
-        run: ./gradlew test --args='--spring.profiles.active=test'
+        run: ./gradlew test
+        env:
+          SPRING_PROFILES_ACTIVE: test
 
   code-coverage:
     name: Code Coverage
