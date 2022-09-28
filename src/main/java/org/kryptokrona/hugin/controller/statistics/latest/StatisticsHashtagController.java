@@ -17,7 +17,7 @@ import static org.kryptokrona.hugin.controller.statistics.latest.StatisticsHasht
 @RestController
 @CrossOrigin(origins="*")
 @RequestMapping("api/v" + VERSION + "/statistics/hashtags")
-@Tag(name = "statistics", description = "Set of endpoints to get statistical data of hashtags.")
+@Tag(name = "statistics", description = "Set of endpoints to get statistical data.")
 public class StatisticsHashtagController {
 
 	static final String VERSION = "1";

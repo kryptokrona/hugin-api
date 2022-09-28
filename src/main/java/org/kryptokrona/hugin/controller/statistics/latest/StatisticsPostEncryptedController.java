@@ -17,7 +17,7 @@ import static org.kryptokrona.hugin.controller.statistics.latest.StatisticsPostE
 @RestController
 @CrossOrigin(origins="*")
 @RequestMapping("api/v" + VERSION + "/statistics/posts-encrypted")
-@Tag(name = "statistics", description = "Set of endpoints to get statistical data of encrypted posts.")
+@Tag(name = "statistics", description = "Set of endpoints to get statistical data.")
 public class StatisticsPostEncryptedController {
 
 	static final String VERSION = "1";
