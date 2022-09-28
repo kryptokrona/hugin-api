@@ -4,18 +4,44 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class StatisticsResponse {
 
-	@JsonProperty("total_items")
-	private long totalItems;
+	@JsonProperty("24h")
+	private long twentyFourHours;
 
-	public StatisticsResponse(long totalItems) {
-		this.totalItems = totalItems;
+	private long week;
+
+	private long month;
+
+	private long year;
+
+	public long getTwentyFourHours() {
+		return twentyFourHours;
 	}
 
-	public long getTotalItems() {
-		return totalItems;
+	public void setTwentyFourHours(long twentyFourHours) {
+		this.twentyFourHours = twentyFourHours;
 	}
 
-	public void setTotalItems(long totalItems) {
-		this.totalItems = totalItems;
+	public long getWeek() {
+		return week;
+	}
+
+	public void setWeek(long week) {
+		this.week = week;
+	}
+
+	public long getMonth() {
+		return month;
+	}
+
+	public void setMonth(long month) {
+		this.month = month;
+	}
+
+	public long getYear() {
+		return year;
+	}
+
+	public void setYear(long year) {
+		this.year = year;
 	}
 }
