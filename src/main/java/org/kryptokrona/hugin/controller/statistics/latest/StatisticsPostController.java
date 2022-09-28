@@ -2,6 +2,7 @@ package org.kryptokrona.hugin.controller.statistics.latest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.kryptokrona.hugin.http.StatisticsResponse;
 import org.kryptokrona.hugin.model.Post;
 import org.kryptokrona.hugin.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,35 @@ public class StatisticsPostController {
 			summary = "Amount of posts during last 24h",
 			description = "Gets the total amount of posts during last 24h."
 	)
-	public ResponseEntity<String> getTotalAmount24h() {
-		return new ResponseEntity<>("test", HttpStatus.OK);
+	public ResponseEntity<StatisticsResponse> getTotalAmount24h() {
+		return new ResponseEntity<>(new StatisticsResponse(20), HttpStatus.OK);
+	}
+
+	@GetMapping("/week")
+	@Operation(
+			summary = "Amount of posts during last week",
+			description = "Gets the total amount of posts during last week."
+	)
+	public ResponseEntity<StatisticsResponse> getTotalAmountWeek() {
+		return new ResponseEntity<>(new StatisticsResponse(20), HttpStatus.OK);
+	}
+
+	@GetMapping("/month")
+	@Operation(
+			summary = "Amount of posts during last month",
+			description = "Gets the total amount of posts during last month."
+	)
+	public ResponseEntity<StatisticsResponse> getTotalAmountMonth() {
+		return new ResponseEntity<>(new StatisticsResponse(20), HttpStatus.OK);
+	}
+
+	@GetMapping("/year")
+	@Operation(
+			summary = "Amount of posts during last year",
+			description = "Gets the total amount of posts during last year."
+	)
+	public ResponseEntity<StatisticsResponse> getTotalAmountYear() {
+		return new ResponseEntity<>(new StatisticsResponse(20), HttpStatus.OK);
 	}
 
 }
