@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.List;
 
 /**
  * Hugin Crypto.
