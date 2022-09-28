@@ -1,53 +1,69 @@
 version: '3.7'
 
 services:
-  hugin-api:
-    build: .
-    container_name: hugin_api
-    environment:
-      SYS_API_CONTACT_EMAIL: mjovanc@icloud.com
-      SYS_API_CONTACT_NAME: Marcus Cvjeticanin
-      SYS_API_CONTACT_URL: https://github.com/kryptokrona/hugin-api
-      SYS_API_DESCRIPTION: Local Hugin API
-      SYS_API_SERVER_URL: http://localhost:8080
-      SYS_API_TITLE: Hugin API
-      SYS_NODE_HOSTNAME: blocksum.org:11898
-      POSTGRESQL_HOSTNAME: postgres
-      POSTGRESQL_PORT: 5432
-      POSTGRESQL_DB_NAME: hugin_api_dev
-      POSTGRESQL_DB_USER: postgres
-      POSTGRESQL_DB_PASSWORD: test1234
-      SPRING_PROFILES_ACTIVE: prod
-    ports:
-      - "8080:8080"
-    networks:
-      - hugin-net
+#  hugin-api:
+#    build: .
+#    container_name: hugin_api
+#    environment:
+#      SYS_API_CONTACT_EMAIL: mjovanc@icloud.com
+#      SYS_API_CONTACT_NAME: Marcus Cvjeticanin
+#      SYS_API_CONTACT_URL: https://github.com/kryptokrona/hugin-api
+#      SYS_API_DESCRIPTION: Local Hugin API
+#      SYS_API_SERVER_URL: http://localhost:8080
+#      SYS_API_TITLE: Hugin API
+#      SYS_NODE_HOSTNAME: blocksum.org:11898
+#      POSTGRESQL_HOSTNAME: postgres
+#      POSTGRESQL_PORT: 5432
+#      POSTGRESQL_DB_NAME: hugin_api_dev
+#      POSTGRESQL_DB_USER: postgres
+#      POSTGRESQL_DB_PASSWORD: test1234
+#      SPRING_PROFILES_ACTIVE: prod
+#    ports:
+#      - "8080:8080"
+#    networks:
+#      - hugin-net
+#
+#  hugin-ml:
+#    build: ./ml
+#    container_name: hugin_ml
+#    ports:
+#      - "5000:5000"
+#    networks:
+#      - hugin-net
 
-  hugin-ml:
-    build: ./ml
-    container_name: hugin_ml
-    ports:
-      - "5000:5000"
-    networks:
-      - hugin-net
-
-  postgres:
+  db-dev:
     image: postgres
-    container_name: hugin_api_db
+    container_name: db_dev
     restart: always
     environment:
       POSTGRES_DB: hugin_api_dev
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: test1234
     volumes:
-      - postgres:/data/postgres
+      - db-dev:/data/postgres
     ports:
       - "5432:5432"
     networks:
       - hugin-net
 
+  db-test:
+    image: postgres
+    container_name: db_test
+    restart: always
+    environment:
+      POSTGRES_DB: hugin_api_test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test1234
+    volumes:
+      - db-test:/data/postgres
+    ports:
+      - "5433:5432"
+    networks:
+      - hugin-net
+
 volumes:
-  postgres:
+  db-dev:
+  db-test:
 
 networks:
   hugin-net:
