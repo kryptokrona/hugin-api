@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.kryptokrona.hugin.controller.statistics.latest.PostEncryptedStatisticsController.VERSION;
+import static org.kryptokrona.hugin.controller.statistics.latest.PostEncryptedGroupStatisticsController.VERSION;
 
 /**
  * Post Encrypted Group Statistics Controller.
@@ -14,7 +14,10 @@ import static org.kryptokrona.hugin.controller.statistics.latest.PostEncryptedSt
  */
 @RestController
 @CrossOrigin(origins="*")
-@RequestMapping("api/v" + VERSION + "/statistics/posts-encrypted")
-@Tag(name = "statistics", description = "Set of endpoints to get statistical data of encrypted posts.")
+@RequestMapping("api/v" + VERSION + "/statistics/posts-encrypted-group")
+@Tag(name = "statistics", description = "Set of endpoints to get statistical data of encrypted group posts.")
 public class PostEncryptedGroupStatisticsController {
+
+	static final String VERSION = "1";
+
 }
