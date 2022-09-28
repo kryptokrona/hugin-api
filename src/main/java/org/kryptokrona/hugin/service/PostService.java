@@ -1,5 +1,6 @@
 package org.kryptokrona.hugin.service;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.kryptokrona.hugin.model.Hashtag;
 import org.kryptokrona.hugin.model.Post;
 import org.kryptokrona.hugin.repository.PostRepository;
@@ -11,12 +12,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static java.time.LocalTime.now;
 
 /**
  * Post Service.
@@ -96,19 +99,35 @@ public class PostService {
     }
 
     public long getTotalItemsBy24h() {
-        return 0;
+        var endDate = new Date();
+        var startDate = DateUtils.addDays(new Date(), -1);
+        var items = postRepository.findAllByCreatedAtBetween(startDate, endDate);
+
+        return items.size();
     }
 
     public long getTotalItemsByWeek() {
-        return 0;
+        var endDate = new Date();
+        var startDate = DateUtils.addDays(new Date(), -7);
+        var items = postRepository.findAllByCreatedAtBetween(startDate, endDate);
+
+        return items.size();
     }
 
     public long getTotalItemsByMonth() {
-        return 0;
+        var endDate = new Date();
+        var startDate = DateUtils.addDays(new Date(), -31);
+        var items = postRepository.findAllByCreatedAtBetween(startDate, endDate);
+
+        return items.size();
     }
 
     public long getTotalItemsByYear() {
-        return 0;
+        var endDate = new Date();
+        var startDate = DateUtils.addDays(new Date(), -365);
+        var items = postRepository.findAllByCreatedAtBetween(startDate, endDate);
+
+        return items.size();
     }
 
     public boolean existsByTxHash(String txHash) {
