@@ -78,7 +78,7 @@ public class StatisticsController {
 		return new ResponseEntity<>(statisticsResponseObj, HttpStatus.OK);
 	}
 
-	@GetMapping("/post-encrypted-group")
+	@GetMapping("/posts-encrypted-group")
 	@Operation(
 			summary = "Amount of encrypted posts",
 			description = "Gets the total amount of encrypted posts during last 24h/week/month/year."
@@ -93,7 +93,7 @@ public class StatisticsController {
 		return new ResponseEntity<>(statisticsResponseObj, HttpStatus.OK);
 	}
 
-	@GetMapping("/hashtag")
+	@GetMapping("/hashtags")
 	@Operation(
 			summary = "Amount of hashtags",
 			description = "Gets the total amount of hashtags during last 24h/week/month/year."
