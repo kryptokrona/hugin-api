@@ -130,6 +130,12 @@ public class PostService {
         return items.size();
     }
 
+    public long getTotalItems() {
+        var items = postRepository.findAll();
+
+        return items.size();
+    }
+
     public boolean existsByTxHash(String txHash) {
         return postRepository.existsPostByTxHash(txHash);
     }

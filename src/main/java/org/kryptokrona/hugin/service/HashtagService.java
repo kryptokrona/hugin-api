@@ -114,6 +114,12 @@ public class HashtagService {
 		return items.size();
 	}
 
+	public long getTotalItems() {
+		var items = hashtagRepository.findAll();
+
+		return items.size();
+	}
+
 	public boolean existsByName(String hashtagName) {
 		return hashtagRepository.existsHashtagByName(hashtagName);
 	}

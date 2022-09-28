@@ -59,6 +59,7 @@ public class StatisticsController {
 		statisticsResponseObj.setWeek(postService.getTotalItemsByWeek());
 		statisticsResponseObj.setMonth(postService.getTotalItemsByMonth());
 		statisticsResponseObj.setYear(postService.getTotalItemsByYear());
+		statisticsResponseObj.setTotal(postService.getTotalItems());
 
 		return new ResponseEntity<>(statisticsResponseObj, HttpStatus.OK);
 	}
@@ -74,6 +75,7 @@ public class StatisticsController {
 		statisticsResponseObj.setWeek(postEncryptedService.getTotalItemsByWeek());
 		statisticsResponseObj.setMonth(postEncryptedService.getTotalItemsByMonth());
 		statisticsResponseObj.setYear(postEncryptedService.getTotalItemsByYear());
+		statisticsResponseObj.setTotal(postEncryptedService.getTotalItems());
 
 		return new ResponseEntity<>(statisticsResponseObj, HttpStatus.OK);
 	}
@@ -89,6 +91,7 @@ public class StatisticsController {
 		statisticsResponseObj.setWeek(postEncryptedGroupService.getTotalItemsByWeek());
 		statisticsResponseObj.setMonth(postEncryptedGroupService.getTotalItemsByMonth());
 		statisticsResponseObj.setYear(postEncryptedGroupService.getTotalItemsByYear());
+		statisticsResponseObj.setTotal(postEncryptedGroupService.getTotalItems());
 
 		return new ResponseEntity<>(statisticsResponseObj, HttpStatus.OK);
 	}
@@ -104,6 +107,7 @@ public class StatisticsController {
 		statisticsResponseObj.setWeek(hashtagService.getTotalItemsByWeek());
 		statisticsResponseObj.setMonth(hashtagService.getTotalItemsByMonth());
 		statisticsResponseObj.setYear(hashtagService.getTotalItemsByYear());
+		statisticsResponseObj.setTotal(hashtagService.getTotalItems());
 
 		return new ResponseEntity<>(statisticsResponseObj, HttpStatus.OK);
 	}

@@ -112,6 +112,12 @@ public class PostEncryptedGroupService {
 		return items.size();
 	}
 
+	public long getTotalItems() {
+		var items = postEncryptedGroupRepository.findAll();
+
+		return items.size();
+	}
+
 	public boolean existsByTxHash(String txHash) {
 		return postEncryptedGroupRepository.existsPostEncryptedGroupByTxHash(txHash);
 	}

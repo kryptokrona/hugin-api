@@ -112,6 +112,12 @@ public class PostEncryptedService {
 		return items.size();
 	}
 
+	public long getTotalItems() {
+		var items = postEncryptedRepository.findAll();
+
+		return items.size();
+	}
+
 	public boolean existsTxHash(String txHash) {
 		return postEncryptedRepository.existsPostEncryptedByTxHash(txHash);
 	}

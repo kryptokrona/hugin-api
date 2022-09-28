@@ -13,6 +13,8 @@ public class StatisticsResponse {
 
 	private long year;
 
+	private long total;
+
 	public long getTwentyFourHours() {
 		return twentyFourHours;
 	}
@@ -44,4 +46,13 @@ public class StatisticsResponse {
 	public void setYear(long year) {
 		this.year = year;
 	}
+
+	public long getTotal() {
+		return total;
+	}
+
+	public void setTotal(long total) {
+		this.total = total;
+	}
+
 }
