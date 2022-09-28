@@ -23,6 +23,14 @@ services:
     networks:
       - hugin-net
 
+  hugin-ml:
+    build: ./ml
+    container_name: hugin_ml
+    ports:
+      - "5000:5000"
+    networks:
+      - hugin-net
+
   postgres:
     image: postgres
     container_name: postgres
