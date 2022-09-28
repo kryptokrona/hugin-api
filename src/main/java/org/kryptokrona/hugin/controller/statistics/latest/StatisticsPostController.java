@@ -38,7 +38,9 @@ public class StatisticsPostController {
 			description = "Gets the total amount of posts during last 24h."
 	)
 	public ResponseEntity<StatisticsResponse> getTotalAmount24h() {
-		return new ResponseEntity<>(new StatisticsResponse(20), HttpStatus.OK);
+		return new ResponseEntity<>(
+				new StatisticsResponse(postService.getTotalItemsBy24h()),
+				HttpStatus.OK);
 	}
 
 	@GetMapping("/week")
@@ -47,7 +49,9 @@ public class StatisticsPostController {
 			description = "Gets the total amount of posts during last week."
 	)
 	public ResponseEntity<StatisticsResponse> getTotalAmountWeek() {
-		return new ResponseEntity<>(new StatisticsResponse(20), HttpStatus.OK);
+		return new ResponseEntity<>(
+				new StatisticsResponse(postService.getTotalItemsByWeek()),
+				HttpStatus.OK);
 	}
 
 	@GetMapping("/month")
@@ -56,7 +60,9 @@ public class StatisticsPostController {
 			description = "Gets the total amount of posts during last month."
 	)
 	public ResponseEntity<StatisticsResponse> getTotalAmountMonth() {
-		return new ResponseEntity<>(new StatisticsResponse(20), HttpStatus.OK);
+		return new ResponseEntity<>(
+				new StatisticsResponse(postService.getTotalItemsByMonth()),
+				HttpStatus.OK);
 	}
 
 	@GetMapping("/year")
@@ -65,7 +71,9 @@ public class StatisticsPostController {
 			description = "Gets the total amount of posts during last year."
 	)
 	public ResponseEntity<StatisticsResponse> getTotalAmountYear() {
-		return new ResponseEntity<>(new StatisticsResponse(20), HttpStatus.OK);
+		return new ResponseEntity<>(
+				new StatisticsResponse(postService.getTotalItemsByYear()),
+				HttpStatus.OK);
 	}
 
 }
