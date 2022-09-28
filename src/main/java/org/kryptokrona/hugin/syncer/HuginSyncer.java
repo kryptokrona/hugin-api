@@ -68,8 +68,7 @@ public class HuginSyncer {
 
 	@Scheduled(fixedRate=1000)
 	public void sync() {
-		logger.debug("Background syncing...");
-		// this.brokerMessagingTemplate.convertAndSend("/user", "foo");
+		logger.debug("Background Syncing...");
 
 		hostname = new HostName(nodeHostname);
 
