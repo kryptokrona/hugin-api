@@ -18,6 +18,8 @@ public interface HashtagRepository extends JpaRepository<Hashtag, Long> {
 
 	boolean existsHashtagByName(String name);
 
+	Hashtag findHashtagByName(String name);
+
 	// @Query(value = "", nativeQuery = true)
 	// Page<Hashtag> findAllTrending(Pageable pageable);
 

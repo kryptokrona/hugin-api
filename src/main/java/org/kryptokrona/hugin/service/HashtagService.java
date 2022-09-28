@@ -68,6 +68,18 @@ public class HashtagService {
 		return null;
 	}
 
+	public Hashtag getByName(String name) {
+		if (hashtagRepository.existsHashtagByName(name)) {
+			Hashtag hashtag = hashtagRepository.findHashtagByName(name);
+			logger.info("Hashtag found with name: " + name);
+			return hashtag;
+		}
+
+		logger.info("Unable to find hashtag with name: " + name);
+
+		return null;
+	}
+
 	public boolean existsByName(String hashtagName) {
 		return hashtagRepository.existsHashtagByName(hashtagName);
 	}

@@ -109,10 +109,13 @@ public class PostService {
 
                 var hashtagName = matcher.group().replaceAll("#", "");
 
-                // create one if it doesn't already exist in db
+                // find the hashtag object if it already exists and put it in hashtagList
                 if (hashtagService.existsByName(hashtagName)) {
                     logger.debug("Hashtag already exists in db, skipping.");
+                    var hashtagObj = hashtagService.getByName(hashtagName);
+                    hashtagList.add(hashtagObj);
                 } else {
+                    // create a new hashtag and put in hashtagList
                     var hashtagObj = new Hashtag();
                     hashtagObj.setName(hashtagName);
                     hashtagService.save(hashtagObj);
