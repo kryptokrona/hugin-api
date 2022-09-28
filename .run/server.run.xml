@@ -1,11 +1,11 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="HuginApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+  <configuration default="false" name="server" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <option name="ACTIVE_PROFILES" />
     <envs>
       <env name="SYS_API_CONTACT_EMAIL" value="mjovanc@icloud.com" />
       <env name="SYS_API_CONTACT_NAME" value="Marcus Cvjeticanin" />
       <env name="SYS_API_CONTACT_URL" value="https://github.com/kryptokrona/hugin-api" />
-      <env name="SYS_API_DESCRIPTION" value="Hugin API is a high performance RESTful API and WebSocket server for the Hugin Messenger service.  Hugin API is a high performance RESTful API and WebSocket server for the Hugin Messenger service.  " />
+      <env name="SYS_API_DESCRIPTION" value="Hugin API is a high performance RESTful API and WebSocket server for the Hugin Messenger service." />
       <env name="SYS_API_SERVER_URL" value="http://localhost:8080" />
       <env name="SYS_API_TITLE" value="Hugin API" />
       <env name="SYS_NODE_HOSTNAME" value="blocksum.org:11898" />
