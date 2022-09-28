@@ -95,7 +95,23 @@ public class PostService {
         return null;
     }
 
-    public boolean existsTxHash(String txHash) {
+    public long getTotalItemsBy24h() {
+        return 0;
+    }
+
+    public long getTotalItemsByWeek() {
+        return 0;
+    }
+
+    public long getTotalItemsByMonth() {
+        return 0;
+    }
+
+    public long getTotalItemsByYear() {
+        return 0;
+    }
+
+    public boolean existsByTxHash(String txHash) {
         return postRepository.existsPostByTxHash(txHash);
     }
 
