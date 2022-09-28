@@ -1,4 +1,4 @@
-package org.kryptokrona.hugin.controller.latest;
+package org.kryptokrona.hugin.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.kryptokrona.hugin.controller.latest.HashtagController.VERSION;
+import static org.kryptokrona.hugin.controller.HashtagController.VERSION;
 
 /**
  * Post Encrypted Controller.

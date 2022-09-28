@@ -5,7 +5,7 @@ import inet.ipaddr.HostName;
 import io.reactivex.rxjava3.core.Observable;
 import org.apache.hc.client5.http.fluent.Content;
 import org.apache.hc.client5.http.fluent.Request;
-import org.kryptokrona.hugin.controller.latest.PostController;
+import org.kryptokrona.hugin.controller.PostController;
 import org.kryptokrona.hugin.crypto.Box;
 import org.kryptokrona.hugin.crypto.HuginCrypto;
 import org.kryptokrona.hugin.crypto.KeyPair;
