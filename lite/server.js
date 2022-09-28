@@ -24,8 +24,6 @@ var huginSyncer = require('./syncers/huginSyncer')
 
 const { getTimestamp, sleep } = require('./utils/time')
 const { swaggerOptions, swaggerCustomOptions } = require('./configs/swagger')
-const { setCache } = require('./configs/cacheControl')
-const { limiter } = require('./configs/rateLimit')
 
 var app = express()
 
@@ -40,14 +38,6 @@ app.locals.sitetitle = 'Hugin API'
 
 // swagger
 const openapiSpecification = swaggerJsdoc(swaggerOptions)
-
-// cache control middleware
-app.use(setCache)
-
-// Apply the rate limiting middleware to all requests
-app.use(limiter)
-// if problem with reverse proxy try tweak this setting (https://www.npmjs.com/package/express-rate-limit)
-app.set('trust proxy', 1)
 
 // api routes
 app.use(`${process.env.API_BASE_PATH}/docs`, swaggerUi.serve, swaggerUi.setup(openapiSpecification, swaggerCustomOptions))

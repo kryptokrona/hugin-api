@@ -13,7 +13,6 @@ const { WebSocket } = require('ws')
 let ws = new WebSocket(`ws://localhost:${process.env.SYS_WS_PORT}`)
 
 const { getTimestamp } = require('../utils/time')
-const { messageCriteria } = require('../utils/messageCriteria')
 const { validateMessage } = require('../validators/messageValidator')
 let avatar = require('../utils/avatar')
 
@@ -128,15 +127,6 @@ module.exports.backgroundSyncMessages = async () => {
 
                     if (messageValidated) {
                       log.info(getTimestamp() + ' INFO: Message was validated.')
-                      // skipping based on criteria - if criteria exists
-                      const criteriaFulfilled = messageCriteria(messageObj)
-
-                      // criteria guard
-                      if (!criteriaFulfilled) {
-                        log.info(getTimestamp() + ' INFO: Message does not meet criteria based on configuration: ' + JSON.stringify(message))
-                        continue
-                      }
-                      log.info(getTimestamp() + ' INFO: Criteria fulfilled.')
 
                       // broadcast message object to websocket server
                       ws.send(JSON.stringify(messageObj))
