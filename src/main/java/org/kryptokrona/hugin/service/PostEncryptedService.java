@@ -1,5 +1,6 @@
 package org.kryptokrona.hugin.service;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.kryptokrona.hugin.model.PostEncrypted;
 import org.kryptokrona.hugin.repository.PostEncryptedRepository;
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -76,6 +78,38 @@ public class PostEncryptedService {
 		logger.info("Unable to find encrypted post with tx hash: " + txHash);
 
 		return null;
+	}
+
+	public long getTotalItemsBy24h() {
+		var endDate = new Date();
+		var startDate = DateUtils.addDays(new Date(), -1);
+		var items = postEncryptedRepository.findAllByCreatedAtBetween(startDate, endDate);
+
+		return items.size();
+	}
+
+	public long getTotalItemsByWeek() {
+		var endDate = new Date();
+		var startDate = DateUtils.addDays(new Date(), -7);
+		var items = postEncryptedRepository.findAllByCreatedAtBetween(startDate, endDate);
+
+		return items.size();
+	}
+
+	public long getTotalItemsByMonth() {
+		var endDate = new Date();
+		var startDate = DateUtils.addDays(new Date(), -31);
+		var items = postEncryptedRepository.findAllByCreatedAtBetween(startDate, endDate);
+
+		return items.size();
+	}
+
+	public long getTotalItemsByYear() {
+		var endDate = new Date();
+		var startDate = DateUtils.addDays(new Date(), -365);
+		var items = postEncryptedRepository.findAllByCreatedAtBetween(startDate, endDate);
+
+		return items.size();
 	}
 
 	public boolean existsTxHash(String txHash) {
