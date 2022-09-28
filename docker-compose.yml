@@ -33,7 +33,7 @@ services:
 
   postgres:
     image: postgres
-    container_name: postgres
+    container_name: hugin_api_db
     restart: always
     environment:
       POSTGRES_DB: hugin_api_dev
