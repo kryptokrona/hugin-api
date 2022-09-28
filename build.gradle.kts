@@ -93,6 +93,7 @@ dependencies {
 	testImplementation(kotlin("stdlib-jdk8"))
 	testImplementation(kotlin("test"))
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("io.mockk:mockk:1.12.8")
 }
 
 
