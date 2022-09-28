@@ -6,12 +6,12 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Post Week Statistics.
+ * Post Encrypted Week Statistics.
  *
  * @author Marcus Cvjeticanin
  */
 @Entity
-@Table(name = "statistics_post_week")
+@Table(name = "statistics_postencrypted_week")
 public class PostEncryptedWeekStatistics {
 
 	@Id
