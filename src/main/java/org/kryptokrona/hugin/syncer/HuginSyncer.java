@@ -176,7 +176,7 @@ public class HuginSyncer {
 						if (postValidated) {
 							logger.debug("Post was validated.");
 
-							var postExist = postService.existsTxHash(txHash);
+							var postExist = postService.existsByTxHash(txHash);
 
 							if (!postExist) {
 								postService.save(postObj);
