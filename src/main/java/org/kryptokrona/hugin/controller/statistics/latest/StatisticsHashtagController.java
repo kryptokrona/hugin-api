@@ -5,18 +5,18 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.kryptokrona.hugin.controller.statistics.latest.PostEncryptedStatisticsController.VERSION;
+import static org.kryptokrona.hugin.controller.statistics.latest.StatisticsHashtagController.VERSION;
 
 /**
- * Post Encrypted Statistics Controller.
+ * Statistics Hashtag Controller.
  *
  * @author Marcus Cvjeticanin
  */
 @RestController
 @CrossOrigin(origins="*")
-@RequestMapping("api/v" + VERSION + "/statistics/posts-encrypted")
-@Tag(name = "statistics", description = "Set of endpoints to get statistical data of encrypted posts.")
-public class PostEncryptedStatisticsController {
+@RequestMapping("api/v" + VERSION + "/statistics/hashtags")
+@Tag(name = "statistics", description = "Set of endpoints to get statistical data of hashtags.")
+public class StatisticsHashtagController {
 
 	static final String VERSION = "1";
 
