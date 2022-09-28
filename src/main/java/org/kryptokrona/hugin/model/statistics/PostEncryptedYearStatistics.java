@@ -6,12 +6,12 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Post Year Statistics.
+ * Post Encrypted Year Statistics.
  *
  * @author Marcus Cvjeticanin
  */
 @Entity
-@Table(name = "statistics_post_year")
+@Table(name = "statistics_postencrypted_year")
 public class PostEncryptedYearStatistics {
 
 	@Id

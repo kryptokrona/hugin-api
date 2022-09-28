@@ -6,12 +6,12 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Post 24h Statistics.
+ * Post Encrypted Group Statistics.
  *
  * @author Marcus Cvjeticanin
  */
 @Entity
-@Table(name = "statistics_post_24h")
+@Table(name = "statistics_postencryptedgroup_24h")
 public class PostEncryptedGroup24hStatistics {
 
 	@Id
