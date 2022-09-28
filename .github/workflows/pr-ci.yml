@@ -118,6 +118,19 @@ jobs:
           distribution: 'temurin'
           cache: 'gradle'
 
+      services:
+        postgres:
+          image: postgres
+          env:
+            POSTGRES_DB: hugin_api_test
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: test1234
+          options: >-
+            --health-cmd pg_isready
+            --health-interval 10s
+            --health-timeout 5s
+            --health-retries 5
+
       - name: Download hugin lib files from assemble job
         uses: actions/download-artifact@v3
         with:
@@ -125,7 +138,7 @@ jobs:
           path: build/libs
 
       - name: Run Unit Test
-        run: ./gradlew test
+        run: ./gradlew test --args='--spring.profiles.active=test'
 
   code-coverage:
     name: Code Coverage
