@@ -3,6 +3,7 @@
     <ExternalSystemSettings>
       <option name="env">
         <map>
+          <entry key="SPRING_PROFILES_ACTIVE" value="test" />
           <entry key="SYS_API_CONTACT_EMAIL" value="mjovanc@icloud.com" />
           <entry key="SYS_API_CONTACT_NAME" value="Marcus Cvjeticanin" />
           <entry key="SYS_API_CONTACT_URL" value="https://github.com/kryptokrona/hugin-api" />
@@ -30,6 +31,18 @@
     </ExternalSystemSettings>
     <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
     <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+    <EXTENSION ID="com.intellij.execution.ExternalSystemRunConfigurationJavaExtension">
+      <extension name="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" />
+        </ENTRIES>
+      </extension>
+    </EXTENSION>
     <DebugAllEnabled>false</DebugAllEnabled>
     <method v="2" />
   </configuration>

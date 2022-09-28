@@ -7,8 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest
 class HuginApplicationTest {
 
     @Test
-    fun test2() {
-        print("Hello")
+    fun `context loads`() {
     }
 
 }
