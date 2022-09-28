@@ -1,4 +1,4 @@
-package org.kryptokrona.hugin.controller;
+package org.kryptokrona.hugin.controller.statistics;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static org.kryptokrona.hugin.controller.StatisticsController.VERSION;
+import static org.kryptokrona.hugin.controller.statistics.StatisticsController.VERSION;
 
 /**
  * Statistics Post Controller.
