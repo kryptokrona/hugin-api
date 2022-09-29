@@ -1,5 +1,6 @@
 package org.kryptokrona.hugin.service.statistics;
 
+import org.kryptokrona.hugin.model.statistics.PostStatistics;
 import org.kryptokrona.hugin.repository.statistics.PostHourStatisticsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ public class StatisticsPostService {
 		this.postHourStatisticsRepository = postHourStatisticsRepository;
 	}
 
-	public void save() {
+	public void save(PostStatistics postStatistics) {
 
 	}
 }
