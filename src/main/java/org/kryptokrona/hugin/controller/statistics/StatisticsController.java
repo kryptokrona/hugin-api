@@ -61,7 +61,7 @@ public class StatisticsController {
 		statisticsResponseObj.setTwentyFourHours(postService.getTotalItemsBy24h());
 		statisticsResponseObj.setWeek(postService.getTotalItemsByWeek());
 		statisticsResponseObj.setMonth(postService.getTotalItemsByMonth());
-		statisticsResponseObj.setYear(postService.getTotalItemsByYear());
+		statisticsResponseObj.setYear(postService.getTotalItemsBy10M());
 		statisticsResponseObj.setTotal(postService.getTotalItems());
 
 		return new ResponseEntity<>(statisticsResponseObj, HttpStatus.OK);
