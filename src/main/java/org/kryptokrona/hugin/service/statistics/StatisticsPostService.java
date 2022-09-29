@@ -13,4 +13,8 @@ public class StatisticsPostService {
 	public StatisticsPostService(PostHourStatisticsRepository postHourStatisticsRepository) {
 		this.postHourStatisticsRepository = postHourStatisticsRepository;
 	}
+
+	public void save() {
+
+	}
 }

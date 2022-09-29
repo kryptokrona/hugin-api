@@ -48,4 +48,9 @@ public class PostEncryptedGroupHourStatistics {
 		this.createdAt = createdAt;
 	}
 
+	@PrePersist
+	protected void onCreate() {
+		createdAt = new Date();
+	}
+
 }
