@@ -48,4 +48,9 @@ public class PostEncryptedMonthStatistics {
 		this.createdAt = createdAt;
 	}
 
+	@PrePersist
+	protected void onCreate() {
+		createdAt = new Date();
+	}
+
 }
