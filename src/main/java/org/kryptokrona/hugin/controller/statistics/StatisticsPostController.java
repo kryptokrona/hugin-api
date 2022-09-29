@@ -20,5 +20,7 @@ public class StatisticsPostController {
 
 	static final String VERSION = "1";
 
+	//TODO to be done. We need to expose the data from the db as well as storing.
+
 
 }
