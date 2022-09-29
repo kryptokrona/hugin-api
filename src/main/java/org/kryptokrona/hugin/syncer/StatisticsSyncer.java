@@ -67,23 +67,43 @@ public class StatisticsSyncer {
 	// runs every 10 minutes (600000 MS)
 	@Scheduled(fixedRate=600000)
 	public void syncX() {
-		var totalItems = postService.getTotalItemsByHour();
+		var postsTotal = postService.getTotalItemsBy10M();
+		var postsEncryptedTotal = postEncryptedService.getTotalItemsBy10M();
+		var postEncryptedGroupTotal = postEncryptedGroupService.getTotalItemsBy10M();
 
-		var postTest = new PostHourStatistics();
-		postTest.setAmount(totalItems);
+		var post = new Post10MStatistics();
+		post.setAmount(postsTotal);
 
-		statisticsPostService.save(postTest);
+		var postEncrypted = new PostEncrypted10MStatistics();
+		postEncrypted.setAmount(postsEncryptedTotal);
+
+		var postEncryptedGroup = new PostEncryptedGroup10MStatistics();
+		postEncryptedGroup.setAmount(postEncryptedGroupTotal);
+
+		statisticsPostService.save(post);
+		statisticsPostEncryptedService.save(postEncrypted);
+		statisticsPostEncryptedGroupService.save(postEncryptedGroup);
 	}
 
 	// runs every hour (3600000 MS)
 	@Scheduled(fixedRate=3600000)
 	public void sync() {
-		var totalItems = postService.getTotalItemsByHour();
+		var postsTotal = postService.getTotalItemsByHour();
+		var postsEncryptedTotal = postEncryptedService.getTotalItemsByHour();
+		var postEncryptedGroupTotal = postEncryptedGroupService.getTotalItemsByHour();
 
-		var postTest = new PostHourStatistics();
-		postTest.setAmount(totalItems);
+		var post = new PostHourStatistics();
+		post.setAmount(postsTotal);
 
-		statisticsPostService.save(postTest);
+		var postEncrypted = new PostEncryptedHourStatistics();
+		postEncrypted.setAmount(postsEncryptedTotal);
+
+		var postEncryptedGroup = new PostEncryptedGroupHourStatistics();
+		postEncryptedGroup.setAmount(postEncryptedGroupTotal);
+
+		statisticsPostService.save(post);
+		statisticsPostEncryptedService.save(postEncrypted);
+		statisticsPostEncryptedGroupService.save(postEncryptedGroup);
 	}
 
 	// runs every 24h (86400000 MS)

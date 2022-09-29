@@ -88,6 +88,14 @@ public class PostEncryptedService {
 		return items.size();
 	}
 
+	public long getTotalItemsByHour() {
+		var endDate = new Date();
+		var startDate = DateUtils.addDays(new Date(), 1); //TODO: this does not work as expected
+		var items = postEncryptedRepository.findAllByCreatedAtBetween(startDate, endDate);
+
+		return items.size();
+	}
+
 	public long getTotalItemsBy24h() {
 		var endDate = new Date();
 		var startDate = DateUtils.addDays(new Date(), -1);
