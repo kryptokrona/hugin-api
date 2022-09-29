@@ -12,7 +12,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "statistics_post_year")
-public class PostYearStatistics {
+public class Post10MStatistics {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

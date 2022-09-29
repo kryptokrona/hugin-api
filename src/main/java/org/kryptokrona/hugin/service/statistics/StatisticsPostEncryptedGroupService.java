@@ -16,7 +16,7 @@ public class StatisticsPostEncryptedGroupService {
 
 	private final PostEncryptedGroupMonthStatisticsRepository postEncryptedGroupMonthStatisticsRepository;
 
-	private final PostEncryptedGroupYearStatisticsRepository postEncryptedGroupYearStatisticsRepository;
+	private final PostEncryptedGroup10MStatisticsRepository postEncryptedGroup10MStatisticsRepository;
 
 	@Autowired
 	public StatisticsPostEncryptedGroupService(
@@ -24,13 +24,13 @@ public class StatisticsPostEncryptedGroupService {
 			PostEncryptedGroup24hStatisticsRepository postEncryptedGroup24hStatisticsRepository,
 			PostEncryptedGroupWeekStatisticsRepository postEncryptedGroupWeekStatisticsRepository,
 			PostEncryptedGroupMonthStatisticsRepository postEncryptedGroupMonthStatisticsRepository,
-			PostEncryptedGroupYearStatisticsRepository postEncryptedGroupYearStatisticsRepository
+			PostEncryptedGroup10MStatisticsRepository postEncryptedGroup10MStatisticsRepository
 	) {
 		this.postEncryptedGroupHourStatisticsRepository = postEncryptedGroupHourStatisticsRepository;
 		this.postEncryptedGroup24hStatisticsRepository = postEncryptedGroup24hStatisticsRepository;
 		this.postEncryptedGroupWeekStatisticsRepository = postEncryptedGroupWeekStatisticsRepository;
 		this.postEncryptedGroupMonthStatisticsRepository = postEncryptedGroupMonthStatisticsRepository;
-		this.postEncryptedGroupYearStatisticsRepository = postEncryptedGroupYearStatisticsRepository;
+		this.postEncryptedGroup10MStatisticsRepository = postEncryptedGroup10MStatisticsRepository;
 	}
 
 	public void save(PostEncryptedGroupHourStatistics postEncryptedGroupHourStatistics) {
@@ -49,7 +49,7 @@ public class StatisticsPostEncryptedGroupService {
 		postEncryptedGroupMonthStatisticsRepository.save(postEncryptedGroupMonthStatistics);
 	}
 
-	public void save(PostEncryptedGroupYearStatistics postEncryptedGroupYearStatistics) {
-		postEncryptedGroupYearStatisticsRepository.save(postEncryptedGroupYearStatistics);
+	public void save(PostEncryptedGroup10MStatistics postEncryptedGroup10MStatistics) {
+		postEncryptedGroup10MStatisticsRepository.save(postEncryptedGroup10MStatistics);
 	}
 }
