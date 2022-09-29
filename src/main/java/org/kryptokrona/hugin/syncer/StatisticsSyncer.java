@@ -1,9 +1,6 @@
 package org.kryptokrona.hugin.syncer;
 
-import org.kryptokrona.hugin.model.statistics.Post24hStatistics;
-import org.kryptokrona.hugin.model.statistics.PostEncrypted24hStatistics;
-import org.kryptokrona.hugin.model.statistics.PostEncryptedGroup24hStatistics;
-import org.kryptokrona.hugin.model.statistics.PostHourStatistics;
+import org.kryptokrona.hugin.model.statistics.*;
 import org.kryptokrona.hugin.service.PostEncryptedGroupService;
 import org.kryptokrona.hugin.service.PostEncryptedService;
 import org.kryptokrona.hugin.service.PostService;
@@ -67,20 +64,31 @@ public class StatisticsSyncer {
 		this.postEncryptedGroupService = postEncryptedGroupService;
 	}
 
-	// runs every hour to save hours (3600000 MS)
-//	@Scheduled(fixedRate=10000)
-//	public void sync() {
-//		var totalItems = postService.getTotalItemsByHour();
-//
-//		var postTest = new PostHourStatistics();
-//		postTest.setAmount(totalItems);
-//
-//		statisticsPostService.save(postTest);
-//	}
+	// runs every 10 minutes (600000 MS)
+	@Scheduled(fixedRate=600000)
+	public void syncX() {
+		var totalItems = postService.getTotalItemsByHour();
 
-	// runs every 24h to save 24hs (86400000 MS)
-	@Scheduled(fixedRate=10000)
+		var postTest = new PostHourStatistics();
+		postTest.setAmount(totalItems);
+
+		statisticsPostService.save(postTest);
+	}
+
+	// runs every hour (3600000 MS)
+	@Scheduled(fixedRate=3600000)
 	public void sync() {
+		var totalItems = postService.getTotalItemsByHour();
+
+		var postTest = new PostHourStatistics();
+		postTest.setAmount(totalItems);
+
+		statisticsPostService.save(postTest);
+	}
+
+	// runs every 24h (86400000 MS)
+	@Scheduled(fixedRate=86400000)
+	public void sync24h() {
 		var postsTotal = postService.getTotalItemsBy24h();
 		var postsEncryptedTotal = postEncryptedService.getTotalItemsBy24h();
 		var postEncryptedGroupTotal = postEncryptedGroupService.getTotalItemsBy24h();
@@ -99,12 +107,46 @@ public class StatisticsSyncer {
 		statisticsPostEncryptedGroupService.save(postEncryptedGroup);
 	}
 
-	// runs every week to save weeks
+	// runs every week (604800000 MS)
+	@Scheduled(fixedRate=604800000)
+	public void syncWeek() {
+		var postsTotal = postService.getTotalItemsByWeek();
+		var postsEncryptedTotal = postEncryptedService.getTotalItemsByWeek();
+		var postEncryptedGroupTotal = postEncryptedGroupService.getTotalItemsByWeek();
 
-	// runs every month to save months
+		var post = new PostWeekStatistics();
+		post.setAmount(postsTotal);
 
-	// runs every year to save years
+		var postEncrypted = new PostEncryptedWeekStatistics();
+		postEncrypted.setAmount(postsEncryptedTotal);
 
+		var postEncryptedGroup = new PostEncryptedGroupWeekStatistics();
+		postEncryptedGroup.setAmount(postEncryptedGroupTotal);
 
+		statisticsPostService.save(post);
+		statisticsPostEncryptedService.save(postEncrypted);
+		statisticsPostEncryptedGroupService.save(postEncryptedGroup);
+	}
+
+	// runs every month (2629746000 MS)
+	@Scheduled(fixedRate=2629746000L)
+	public void syncMonth() {
+		var postsTotal = postService.getTotalItemsByMonth();
+		var postsEncryptedTotal = postEncryptedService.getTotalItemsByMonth();
+		var postEncryptedGroupTotal = postEncryptedGroupService.getTotalItemsByMonth();
+
+		var post = new PostMonthStatistics();
+		post.setAmount(postsTotal);
+
+		var postEncrypted = new PostEncryptedMonthStatistics();
+		postEncrypted.setAmount(postsEncryptedTotal);
+
+		var postEncryptedGroup = new PostEncryptedGroupMonthStatistics();
+		postEncryptedGroup.setAmount(postEncryptedGroupTotal);
+
+		statisticsPostService.save(post);
+		statisticsPostEncryptedService.save(postEncrypted);
+		statisticsPostEncryptedGroupService.save(postEncryptedGroup);
+	}
 
 }
