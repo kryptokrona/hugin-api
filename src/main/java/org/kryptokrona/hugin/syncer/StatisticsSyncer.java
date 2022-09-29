@@ -54,7 +54,7 @@ public class StatisticsSyncer {
 
 	// runs every 10 minutes (600000 MS)
 	@Scheduled(fixedRate=600000)
-	public void syncX() {
+	public void sync10m() {
 		var postsTotal = postService.getTotalItemsBy10M();
 		var postsEncryptedTotal = postEncryptedService.getTotalItemsBy10M();
 		var postEncryptedGroupTotal = postEncryptedGroupService.getTotalItemsBy10M();
@@ -75,7 +75,7 @@ public class StatisticsSyncer {
 
 	// runs every hour (3600000 MS)
 	@Scheduled(fixedRate=3600000)
-	public void sync() {
+	public void syncHour() {
 		var postsTotal = postService.getTotalItemsByHour();
 		var postsEncryptedTotal = postEncryptedService.getTotalItemsByHour();
 		var postEncryptedGroupTotal = postEncryptedGroupService.getTotalItemsByHour();
