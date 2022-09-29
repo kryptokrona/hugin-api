@@ -95,7 +95,7 @@ public class PostService {
 
     public long getTotalItemsBy10M() {
         var endDate = new Date();
-        var startDate = DateUtils.addDays(new Date(), -365);
+        var startDate = DateUtils.addMinutes(new Date(), -10);
         var items = postRepository.findAllByCreatedAtBetween(startDate, endDate);
 
         return items.size();
@@ -103,7 +103,7 @@ public class PostService {
 
     public long getTotalItemsByHour() {
         var endDate = new Date();
-        var startDate = DateUtils.addDays(new Date(), 1); //TODO: this does not work as expected
+        var startDate = DateUtils.addHours(new Date(), -1);
         var items = postRepository.findAllByCreatedAtBetween(startDate, endDate);
 
         return items.size();
