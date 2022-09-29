@@ -1,7 +1,5 @@
 package org.kryptokrona.hugin.syncer;
 
-import inet.ipaddr.HostName;
-import org.kryptokrona.hugin.model.statistics.Post24hStatistics;
 import org.kryptokrona.hugin.model.statistics.PostHourStatistics;
 import org.kryptokrona.hugin.service.statistics.StatisticsPostService;
 import org.slf4j.Logger;
