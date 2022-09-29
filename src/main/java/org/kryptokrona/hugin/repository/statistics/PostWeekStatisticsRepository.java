@@ -1,4 +1,8 @@
 package org.kryptokrona.hugin.repository.statistics;
 
-public interface PostWeekStatisticsRepository {
+import org.kryptokrona.hugin.model.statistics.PostHourStatistics;
+import org.kryptokrona.hugin.model.statistics.PostWeekStatistics;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PostWeekStatisticsRepository extends JpaRepository<PostWeekStatistics, Long> {
 }

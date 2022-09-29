@@ -12,7 +12,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "statistics_post_hour")
-public class PostHourStatistics implements PostStatistics {
+public class PostHourStatistics {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,7 +49,6 @@ public class PostHourStatistics implements PostStatistics {
 	}
 
 	@PrePersist
-	@Override
 	public void onCreate() {
 		createdAt = new Date();
 	}

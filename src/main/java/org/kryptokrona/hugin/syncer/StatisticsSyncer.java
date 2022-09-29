@@ -1,6 +1,8 @@
 package org.kryptokrona.hugin.syncer;
 
 import inet.ipaddr.HostName;
+import org.kryptokrona.hugin.model.statistics.Post24hStatistics;
+import org.kryptokrona.hugin.model.statistics.PostHourStatistics;
 import org.kryptokrona.hugin.service.statistics.StatisticsPostService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,10 +27,12 @@ public class StatisticsSyncer {
 		this.statisticsPostService = statisticsPostService;
 	}
 
-	@Scheduled(fixedRate=1000)
+	@Scheduled(fixedRate=3000)
 	public void sync() {
 		logger.debug("Statistics Syncing...");
-		// statisticsPostService.save();
+		var postTest = new PostHourStatistics();
+		postTest.setAmount(100);
+		statisticsPostService.save(postTest);
 	}
 
 }
