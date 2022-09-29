@@ -11,7 +11,7 @@ import java.util.Date;
  * @author Marcus Cvjeticanin
  */
 @Entity
-@Table(name = "statistics_post_year")
+@Table(name = "statistics_post_10m")
 public class Post10MStatistics {
 
 	@Id

@@ -112,6 +112,14 @@ public class PostEncryptedGroupService {
 		return items.size();
 	}
 
+	public long getTotalItemsByYear() {
+		var endDate = new Date();
+		var startDate = DateUtils.addDays(new Date(), -365);
+		var items = postEncryptedGroupRepository.findAllByCreatedAtBetween(startDate, endDate);
+
+		return items.size();
+	}
+
 	public long getTotalItems() {
 		var items = postEncryptedGroupRepository.findAll();
 
