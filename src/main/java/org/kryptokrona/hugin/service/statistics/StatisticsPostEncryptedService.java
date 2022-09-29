@@ -16,7 +16,7 @@ public class StatisticsPostEncryptedService {
 
 	private final PostEncryptedMonthStatisticsRepository postEncryptedMonthStatisticsRepository;
 
-	private final PostEncryptedYearStatisticsRepository postEncryptedYearStatisticsRepository;
+	private final PostEncrypted10MStatisticsRepository postEncrypted10MStatisticsRepository;
 
 	@Autowired
 	public StatisticsPostEncryptedService(
@@ -24,13 +24,13 @@ public class StatisticsPostEncryptedService {
 			PostEncrypted24hStatisticsRepository postEncrypted24hStatisticsRepository,
 			PostEncryptedWeekStatisticsRepository postEncryptedWeekStatisticsRepository,
 			PostEncryptedMonthStatisticsRepository postEncryptedMonthStatisticsRepository,
-			PostEncryptedYearStatisticsRepository postEncryptedYearStatisticsRepository
+			PostEncrypted10MStatisticsRepository postEncrypted10MStatisticsRepository
 	) {
 		this.postEncryptedHourStatisticsRepository = postEncryptedHourStatisticsRepository;
 		this.postEncrypted24hStatisticsRepository = postEncrypted24hStatisticsRepository;
 		this.postEncryptedWeekStatisticsRepository = postEncryptedWeekStatisticsRepository;
 		this.postEncryptedMonthStatisticsRepository = postEncryptedMonthStatisticsRepository;
-		this.postEncryptedYearStatisticsRepository = postEncryptedYearStatisticsRepository;
+		this.postEncrypted10MStatisticsRepository = postEncrypted10MStatisticsRepository;
 	}
 
 	public void save(PostEncryptedHourStatistics postEncryptedHourStatistics) {
@@ -49,8 +49,8 @@ public class StatisticsPostEncryptedService {
 		postEncryptedMonthStatisticsRepository.save(postEncryptedMonthStatistics);
 	}
 
-	public void save(PostEncryptedYearStatistics postEncryptedYearStatistics) {
-		postEncryptedYearStatisticsRepository.save(postEncryptedYearStatistics);
+	public void save(PostEncrypted10MStatistics postEncrypted10MStatistics) {
+		postEncrypted10MStatisticsRepository.save(postEncrypted10MStatistics);
 	}
 
 }
