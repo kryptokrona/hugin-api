@@ -80,6 +80,14 @@ public class PostEncryptedGroupService {
 		return null;
 	}
 
+	public long getTotalItemsBy10M() {
+		var endDate = new Date();
+		var startDate = DateUtils.addDays(new Date(), -365);
+		var items = postEncryptedGroupRepository.findAllByCreatedAtBetween(startDate, endDate);
+
+		return items.size();
+	}
+
 	public long getTotalItemsBy24h() {
 		var endDate = new Date();
 		var startDate = DateUtils.addDays(new Date(), -1);
@@ -99,14 +107,6 @@ public class PostEncryptedGroupService {
 	public long getTotalItemsByMonth() {
 		var endDate = new Date();
 		var startDate = DateUtils.addDays(new Date(), -31);
-		var items = postEncryptedGroupRepository.findAllByCreatedAtBetween(startDate, endDate);
-
-		return items.size();
-	}
-
-	public long getTotalItemsByYear() {
-		var endDate = new Date();
-		var startDate = DateUtils.addDays(new Date(), -365);
 		var items = postEncryptedGroupRepository.findAllByCreatedAtBetween(startDate, endDate);
 
 		return items.size();
