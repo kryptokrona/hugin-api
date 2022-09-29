@@ -1,24 +1,55 @@
 package org.kryptokrona.hugin.service.statistics;
 
+import org.kryptokrona.hugin.model.statistics.*;
+import org.kryptokrona.hugin.repository.statistics.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
 public class StatisticsPostEncryptedGroupService {
 
-	public void save() {
+	private final PostEncryptedGroupHourStatisticsRepository postEncryptedGroupHourStatisticsRepository;
 
+	private final PostEncryptedGroup24hStatisticsRepository postEncryptedGroup24hStatisticsRepository;
+
+	private final PostEncryptedGroupWeekStatisticsRepository postEncryptedGroupWeekStatisticsRepository;
+
+	private final PostEncryptedGroupMonthStatisticsRepository postEncryptedGroupMonthStatisticsRepository;
+
+	private final PostEncryptedGroupYearStatisticsRepository postEncryptedGroupYearStatisticsRepository;
+
+	@Autowired
+	public StatisticsPostEncryptedGroupService(
+			PostEncryptedGroupHourStatisticsRepository postEncryptedGroupHourStatisticsRepository,
+			PostEncryptedGroup24hStatisticsRepository postEncryptedGroup24hStatisticsRepository,
+			PostEncryptedGroupWeekStatisticsRepository postEncryptedGroupWeekStatisticsRepository,
+			PostEncryptedGroupMonthStatisticsRepository postEncryptedGroupMonthStatisticsRepository,
+			PostEncryptedGroupYearStatisticsRepository postEncryptedGroupYearStatisticsRepository
+	) {
+		this.postEncryptedGroupHourStatisticsRepository = postEncryptedGroupHourStatisticsRepository;
+		this.postEncryptedGroup24hStatisticsRepository = postEncryptedGroup24hStatisticsRepository;
+		this.postEncryptedGroupWeekStatisticsRepository = postEncryptedGroupWeekStatisticsRepository;
+		this.postEncryptedGroupMonthStatisticsRepository = postEncryptedGroupMonthStatisticsRepository;
+		this.postEncryptedGroupYearStatisticsRepository = postEncryptedGroupYearStatisticsRepository;
 	}
 
-	public void save() {
-
+	public void save(PostEncryptedGroupHourStatistics postEncryptedGroupHourStatistics) {
+		postEncryptedGroupHourStatisticsRepository.save(postEncryptedGroupHourStatistics);
 	}
 
-	public void save() {
-
+	public void save(PostEncryptedGroup24hStatistics postEncryptedGroup24hStatistics) {
+		postEncryptedGroup24hStatisticsRepository.save(postEncryptedGroup24hStatistics);
 	}
 
-	public void save() {
-
+	public void save(PostEncryptedGroupWeekStatistics postEncryptedGroupWeekStatistics) {
+		postEncryptedGroupWeekStatisticsRepository.save(postEncryptedGroupWeekStatistics);
 	}
 
-	public void save() {
+	public void save(PostEncryptedGroupMonthStatistics postEncryptedGroupMonthStatistics) {
+		postEncryptedGroupMonthStatisticsRepository.save(postEncryptedGroupMonthStatistics);
+	}
 
+	public void save(PostEncryptedGroupYearStatistics postEncryptedGroupYearStatistics) {
+		postEncryptedGroupYearStatisticsRepository.save(postEncryptedGroupYearStatistics);
 	}
 }
