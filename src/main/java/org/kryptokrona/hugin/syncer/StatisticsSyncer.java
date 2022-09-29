@@ -35,16 +35,6 @@ public class StatisticsSyncer {
 
 	private final PostEncryptedGroupService postEncryptedGroupService;
 
-	private final long TIME_HOUR = TimeUnit.HOURS.toMillis(1);
-
-	private static final long TIME_24H = TimeUnit.DAYS.toMillis(1);
-
-	private static final long TIME_WEEK = TimeUnit.DAYS.toMillis(7);
-
-	private static final long TIME_MONTH = TimeUnit.DAYS.toMillis(31);
-
-	private static final long TIME_YEAR = TimeUnit.DAYS.toMillis(365);
-
 	private static final Logger logger = LoggerFactory.getLogger(StatisticsSyncer.class);
 
 	@Autowired
