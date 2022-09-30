@@ -17,7 +17,7 @@ RUN npm install
 ENV NODE_ENV=production
 
 # bundle app source
-COPY ../../hugin-api-express .
+COPY . .
 
 RUN chmod +x start.sh
 

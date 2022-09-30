@@ -11,8 +11,6 @@ var log = require('loglevel')
 var bodyParser = require('body-parser')
 
 const { WebSocket, WebSocketServer } = require('ws')
-const swaggerJsdoc = require('swagger-jsdoc')
-const swaggerUi = require('swagger-ui-express')
 
 //s routers
 var postRouterLatest = require('./routes/postRouter')
@@ -23,7 +21,6 @@ var postEncryptedGroupRouterLatest = require('./routes/postEncryptedGroupRouter'
 var huginSyncer = require('./syncers/huginSyncer')
 
 const { getTimestamp, sleep } = require('./utils/time')
-const { swaggerOptions, swaggerCustomOptions } = require('./configs/swagger')
 
 var app = express()
 
@@ -35,12 +32,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/public', express.static(__dirname + '/public'));
 
 app.locals.sitetitle = 'Hugin API'
-
-// swagger
-const openapiSpecification = swaggerJsdoc(swaggerOptions)
-
-// api routes
-app.use(`${process.env.API_BASE_PATH}/docs`, swaggerUi.serve, swaggerUi.setup(openapiSpecification, swaggerCustomOptions))
 
 // routes
 app.use(`${process.env.API_BASE_PATH}/v1/`, postRouterLatest)
