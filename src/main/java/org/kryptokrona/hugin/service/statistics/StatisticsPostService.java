@@ -3,6 +3,8 @@ package org.kryptokrona.hugin.service.statistics;
 import org.kryptokrona.hugin.model.statistics.*;
 import org.kryptokrona.hugin.repository.statistics.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,23 +38,43 @@ public class StatisticsPostService {
 	}
 
 	public List<Post10MStatistics> getAll10m(long datapoints) {
-		return null;
+		return post10MStatisticsRepository
+				.findAll()
+				.stream()
+				.limit(datapoints)
+				.toList();
 	}
 
 	public List<PostHourStatistics> getAllHours(long datapoints) {
-		return null;
+		return postHourStatisticsRepository
+				.findAll()
+				.stream()
+				.limit(datapoints)
+				.toList();
 	}
 
 	public List<Post24hStatistics> getAll24h(long datapoints) {
-		return null;
+		return post24hStatisticsRepository
+				.findAll()
+				.stream()
+				.limit(datapoints)
+				.toList();
 	}
 
 	public List<PostWeekStatistics> getAllWeeks(long datapoints) {
-		return null;
+		return postWeekStatisticsRepository
+				.findAll()
+				.stream()
+				.limit(datapoints)
+				.toList();
 	}
 
 	public List<PostMonthStatistics> getAllMonths(long datapoints) {
-		return null;
+		return postMonthStatisticsRepository
+				.findAll()
+				.stream()
+				.limit(datapoints)
+				.toList();
 	}
 
 	public void save(PostHourStatistics postHourStatistics) {
