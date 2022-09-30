@@ -37,7 +37,7 @@ public class StatisticsPostEncryptedService {
 		// get last 10 elements with query instead of getting all
 	}
 
-	public void getHourLast12() {
+	public void getHourLast24() {
 
 	}
 
