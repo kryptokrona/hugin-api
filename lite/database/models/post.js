@@ -17,8 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     tx_hash:    {type: DataTypes.STRING,    allowNull: true},
     createdAt:  {type: DataTypes.DATE,      allowNull: false, field: 'created_at'},
     updatedAt:  {type: DataTypes.DATE,      allowNull: false, field: 'updated_at'},
-    reply:      {type: DataTypes.STRING,    allowNull: true},
-    avatar:     {type: DataTypes.TEXT,      allowNull: true}
+    reply:      {type: DataTypes.STRING,    allowNull: true}
   }, {
     sequelize,
     modelName: 'Post',

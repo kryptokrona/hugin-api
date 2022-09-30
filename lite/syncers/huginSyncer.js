@@ -14,7 +14,6 @@ let ws = new WebSocket(`ws://localhost:${process.env.SYS_WS_PORT}`)
 
 const { getTimestamp } = require('../utils/time')
 const { validateMessage } = require('../validators/messageValidator')
-let avatar = require('../utils/avatar')
 
 let db = require("../configs/postgresql"),
     sequelize = db.sequelize,
@@ -109,8 +108,6 @@ module.exports.backgroundSyncMessages = async () => {
                 if ((message || true) && (message.brd || message.brd !== undefined)) {
                     log.info(getTimestamp() + ' INFO: Got 1 message. Message: ' + JSON.stringify(message))
 
-                    let avatarStr = avatar.generate(message.k)
-
                     let messageObj = {
                         message: message.m || null,
                         key: message.k || null,
@@ -119,8 +116,7 @@ module.exports.backgroundSyncMessages = async () => {
                         time: message.t || null,
                         nickname: message.n || null,
                         tx_hash: txHash || null,
-                        reply: message.r || null,
-                        avatar: avatarStr || null,
+                        reply: message.r || null
                     }
 
                     const messageValidated = validateMessage(messageObj)
