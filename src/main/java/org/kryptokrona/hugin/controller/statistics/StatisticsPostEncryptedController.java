@@ -51,8 +51,8 @@ public class StatisticsPostEncryptedController {
 			summary = "Get datapoints of hours data",
 			description = "Get all datapoints of hours data."
 	)
-	public ResponseEntity<List<PostHourStatistics>> getAllHours(@PathVariable long datapoints) {
-		var obj = statisticsPostService.getAllHours(datapoints);
+	public ResponseEntity<List<PostEncryptedHourStatistics>> getAllHours(@PathVariable long datapoints) {
+		var obj = statisticsPostEncryptedService.getAllHours(datapoints);
 
 		if (obj == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -66,8 +66,8 @@ public class StatisticsPostEncryptedController {
 			summary = "Get datapoints of 24h data",
 			description = "Get all datapoints of 24h data."
 	)
-	public ResponseEntity<List<Post24hStatistics>> getAll24hs(@PathVariable long datapoints) {
-		var obj = statisticsPostService.getAll24h(datapoints);
+	public ResponseEntity<List<PostEncrypted24hStatistics>> getAll24hs(@PathVariable long datapoints) {
+		var obj = statisticsPostEncryptedService.getAll24h(datapoints);
 
 		if (obj == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -81,8 +81,8 @@ public class StatisticsPostEncryptedController {
 			summary = "Get datapoints of weeks data",
 			description = "Get all datapoints of weeks data."
 	)
-	public ResponseEntity<List<PostWeekStatistics>> getAllWeeks(@PathVariable long datapoints) {
-		var obj = statisticsPostService.getAllWeeks(datapoints);
+	public ResponseEntity<List<PostEncryptedWeekStatistics>> getAllWeeks(@PathVariable long datapoints) {
+		var obj = statisticsPostEncryptedService.getAllWeeks(datapoints);
 
 		if (obj == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -96,8 +96,8 @@ public class StatisticsPostEncryptedController {
 			summary = "Get datapoints of months data",
 			description = "Get all datapoints of months data."
 	)
-	public ResponseEntity<List<PostMonthStatistics>> getAllMonths(@PathVariable long datapoints) {
-		var obj = statisticsPostService.getAllMonths(datapoints);
+	public ResponseEntity<List<PostEncryptedMonthStatistics>> getAllMonths(@PathVariable long datapoints) {
+		var obj = statisticsPostEncryptedService.getAllMonths(datapoints);
 
 		if (obj == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
