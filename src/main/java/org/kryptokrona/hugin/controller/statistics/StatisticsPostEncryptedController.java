@@ -40,7 +40,7 @@ public class StatisticsPostEncryptedController {
 		var obj = statisticsPostEncryptedService.getAll10m(datapoints);
 
 		if (obj == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 		return new ResponseEntity<>(obj, HttpStatus.OK);
@@ -55,7 +55,7 @@ public class StatisticsPostEncryptedController {
 		var obj = statisticsPostEncryptedService.getAllHours(datapoints);
 
 		if (obj == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 		return new ResponseEntity<>(obj, HttpStatus.OK);
@@ -70,7 +70,7 @@ public class StatisticsPostEncryptedController {
 		var obj = statisticsPostEncryptedService.getAll24h(datapoints);
 
 		if (obj == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 		return new ResponseEntity<>(obj, HttpStatus.OK);
@@ -85,7 +85,7 @@ public class StatisticsPostEncryptedController {
 		var obj = statisticsPostEncryptedService.getAllWeeks(datapoints);
 
 		if (obj == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 		return new ResponseEntity<>(obj, HttpStatus.OK);
@@ -100,7 +100,7 @@ public class StatisticsPostEncryptedController {
 		var obj = statisticsPostEncryptedService.getAllMonths(datapoints);
 
 		if (obj == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 		return new ResponseEntity<>(obj, HttpStatus.OK);
