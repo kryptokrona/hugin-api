@@ -33,6 +33,27 @@ public class StatisticsPostService {
 		this.post10MStatisticsRepository = post10MStatisticsRepository;
 	}
 
+	public void get10MLast6() {
+		// get last 10 elements with query instead of getting all
+
+	}
+
+	public void getHourLast12() {
+
+	}
+
+	public void get24hLast7() {
+
+	}
+
+	public void getWeekLast4() {
+
+	}
+
+	public void getMonthLast12() {
+
+	}
+
 	public void save(PostHourStatistics postHourStatistics) {
 		postHourStatisticsRepository.save(postHourStatistics);
 	}
