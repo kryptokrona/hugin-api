@@ -38,7 +38,7 @@ public class StatisticsPostController {
 			summary = "Get datapoints of 10 minutes data",
 			description = "Get all datapoints of 10 minutes data."
 	)
-	public ResponseEntity<List<Post10MStatistics>> getAll10m(@PathVariable long datapoints) {
+	public ResponseEntity<List<Post10MStatistics>> getAll10m(@RequestParam Integer datapoints) {
 		var obj = statisticsPostService.getAll10m(datapoints);
 
 		if (obj == null) {
@@ -53,7 +53,7 @@ public class StatisticsPostController {
 			summary = "Get datapoints of hours data",
 			description = "Get all datapoints of hours data."
 	)
-	public ResponseEntity<List<PostHourStatistics>> getAllHours(@PathVariable long datapoints) {
+	public ResponseEntity<List<PostHourStatistics>> getAllHours(@RequestParam Integer datapoints) {
 		var obj = statisticsPostService.getAllHours(datapoints);
 
 		if (obj == null) {
@@ -68,7 +68,7 @@ public class StatisticsPostController {
 			summary = "Get datapoints of 24h data",
 			description = "Get all datapoints of 24h data."
 	)
-	public ResponseEntity<List<Post24hStatistics>> getAll24hs(@PathVariable long datapoints) {
+	public ResponseEntity<List<Post24hStatistics>> getAll24hs(@RequestParam Integer datapoints) {
 		var obj = statisticsPostService.getAll24h(datapoints);
 
 		if (obj == null) {
@@ -83,7 +83,7 @@ public class StatisticsPostController {
 			summary = "Get datapoints of weeks data",
 			description = "Get all datapoints of weeks data."
 	)
-	public ResponseEntity<List<PostWeekStatistics>> getAllWeeks(@PathVariable long datapoints) {
+	public ResponseEntity<List<PostWeekStatistics>> getAllWeeks(@RequestParam Integer datapoints) {
 		var obj = statisticsPostService.getAllWeeks(datapoints);
 
 		if (obj == null) {
@@ -98,7 +98,7 @@ public class StatisticsPostController {
 			summary = "Get datapoints of months data",
 			description = "Get all datapoints of months data."
 	)
-	public ResponseEntity<List<PostMonthStatistics>> getAllMonths(@PathVariable long datapoints) {
+	public ResponseEntity<List<PostMonthStatistics>> getAllMonths(@PathVariable Integer datapoints) {
 		var obj = statisticsPostService.getAllMonths(datapoints);
 
 		if (obj == null) {

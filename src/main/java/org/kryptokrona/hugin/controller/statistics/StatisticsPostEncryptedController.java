@@ -36,7 +36,7 @@ public class StatisticsPostEncryptedController {
 			summary = "Get datapoints of 10 minutes data",
 			description = "Get all datapoints of 10 minutes data."
 	)
-	public ResponseEntity<List<PostEncrypted10MStatistics>> getAll10m(@PathVariable long datapoints) {
+	public ResponseEntity<List<PostEncrypted10MStatistics>> getAll10m(@RequestParam Integer datapoints) {
 		var obj = statisticsPostEncryptedService.getAll10m(datapoints);
 
 		if (obj == null) {
@@ -51,7 +51,7 @@ public class StatisticsPostEncryptedController {
 			summary = "Get datapoints of hours data",
 			description = "Get all datapoints of hours data."
 	)
-	public ResponseEntity<List<PostEncryptedHourStatistics>> getAllHours(@PathVariable long datapoints) {
+	public ResponseEntity<List<PostEncryptedHourStatistics>> getAllHours(@RequestParam Integer datapoints) {
 		var obj = statisticsPostEncryptedService.getAllHours(datapoints);
 
 		if (obj == null) {
@@ -66,7 +66,7 @@ public class StatisticsPostEncryptedController {
 			summary = "Get datapoints of 24h data",
 			description = "Get all datapoints of 24h data."
 	)
-	public ResponseEntity<List<PostEncrypted24hStatistics>> getAll24hs(@PathVariable long datapoints) {
+	public ResponseEntity<List<PostEncrypted24hStatistics>> getAll24hs(@RequestParam Integer datapoints) {
 		var obj = statisticsPostEncryptedService.getAll24h(datapoints);
 
 		if (obj == null) {
@@ -81,7 +81,7 @@ public class StatisticsPostEncryptedController {
 			summary = "Get datapoints of weeks data",
 			description = "Get all datapoints of weeks data."
 	)
-	public ResponseEntity<List<PostEncryptedWeekStatistics>> getAllWeeks(@PathVariable long datapoints) {
+	public ResponseEntity<List<PostEncryptedWeekStatistics>> getAllWeeks(@RequestParam Integer datapoints) {
 		var obj = statisticsPostEncryptedService.getAllWeeks(datapoints);
 
 		if (obj == null) {
@@ -96,7 +96,7 @@ public class StatisticsPostEncryptedController {
 			summary = "Get datapoints of months data",
 			description = "Get all datapoints of months data."
 	)
-	public ResponseEntity<List<PostEncryptedMonthStatistics>> getAllMonths(@PathVariable long datapoints) {
+	public ResponseEntity<List<PostEncryptedMonthStatistics>> getAllMonths(@RequestParam Integer datapoints) {
 		var obj = statisticsPostEncryptedService.getAllMonths(datapoints);
 
 		if (obj == null) {
