@@ -36,23 +36,43 @@ public class StatisticsPostEncryptedGroupService {
 	}
 
 	public List<PostEncryptedGroup10MStatistics> getAll10m(long datapoints) {
-		return null;
+		return postEncryptedGroup10MStatisticsRepository
+				.findAll()
+				.stream()
+				.limit(datapoints)
+				.toList();
 	}
 
 	public List<PostEncryptedGroupHourStatistics> getAllHours(long datapoints) {
-		return null;
+		return postEncryptedGroupHourStatisticsRepository
+				.findAll()
+				.stream()
+				.limit(datapoints)
+				.toList();
 	}
 
 	public List<PostEncryptedGroup24hStatistics> getAll24h(long datapoints) {
-		return null;
+		return postEncryptedGroup24hStatisticsRepository
+				.findAll()
+				.stream()
+				.limit(datapoints)
+				.toList();
 	}
 
 	public List<PostEncryptedGroupWeekStatistics> getAllWeeks(long datapoints) {
-		return null;
+		return postEncryptedGroupWeekStatisticsRepository
+				.findAll()
+				.stream()
+				.limit(datapoints)
+				.toList();
 	}
 
 	public List<PostEncryptedGroupMonthStatistics> getAllMonths(long datapoints) {
-		return null;
+		return postEncryptedGroupMonthStatisticsRepository
+				.findAll()
+				.stream()
+				.limit(datapoints)
+				.toList();
 	}
 
 	public void save(PostEncryptedGroupHourStatistics postEncryptedGroupHourStatistics) {
