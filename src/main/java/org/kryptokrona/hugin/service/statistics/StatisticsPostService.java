@@ -5,6 +5,8 @@ import org.kryptokrona.hugin.repository.statistics.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StatisticsPostService {
 
@@ -33,24 +35,24 @@ public class StatisticsPostService {
 		this.post10MStatisticsRepository = post10MStatisticsRepository;
 	}
 
-	public void get10MLast6() {
-		// get last 10 elements with query instead of getting all
+	public List<Post10MStatistics> getAll10m(long datapoints) {
+		return null;
 	}
 
-	public void getHourLast24() {
-
+	public List<PostHourStatistics> getAllHours(long datapoints) {
+		return null;
 	}
 
-	public void get24hLast7() {
-
+	public List<Post24hStatistics> getAll24h(long datapoints) {
+		return null;
 	}
 
-	public void getWeekLast4() {
-
+	public List<PostWeekStatistics> getAllWeeks(long datapoints) {
+		return null;
 	}
 
-	public void getMonthLast12() {
-
+	public List<PostMonthStatistics> getAllMonths(long datapoints) {
+		return null;
 	}
 
 	public void save(PostHourStatistics postHourStatistics) {
