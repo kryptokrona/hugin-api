@@ -35,7 +35,6 @@ public class StatisticsPostService {
 
 	public void get10MLast6() {
 		// get last 10 elements with query instead of getting all
-
 	}
 
 	public void getHourLast12() {
