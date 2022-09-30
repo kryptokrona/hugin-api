@@ -42,7 +42,7 @@ public class StatisticsPostController {
 		var obj = statisticsPostService.getAll10m(datapoints);
 
 		if (obj == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 		return new ResponseEntity<>(obj, HttpStatus.OK);
@@ -57,7 +57,7 @@ public class StatisticsPostController {
 		var obj = statisticsPostService.getAllHours(datapoints);
 
 		if (obj == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 		return new ResponseEntity<>(obj, HttpStatus.OK);
@@ -72,7 +72,7 @@ public class StatisticsPostController {
 		var obj = statisticsPostService.getAll24h(datapoints);
 
 		if (obj == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 		return new ResponseEntity<>(obj, HttpStatus.OK);
@@ -87,7 +87,7 @@ public class StatisticsPostController {
 		var obj = statisticsPostService.getAllWeeks(datapoints);
 
 		if (obj == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 		return new ResponseEntity<>(obj, HttpStatus.OK);
@@ -102,7 +102,7 @@ public class StatisticsPostController {
 		var obj = statisticsPostService.getAllMonths(datapoints);
 
 		if (obj == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 		return new ResponseEntity<>(obj, HttpStatus.OK);
