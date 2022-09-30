@@ -47,36 +47,7 @@
                 <canvas id="diskSpace"></canvas>
             </div>
         </div>
-        <div class="custom-card">
-            <div class="card-body">
-                <h5 style="color: #fff">Posts (10 Minutes)</h5>
-                <canvas id="posts10m"></canvas>
-            </div>
-        </div>
-        <div class="custom-card">
-            <div class="card-body">
-                <h5 style="color: #fff">Posts (Hour)</h5>
-                <canvas id="postsHour"></canvas>
-            </div>
-        </div>
-        <div class="custom-card">
-            <div class="card-body">
-                <h5 style="color: #fff">Posts (Day)</h5>
-                <canvas id="posts24h"></canvas>
-            </div>
-        </div>
-        <div class="custom-card">
-            <div class="card-body">
-                <h5 style="color: #fff">Posts (Week)</h5>
-                <canvas id="postsWeek"></canvas>
-            </div>
-        </div>
-        <div class="custom-card">
-            <div class="card-body">
-                <h5 style="color: #fff">Posts (Month)   </h5>
-                <canvas id="postsMonth"></canvas>
-            </div>
-        </div>
+
 
             </div>
         </div>
@@ -199,24 +170,6 @@
             },
         },
     });
-
-    const ctx5 = document.getElementById('posts10m').getContext('2d');
-    var myChart = new Chart(ctx4, {
-        type: 'line',
-        data: data,
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Chart.js Line Chart'
-                }
-            }
-        },
-    })
 </script>
 </body>
 </html>
