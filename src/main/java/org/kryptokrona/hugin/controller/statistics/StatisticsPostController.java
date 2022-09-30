@@ -1,6 +1,8 @@
 package org.kryptokrona.hugin.controller.statistics;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.kryptokrona.hugin.service.statistics.StatisticsPostService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +22,11 @@ public class StatisticsPostController {
 
 	static final String VERSION = "1";
 
-	//TODO to be done. We need to expose the data from the db as well as storing.
+	private final StatisticsPostService statisticsPostService;
 
+	@Autowired
+	public StatisticsPostController(StatisticsPostService statisticsPostService) {
+		this.statisticsPostService = statisticsPostService;
+	}
 
 }
