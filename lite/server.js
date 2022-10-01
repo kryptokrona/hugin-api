@@ -31,12 +31,12 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use('/public', express.static(__dirname + '/public'));
 
-app.locals.sitetitle = 'Hugin API'
+app.locals.sitetitle = 'Hugin API Lite'
 
 // routes
-app.use(`${process.env.API_BASE_PATH}/v1/`, postRouterLatest)
-app.use(`${process.env.API_BASE_PATH}/v1/`, postEncryptedRouterLatest)
-app.use(`${process.env.API_BASE_PATH}/v1/`, postEncryptedGroupRouterLatest)
+app.use(postRouterLatest)
+app.use(postEncryptedRouterLatest)
+app.use(postEncryptedGroupRouterLatest)
 
 app.use(bodyParser.json());
 

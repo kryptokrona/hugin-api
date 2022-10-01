@@ -13,7 +13,6 @@ const { WebSocket } = require('ws')
 let ws = new WebSocket(`ws://localhost:${process.env.SYS_WS_PORT}`)
 
 const { getTimestamp } = require('../utils/time')
-const { validateMessage } = require('../validators/messageValidator')
 
 let db = require("../configs/postgresql"),
     sequelize = db.sequelize,
@@ -119,23 +118,16 @@ module.exports.backgroundSyncMessages = async () => {
                         reply: message.r || null
                     }
 
-                    const messageValidated = validateMessage(messageObj)
 
-                    if (messageValidated) {
-                      log.info(getTimestamp() + ' INFO: Message was validated.')
+                    // broadcast message object to websocket server
+                    ws.send(JSON.stringify(messageObj))
 
-                      // broadcast message object to websocket server
-                      ws.send(JSON.stringify(messageObj))
-
-                      // checking if post with txHash already exists in db - if not create a new record
-                      postExists(txHash).then(result => {
-                        if (result === null) {
-                          savePost(messageObj, txHash)
-                        }
-                      })
-                    } else {
-                      log.info(getTimestamp() + ' INFO: Message was not validated, ignoring.')
-                    }
+                    // checking if post with txHash already exists in db - if not create a new record
+                    postExists(txHash).then(result => {
+                      if (result === null) {
+                        savePost(messageObj, txHash)
+                      }
+                    })
                 } else {
                     log.info(getTimestamp() + ' INFO: No message.')
                 }
