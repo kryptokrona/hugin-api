@@ -27,23 +27,20 @@ class StatisticsControllerTest {
     @TestConfiguration
     open class ControllerTestConfig {
         @Bean
-        open fun postService() = mockk<PostService>()
+        open fun postService() = mockk<PostService>(relaxed = true)
 
         @Bean
-        open fun postEncryptedService() = mockk< PostEncryptedService>()
+        open fun postEncryptedService() = mockk< PostEncryptedService>(relaxed = true)
 
         @Bean
-        open fun postEncryptedGroupService() = mockk<PostEncryptedGroupService>()
+        open fun postEncryptedGroupService() = mockk<PostEncryptedGroupService>(relaxed = true)
 
         @Bean
-        open fun hashtagService() = mockk<HashtagService>()
+        open fun hashtagService() = mockk<HashtagService>(relaxed = true)
     }
 
     @Autowired
     private lateinit var mockMvc: MockMvc
-
-    @Autowired
-    private lateinit var service: PostService
 
     @Test
     fun `can list post statistics`() {
@@ -68,6 +65,16 @@ class StatisticsControllerTest {
     @Test
     fun `can list post encrypted group statistics`() {
         val result = mockMvc.perform(get("$baseUrl/posts-encrypted-group"))
+            .andExpect(status().isOk)
+            .andDo(print())
+            .andReturn()
+
+        assertEquals(200, result.response.status)
+    }
+
+    @Test
+    fun `can list hashtag statistics`() {
+        val result = mockMvc.perform(get("$baseUrl/hashtags"))
             .andExpect(status().isOk)
             .andDo(print())
             .andReturn()
