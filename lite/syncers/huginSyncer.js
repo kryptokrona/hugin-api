@@ -19,7 +19,6 @@ let db = require("../configs/postgresql"),
     Sequelize = db.Sequelize
 
 let models = require('../database/models')
-const {logger} = require("sequelize/lib/utils/logger");
 
 let known_pool_txs = [];
 

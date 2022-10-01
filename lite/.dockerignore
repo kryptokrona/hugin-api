@@ -1,12 +1,6 @@
 node_modules
 npm-debug.log
-ansible
-diagrams
-tests
-.git
 .dockerignore
-.github
 .gitignore
 docker-compose.yml
 Dockerfile
-.mocharc.js

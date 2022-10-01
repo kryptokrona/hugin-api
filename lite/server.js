@@ -31,8 +31,6 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use('/public', express.static(__dirname + '/public'));
 
-app.locals.sitetitle = 'Hugin API Lite'
-
 // routes
 app.use(postRouterLatest)
 app.use(postEncryptedRouterLatest)
@@ -40,21 +38,16 @@ app.use(postEncryptedGroupRouterLatest)
 
 app.use(bodyParser.json());
 
-// catch 404 and forward to error handler
 app.use(function (req, res, next) {
     next(createError(404))
 })
 
-// error handler
 app.use(function (err, req, res, next) {
-    // 404 Not Found.
     if (err.status === 404) {
         log.error(getTimestamp() + ' ERROR: 404 - Page could not be found.')
         return res
             .status(404).json('ERROR: Not Found.')
     }
-
-    // 500 Internal Server Error (in production, all other errors send this response).
     if (req.app.get('env') !== 'development') {
         log.error(getTimestamp() + ' ERROR: 500 - Internal server error.')
         return res
@@ -62,11 +55,8 @@ app.use(function (err, req, res, next) {
             .json('ERROR: Not Found.')
     }
 
-    // set locals, only providing error in development
     res.locals.message = err.message
     res.locals.error = req.app.get('env') === 'development' ? err : {}
-
-    // send response back
     res.status(err.status || 500)
 })
 
@@ -79,9 +69,7 @@ app.listen(process.env.SYS_API_PORT, async () => {
         log.setLevel('trace')
     }
 
-    // do not start the hugin syncer if we want to test the endpoints
     if (process.env.NODE_ENV !== 'test') {
-        // starting hugin sync
         while (true) {
             await sleep(process.env.SYS_HUGIN_SYNCER_SLEEP)
             await huginSyncer.backgroundSyncMessages()
@@ -92,7 +80,6 @@ app.listen(process.env.SYS_API_PORT, async () => {
 const wss = new WebSocketServer({ port: process.env.SYS_WS_PORT })
 
 wss.on('connection', function connection(ws) {
-    // broadcasting to all listening clients
     ws.on('message', function message(data, isBinary) {
         wss.clients.forEach(function each(client) {
             if (client !== ws && client.readyState === WebSocket.OPEN) {
