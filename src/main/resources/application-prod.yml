@@ -8,6 +8,6 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQL10Dialect
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
 
 apiServerUrl: ${SYS_API_SERVER_URL}
