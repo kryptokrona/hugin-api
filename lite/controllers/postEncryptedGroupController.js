@@ -9,8 +9,6 @@ let db = require("../configs/postgresql"),
   sequelize = db.sequelize,
   Sequelize = db.Sequelize
 
-const Op = db.Sequelize.Op;
-
 const postEncryptedGroupService = require('../services/postEncryptedGroupService')
 const { getPagination, getPagingData} = require('../utils/pagination')
 const { getTimestamp, convertDateTimeToUnix, convertUnixToDateTime} = require("../utils/time")

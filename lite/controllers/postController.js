@@ -9,8 +9,6 @@ let db = require("../configs/postgresql"),
     sequelize = db.sequelize,
     Sequelize = db.Sequelize
 
-const Op = db.Sequelize.Op;
-
 const postService = require('../services/postService')
 const { getPagination, getPagingData} = require('../utils/pagination')
 const { getTimestamp, convertDateTimeToUnix, convertUnixToDateTime} = require("../utils/time")
@@ -24,16 +22,14 @@ const postController = {}
  * @param {object} res - Express response object.
  */
 postController.getAll = async (req, res) => {
-    let { page, size, order, search, startDate, endDate, excludeAvatar } = req.query;
+    let { page, size, order, search, startDate, endDate } = req.query;
     const { limit, offset } = getPagination(page, size)
 
     // converts to datetime format since it's stored in the db as such
     const startDateParam = convertUnixToDateTime(startDate)
     const endDateParam = convertUnixToDateTime(endDate)
 
-    excludeAvatar = (excludeAvatar === undefined || excludeAvatar === 'true')
-
-    postService.getAll(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate, excludeAvatar)
+    postService.getAll(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate)
         .then(async data => {
           // converts the standard UTC to unix timestamp
           for (const row of data.rows) {
@@ -92,16 +88,14 @@ postController.getPostByTxHash = async (req, res) => {
  * @param {object} res - Express response object.
  */
 postController.getLatest = async (req, res) => {
-    let { page, size, order, search, startDate, endDate, excludeAvatar } = req.query;
+    let { page, size, order, search, startDate, endDate } = req.query;
     const { limit, offset } = getPagination(page, size)
 
     // converts to datetime format since it's stored in the db as such
     const startDateParam = convertUnixToDateTime(startDate)
     const endDateParam = convertUnixToDateTime(endDate)
 
-    excludeAvatar = (excludeAvatar === undefined || excludeAvatar === 'true')
-
-    postService.getLatest(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate, excludeAvatar)
+    postService.getLatest(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate)
       .then(async data => {
           // converts the standard UTC to unix timestamp
           for (const row of data.rows) {
