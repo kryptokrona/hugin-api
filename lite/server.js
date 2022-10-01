@@ -65,15 +65,9 @@ app.listen(process.env.SYS_API_PORT, async () => {
     console.log(`Server started on http://localhost:${process.env.SYS_API_PORT}`)
     console.log('Press Ctrl-C to terminate...')
 
-    if (process.env.NODE_ENV === 'development') {
-        log.setLevel('trace')
-    }
-
-    if (process.env.NODE_ENV !== 'test') {
-        while (true) {
-            await sleep(process.env.SYS_HUGIN_SYNCER_SLEEP)
-            await huginSyncer.backgroundSyncMessages()
-        }
+    while (true) {
+        await sleep(process.env.SYS_HUGIN_SYNCER_SLEEP)
+        await huginSyncer.backgroundSyncMessages()
     }
 })
 

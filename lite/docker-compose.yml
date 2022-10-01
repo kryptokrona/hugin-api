@@ -5,7 +5,7 @@ services:
     build: .
     container_name: hugin_api_lite
     environment:
-      DEV_DATABASE_URL: postgres://postgres:test1234@127.0.0.1:5432/hugin_api_dev
+      DATABASE_URL: postgres://postgres:test1234@127.0.0.1:5432/hugin_api_lite_db
       NODE_ENV: development
     ports:
       - "3000:3000"
@@ -21,7 +21,7 @@ services:
     container_name: hugin_api_lite_db
     restart: always
     environment:
-      POSTGRES_DB: hugin_api_dev
+      POSTGRES_DB: hugin_api_lite_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: test1234
     volumes:

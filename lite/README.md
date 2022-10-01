@@ -8,7 +8,7 @@ Prerequisites:
 
 - Download and install Docker, check this guide out if you are unsure how Docker works: https://medium.com/dev-genius/get-started-with-docker-and-docker-compose-cddcb5a3f3b9
 
-To setup Hugin API Lite we will be using Docker Compose to orchestrate up the environment.
+To set up Hugin API Lite we will be using Docker Compose to orchestrate up the environment.
 
 1. Clone this repo https://github.com/kryptokrona/hugin-api.git
 2. Open up your terminal and navigate to the repo and go to /lite directory

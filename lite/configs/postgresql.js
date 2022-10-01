@@ -10,13 +10,7 @@ const { Sequelize } = require('sequelize')
 const log = require("loglevel")
 const {getTimestamp} = require("../utils/time")
 
-let sequelize
-
-if (process.env.NODE_ENV === 'development') {
-  sequelize = new Sequelize(process.env.DEV_DATABASE_URL)
-} else {
-  sequelize = new Sequelize(process.env.DATABASE_URL)
-}
+let sequelize = new Sequelize(process.env.DATABASE_URL)
 
 try {
   sequelize.authenticate()
