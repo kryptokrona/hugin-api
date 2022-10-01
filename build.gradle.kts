@@ -92,7 +92,10 @@ dependencies {
 
 	testImplementation(kotlin("stdlib-jdk8"))
 	testImplementation(kotlin("test"))
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-test") {
+		exclude(module = "junit")
+		exclude(module = "mockito-core")
+	}
 	testImplementation("io.mockk:mockk:1.12.8")
 }
 

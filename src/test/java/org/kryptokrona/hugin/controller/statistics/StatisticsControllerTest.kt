@@ -1,3 +1,5 @@
+package org.kryptokrona.hugin.controller.statistics
+
 import io.mockk.mockk
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -10,11 +12,16 @@ import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.web.servlet.mvc.Controller
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import kotlin.test.assertEquals
 
 @ExtendWith(SpringExtension::class)
-@WebMvcTest(Controller::class)
+@WebMvcTest(StatisticsController::class)
 class StatisticsControllerTest {
+
+    private var baseUrl = "/api/v1/statistics"
 
     @TestConfiguration
     open class ControllerTestConfig {
@@ -35,8 +42,33 @@ class StatisticsControllerTest {
     private lateinit var service: PostService
 
     @Test
-    fun `testing`() {
+    fun `can list post statistics`() {
+        val result = mockMvc.perform(get("$baseUrl/posts"))
+            .andExpect(status().isOk)
+            .andDo(print())
+            .andReturn()
 
+        assertEquals(200, result.response.status)
+    }
+
+    @Test
+    fun `can list post encrypted statistics`() {
+        val result = mockMvc.perform(get("$baseUrl/posts-encrypted"))
+            .andExpect(status().isOk)
+            .andDo(print())
+            .andReturn()
+
+        assertEquals(200, result.response.status)
+    }
+
+    @Test
+    fun `can list post encrypted group statistics`() {
+        val result = mockMvc.perform(get("$baseUrl/posts-encrypted-group"))
+            .andExpect(status().isOk)
+            .andDo(print())
+            .andReturn()
+
+        assertEquals(200, result.response.status)
     }
 
 }
