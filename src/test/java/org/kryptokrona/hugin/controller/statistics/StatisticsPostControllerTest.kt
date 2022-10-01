@@ -71,4 +71,64 @@ class StatisticsPostControllerTest {
         assertEquals(400, result.response.status)
     }
 
+    @Test
+    fun `can list 24h post statistics`() {
+        val result = mockMvc.perform(get("$baseUrl/24h?datapoints=7"))
+            .andExpect(status().isOk)
+            .andDo(print())
+            .andReturn()
+
+        assertEquals(200, result.response.status)
+    }
+
+    @Test
+    fun `can not list 24h post statistics without datapoint request param`() {
+        val result = mockMvc.perform(get("$baseUrl/24h"))
+            .andExpect(status().is4xxClientError)
+            .andDo(print())
+            .andReturn()
+
+        assertEquals(400, result.response.status)
+    }
+
+    @Test
+    fun `can list week post statistics`() {
+        val result = mockMvc.perform(get("$baseUrl/weeks?datapoints=4"))
+            .andExpect(status().isOk)
+            .andDo(print())
+            .andReturn()
+
+        assertEquals(200, result.response.status)
+    }
+
+    @Test
+    fun `can not list week post statistics without datapoint request param`() {
+        val result = mockMvc.perform(get("$baseUrl/weeks"))
+            .andExpect(status().is4xxClientError)
+            .andDo(print())
+            .andReturn()
+
+        assertEquals(400, result.response.status)
+    }
+
+    @Test
+    fun `can list month post statistics`() {
+        val result = mockMvc.perform(get("$baseUrl/months?datapoints=12"))
+            .andExpect(status().isOk)
+            .andDo(print())
+            .andReturn()
+
+        assertEquals(200, result.response.status)
+    }
+
+    @Test
+    fun `can not list month post statistics without datapoint request param`() {
+        val result = mockMvc.perform(get("$baseUrl/months"))
+            .andExpect(status().is4xxClientError)
+            .andDo(print())
+            .andReturn()
+
+        assertEquals(400, result.response.status)
+    }
+
 }
