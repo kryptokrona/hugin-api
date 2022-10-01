@@ -4,6 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class StatisticsResponse {
 
+	@JsonProperty("10m")
+	private long tenMin;
+
+	private long hour;
+
 	@JsonProperty("24h")
 	private long twentyFourHours;
 
@@ -14,6 +19,22 @@ public class StatisticsResponse {
 	private long year;
 
 	private long total;
+
+	public long getTenMin() {
+		return tenMin;
+	}
+
+	public void setTenMin(long tenMin) {
+		this.tenMin = tenMin;
+	}
+
+	public long getHour() {
+		return hour;
+	}
+
+	public void setHour(long hour) {
+		this.hour = hour;
+	}
 
 	public long getTwentyFourHours() {
 		return twentyFourHours;

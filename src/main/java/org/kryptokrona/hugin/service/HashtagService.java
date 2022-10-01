@@ -82,6 +82,22 @@ public class HashtagService {
 		return null;
 	}
 
+	public long getTotalItemsBy10M() {
+		var endDate = new Date();
+		var startDate = DateUtils.addMinutes(new Date(), -10);
+		var items = hashtagRepository.findAllByCreatedAtBetween(startDate, endDate);
+
+		return items.size();
+	}
+
+	public long getTotalItemsByHour() {
+		var endDate = new Date();
+		var startDate = DateUtils.addHours(new Date(), -1);
+		var items = hashtagRepository.findAllByCreatedAtBetween(startDate, endDate);
+
+		return items.size();
+	}
+
 	public long getTotalItemsBy24h() {
 		var endDate = new Date();
 		var startDate = DateUtils.addDays(new Date(), -1);
