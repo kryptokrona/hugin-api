@@ -23,8 +23,6 @@
       <option name="taskNames">
         <list>
           <option value=":test" />
-          <option value="--tests" />
-          <option value="&quot;org.kryptokrona.hugin.*&quot;" />
         </list>
       </option>
       <option name="vmOptions" value="-Dspring.profiles.active=test" />
