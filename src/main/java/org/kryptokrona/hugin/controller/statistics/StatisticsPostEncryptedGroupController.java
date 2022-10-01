@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.kryptokrona.hugin.model.statistics.*;
 import org.kryptokrona.hugin.service.statistics.StatisticsPostEncryptedGroupService;
-import org.kryptokrona.hugin.service.statistics.StatisticsPostEncryptedService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

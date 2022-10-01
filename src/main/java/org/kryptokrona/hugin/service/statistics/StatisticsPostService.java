@@ -3,8 +3,6 @@ package org.kryptokrona.hugin.service.statistics;
 import org.kryptokrona.hugin.model.statistics.*;
 import org.kryptokrona.hugin.repository.statistics.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
