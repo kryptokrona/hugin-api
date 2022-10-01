@@ -3,7 +3,6 @@ package org.kryptokrona.hugin.controller.statistics
 import io.mockk.mockk
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.kryptokrona.hugin.controller.statistics.StatisticsPostController
 import org.kryptokrona.hugin.service.statistics.StatisticsPostService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest

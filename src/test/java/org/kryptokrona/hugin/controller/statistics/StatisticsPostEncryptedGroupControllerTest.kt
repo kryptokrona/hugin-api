@@ -3,7 +3,7 @@ package org.kryptokrona.hugin.controller.statistics
 import io.mockk.mockk
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.kryptokrona.hugin.service.statistics.StatisticsPostEncryptedService
+import org.kryptokrona.hugin.service.statistics.StatisticsPostEncryptedGroupService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.context.TestConfiguration
@@ -16,15 +16,15 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import kotlin.test.assertEquals
 
 @ExtendWith(SpringExtension::class)
-@WebMvcTest(StatisticsPostEncryptedController::class)
-class StatisticsPostEncryptedControllerTest {
+@WebMvcTest(StatisticsPostEncryptedGroupController::class)
+class StatisticsPostEncryptedGroupControllerTest {
 
-    private var baseUrl = "/api/v1/statistics/posts-encrypted/datapoints"
+    private var baseUrl = "/api/v1/statistics/posts-encrypted-group/datapoints"
 
     @TestConfiguration
     open class ControllerTestConfig {
         @Bean
-        open fun statisticsPostEncryptedService() = mockk<StatisticsPostEncryptedService>(relaxed = true)
+        open fun statisticsPostEncryptedGroupService() = mockk<StatisticsPostEncryptedGroupService>(relaxed = true)
     }
 
     @Autowired
