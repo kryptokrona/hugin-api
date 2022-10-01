@@ -13,3 +13,11 @@ To setup Hugin API Lite we will be using Docker Compose to orchestrate up the en
 1. Clone this repo https://github.com/kryptokrona/hugin-api.git
 2. Open up your terminal and navigate to the repo and go to /lite directory
 3. Run `docker-compose up` to get both the database up and Hugin API Lite up and running.
+
+Now you should be able to get data from the endpoints at:
+
+- `http://localhost:3000/posts`
+- `http://localhost:3000/posts-encrypted`
+- `http://localhost:3000/posts-encrypted-group`
+
+You can put request params as well, but please look into the controllers to see which one exists.
