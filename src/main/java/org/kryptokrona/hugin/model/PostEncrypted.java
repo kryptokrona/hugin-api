@@ -23,7 +23,7 @@ public class PostEncrypted {
 	private String txHash;
 
 	@JsonProperty("tx_box")
-	@Column(name = "tx_box", length = 3000) //TODO: need to check how long this actually can be
+	@Column(name = "tx_box", length = 10000) //TODO: need to check how long this actually can be
 	private String txBox;
 
 	@JsonProperty("tx_timestamp")
