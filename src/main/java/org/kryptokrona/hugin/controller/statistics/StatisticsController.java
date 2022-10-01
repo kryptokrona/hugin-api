@@ -58,10 +58,12 @@ public class StatisticsController {
 	)
 	public ResponseEntity<StatisticsResponse> getPostStatistics() {
 		var statisticsResponseObj = new StatisticsResponse();
+		statisticsResponseObj.setTenMin(postService.getTotalItemsBy10M());
+		statisticsResponseObj.setHour(postService.getTotalItemsByHour());
 		statisticsResponseObj.setTwentyFourHours(postService.getTotalItemsBy24h());
 		statisticsResponseObj.setWeek(postService.getTotalItemsByWeek());
 		statisticsResponseObj.setMonth(postService.getTotalItemsByMonth());
-		statisticsResponseObj.setYear(postService.getTotalItemsBy10M());
+		statisticsResponseObj.setYear(postService.getTotalItemsByYear());
 		statisticsResponseObj.setTotal(postService.getTotalItems());
 
 		return new ResponseEntity<>(statisticsResponseObj, HttpStatus.OK);
@@ -74,10 +76,12 @@ public class StatisticsController {
 	)
 	public ResponseEntity<StatisticsResponse> getPostEncryptedStatistics() {
 		var statisticsResponseObj = new StatisticsResponse();
+		statisticsResponseObj.setTenMin(postEncryptedService.getTotalItemsBy10M());
+		statisticsResponseObj.setHour(postEncryptedService.getTotalItemsByHour());
 		statisticsResponseObj.setTwentyFourHours(postEncryptedService.getTotalItemsBy24h());
 		statisticsResponseObj.setWeek(postEncryptedService.getTotalItemsByWeek());
 		statisticsResponseObj.setMonth(postEncryptedService.getTotalItemsByMonth());
-		statisticsResponseObj.setYear(postEncryptedService.getTotalItemsBy10M());
+		statisticsResponseObj.setYear(postEncryptedService.getTotalItemsByYear());
 		statisticsResponseObj.setTotal(postEncryptedService.getTotalItems());
 
 		return new ResponseEntity<>(statisticsResponseObj, HttpStatus.OK);
@@ -90,6 +94,8 @@ public class StatisticsController {
 	)
 	public ResponseEntity<StatisticsResponse> getPostEncryptedGroupStatistics() {
 		var statisticsResponseObj = new StatisticsResponse();
+		statisticsResponseObj.setTenMin(postEncryptedGroupService.getTotalItemsBy10M());
+		statisticsResponseObj.setHour(postEncryptedGroupService.getTotalItemsByHour());
 		statisticsResponseObj.setTwentyFourHours(postEncryptedGroupService.getTotalItemsBy24h());
 		statisticsResponseObj.setWeek(postEncryptedGroupService.getTotalItemsByWeek());
 		statisticsResponseObj.setMonth(postEncryptedGroupService.getTotalItemsByMonth());
@@ -106,6 +112,8 @@ public class StatisticsController {
 	)
 	public ResponseEntity<StatisticsResponse> getHashtagStatistics() {
 		var statisticsResponseObj = new StatisticsResponse();
+		statisticsResponseObj.setTenMin(hashtagService.getTotalItemsBy10M());
+		statisticsResponseObj.setHour(hashtagService.getTotalItemsByHour());
 		statisticsResponseObj.setTwentyFourHours(hashtagService.getTotalItemsBy24h());
 		statisticsResponseObj.setWeek(hashtagService.getTotalItemsByWeek());
 		statisticsResponseObj.setMonth(hashtagService.getTotalItemsByMonth());
