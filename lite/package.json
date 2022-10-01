@@ -4,10 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js >> output.log 2>&1",
+    "start": "node server.js",
     "dev": "nodemon server.js",
-    "db:migrate": "npx sequelize-cli db:migrate",
-    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate"
+    "db:migrate": "npx sequelize-cli db:migrate"
   },
   "repository": {
     "type": "git",
