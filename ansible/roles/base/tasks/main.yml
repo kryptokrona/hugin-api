@@ -49,6 +49,9 @@
 - name: Iptables port 80
   shell: iptables -C INPUT -s 0/0 -p tcp --dport 80 -j ACCEPT || iptables -I INPUT -s 0/0 -p tcp --dport 80 -j ACCEPT
 
+- name: Iptables port 5432
+  shell: iptables -C INPUT -s 0/0 -p tcp --dport 5432 -j ACCEPT || iptables -I INPUT -s 0/0 -p tcp --dport 5432 -j ACCEPT
+
 - name: Iptables port 9090
   shell: iptables -C INPUT -s 0/0 -p tcp --dport 9090 -j ACCEPT || iptables -I INPUT -s 0/0 -p tcp --dport 9090 -j ACCEPT
 
