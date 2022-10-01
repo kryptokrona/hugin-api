@@ -98,7 +98,7 @@ public class StatisticsPostController {
 			summary = "Get datapoints of months data",
 			description = "Get all datapoints of months data."
 	)
-	public ResponseEntity<List<PostMonthStatistics>> getAllMonths(@PathVariable Integer datapoints) {
+	public ResponseEntity<List<PostMonthStatistics>> getAllMonths(@RequestParam Integer datapoints) {
 		var obj = statisticsPostService.getAllMonths(datapoints);
 
 		if (obj == null) {
