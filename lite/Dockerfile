@@ -14,8 +14,6 @@ RUN pip3 install --no-cache --upgrade pip setuptools
 COPY package*.json ./
 RUN npm install
 
-ENV NODE_ENV=development
-
 # bundle app source
 COPY . .
 
