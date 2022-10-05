@@ -26,9 +26,9 @@ class PostEncryptedGroup extends Model<PostEncryptedGroupAttributes, PostEncrypt
 
 PostEncryptedGroup.init({
   id:           {type: DataTypes.NUMBER, allowNull: false},
-  txHash:       {type: DataTypes.STRING, allowNull: true},
-  txSb:         {type: DataTypes.TEXT,   allowNull: true},
-  txTimestamp:  {type: DataTypes.BIGINT, allowNull: true},
+  txHash:       {type: DataTypes.STRING, allowNull: true, field: "tx_hash"},
+  txSb:         {type: DataTypes.TEXT,   allowNull: true, field: "tx_sb"},
+  txTimestamp:  {type: DataTypes.BIGINT, allowNull: true, field: "tx_timestamp"},
 }, {
   tableName: "postencryptedgroup",
   timestamps: true,

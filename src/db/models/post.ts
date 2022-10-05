@@ -15,7 +15,7 @@ interface PostAttributes {
   time?: bigint;
   nickname?: string;
   txHash?: string;
-  reply?: string;
+  replyTxHash?: string;
   avatar?: string;
 }
 export interface PostInput extends Optional<PostAttributes, 'id'> {}
@@ -30,7 +30,7 @@ class Post extends Model<PostAttributes, PostInput> implements PostAttributes {
   public time?: bigint;
   public nickname?: string;
   public txHash?: string;
-  public reply?: string;
+  public replyTxHash?: string;
   public avatar?: string;
 
   public readonly createdAt!: Date;
@@ -38,16 +38,16 @@ class Post extends Model<PostAttributes, PostInput> implements PostAttributes {
 }
 
 Post.init({
-  id:         {type: DataTypes.NUMBER,    allowNull: false},
-  message:    {type: DataTypes.TEXT,      allowNull: true},
-  key:        {type: DataTypes.STRING,    allowNull: true},
-  signature:  {type: DataTypes.STRING,    allowNull: true},
-  board:      {type: DataTypes.STRING,    allowNull: true},
-  time:       {type: DataTypes.BIGINT,    allowNull: true},
-  nickname:   {type: DataTypes.STRING,    allowNull: true},
-  txHash:     {type: DataTypes.STRING,    allowNull: true},
-  reply:      {type: DataTypes.STRING,    allowNull: true},
-  avatar:     {type: DataTypes.TEXT,      allowNull: true}
+  id:          {type: DataTypes.NUMBER,    allowNull: false},
+  message:     {type: DataTypes.TEXT,      allowNull: true},
+  key:         {type: DataTypes.STRING,    allowNull: true},
+  signature:   {type: DataTypes.STRING,    allowNull: true},
+  board:       {type: DataTypes.STRING,    allowNull: true},
+  time:        {type: DataTypes.BIGINT,    allowNull: true},
+  nickname:    {type: DataTypes.STRING,    allowNull: true},
+  txHash:      {type: DataTypes.STRING,    allowNull: true, field: "tx_hash"},
+  replyTxHash: {type: DataTypes.STRING,    allowNull: true, field: "reply_tx_hash"},
+  avatar:      {type: DataTypes.TEXT,      allowNull: true}
 }, {
   tableName: "post",
   timestamps: true,

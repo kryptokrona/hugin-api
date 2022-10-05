@@ -33,14 +33,16 @@ PostHashtag.init({
     references: {
       model: Post,
       key: "id"
-    }
+    },
+    field: "post_id",
   },
   hashtagId: {
     type: DataTypes.INTEGER,
     references: {
       model: Hashtag,
       key: "id"
-    }
+    },
+    field: "hashtag_id",
   },
 }, {
   tableName: "post_hashtag",

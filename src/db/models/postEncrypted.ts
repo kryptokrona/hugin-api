@@ -26,9 +26,9 @@ class PostEncrypted extends Model<PostEncryptedAttributes, PostEncryptedInput> i
 
 PostEncrypted.init({
   id:           {type: DataTypes.NUMBER, allowNull: false},
-  txHash:       {type: DataTypes.TEXT,   allowNull: true},
-  txBox:        {type: DataTypes.TEXT,   allowNull: true},
-  txTimestamp:  {type: DataTypes.BIGINT, allowNull: true},
+  txHash:       {type: DataTypes.TEXT,   allowNull: true, field: "tx_hash"},
+  txBox:        {type: DataTypes.TEXT,   allowNull: true, field: "tx_box"},
+  txTimestamp:  {type: DataTypes.BIGINT, allowNull: true, field: "tx_timestamp"},
 }, {
   tableName: "postencrypted",
   timestamps: true,
