@@ -42,24 +42,6 @@ try:
     posts = requests.get(base_url.format(domain, 'api/v1/posts-encrypted/latest'))
     assert posts.status_code == requests.codes.ok
 
-    # trying v2 encrypted posts endpoints
-    print('GET ' + base_url.format(domain ,'api/v2/posts-encrypted'))
-    posts = requests.get(base_url.format(domain, 'api/v2/posts-encrypted'))
-    assert posts.status_code == requests.codes.ok
-
-    print('GET ' + base_url.format(domain, 'api/v2/posts-encrypted/latest'))
-    posts = requests.get(base_url.format(domain, 'api/v2/posts-encrypted/latest'))
-    assert posts.status_code == requests.codes.ok
-
-    # trying v2 encrypted group posts endpoints
-    print('GET ' + base_url.format(domain ,'api/v2/posts-encrypted-group'))
-    posts = requests.get(base_url.format(domain, 'api/v2/posts-encrypted-group'))
-    assert posts.status_code == requests.codes.ok
-
-    print('GET ' + base_url.format(domain, 'api/v2/posts-encrypted-group/latest'))
-    posts = requests.get(base_url.format(domain, 'api/v2/posts-encrypted-group/latest'))
-    assert posts.status_code == requests.codes.ok
-
     # trying v1 hashtag endpoints
     print('GET ' + base_url.format(domain, 'api/v1/hashtags'))
     posts = requests.get(base_url.format(domain, 'api/v1/hashtags'))
@@ -67,15 +49,6 @@ try:
 
     print('GET ' + base_url.format(domain, 'api/v1/hashtags/latest'))
     posts = requests.get(base_url.format(domain, 'api/v1/hashtags/latest'))
-    assert posts.status_code == requests.codes.ok
-
-    # trying v2 hashtag endpoints
-    print('GET ' + base_url.format(domain, 'api/v2/hashtags'))
-    posts = requests.get(base_url.format(domain, 'api/v2/hashtags'))
-    assert posts.status_code == requests.codes.ok
-
-    print('GET ' + base_url.format(domain, 'api/v2/hashtags/latest'))
-    posts = requests.get(base_url.format(domain, 'api/v2/hashtags/latest'))
     assert posts.status_code == requests.codes.ok
 
     # trying prometheus metrics
