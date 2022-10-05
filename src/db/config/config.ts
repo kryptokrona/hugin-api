@@ -12,8 +12,6 @@ let sequelizeConnection: Sequelize;
 
 if (process.env.NODE_ENV === 'development') {
   sequelizeConnection = new Sequelize(process.env.DEV_DATABASE_URL)
-} else if (process.env.NODE_ENV === 'test') {
-  sequelizeConnection = new Sequelize(process.env.TEST_DATABASE_URL)
 } else {
   sequelizeConnection = new Sequelize(process.env.DATABASE_URL)
 }

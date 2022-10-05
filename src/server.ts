@@ -106,14 +106,11 @@ app.listen(process.env.SYS_API_PORT, async () => {
     if (process.env.NODE_ENV === 'development') {
         log.setLevel('trace');
     }
-
-    // do not start the hugin syncer if we want to test the endpoints
-    if (process.env.NODE_ENV !== 'test') {
-        // starting hugin sync
-        while (true) {
-            await sleep(Number(process.env.SYS_HUGIN_SYNCER_SLEEP));
-            await backgroundSyncMessages();
-        }
+    
+    // starting hugin sync
+    while (true) {
+        await sleep(Number(process.env.SYS_HUGIN_SYNCER_SLEEP));
+        await backgroundSyncMessages();
     }
 })
 
