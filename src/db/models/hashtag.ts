@@ -32,6 +32,7 @@ Hashtag.init({
     allowNull: false
   },
 }, {
+  tableName: "hashtag",
   timestamps: true,
   sequelize: sequelizeConnection
 })

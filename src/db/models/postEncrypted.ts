@@ -30,6 +30,7 @@ PostEncrypted.init({
   txBox:        {type: DataTypes.TEXT,   allowNull: true},
   txTimestamp:  {type: DataTypes.BIGINT, allowNull: true},
 }, {
+  tableName: "postencrypted",
   timestamps: true,
   sequelize: sequelizeConnection
 })

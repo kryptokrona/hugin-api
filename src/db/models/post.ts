@@ -49,6 +49,7 @@ Post.init({
   reply:      {type: DataTypes.STRING,    allowNull: true},
   avatar:     {type: DataTypes.TEXT,      allowNull: true}
 }, {
+  tableName: "post",
   timestamps: true,
   sequelize: sequelizeConnection
 })

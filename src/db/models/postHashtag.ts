@@ -43,6 +43,7 @@ PostHashtag.init({
     }
   },
 }, {
+  tableName: "post_hashtag",
   timestamps: false,
   sequelize: sequelizeConnection
 })

@@ -30,6 +30,7 @@ PostEncryptedGroup.init({
   txSb:         {type: DataTypes.TEXT,   allowNull: true},
   txTimestamp:  {type: DataTypes.BIGINT, allowNull: true},
 }, {
+  tableName: "postencryptedgroup",
   timestamps: true,
   sequelize: sequelizeConnection
 })
