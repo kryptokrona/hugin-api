@@ -25,7 +25,7 @@ Hashtag.init({
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
-    type: DataTypes.INTEGER
+    type: DataTypes.NUMBER
   },
   name: {
     type: DataTypes.STRING,

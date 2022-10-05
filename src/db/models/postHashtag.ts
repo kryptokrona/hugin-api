@@ -26,10 +26,10 @@ class PostHashtag extends Model<PostHashtagAttributes, PostHashtagInput> impleme
 
 PostHashtag.init({
   id: {
-    type: DataTypes.INTEGER
+    type: DataTypes.NUMBER
   },
   postId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.NUMBER,
     references: {
       model: Post,
       key: "id"
@@ -37,7 +37,7 @@ PostHashtag.init({
     field: "post_id",
   },
   hashtagId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.NUMBER,
     references: {
       model: Hashtag,
       key: "id"
