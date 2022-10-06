@@ -59,7 +59,11 @@ module.exports.getPagingDataPostEncryptedGroup = async (data, page, limit) => {
  */
 module.exports.getPagination = (page, size) => {
     const limit = size ? +size : 3
-    const offset = page ? page * limit : 0
+    if (page < 0) {
+      const offset = 1
+      return { limit, offset }
+    }
+    const offset = page ? (page - 1) * limit : 1
 
     return { limit, offset }
 }

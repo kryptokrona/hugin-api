@@ -35,7 +35,6 @@ postController.getAll = async (req, res) => {
 
     postService.getAll(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate, excludeAvatar)
         .then(async data => {
-          console.log(data)
           // converts the standard UTC to unix timestamp
           for (const row of data.rows) {
             row.dataValues.created_at = convertDateTimeToUnix(row.dataValues.createdAt)
