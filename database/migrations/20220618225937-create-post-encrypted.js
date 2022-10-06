@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('post_encrypted', {
+    await queryInterface.createTable('postencrypted', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,22 +11,22 @@ module.exports = {
       tx_hash: {
         type: Sequelize.STRING
       },
-      tx_extra: {
+      tx_box: {
         type: Sequelize.TEXT
       },
-      tx_unlock_time: {
-        type: Sequelize.INTEGER
-      },
-      tx_version: {
-        type: Sequelize.INTEGER
+      tx_timestamp: {
+        type: Sequelize.BIGINT,
+        allowNull: true
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        field: 'created_at'
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        field: 'updated_at'
       }
     });
   },

@@ -25,7 +25,7 @@ module.exports = {
         allowNull: true
       },
       time: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.BIGINT,
         allowNull: true
       },
       nickname: {
@@ -36,14 +36,18 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true
       },
+      reply: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATEONLY,
+        type: Sequelize.DATE,
         field: 'created_at'
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATEONLY,
+        type: Sequelize.DATE,
         field: 'updated_at'
       },
     });
