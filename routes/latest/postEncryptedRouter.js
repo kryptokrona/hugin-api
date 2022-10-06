@@ -38,13 +38,13 @@ const controller = require('../../controllers/latest/postEncryptedController')
  *           type: integer
  *         description: Page number
  *       - in: query
- *         name: startDate
+ *         name: from
  *         schema:
  *           type: integer
  *           format: int64
  *         description: From a given date and time in unix timestamp - format 1661941082
  *       - in: query
- *         name: endDate
+ *         name: to
  *         schema:
  *           type: integer
  *           format: int64
@@ -84,13 +84,13 @@ router.get('/posts-encrypted/latest', controller.getLatest)
  *           type: integer
  *         description: Page number
  *       - in: query
- *         name: startDate
+ *         name: from
  *         schema:
  *           type: integer
  *           format: int64
  *         description: From a given date and time in unix timestamp - format 1661941082
  *       - in: query
- *         name: endDate
+ *         name: to
  *         schema:
  *           type: integer
  *           format: int64

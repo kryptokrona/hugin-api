@@ -25,14 +25,14 @@ const postEncryptedController = {}
  * @param {object} res - Express response object.
  */
 postEncryptedController.getAll = async (req, res) => {
-  const { page, size, order, search, startDate, endDate } = req.query;
+  let { page, size, order, search, from, to } = req.query;
   const { limit, offset } = getPagination(page, size)
 
   // converts to datetime format since it's stored in the db as such
-  const startDateParam = convertUnixToDateTime(startDate)
-  const endDateParam = convertUnixToDateTime(endDate)
+  const startDateParam = convertUnixToDateTime(from)
+  const endDateParam = convertUnixToDateTime(to)
 
-  postEncryptedGroupService.getAll(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate)
+  postEncryptedGroupService.getAll(limit, offset, order, search, from ? startDateParam : from, to ? endDateParam : to)
     .then(async data => {
       // converts the standard UTC to unix timestamp
       data.rows.forEach(row => {
@@ -97,14 +97,14 @@ postEncryptedController.getEncryptedGroupPostByTxHash = async (req, res) => {
  * @param {object} res - Express response object.
  */
 postEncryptedController.getLatest = async (req, res) => {
-  const { page, size, order, search, startDate, endDate } = req.query;
+  let { page, size, order, search, from, to } = req.query;
   const { limit, offset } = getPagination(page, size)
 
   // converts to datetime format since it's stored in the db as such
-  const startDateParam = convertUnixToDateTime(startDate)
-  const endDateParam = convertUnixToDateTime(endDate)
+  const startDateParam = convertUnixToDateTime(from)
+  const endDateParam = convertUnixToDateTime(to)
 
-  postEncryptedGroupService.getLatest(limit, offset, order, search, startDate ? startDateParam : startDate, endDate ? endDateParam : endDate)
+  postEncryptedGroupService.getLatest(limit, offset, order, search, from ? startDateParam : from, to ? endDateParam : to)
     .then(async data => {
       // converts the standard UTC to unix timestamp
       data.rows.forEach(row => {
