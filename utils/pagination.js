@@ -12,7 +12,7 @@
  */
 module.exports.getPagingDataPost = async (data, page, limit) => {
     const { count: total_items, rows: posts } = data
-    const current_page = page ? +page : 0
+    const current_page = page ? +page : 1
     const total_pages = Math.ceil(total_items / limit)
 
     return { total_items, posts, total_pages, current_page }
@@ -28,7 +28,7 @@ module.exports.getPagingDataPost = async (data, page, limit) => {
  */
 module.exports.getPagingDataPostEncrypted = async (data, page, limit) => {
   const { count: total_items, rows: encrypted_posts } = data
-  const current_page = page ? +page : 0
+  const current_page = page ? +page : 1
   const total_pages = Math.ceil(total_items / limit)
 
   return { total_items, encrypted_posts, total_pages, current_page }
@@ -44,7 +44,7 @@ module.exports.getPagingDataPostEncrypted = async (data, page, limit) => {
  */
 module.exports.getPagingDataPostEncryptedGroup = async (data, page, limit) => {
   const { count: total_items, rows: encrypted_group_posts } = data
-  const current_page = page ? +page : 0
+  const current_page = page ? +page : 1
   const total_pages = Math.ceil(total_items / limit)
 
   return { total_items, encrypted_group_posts, total_pages, current_page }
