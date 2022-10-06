@@ -3,19 +3,51 @@
  */
 
 /**
- * Get paging data
+ * Get paging data for posts
  *
  * @param {object} data - Data object.
  * @param {object} page - Page object.
  * @param {object} limit - Limit object.
  * @returns {object} pagination data - Get the pagination data object.
  */
-module.exports.getPagingData = async (data, page, limit) => {
-    const { count: totalItems, rows: items } = data
-    const currentPage = page ? +page : 0
-    const totalPages = Math.ceil(totalItems / limit)
+module.exports.getPagingDataPost = async (data, page, limit) => {
+    const { count: total_items, rows: posts } = data
+    const current_page = page ? +page : 0
+    const total_pages = Math.ceil(total_items / limit)
 
-    return { totalItems, items, totalPages, currentPage }
+    return { total_items, posts, total_pages, current_page }
+}
+
+/**
+ * Get paging data for encrypted posts
+ *
+ * @param {object} data - Data object.
+ * @param {object} page - Page object.
+ * @param {object} limit - Limit object.
+ * @returns {object} pagination data - Get the pagination data object.
+ */
+module.exports.getPagingDataPostEncrypted = async (data, page, limit) => {
+  const { count: total_items, rows: encrypted_posts } = data
+  const current_page = page ? +page : 0
+  const total_pages = Math.ceil(total_items / limit)
+
+  return { total_items, encrypted_posts, total_pages, current_page }
+}
+
+/**
+ * Get paging data for encrypted group posts
+ *
+ * @param {object} data - Data object.
+ * @param {object} page - Page object.
+ * @param {object} limit - Limit object.
+ * @returns {object} pagination data - Get the pagination data object.
+ */
+module.exports.getPagingDataPostEncryptedGroup = async (data, page, limit) => {
+  const { count: total_items, rows: encrypted_group_posts } = data
+  const current_page = page ? +page : 0
+  const total_pages = Math.ceil(total_items / limit)
+
+  return { total_items, encrypted_group_posts, total_pages, current_page }
 }
 
 /**
