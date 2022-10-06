@@ -13,7 +13,7 @@ const Op = db.Sequelize.Op;
 
 const postService = require('../../services/postService')
 const { getTimestamp } = require("../../utils/time")
-const {getPagination, getPagingData} = require("../../utils/pagination");
+const {getPagination, getPagingDataStatistics} = require("../../utils/pagination");
 
 const statisticsController = {}
 
@@ -37,7 +37,7 @@ statisticsController.getPopularPosts = async (req, res) => {
         row.dataValues.time = await postService.getPostByTxHashStr(row.dataValues.post).then(post => post.time)
       }
 
-      const response = await getPagingData(data, page, limit)
+      const response = await getPagingDataStatistics(data, page, limit)
 
       log.info(getTimestamp() + ' INFO: Successful response.')
       res.json(response)
@@ -65,7 +65,7 @@ statisticsController.getPopularBoards = async (req, res) => {
       // setting correct amount of row count
       data.count = data.count.length
 
-      const response = await getPagingData(data, page, limit)
+      const response = await getPagingDataStatistics(data, page, limit)
 
       log.info(getTimestamp() + ' INFO: Successful response.')
       res.json(response)
