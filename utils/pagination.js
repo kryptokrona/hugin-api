@@ -51,6 +51,38 @@ module.exports.getPagingDataPostEncryptedGroup = async (data, page, limit) => {
 }
 
 /**
+ * Get paging data for hashtags
+ *
+ * @param {object} data - Data object.
+ * @param {object} page - Page object.
+ * @param {object} limit - Limit object.
+ * @returns {object} pagination data - Get the pagination data object.
+ */
+module.exports.getPagingDataHashtag = async (data, page, limit) => {
+  const { count: total_items, rows: hashtags } = data
+  const current_page = page ? +page : 1
+  const total_pages = Math.ceil(total_items / limit)
+
+  return { total_items, hashtags, total_pages, current_page }
+}
+
+/**
+ * Get paging data for statistics
+ *
+ * @param {object} data - Data object.
+ * @param {object} page - Page object.
+ * @param {object} limit - Limit object.
+ * @returns {object} pagination data - Get the pagination data object.
+ */
+module.exports.getPagingDataStatistics = async (data, page, limit) => {
+  const { count: total_items, rows: statistics } = data
+  const current_page = page ? +page : 1
+  const total_pages = Math.ceil(total_items / limit)
+
+  return { total_items, statistics, total_pages, current_page }
+}
+
+/**
  * Get pagination
  *
  * @param {object} page - Page object.

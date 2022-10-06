@@ -12,7 +12,7 @@ let db = require("../../configs/postgresql"),
 const Op = db.Sequelize.Op;
 
 const hashtagService = require('../../services/hashtagService')
-const { getPagination, getPagingData} = require('../../utils/pagination')
+const { getPagination, getPagingDataHashtag} = require('../../utils/pagination')
 const { getTimestamp } = require("../../utils/time")
 
 const hashtagController = {}
@@ -29,7 +29,7 @@ hashtagController.getAll = (req, res) => {
 
     hashtagService.getAll(limit, offset, order, search)
         .then(async data => {
-            const response = await getPagingData(data, page, limit)
+            const response = await getPagingDataHashtag(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
             res.json(response)
         })
@@ -79,7 +79,7 @@ hashtagController.getLatest = async (req, res) => {
 
     hashtagService.getLatest(limit, offset, order)
         .then(async data => {
-            const response = await getPagingData(data, page, limit)
+            const response = await getPagingDataHashtag(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
             res.json(response)
         })
@@ -103,7 +103,7 @@ hashtagController.getTrending = async (req, res) => {
 
     hashtagService.getTrending(page, size, limit, offset)
         .then(async data => {
-            let response = await getPagingData(data, page, limit)
+            let response = await getPagingDataHashtag(data, page, limit)
 
             //TODO: this is a temporary fix (check the hashtagService and modify it to avoid this method)
             // we want to do a SQL query instead of this
