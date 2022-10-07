@@ -12,7 +12,7 @@ let db = require("../../configs/postgresql"),
 const Op = db.Sequelize.Op;
 
 const postService = require('../../services/postService')
-const { getPagination, getPagingData, getPagingDataPost} = require('../../utils/pagination')
+const { getPagination, getPagingDataPost} = require('../../utils/pagination')
 const { getTimestamp, convertDateTimeToUnix, convertUnixToDateTime} = require("../../utils/time")
 
 const postController = {}
@@ -148,6 +148,7 @@ postController.getLatest = async (req, res) => {
  */
 postController.sendMessage = async (req, res) => {
     console.log(req.body)
+    res.json(req.body)
 }
 
 module.exports = postController

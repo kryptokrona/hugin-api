@@ -136,6 +136,7 @@ const postEncryptedGroupController = {}
  */
 postEncryptedGroupController.sendMessage = async (req, res) => {
   console.log(req.body)
+  res.json(req.body)
 }
 
 module.exports = postEncryptedGroupController

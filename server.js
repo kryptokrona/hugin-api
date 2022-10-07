@@ -25,7 +25,6 @@ var statisticsRouterLatest = require('./routes/latest/statisticsRouter')
 
 // syncers
 var huginSyncer = require('./syncers/huginSyncer')
-var xkrSyncer = require('./syncers/xkrSyncer')
 
 // utils
 const { getTimestamp, sleep } = require('./utils/time')
@@ -101,6 +100,7 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500)
 })
 
+
 // Start listening.
 app.listen(process.env.SYS_API_PORT, async () => {
     console.log(`Server started on http://localhost:${process.env.SYS_API_PORT}`)
@@ -135,7 +135,6 @@ app.listen(process.env.SYS_API_PORT, async () => {
         while (true) {
             await sleep(process.env.SYS_HUGIN_SYNCER_SLEEP)
             await huginSyncer.backgroundSyncMessages()
-            await xkrSyncer.walletSync()
         }
     }
 })
