@@ -140,4 +140,14 @@ postController.getLatest = async (req, res) => {
         })
 }
 
+/**
+ * Send message
+ *
+ * @param {object} req - Express request object.
+ * @param {object} res - Express response object.
+ */
+postController.sendMessage = async (req, res) => {
+    console.log(req.body)
+}
+
 module.exports = postController

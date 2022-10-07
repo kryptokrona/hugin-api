@@ -15,9 +15,9 @@ module.exports.openWallet = async (daemon) => {
 
     try {
         const json_wallet = await files.readFile("wallet.json");
-         const [wallet, error] = await WB.WalletBackend.openWalletFromEncryptedString(daemon, JSON.parse(json_wallet), 'hugin');
-         console.log('Wallet found, loading..');
-         return wallet
+        const [wallet, error] = await WB.WalletBackend.openWalletFromEncryptedString(daemon, JSON.parse(json_wallet), 'hugin');
+        console.log('Wallet found, loading..');
+        return wallet
     } catch (err) {
         console.log('No wallet found, creating a new one..', err)
         return await WB.WalletBackend.createWallet(daemon);

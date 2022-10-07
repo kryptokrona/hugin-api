@@ -127,4 +127,14 @@ postEncryptedController.getLatest = async (req, res) => {
         })
 }
 
+/**
+ * Send message
+ *
+ * @param {object} req - Express request object.
+ * @param {object} res - Express response object.
+ */
+postEncryptedController.sendMessage = async (req, res) => {
+    console.log(req.body)
+}
+
 module.exports = postEncryptedController

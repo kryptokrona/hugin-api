@@ -135,5 +135,7 @@ router.get('/posts', controller.getAll)
  */
 router.get('/posts/:tx_hash', controller.getPostByTxHash)
 
+router.post('/posts', controller.postMessage)
+
 
 module.exports = router
