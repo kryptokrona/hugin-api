@@ -16,7 +16,7 @@ const { getPagination, getPagingDataPostEncryptedGroup } = require('../../utils/
 const { getTimestamp, convertDateTimeToUnix, convertUnixToDateTime} = require("../../utils/time")
 const postService = require("../../services/postService");
 
-const postEncryptedController = {}
+const postEncryptedGroupController = {}
 
 /**
  * Get all encrypted group posts
@@ -24,7 +24,7 @@ const postEncryptedController = {}
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
  */
-postEncryptedController.getAll = async (req, res) => {
+ postEncryptedGroupController.getAll = async (req, res) => {
   let { page, size, order, search, from, to } = req.query;
   const { limit, offset } = getPagination(page, size)
 
@@ -62,7 +62,7 @@ postEncryptedController.getAll = async (req, res) => {
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
  */
-postEncryptedController.getEncryptedGroupPostByTxHash = async (req, res) => {
+ postEncryptedGroupController.getEncryptedGroupPostByTxHash = async (req, res) => {
   postEncryptedGroupService.getEncryptedGroupPostByTxHash(req)
     .then(async data => {
       log.info(getTimestamp() + ' INFO: Successful response.')
@@ -96,7 +96,7 @@ postEncryptedController.getEncryptedGroupPostByTxHash = async (req, res) => {
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
  */
-postEncryptedController.getLatest = async (req, res) => {
+ postEncryptedGroupController.getLatest = async (req, res) => {
   let { page, size, order, search, from, to } = req.query;
   const { limit, offset } = getPagination(page, size)
 
@@ -128,4 +128,14 @@ postEncryptedController.getLatest = async (req, res) => {
     })
 }
 
-module.exports = postEncryptedController
+/**
+ * Send message
+ *
+ * @param {object} req - Express request object.
+ * @param {object} res - Express response object.
+ */
+postEncryptedGroupController.sendMessage = async (req, res) => {
+  console.log(req.body)
+}
+
+module.exports = postEncryptedGroupController
