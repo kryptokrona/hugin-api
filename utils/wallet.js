@@ -25,7 +25,6 @@ module.exports.openWallet = async (daemon) => {
 }
 
 module.exports.optimizeMessages(nbrOfTxs, fee=10000, attempt=0) {
-
   if (attempt > 10) {
     return false;
   }
@@ -75,6 +74,4 @@ module.exports.optimizeMessages(nbrOfTxs, fee=10000, attempt=0) {
   );
 
   return true;
-
-
 }
