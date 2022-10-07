@@ -100,7 +100,6 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500)
 })
 
-
 // Start listening.
 app.listen(process.env.SYS_API_PORT, async () => {
     console.log(`Server started on http://localhost:${process.env.SYS_API_PORT}`)
@@ -115,7 +114,7 @@ app.listen(process.env.SYS_API_PORT, async () => {
 
         // initializing daemon and wallet
         const daemon = new WB.Daemon('pool.kryptokrona.se', 11898);
-        const wallet = await openWallet(daemon);
+        global.wallet = await openWallet(daemon);
         await wallet.start();
         console.log('Started wallet');
         console.log('Address: ' + wallet.getPrimaryAddress());
@@ -135,6 +134,9 @@ app.listen(process.env.SYS_API_PORT, async () => {
         while (true) {
             await sleep(process.env.SYS_HUGIN_SYNCER_SLEEP)
             await huginSyncer.backgroundSyncMessages()
+            let [unlockedBalance, lockedBalance] = await wallet.getBalance();
+            console.log('🔓 Unlocked Balance: ' + unlockedBalance)
+            console.log('🔒 Locked Balance: ' + lockedBalance)
         }
     }
 })

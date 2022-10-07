@@ -135,8 +135,19 @@ const postEncryptedGroupController = {}
  * @param {object} res - Express response object.
  */
 postEncryptedGroupController.sendMessage = async (req, res) => {
-  console.log(req.body)
-  res.json(req.body)
+  const result = await wallet.sendTransactionAdvanced(
+    [[wallet.getPrimaryAddress(), 1]], // destinations,
+    3, // mixin
+    {fixedFee: 1000, isFixedFee: true}, // fee
+    undefined, //paymentID
+    undefined, // subWalletsToTakeFrom
+    undefined, // changeAddress
+    true, // relayToNetwork
+    false, // sendAll
+    Buffer.from(toString(req.body), 'hex')
+  )
+
+  res.json(result)
 }
 
 module.exports = postEncryptedGroupController
