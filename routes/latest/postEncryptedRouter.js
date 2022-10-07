@@ -123,5 +123,7 @@ router.get('/posts-encrypted', controller.getAll)
  */
 router.get('/posts-encrypted/:tx_hash', controller.getEncryptedPostByTxHash)
 
+router.post('/posts-encrypted', controller.postMessage)
+
 
 module.exports = router
