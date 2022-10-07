@@ -11,8 +11,10 @@ var log = require('loglevel')
 var bodyParser = require('body-parser')
 
 const { WebSocket, WebSocketServer } = require('ws')
+const WB = require('kryptokrona-wallet-backend-js');
 const swaggerJsdoc = require('swagger-jsdoc')
 const swaggerUi = require('swagger-ui-express')
+const files = require('fs/promises');
 
 // latest routers
 var postRouterLatest = require('./routes/latest/postRouter')
@@ -23,11 +25,17 @@ var statisticsRouterLatest = require('./routes/latest/statisticsRouter')
 
 // syncers
 var huginSyncer = require('./syncers/huginSyncer')
+var xkrSyncer = require('./syncers/xkrSyncer')
 
+// utils
 const { getTimestamp, sleep } = require('./utils/time')
+const { openWallet } = require('./utils/wallet')
+
+// configs
 const { swaggerOptions, swaggerCustomOptions } = require('./configs/swagger')
 const { setCache } = require('./configs/cacheControl')
 const { limiter } = require('./configs/rateLimit')
+
 
 var app = express()
 
@@ -104,10 +112,26 @@ app.listen(process.env.SYS_API_PORT, async () => {
 
     // do not start the hugin syncer if we want to test the endpoints
     if (process.env.NODE_ENV !== 'test') {
+
+        // initializing daemon and wallet
+        const daemon = new WB.Daemon('pool.kryptokrona.se', 11898);
+        const wallet = await openWallet(daemon);
+        await wallet.start();
+        console.log('Started wallet');
+        console.log('Address: ' + wallet.getPrimaryAddress());
+        
+        // on height change save a new file
+        //TODO: change from heightchange -> "interval" instead
+        wallet.on('heightchange', async () => {
+            const saved = wallet.toJSONString();
+            await files.writeFile("wallet.json", saved); // TODO: check where to save this.
+        })
+
         // starting hugin sync
         while (true) {
             await sleep(process.env.SYS_HUGIN_SYNCER_SLEEP)
             await huginSyncer.backgroundSyncMessages()
+            await xkrSyncer.walletSync()
         }
     }
 })
