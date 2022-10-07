@@ -29,7 +29,7 @@ var xkrSyncer = require('./syncers/xkrSyncer')
 
 // utils
 const { getTimestamp, sleep } = require('./utils/time')
-const { openWallet } = require('./utils/wallet')
+const { openWallet, optimizeMessages } = require('./utils/wallet')
 
 // configs
 const { swaggerOptions, swaggerCustomOptions } = require('./configs/swagger')
@@ -126,6 +126,10 @@ app.listen(process.env.SYS_API_PORT, async () => {
           const encrypted_wallet = await wallet.encryptWalletToString('hugin');
           await files.writeFile("wallet.json", JSON.stringify(encrypted_wallet)); // TODO: check where to save this.
         })
+
+        wallet.on('transaction', async () => {
+          optimizeMessages(wallet);
+        });
 
         // starting hugin sync
         while (true) {
