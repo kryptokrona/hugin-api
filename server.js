@@ -119,12 +119,12 @@ app.listen(process.env.SYS_API_PORT, async () => {
         await wallet.start();
         console.log('Started wallet');
         console.log('Address: ' + wallet.getPrimaryAddress());
-        
+
         // on height change save a new file
         //TODO: change from heightchange -> "interval" instead
         wallet.on('heightchange', async () => {
-            const saved = wallet.toJSONString();
-            await files.writeFile("wallet.json", saved); // TODO: check where to save this.
+          const encrypted_wallet = await wallet.encryptWalletToString('hugin');
+          await files.writeFile("wallet.json", JSON.stringify(encrypted_wallet)); // TODO: check where to save this.
         })
 
         // starting hugin sync
