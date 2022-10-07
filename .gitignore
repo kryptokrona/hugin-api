@@ -129,3 +129,4 @@ coverage/
 *.dtmp
 
 *.log
+wallet.json
