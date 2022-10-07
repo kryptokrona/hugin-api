@@ -14,7 +14,6 @@ const Op = db.Sequelize.Op;
 const postEncryptedService = require('../../services/postEncryptedService')
 const { getPagination, getPagingDataPostEncrypted} = require('../../utils/pagination')
 const { getTimestamp, convertDateTimeToUnix, convertUnixToDateTime} = require("../../utils/time")
-const postService = require("../../services/postService");
 
 const postEncryptedController = {}
 
@@ -135,6 +134,7 @@ postEncryptedController.getLatest = async (req, res) => {
  */
 postEncryptedController.sendMessage = async (req, res) => {
     console.log(req.body)
+    res.json(req.body)
 }
 
 module.exports = postEncryptedController
