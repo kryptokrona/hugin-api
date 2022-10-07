@@ -13,7 +13,7 @@ const { getTimestamp } = require('./time')
  *
  * @returns {String}
  */
-module.exports.openWallet = async (daemon) => {
+async function openWallet(daemon) {
     log.info(getTimestamp() + ' INFO: Open wallet...')
 
     try {
@@ -27,7 +27,25 @@ module.exports.openWallet = async (daemon) => {
     }
 }
 
-module.exports.optimizeMessages = async (nbrOfTxs, fee = 10000, attempt = 0) => {
+/**
+ * Save a wallet
+ *
+ * @returns {String}
+ */
+async function saveWallet(wallet) {
+    const encrypted_wallet = await wallet.encryptWalletToString('hugin')
+    await files.writeFile("wallet.tmp", JSON.stringify(encrypted_wallet))
+    files.rename('wallet.tmp', 'wallet.json')
+    
+    try {
+        setInterval(await saveWallet(wallet), 90*1000)
+    } catch (err) {
+        console.log(err)
+        log.error('Error while saving wallet during interval.')
+    }
+}
+
+async function optimizeMessages(nbrOfTxs, fee = 10000, attempt = 0) {
     if (attempt > 10) {
         return false
     }
@@ -56,7 +74,7 @@ module.exports.optimizeMessages = async (nbrOfTxs, fee = 10000, attempt = 0) => 
     /* User payment */
     while (i < nbrOfTxs - 1 && i < 10) {
         payments.push([
-            Globals.wallet.subWallets.getAddresses()[0],
+            wallet.subWallets.getAddresses()[0],
             2000
         ])
 
@@ -64,7 +82,7 @@ module.exports.optimizeMessages = async (nbrOfTxs, fee = 10000, attempt = 0) => 
 
     }
 
-    await Globals.wallet.sendTransactionAdvanced(
+    await wallet.sendTransactionAdvanced(
         payments, // destinations,
         3, // mixin
         { fixedFee: 1000, isFixedFee: true }, // fee
@@ -77,4 +95,10 @@ module.exports.optimizeMessages = async (nbrOfTxs, fee = 10000, attempt = 0) => 
     )
 
     return true
+}
+
+module.exports = {
+    openWallet,
+    saveWallet,
+    optimizeMessages
 }

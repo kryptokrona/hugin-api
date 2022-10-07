@@ -156,7 +156,7 @@ postController.sendMessage = async (req, res) => {
         undefined, // changeAddress
         true, // relayToNetwork
         false, // sendAll
-        Buffer.from(toString(req.body), 'hex')
+        Buffer.from(req.body.payload, 'hex')
     )
 
     res.json(result)
