@@ -20,10 +20,15 @@ async function openWallet(daemon) {
         const json_wallet = await files.readFile("wallet.json")
         const [wallet, error] = await WB.WalletBackend.openWalletFromEncryptedString(daemon, JSON.parse(json_wallet), 'hugin')
         log.info(getTimestamp() + ' INFO: Wallet found, loading...')
+        
         return wallet
     } catch (err) {
         log.info(getTimestamp() + ' INFO: No wallet found, creating a new one...')
-        return await WB.WalletBackend.createWallet(daemon)
+        const newWallet = await WB.WalletBackend.createWallet(daemon)
+        const mnemonicSeed = await newWallet.getMnemonicSeed()
+        await files.writeFile(`mnemonic-${newWallet.getPrimaryAddress()}.txt`, JSON.stringify(mnemonicSeed))
+        
+        return newWallet
     }
 }
 
