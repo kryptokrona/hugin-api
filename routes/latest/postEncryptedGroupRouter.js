@@ -123,7 +123,4 @@ router.get('/posts-encrypted-group', controller.getAll)
  */
 router.get('/posts-encrypted-group/:tx_hash', controller.getEncryptedGroupPostByTxHash)
 
-router.post('/posts-encrypted-group', controller.sendMessage)
-
-
 module.exports = router

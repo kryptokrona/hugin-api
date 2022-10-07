@@ -13,7 +13,7 @@ const controller = require('../../controllers/latest/postController')
 
 /**
  * @openapi
- * /api/v2/posts/latest:
+ * /api/v1/posts/latest:
  *   get:
  *     description: Gets the latest posts.
  *     parameters:
@@ -65,7 +65,7 @@ router.get('/posts/latest', controller.getLatest)
 
 /**
  * @openapi
- * /api/v2/posts:
+ * /api/v1/posts:
  *   get:
  *     description: Gets all posts.
  *     parameters:
@@ -117,7 +117,7 @@ router.get('/posts', controller.getAll)
 
 /**
  * @openapi
- * /api/v2/posts/{tx_hash}:
+ * /api/v1/posts/{tx_hash}:
  *   get:
  *     description: Gets a specific post by given transaction hash value.
  *     parameters:
@@ -135,6 +135,17 @@ router.get('/posts', controller.getAll)
  */
 router.get('/posts/:tx_hash', controller.getPostByTxHash)
 
+/**
+ * @openapi
+ * /api/v1/posts:
+ *   post:
+ *     description: Saves a post.
+ *     tags:
+ *       - posts
+ *     responses:
+ *       200:
+ *         description: Saves a post to the blockchain.
+ */
 router.post('/posts', controller.sendMessage)
 
 
