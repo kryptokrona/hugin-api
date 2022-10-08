@@ -133,10 +133,8 @@ app.listen(process.env.SYS_API_PORT, async () => {
             await huginSyncer.backgroundSyncMessages()
             let [unlockedBalance, lockedBalance] = await wallet.getBalance();
 
-            // for debug reasons (logger does not seem to work here)
-            // console.log('📃 Address: ' + wallet.getPrimaryAddress())
-            // console.log('🔓 Unlocked Balance (XKR): ' + (unlockedBalance / 100000))
-            // console.log('🔒 Locked Balance (XKR): ' + (lockedBalance / 100000))
+            console.log('🔓 Unlocked Balance (XKR): ' + (unlockedBalance / 100000))
+            console.log('🔒 Locked Balance (XKR): ' + (lockedBalance / 100000))
         }
     }
 })
