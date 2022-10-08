@@ -102,25 +102,6 @@ async function saveWalletToDb(encryptedStr, mnemonicSeed) {
 }
 
 /**
- * Get wallet from db with mnemonic seed
- *
- * @returns {Boolean} Resolves to true if found.
- */
- async function getWalletFromDbByMnemonicSeed(mnemonicSeed) {
-    try {
-        const walletLookup = models.Wallet.findAll({
-            where: {
-                mnemonic_seed: mnemonicSeed
-            },
-            raw: true
-        })
-        return walletLookup
-    } catch(err) {
-        log.error(getTimestamp() + ' ERROR: ' + err)
-    }
-}
-
-/**
  * Check if wallet exists in database.
  *
  * @returns {Boolean} Resolves to true if found.
