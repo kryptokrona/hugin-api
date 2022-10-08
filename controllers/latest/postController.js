@@ -147,19 +147,25 @@ postController.getLatest = async (req, res) => {
  * @param {object} res - Express response object.
  */
 postController.sendMessage = async (req, res) => {
-    const result = await wallet.sendTransactionAdvanced(
-        [[wallet.getPrimaryAddress(), 1]], // destinations,
-        3, // mixin
-        {fixedFee: 1000, isFixedFee: true}, // fee
-        undefined, //paymentID
-        undefined, // subWalletsToTakeFrom
-        undefined, // changeAddress
-        true, // relayToNetwork
-        false, // sendAll
-        Buffer.from(req.body.payload, 'hex')
-    )
-
-    res.json(result)
+    try {
+        const result = await wallet.sendTransactionAdvanced(
+            [[wallet.getPrimaryAddress(), 1]], // destinations,
+            3, // mixin
+            {fixedFee: 1000, isFixedFee: true}, // fee
+            undefined, //paymentID
+            undefined, // subWalletsToTakeFrom
+            undefined, // changeAddress
+            true, // relayToNetwork
+            false, // sendAll
+            Buffer.from(req.body.payload, 'hex')
+        )
+    
+        res.json(result)
+    } catch (err) {
+        log.error(getTimestamp() + ' ERROR: Some error occurred while sending message. ' + err)
+        res.json("Sorry, but your request is invalid.")
+    }
+    
 }
 
 module.exports = postController
