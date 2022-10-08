@@ -123,8 +123,6 @@
     }
     networks:
       - name: "host"
-    volumes:
-      - api-data:/usr/src/app
 
 - name: Add docker cronjob to remove old images
   cron:
