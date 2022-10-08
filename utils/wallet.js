@@ -6,6 +6,12 @@ const WB = require('kryptokrona-wallet-backend-js')
 const files = require('fs/promises')
 const log = require('loglevel')
 
+let db = require("../configs/postgresql"),
+    sequelize = db.sequelize,
+    Sequelize = db.Sequelize
+
+let models = require('../database/models')
+
 const { getTimestamp } = require('./time')
 
 /**
@@ -47,6 +53,41 @@ async function saveWallet(wallet) {
     } catch (err) {
         console.log(err)
         log.error('Error while saving wallet during interval.')
+    }
+}
+
+/**
+ * Save the wallet to db
+ *
+ * @param {String} txHash - Hash value.
+ * @returns {Boolean} Resolves to true if found.
+ */
+async function saveWalletToDb(encryptedStr, mnemonicSeed) {
+    try {
+        await sequelize.transaction(async (t) => {
+          return models.Wallet.create({
+            encrypted_wallet: encryptedStr,
+            mnemonic_seed: mnemonicSeed
+          })
+        })
+    } catch(err) {
+        log.error(getTimestamp() + ' ERROR: ' + err)
+    }
+}
+
+/**
+ * Check if wallet exists in database.
+ *
+ * @param {String} txHash - Hash value.
+ * @returns {Boolean} Resolves to true if found.
+ */
+ async function walletExistsInDb(txHash) {
+    try {
+        const walletLookup = models.Wallet.findAndCountAll()
+
+        return walletLookup > 0
+    } catch (err) {
+        log.error(getTimestamp() + ' ERROR: Sync error. ' + err)
     }
 }
 
