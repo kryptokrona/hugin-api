@@ -21,21 +21,25 @@ const { getTimestamp } = require('./time')
  */
 async function openWallet(daemon) {
     log.info(getTimestamp() + ' INFO: Open wallet...')
+    const walletExists = await walletExistsInDb()
 
-    try {
-        const json_wallet = await files.readFile("wallet.json")
-        const [wallet, error] = await WB.WalletBackend.openWalletFromEncryptedString(daemon, JSON.parse(json_wallet), 'hugin')
+    if (walletExists) {
         log.info(getTimestamp() + ' INFO: Wallet found, loading...')
         
-        return wallet
-    } catch (err) {
-        log.info(getTimestamp() + ' INFO: No wallet found, creating a new one...')
-        const newWallet = await WB.WalletBackend.createWallet(daemon)
-        const mnemonicSeed = await newWallet.getMnemonicSeed()
-        await files.writeFile(`mnemonic-${newWallet.getPrimaryAddress()}.txt`, JSON.stringify(mnemonicSeed))
+        const json_wallet = await getWalletFromDb()
+        const jsonWalletFromDb = JSON.stringify(
+            JSON.parse(json_wallet[0].encrypted_wallet)
+        )
         
-        return newWallet
+        const [wallet, error] = await WB.WalletBackend.openWalletFromEncryptedString(daemon, jsonWalletFromDb, 'hugin')
+        
+        return wallet
     }
+
+    log.info(getTimestamp() + ' INFO: No wallet found, creating a new one...')
+    const newWallet = await WB.WalletBackend.createWallet(daemon)
+    
+    return newWallet
 }
 
 /**
@@ -45,8 +49,13 @@ async function openWallet(daemon) {
  */
 async function saveWallet(wallet) {
     const encrypted_wallet = await wallet.encryptWalletToString('hugin')
-    await files.writeFile("wallet.tmp", JSON.stringify(encrypted_wallet))
-    files.rename('wallet.tmp', 'wallet.json')
+    const mnemonicSeed = await wallet.getMnemonicSeed()
+    const walletExists = await walletExistsInDb();
+
+    if (!walletExists) {
+        log.info(getTimestamp() + ' INFO: Wallet does not exist. Creating and saving wallet to db...')
+        await saveWalletToDb(encrypted_wallet, mnemonicSeed.toString())
+    }
     
     try {
         setInterval(await saveWallet(wallet), 90*1000)
@@ -59,7 +68,8 @@ async function saveWallet(wallet) {
 /**
  * Save the wallet to db
  *
- * @param {String} txHash - Hash value.
+ * @param {String} encryptedStr - Encrypted String
+ * @param {String} mnemonicSeed - Mnemonic Seed
  * @returns {Boolean} Resolves to true if found.
  */
 async function saveWalletToDb(encryptedStr, mnemonicSeed) {
@@ -76,16 +86,52 @@ async function saveWalletToDb(encryptedStr, mnemonicSeed) {
 }
 
 /**
- * Check if wallet exists in database.
+ * Get wallet from db
  *
- * @param {String} txHash - Hash value.
  * @returns {Boolean} Resolves to true if found.
  */
- async function walletExistsInDb(txHash) {
+ async function getWalletFromDb() {
     try {
-        const walletLookup = models.Wallet.findAndCountAll()
+        const walletLookup = models.Wallet.findAll({
+            raw: true
+        })
+        return walletLookup
+    } catch(err) {
+        log.error(getTimestamp() + ' ERROR: ' + err)
+    }
+}
 
-        return walletLookup > 0
+/**
+ * Get wallet from db with mnemonic seed
+ *
+ * @returns {Boolean} Resolves to true if found.
+ */
+ async function getWalletFromDbByMnemonicSeed(mnemonicSeed) {
+    try {
+        const walletLookup = models.Wallet.findAll({
+            where: {
+                mnemonic_seed: mnemonicSeed
+            },
+            raw: true
+        })
+        return walletLookup
+    } catch(err) {
+        log.error(getTimestamp() + ' ERROR: ' + err)
+    }
+}
+
+/**
+ * Check if wallet exists in database.
+ *
+ * @returns {Boolean} Resolves to true if found.
+ */
+ async function walletExistsInDb() {
+    try {
+        const walletLookup = await models.Wallet.findAndCountAll({
+            raw: true
+        })
+
+        return walletLookup.count > 0
     } catch (err) {
         log.error(getTimestamp() + ' ERROR: Sync error. ' + err)
     }
