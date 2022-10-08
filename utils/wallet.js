@@ -12,7 +12,7 @@ let db = require("../configs/postgresql"),
 
 let models = require('../database/models')
 
-const { getTimestamp } = require('./time')
+const { getTimestamp, sleep } = require('./time')
 
 /**
  * Open a wallet
@@ -56,9 +56,12 @@ async function saveWallet(wallet) {
         log.info(getTimestamp() + ' INFO: Wallet does not exist. Creating and saving wallet to db...')
         await saveWalletToDb(encrypted_wallet, mnemonicSeed.toString())
     }
+
+    await sleep(90*1000)
     
     try {
-        setInterval(await saveWallet(wallet), 90*1000)
+        console.log("saving wallet in try")
+        saveWallet(wallet)
     } catch (err) {
         console.log(err)
         log.error('Error while saving wallet during interval.')
