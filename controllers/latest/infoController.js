@@ -19,8 +19,10 @@ const infoController = {}
  * @param {object} res - Express response object.
  */
 infoController.getInfo = async (req, res) => {
+    const [unlockedBalance, lockedBalance] = await wallet.getBalance();
     let info = {
-        donationAddress: wallet.getPrimaryAddress()
+        donationAddress: wallet.getPrimaryAddress(),
+        status: unlockedBalance > 0 ? 'online' : 'offline'
     }
     res.json(info)
 }
