@@ -129,6 +129,3 @@ coverage/
 *.dtmp
 
 *.log
-wallet.json
-
-mnemonic-*
