@@ -60,7 +60,6 @@ async function saveWallet(wallet) {
     await sleep(90*1000)
     
     try {
-        console.log("saving wallet in try")
         saveWallet(wallet)
     } catch (err) {
         console.log(err)
