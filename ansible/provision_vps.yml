@@ -55,6 +55,12 @@
     sys_swagger_contact_email: 'mjovanc@icloud.com'
     sys_swagger_contact_url: 'https://github.com/kryptokrona/hugin-api/issues'
 
+    sys_alert_my_address: ''
+    sys_alert_private_key: ''
+    sys_alert_group: ''
+    sys_alert_nickname: 'hugin-alert'
+    sys_alert_hostname: 'api.hugin.chat'
+
     sys_api_port: '3000'
     sys_ws_port: '8080'
     sys_hugin_syncer_sleep: '2000'
