@@ -120,9 +120,9 @@
       SYS_HUGIN_SYNCER_SLEEP: "{{ sys_hugin_syncer_sleep }}",
       SYS_RATELIMIT_WINDOW_MS: "{{ sys_ratelimit_window_ms }}",
       SYS_RATELIMIT_MAX: "{{ sys_ratelimit_max }}",
-      SYS_ALERT_MY_ADDRESS: "{{ sys_alert_my_address }}",
-      SYS_ALERT_PRIVATE_KEY: "{{ sys_alert_private_key }}",
-      SYS_ALERT_GROUP: "{{ sys_alert_group }}",
+      SYS_ALERT_MY_ADDRESS: "{{ vault_alert_my_address }}",
+      SYS_ALERT_PRIVATE_KEY: "{{ vault_alert_private_key }}",
+      SYS_ALERT_GROUP: "{{ vault_alert_group }}",
       SYS_ALERT_NICKNAME: "testapi",
       SYS_ALERT_HOSTNAME: "api.hugin.chat",
     }
