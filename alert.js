@@ -1,16 +1,20 @@
+'use strict'
+
+require('dotenv').config()
+
 const KryptokronaUtils = require('kryptokrona-utils')
 const cnUtil = new KryptokronaUtils.CryptoNote()
 const nacl = require('tweetnacl')
 const naclUtil = require('tweetnacl-util')
 var cron = require('node-cron')
 
-function toHex(str,hex){
+function toHex(str,hex) {
     try {
         hex = unescape(encodeURIComponent(str))
         .split('').map(function(v){
             return v.charCodeAt(0).toString(16)
         }).join('')
-    } catch(e){
+    } catch(e) {
         hex = str
     }
     
@@ -20,7 +24,7 @@ function toHex(str,hex){
 function nonceFromTimestamp(tmstmp) {
     let nonce = hexToUint(String(tmstmp));
     
-    while ( nonce.length < nacl.box.nonceLength ) {
+    while (nonce.length < nacl.box.nonceLength) {
         tmp_nonce = Array.from(nonce)
         tmp_nonce.push(0);
         nonce = Uint8Array.from(tmp_nonce)
@@ -34,13 +38,13 @@ function hexToUint(hexString) {
 }
 
 async function sendBoardsMessage(message) {    
-    const my_address = "SEKReVPbxzC4tCGtLkxe8Kep4FwPRzbcp8qd3DZ6UiYaeaie8PCoFu7QCnJvCvWFqiAywkQHxdnuK9LP6kxGM7Gd6LKqJhBNW5e"
-    const private_key = 'd3774a1b294f971bbfffcb739782dfea93eb9dfb72e22a741ca5673d6051600e'; // Private key for SEKReVPbxzC4tCGtLkxe8Kep4FwPRzbcp8qd3DZ6UiYaeaie8PCoFu7QCnJvCvWFqiAywkQHxdnuK9LP6kxGM7Gd6LKqJhBNW5e
+    const my_address = process.env.SYS_ALERT_MY_ADDRESS
+    const private_key = process.env.SYS_ALERT_PRIVATE_KEY // Private key for SEKReVPbxzC4tCGtLkxe8Kep4FwPRzbcp8qd3DZ6UiYaeaie8PCoFu7QCnJvCvWFqiAywkQHxdnuK9LP6kxGM7Gd6LKqJhBNW5e
     const signature = await cnUtil.signMessage(message, private_key)
     const timestamp = parseInt(Date.now())
     const nonce = nonceFromTimestamp(timestamp)
-    const group = "d21d56ffa153150a5cd93cde5fac29c6a0729612fb216a5d4551b9602cae3a92"
-    const nickname = "Test-api"
+    const group = process.env.SYS_ALERT_GROUP
+    const nickname = process.env.SYS_ALERT_NICKNAME
     
     let message_json = {
         "m": message,
@@ -55,7 +59,7 @@ async function sendBoardsMessage(message) {
     const payload_encrypted = {"sb":Buffer.from(secretbox).toString('hex'), "t":timestamp}
     const payload_encrypted_hex = toHex(JSON.stringify(payload_encrypted))
     
-    return await fetch(`https://api.hugin.chat/api/v1/posts`, {
+    return await fetch(`https://${process.env.SYS_ALERT_HOSTNAME}/api/v1/posts`, {
         method: 'POST', // or 'PUT'
         headers: {
             'Content-Type': 'application/json',
@@ -66,7 +70,7 @@ async function sendBoardsMessage(message) {
 
 async function cpuWarning() {
     console.log("Running CPU check")
-    await fetch('https://test-api.novastack.org/prometheus/query?query=100 - (avg by (instance) (irate(node_cpu_seconds_total{job="node",mode="idle"}[5m])) * 100)')
+    await fetch(`https://${process.env.SYS_ALERT_HOSTNAME}/prometheus/query?query=100 - (avg by (instance) (irate(node_cpu_seconds_total{job="node",mode="idle"}[5m])) * 100)`)
         .then((response) => {
             return response.json()
         })
@@ -84,7 +88,7 @@ async function cpuWarning() {
 
 async function ramWarning() {
     console.log("Running RAM check")
-    await fetch('https://test-api.novastack.org/prometheus/query?query=100 - ((node_memory_MemAvailable_bytes{job="node"} * 100) / node_memory_MemTotal_bytes{job="node"})')
+    await fetch(`https://${process.env.SYS_ALERT_HOSTNAME}/prometheus/query?query=100 - ((node_memory_MemAvailable_bytes{job="node"} * 100) / node_memory_MemTotal_bytes{job="node"})`)
     .then((response) => {
         return response.json()
     })
@@ -102,7 +106,7 @@ async function ramWarning() {
 
 async function diskWarning() {
     console.log("Running disk check")
-    await fetch('https://test-api.novastack.org/prometheus/query?query=100 - (100 * ((node_filesystem_avail_bytes{mountpoint="/",fstype!="rootfs"} )  / (node_filesystem_size_bytes{mountpoint="/",fstype!="rootfs"}) ))')
+    await fetch(`https://${process.env.SYS_ALERT_HOSTNAME}/prometheus/query?query=100 - (100 * ((node_filesystem_avail_bytes{mountpoint="/",fstype!="rootfs"} )  / (node_filesystem_size_bytes{mountpoint="/",fstype!="rootfs"}) ))`)
         .then((response) => {
             return response.json()
         })
