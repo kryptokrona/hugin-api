@@ -120,9 +120,9 @@
       SYS_HUGIN_SYNCER_SLEEP: "{{ sys_hugin_syncer_sleep }}",
       SYS_RATELIMIT_WINDOW_MS: "{{ sys_ratelimit_window_ms }}",
       SYS_RATELIMIT_MAX: "{{ sys_ratelimit_max }}",
-      SYS_ALERT_MY_ADDRESS: "SEKReVPbxzC4tCGtLkxe8Kep4FwPRzbcp8qd3DZ6UiYaeaie8PCoFu7QCnJvCvWFqiAywkQHxdnuK9LP6kxGM7Gd6LKqJhBNW5e",
-      SYS_ALERT_PRIVATE_KEY: "d3774a1b294f971bbfffcb739782dfea93eb9dfb72e22a741ca5673d6051600e",
-      SYS_ALERT_GROUP: "d21d56ffa153150a5cd93cde5fac29c6a0729612fb216a5d4551b9602cae3a92",
+      SYS_ALERT_MY_ADDRESS: "{{ sys_alert_my_address }}",
+      SYS_ALERT_PRIVATE_KEY: "{{ sys_alert_private_key }}",
+      SYS_ALERT_GROUP: "{{ sys_alert_group }}",
       SYS_ALERT_NICKNAME: "testapi",
       SYS_ALERT_HOSTNAME: "api.hugin.chat",
     }
