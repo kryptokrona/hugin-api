@@ -1,7 +1,7 @@
 {
   "name": "hugin-api",
-  "version": "2.0.0",
-  "description": "",
+  "version": "0.2.0",
+  "description": "Hugin API is a RESTful API and WebSocket server for the Hugin Messenger service powered by the Kryptokrona Blockchain.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
