@@ -76,10 +76,10 @@ describe('POST ENCRYPTED API ENDPOINTS', () => {
   })
 
   // GET ALL ENCRYPTED POSTS QUERY PARAMS
-  describe(`GET ${process.env.API_BASE_PATH}/v1/posts-encrypted-group/latest?size=3&page=0`, () => {
+  describe(`GET ${process.env.API_BASE_PATH}/v1/posts-encrypted-group/latest?size=3&page=1`, () => {
     it('It should return all encrypted posts with params', async () => {
       return request(server)
-        .get(`${process.env.API_BASE_PATH}/v1/posts-encrypted-group/latest?size=3&page=0`)
+        .get(`${process.env.API_BASE_PATH}/v1/posts-encrypted-group/latest?size=3&page=1`)
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)
