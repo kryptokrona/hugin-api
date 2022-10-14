@@ -12,7 +12,7 @@ const controller = require('../../controllers/latest/infoController')
 /**
  * @openapi
  * /api/v1/info:
- *   post:
+ *   get:
  *     description: Gets information of Hugin API
  *     tags:
  *       - info
