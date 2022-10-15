@@ -1,4 +1,6 @@
-# Hugin API [![Hugin API Main Pipeline](https://github.com/kryptokrona/hugin-api/actions/workflows/main-ci.yml/badge.svg)](https://github.com/kryptokrona/hugin-api/actions/workflows/main-ci.yml) 
+# ![Hugin API](assets/img/hugin-api.png)
+
+[![Hugin API Main Pipeline](https://github.com/kryptokrona/hugin-api/actions/workflows/main-ci.yml/badge.svg)](https://github.com/kryptokrona/hugin-api/actions/workflows/main-ci.yml) 
 
 Hugin is a messaging service where messages are stored on the Kryptokrona Blockchain. Messages are secured with industry leading encryption so that only you and your chat partner have the possibility to read them. The purpose is not to gather any personal information about the users, unlike most apps and social media.
 
