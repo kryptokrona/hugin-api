@@ -1,4 +1,4 @@
-# ![Hugin API](assets/img/hugin-api.png)
+# ![Hugin API](assets/img/logo_github.png)
 
 [![Hugin API Main Pipeline](https://github.com/kryptokrona/hugin-api/actions/workflows/main-ci.yml/badge.svg)](https://github.com/kryptokrona/hugin-api/actions/workflows/main-ci.yml) 
 
