@@ -12,6 +12,7 @@ To be able to get data more easily from Hugin this RESTful API and websocket ser
 
 - [Development Resources](#development-resources)
 - [Sponsors](#sponsors)
+- [Usages](#usages)
 - [Contributors](#contributors)
 - [License](#license)
 
@@ -32,6 +33,18 @@ via advertisement.
 <p align="left">
   <img src="./assets/img/novastack.png" alt="Novastack Hosting" width="300"/>
 </p>
+
+# Usages
+
+Our API is useful! Projects using Hugin API:
+
+- [Official Kryptokrona Website](https://www.kryptokrona.org/)
+- [Kryptokrona Block Explorer](https://github.com/kryptokrona/kryptokrona-block-explorer)
+- [Hugin Mobile](https://github.com/kryptokrona/hugin-mobile)
+- [Hugin Bridge](https://github.com/kryptokrona/hugin-bridge)
+- [Hugin Node.JS Client](https://github.com/TechyGuy17/Hugin-client-nodejs)
+
+If you are using Hugin API, please fork and make a pull request into our repo. 
 
 # Contributors
 
