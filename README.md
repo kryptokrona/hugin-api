@@ -61,4 +61,4 @@ being awesome contributors to this project. **We'd like to take a moment to reco
 
 # License
 
-The license is GPL-3.0 License.
+The license is BSD-3 License.
