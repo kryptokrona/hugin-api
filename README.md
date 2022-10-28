@@ -1,4 +1,4 @@
-# ![Hugin API](assets/img/hugin-api.png)
+# ![Hugin API](assets/img/api.png)
 
 [![Hugin API Main Pipeline](https://github.com/kryptokrona/hugin-api/actions/workflows/main-ci.yml/badge.svg)](https://github.com/kryptokrona/hugin-api/actions/workflows/main-ci.yml) 
 
@@ -10,6 +10,8 @@ To be able to get data more easily from Hugin this RESTful API and websocket ser
 
 # Table of Contents
 
+- [!Hugin API](#)
+- [Table of Contents](#table-of-contents)
 - [Development Resources](#development-resources)
 - [Sponsors](#sponsors)
 - [Usages](#usages)
