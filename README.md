@@ -46,6 +46,7 @@ Our API is useful! Projects using Hugin API:
 - [Hugin Bridge](https://github.com/kryptokrona/hugin-bridge)
 - [Hugin Node.JS Client](https://github.com/TechyGuy17/Hugin-client-nodejs)
 - [Hugin Desktop](https://github.com/kryptokrona/hugin-desktop)
+- [Hugin API Twitter](https://github.com/kryptokrona/hugin-api-twitter)
 
 If you are using Hugin API, please fork and make a pull request into our repo with your added link. 
 
