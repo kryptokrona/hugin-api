@@ -10,8 +10,6 @@ To be able to get data more easily from Hugin this RESTful API and websocket ser
 
 # Table of Contents
 
-- [!Hugin API](#)
-- [Table of Contents](#table-of-contents)
 - [Development Resources](#development-resources)
 - [Sponsors](#sponsors)
 - [Usages](#usages)
