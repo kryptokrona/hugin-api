@@ -50,6 +50,8 @@
     sys_criteria_keywords_cursewords: 'false'
     sys_ratelimit_window_ms: '900000'
     sys_ratelimit_max: '1000'
+    sys_ratelimit_post_message_window_ms: '60000'
+    sys_ratelimit_post_message_max: '10'
 
     sys_swagger_contact_name: 'Marcus Cvjeticanin'
     sys_swagger_contact_email: 'mjovanc@icloud.com'

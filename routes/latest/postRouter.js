@@ -38,6 +38,7 @@ const express = require('express')
 const router = express.Router()
 
 const controller = require('../../controllers/latest/postController')
+const { postMessageLimiter } = require('../../configs/rateLimit')
 
 // NOTE: the ordering here is important
 
@@ -176,7 +177,7 @@ router.get('/posts/:tx_hash', controller.getPostByTxHash)
  *       200:
  *         description: Saves a post to the blockchain.
  */
-router.post('/posts', controller.sendMessage)
+router.post('/posts', postMessageLimiter, controller.sendMessage)
 
 
 module.exports = router
