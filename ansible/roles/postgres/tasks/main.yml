@@ -1,4 +1,8 @@
 ---
+- name: Clean apt cache
+  command: apt clean
+  when:
+    - ansible_pkg_mgr == "apt"
 - name: Install dependencies for PostgreSQL
   apt:
     name: "{{ item }}"
