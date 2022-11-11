@@ -1,6 +1,5 @@
 // Copyright (c) 2022-2022, The Kryptokrona Project
-//
-// Written by Marcus Cvjeticanin
+
 //
 // All rights reserved.
 //
@@ -42,8 +41,8 @@ let db = require("../../configs/postgresql"),
 const Op = db.Sequelize.Op;
 
 const postService = require('../../services/postService')
-const { getPagination, getPagingDataPost} = require('../../utils/pagination')
-const { getTimestamp, convertDateTimeToUnix, convertUnixToDateTime} = require("../../utils/time")
+const { getPagination, getPagingDataPost } = require('../../utils/pagination')
+const { getTimestamp, convertDateTimeToUnix, convertUnixToDateTime } = require("../../utils/time")
 
 const postController = {}
 
@@ -65,23 +64,23 @@ postController.getAll = async (req, res) => {
 
     postService.getAll(limit, offset, order, search, from ? startDateParam : from, to ? endDateParam : to, excludeAvatar)
         .then(async data => {
-          // converts the standard UTC to unix timestamp
-          for (const row of data.rows) {
-            row.dataValues.created_at = convertDateTimeToUnix(row.dataValues.createdAt)
-            row.dataValues.updated_at = convertDateTimeToUnix(row.dataValues.updatedAt)
-            row.dataValues.reply_tx_hash = row.dataValues.reply
-            row.dataValues.replies = await postService.getAllRepliesOfPost(row.dataValues.tx_hash).then(replies => replies.map(reply => reply.tx_hash))
-            row.dataValues.time = parseInt(row.dataValues.time)
+            // converts the standard UTC to unix timestamp
+            for (const row of data.rows) {
+                row.dataValues.created_at = convertDateTimeToUnix(row.dataValues.createdAt)
+                row.dataValues.updated_at = convertDateTimeToUnix(row.dataValues.updatedAt)
+                row.dataValues.reply_tx_hash = row.dataValues.reply
+                row.dataValues.replies = await postService.getAllRepliesOfPost(row.dataValues.tx_hash).then(replies => replies.map(reply => reply.tx_hash))
+                row.dataValues.time = parseInt(row.dataValues.time)
 
-            // a very ugly fix (probably permanent as it usually is)
-            delete row.dataValues.createdAt
-            delete row.dataValues.updatedAt
-            delete row.dataValues.reply
-          }
+                // a very ugly fix (probably permanent as it usually is)
+                delete row.dataValues.createdAt
+                delete row.dataValues.updatedAt
+                delete row.dataValues.reply
+            }
 
-          const response = await getPagingDataPost(data, page, limit)
-          log.info(getTimestamp() + ' INFO: Successful response.')
-          res.json(response)
+            const response = await getPagingDataPost(data, page, limit)
+            log.info(getTimestamp() + ' INFO: Successful response.')
+            res.json(response)
 
         })
         .catch(err => {
@@ -143,24 +142,24 @@ postController.getLatest = async (req, res) => {
     excludeAvatar = (excludeAvatar === undefined || excludeAvatar === 'true')
 
     postService.getLatest(limit, offset, order, search, from ? startDateParam : from, to ? endDateParam : to, excludeAvatar)
-      .then(async data => {
-          // converts the standard UTC to unix timestamp
-          for (const row of data.rows) {
-            row.dataValues.createdAt = convertDateTimeToUnix(row.dataValues.createdAt)
-            row.dataValues.updatedAt = convertDateTimeToUnix(row.dataValues.updatedAt)
-            row.dataValues.replies = await postService.getAllRepliesOfPost(row.dataValues.tx_hash).then(replies => replies.map(reply => reply.tx_hash))
-            row.dataValues.reply_tx_hash = row.dataValues.reply
-            row.dataValues.time = parseInt(row.dataValues.time)
+        .then(async data => {
+            // converts the standard UTC to unix timestamp
+            for (const row of data.rows) {
+                row.dataValues.createdAt = convertDateTimeToUnix(row.dataValues.createdAt)
+                row.dataValues.updatedAt = convertDateTimeToUnix(row.dataValues.updatedAt)
+                row.dataValues.replies = await postService.getAllRepliesOfPost(row.dataValues.tx_hash).then(replies => replies.map(reply => reply.tx_hash))
+                row.dataValues.reply_tx_hash = row.dataValues.reply
+                row.dataValues.time = parseInt(row.dataValues.time)
 
-            // a very ugly fix (probably permanent as it usually is)
-            delete row.dataValues.createdAt
-            delete row.dataValues.updatedAt
-            delete row.dataValues.reply
-          }
+                // a very ugly fix (probably permanent as it usually is)
+                delete row.dataValues.createdAt
+                delete row.dataValues.updatedAt
+                delete row.dataValues.reply
+            }
 
-          const response = await getPagingDataPost(data, page, limit)
-          log.info(getTimestamp() + ' INFO: Successful response.')
-          res.json(response)
+            const response = await getPagingDataPost(data, page, limit)
+            log.info(getTimestamp() + ' INFO: Successful response.')
+            res.json(response)
         })
         .catch(err => {
             log.error(getTimestamp() + ' ERROR: Some error occurred while retrieving data. ' + err)
@@ -181,7 +180,7 @@ postController.sendMessage = async (req, res) => {
         const result = await wallet.sendTransactionAdvanced(
             [[wallet.getPrimaryAddress(), 1]], // destinations,
             3, // mixin
-            {fixedFee: 1000, isFixedFee: true}, // fee
+            { fixedFee: 1000, isFixedFee: true }, // fee
             undefined, //paymentID
             undefined, // subWalletsToTakeFrom
             undefined, // changeAddress
@@ -189,13 +188,13 @@ postController.sendMessage = async (req, res) => {
             false, // sendAll
             Buffer.from(req.body.payload, 'hex')
         )
-    
+
         res.json(result)
     } catch (err) {
         log.error(getTimestamp() + ' ERROR: Some error occurred while sending message. ' + err)
         res.json("Sorry, but your request is invalid.")
     }
-    
+
 }
 
 module.exports = postController

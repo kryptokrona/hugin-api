@@ -1,7 +1,5 @@
 // Copyright (c) 2022-2022, The Kryptokrona Project
 //
-// Written by Marcus Cvjeticanin
-//
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
@@ -57,11 +55,11 @@ module.exports.getPagingDataPost = async (data, page, limit) => {
  * @returns {object} pagination data - Get the pagination data object.
  */
 module.exports.getPagingDataPostEncrypted = async (data, page, limit) => {
-  const { count: total_items, rows: encrypted_posts } = data
-  const current_page = page ? +page : 1
-  const total_pages = Math.ceil(total_items / limit)
+    const { count: total_items, rows: encrypted_posts } = data
+    const current_page = page ? +page : 1
+    const total_pages = Math.ceil(total_items / limit)
 
-  return { total_items, encrypted_posts, total_pages, current_page }
+    return { total_items, encrypted_posts, total_pages, current_page }
 }
 
 /**
@@ -73,11 +71,11 @@ module.exports.getPagingDataPostEncrypted = async (data, page, limit) => {
  * @returns {object} pagination data - Get the pagination data object.
  */
 module.exports.getPagingDataPostEncryptedGroup = async (data, page, limit) => {
-  const { count: total_items, rows: encrypted_group_posts } = data
-  const current_page = page ? +page : 1
-  const total_pages = Math.ceil(total_items / limit)
+    const { count: total_items, rows: encrypted_group_posts } = data
+    const current_page = page ? +page : 1
+    const total_pages = Math.ceil(total_items / limit)
 
-  return { total_items, encrypted_group_posts, total_pages, current_page }
+    return { total_items, encrypted_group_posts, total_pages, current_page }
 }
 
 /**
@@ -89,11 +87,11 @@ module.exports.getPagingDataPostEncryptedGroup = async (data, page, limit) => {
  * @returns {object} pagination data - Get the pagination data object.
  */
 module.exports.getPagingDataHashtag = async (data, page, limit) => {
-  const { count: total_items, rows: hashtags } = data
-  const current_page = page ? +page : 1
-  const total_pages = Math.ceil(total_items / limit)
+    const { count: total_items, rows: hashtags } = data
+    const current_page = page ? +page : 1
+    const total_pages = Math.ceil(total_items / limit)
 
-  return { total_items, hashtags, total_pages, current_page }
+    return { total_items, hashtags, total_pages, current_page }
 }
 
 /**
@@ -105,11 +103,11 @@ module.exports.getPagingDataHashtag = async (data, page, limit) => {
  * @returns {object} pagination data - Get the pagination data object.
  */
 module.exports.getPagingDataStatistics = async (data, page, limit) => {
-  const { count: total_items, rows: statistics } = data
-  const current_page = page ? +page : 1
-  const total_pages = Math.ceil(total_items / limit)
+    const { count: total_items, rows: statistics } = data
+    const current_page = page ? +page : 1
+    const total_pages = Math.ceil(total_items / limit)
 
-  return { total_items, statistics, total_pages, current_page }
+    return { total_items, statistics, total_pages, current_page }
 }
 
 /**

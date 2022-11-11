@@ -1,7 +1,5 @@
 // Copyright (c) 2022-2022, The Kryptokrona Project
 //
-// Written by Marcus Cvjeticanin
-//
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
@@ -55,20 +53,20 @@ async function openWallet(daemon) {
 
     if (walletExists) {
         log.info(getTimestamp() + ' INFO: Wallet found, loading...')
-        
+
         const json_wallet = await getWalletFromDb()
         const jsonWalletFromDb = JSON.stringify(
             JSON.parse(json_wallet[0].encrypted_wallet)
         )
-        
+
         const [wallet, error] = await WB.WalletBackend.openWalletFromEncryptedString(daemon, jsonWalletFromDb, 'hugin')
-        
+
         return wallet
     }
 
     log.info(getTimestamp() + ' INFO: No wallet found, creating a new one...')
     const newWallet = await WB.WalletBackend.createWallet(daemon)
-    
+
     return newWallet
 }
 
@@ -87,8 +85,8 @@ async function saveWallet(wallet) {
         await saveWalletToDb(encrypted_wallet, mnemonicSeed.toString())
     }
 
-    await sleep(90*1000)
-    
+    await sleep(90 * 1000)
+
     try {
         saveWallet(wallet)
     } catch (err) {
@@ -107,12 +105,12 @@ async function saveWallet(wallet) {
 async function saveWalletToDb(encryptedStr, mnemonicSeed) {
     try {
         await sequelize.transaction(async (t) => {
-          return models.Wallet.create({
-            encrypted_wallet: encryptedStr,
-            mnemonic_seed: mnemonicSeed
-          })
+            return models.Wallet.create({
+                encrypted_wallet: encryptedStr,
+                mnemonic_seed: mnemonicSeed
+            })
         })
-    } catch(err) {
+    } catch (err) {
         log.error(getTimestamp() + ' ERROR: ' + err)
     }
 }
@@ -122,13 +120,13 @@ async function saveWalletToDb(encryptedStr, mnemonicSeed) {
  *
  * @returns {Boolean} Resolves to true if found.
  */
- async function getWalletFromDb() {
+async function getWalletFromDb() {
     try {
         const walletLookup = models.Wallet.findAll({
             raw: true
         })
         return walletLookup
-    } catch(err) {
+    } catch (err) {
         log.error(getTimestamp() + ' ERROR: ' + err)
     }
 }
@@ -138,7 +136,7 @@ async function saveWalletToDb(encryptedStr, mnemonicSeed) {
  *
  * @returns {Boolean} Resolves to true if found.
  */
- async function walletExistsInDb() {
+async function walletExistsInDb() {
     try {
         const walletLookup = await models.Wallet.findAndCountAll({
             raw: true

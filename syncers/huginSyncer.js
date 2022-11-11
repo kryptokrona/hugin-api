@@ -1,7 +1,5 @@
 // Copyright (c) 2022-2022, The Kryptokrona Project
 //
-// Written by Marcus Cvjeticanin
-//
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
@@ -52,7 +50,7 @@ let db = require("../configs/postgresql"),
     Sequelize = db.Sequelize
 
 let models = require('../database/models')
-const {logger} = require("sequelize/lib/utils/logger");
+const { logger } = require("sequelize/lib/utils/logger");
 
 let known_pool_txs = [];
 
@@ -99,10 +97,10 @@ module.exports.backgroundSyncMessages = async () => {
                     continue
                 }
 
-                let knownk =  []
+                let knownk = []
                 let keypair = {
                     privateSpendKey: '0000000000000000000000000000000000000000000000000000000000000000',
-                    privateViewKey:  '0000000000000000000000000000000000000000000000000000000000000000'
+                    privateViewKey: '0000000000000000000000000000000000000000000000000000000000000000'
                 }
 
                 // if extra is less than 200 length - skip
@@ -120,16 +118,16 @@ module.exports.backgroundSyncMessages = async () => {
                         })
                     }
 
-                  if (boxObj.sb) {
-                      // checking if encrypted group post with txHash already exists in db - if not create a new record
-                      encryptedGroupPostExists(txHash).then(result => {
-                        if (result === null) {
-                          saveEncryptedGroupPost(txHash, boxObj)
-                        }
-                      })
-                  }
+                    if (boxObj.sb) {
+                        // checking if encrypted group post with txHash already exists in db - if not create a new record
+                        encryptedGroupPostExists(txHash).then(result => {
+                            if (result === null) {
+                                saveEncryptedGroupPost(txHash, boxObj)
+                            }
+                        })
+                    }
 
-                  message = await extraDataToMessage(thisExtra, knownk, keypair)
+                    message = await extraDataToMessage(thisExtra, knownk, keypair)
                 }
 
                 if (!message) {
@@ -157,28 +155,28 @@ module.exports.backgroundSyncMessages = async () => {
                     const messageValidated = validateMessage(messageObj)
 
                     if (messageValidated) {
-                      log.info(getTimestamp() + ' INFO: Message was validated.')
-                      // skipping based on criteria - if criteria exists
-                      const criteriaFulfilled = messageCriteria(messageObj)
+                        log.info(getTimestamp() + ' INFO: Message was validated.')
+                        // skipping based on criteria - if criteria exists
+                        const criteriaFulfilled = messageCriteria(messageObj)
 
-                      // criteria guard
-                      if (!criteriaFulfilled) {
-                        log.info(getTimestamp() + ' INFO: Message does not meet criteria based on configuration: ' + JSON.stringify(message))
-                        continue
-                      }
-                      log.info(getTimestamp() + ' INFO: Criteria fulfilled.')
-
-                      // broadcast message object to websocket server
-                      ws.send(JSON.stringify(messageObj))
-
-                      // checking if post with txHash already exists in db - if not create a new record
-                      postExists(txHash).then(result => {
-                        if (result === null) {
-                          savePost(messageObj, txHash)
+                        // criteria guard
+                        if (!criteriaFulfilled) {
+                            log.info(getTimestamp() + ' INFO: Message does not meet criteria based on configuration: ' + JSON.stringify(message))
+                            continue
                         }
-                      })
+                        log.info(getTimestamp() + ' INFO: Criteria fulfilled.')
+
+                        // broadcast message object to websocket server
+                        ws.send(JSON.stringify(messageObj))
+
+                        // checking if post with txHash already exists in db - if not create a new record
+                        postExists(txHash).then(result => {
+                            if (result === null) {
+                                savePost(messageObj, txHash)
+                            }
+                        })
                     } else {
-                      log.info(getTimestamp() + ' INFO: Message was not validated, ignoring.')
+                        log.info(getTimestamp() + ' INFO: Message was not validated, ignoring.')
                     }
                 } else {
                     log.info(getTimestamp() + ' INFO: No message.')
@@ -205,7 +203,7 @@ async function encryptedPostExists(txHash) {
             where: {
                 tx_hash: txHash
             },
-            order: [[ 'id', 'DESC' ]],
+            order: [['id', 'DESC']],
             raw: true,
         })
 
@@ -222,19 +220,19 @@ async function encryptedPostExists(txHash) {
  * @returns {Boolean} Resolves to true if found.
  */
 async function encryptedGroupPostExists(txHash) {
-  try {
-    const postEncryptedGroupTxHashLookup = models.PostEncryptedGroup.findOne({
-      where: {
-        tx_hash: txHash
-      },
-      order: [[ 'id', 'DESC' ]],
-      raw: true,
-    })
+    try {
+        const postEncryptedGroupTxHashLookup = models.PostEncryptedGroup.findOne({
+            where: {
+                tx_hash: txHash
+            },
+            order: [['id', 'DESC']],
+            raw: true,
+        })
 
-    return postEncryptedGroupTxHashLookup
-  } catch (err) {
-    log.error(getTimestamp() + ' ERROR: Sync error. ' + err)
-  }
+        return postEncryptedGroupTxHashLookup
+    } catch (err) {
+        log.error(getTimestamp() + ' ERROR: Sync error. ' + err)
+    }
 }
 
 /**
@@ -249,7 +247,7 @@ async function postExists(txHash) {
             where: {
                 tx_hash: txHash
             },
-            order: [[ 'id', 'DESC' ]],
+            order: [['id', 'DESC']],
             raw: true,
         })
 
@@ -275,7 +273,7 @@ async function saveEncryptedPost(txHash, boxObj) {
                 tx_timestamp: boxObj.t.toString(),
             })
         })
-    } catch(err) {
+    } catch (err) {
         log.error(getTimestamp() + ' ERROR: ' + err)
     }
 }
@@ -288,17 +286,17 @@ async function saveEncryptedPost(txHash, boxObj) {
  * @returns {Promise} Resolves to this if transaction to database succeeded.
  */
 async function saveEncryptedGroupPost(txHash, boxObj) {
-  try {
-    await sequelize.transaction(async (t) => {
-      return models.PostEncryptedGroup.create({
-        tx_hash: txHash,
-        tx_sb: boxObj.sb,
-        tx_timestamp: boxObj.t.toString(),
-      })
-    })
-  } catch(err) {
-    log.error(getTimestamp() + ' ERROR: ' + err)
-  }
+    try {
+        await sequelize.transaction(async (t) => {
+            return models.PostEncryptedGroup.create({
+                tx_hash: txHash,
+                tx_sb: boxObj.sb,
+                tx_timestamp: boxObj.t.toString(),
+            })
+        })
+    } catch (err) {
+        log.error(getTimestamp() + ' ERROR: ' + err)
+    }
 }
 
 /**
@@ -333,7 +331,7 @@ async function savePost(messageObj, txHash) {
                                 where: {
                                     name: hashtagName
                                 },
-                                order: [[ 'id', 'DESC' ]],
+                                order: [['id', 'DESC']],
                                 raw: true,
                             })
 
@@ -365,7 +363,7 @@ async function savePost(messageObj, txHash) {
 
                         })
                     }
-                } catch(TypeError)  {
+                } catch (TypeError) {
                     log.error(getTimestamp() + ' ERROR: Could not parse hashtags')
                 }
             })
@@ -388,8 +386,8 @@ async function savePost(messageObj, txHash) {
  * @returns {String} Returns .
  */
 function fromHex(hex, str) {
-    try{
-        str = decodeURIComponent(hex.replace(/(..)/g,'%$1'))
+    try {
+        str = decodeURIComponent(hex.replace(/(..)/g, '%$1'))
     } catch (e) {
         str = hex
         log.error(getTimestamp() + ' ERROR: Invalid hex input. ' + err)

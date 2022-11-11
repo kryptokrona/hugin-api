@@ -1,7 +1,5 @@
 // Copyright (c) 2022-2022, The Kryptokrona Project
 //
-// Written by Marcus Cvjeticanin
-//
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
@@ -41,27 +39,27 @@ const db = {};
 let sequelize
 
 if (process.env.NODE_ENV === 'development') {
-  sequelize = new Sequelize(process.env.DEV_DATABASE_URL)
+    sequelize = new Sequelize(process.env.DEV_DATABASE_URL)
 } else if (process.env.NODE_ENV === 'test') {
-  sequelize = new Sequelize(process.env.TEST_DATABASE_URL)
+    sequelize = new Sequelize(process.env.TEST_DATABASE_URL)
 } else {
-  sequelize = new Sequelize(process.env.DATABASE_URL)
+    sequelize = new Sequelize(process.env.DATABASE_URL)
 }
 
 fs
-  .readdirSync(__dirname)
-  .filter(file => {
-    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
-  })
-  .forEach(file => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-    db[model.name] = model;
-  });
+    .readdirSync(__dirname)
+    .filter(file => {
+        return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
+    })
+    .forEach(file => {
+        const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
+        db[model.name] = model;
+    });
 
 Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
+    if (db[modelName].associate) {
+        db[modelName].associate(db);
+    }
 });
 
 db.sequelize = sequelize;

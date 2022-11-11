@@ -1,7 +1,5 @@
 // Copyright (c) 2022-2022, The Kryptokrona Project
 //
-// Written by Marcus Cvjeticanin
-//
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
@@ -38,23 +36,23 @@ require('dotenv').config()
 
 const { Sequelize } = require('sequelize')
 const log = require("loglevel")
-const {getTimestamp} = require("../utils/time")
+const { getTimestamp } = require("../utils/time")
 
 let sequelize
 
 if (process.env.NODE_ENV === 'development') {
-  sequelize = new Sequelize(process.env.DEV_DATABASE_URL)
+    sequelize = new Sequelize(process.env.DEV_DATABASE_URL)
 } else if (process.env.NODE_ENV === 'test') {
-  sequelize = new Sequelize(process.env.TEST_DATABASE_URL)
+    sequelize = new Sequelize(process.env.TEST_DATABASE_URL)
 } else {
-  sequelize = new Sequelize(process.env.DATABASE_URL)
+    sequelize = new Sequelize(process.env.DATABASE_URL)
 }
 
 try {
-  sequelize.authenticate()
-      .then(r =>
-          log.info(getTimestamp() + ' INFO: Connection to database has been established successfully.')
-      );
+    sequelize.authenticate()
+        .then(r =>
+            log.info(getTimestamp() + ' INFO: Connection to database has been established successfully.')
+        );
 } catch (err) {
     log.error(getTimestamp() + ' ERROR: Unable to connect to the database - ', err)
 }

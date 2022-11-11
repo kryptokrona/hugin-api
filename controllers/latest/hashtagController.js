@@ -1,6 +1,5 @@
 // Copyright (c) 2022-2022, The Kryptokrona Project
-//
-// Written by Marcus Cvjeticanin
+
 //
 // All rights reserved.
 //
@@ -42,7 +41,7 @@ let db = require("../../configs/postgresql"),
 const Op = db.Sequelize.Op;
 
 const hashtagService = require('../../services/hashtagService')
-const { getPagination, getPagingDataHashtag} = require('../../utils/pagination')
+const { getPagination, getPagingDataHashtag } = require('../../utils/pagination')
 const { getTimestamp } = require("../../utils/time")
 
 const hashtagController = {}

@@ -1,7 +1,5 @@
 // Copyright (c) 2022-2022, The Kryptokrona Project
 //
-// Written by Marcus Cvjeticanin
-//
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
@@ -41,12 +39,12 @@
  * @returns {Boolean}
  */
 module.exports.validateMessage = (messageObj) => {
-  const keyValidated = validateKey(messageObj.key)
-  const signatureValidated = validateSignature(messageObj.signature)
-  const timeValidated = validateTime(messageObj.time)
-  const txHashValidated = validateTxHash(messageObj.tx_hash)
+    const keyValidated = validateKey(messageObj.key)
+    const signatureValidated = validateSignature(messageObj.signature)
+    const timeValidated = validateTime(messageObj.time)
+    const txHashValidated = validateTxHash(messageObj.tx_hash)
 
-  return keyValidated && signatureValidated && timeValidated && txHashValidated;
+    return keyValidated && signatureValidated && timeValidated && txHashValidated;
 }
 
 /**
@@ -56,7 +54,7 @@ module.exports.validateMessage = (messageObj) => {
  * @returns {Boolean}
  */
 const validateKey = (key) => {
-  return key.startsWith('SEKR') && key.length === 99
+    return key.startsWith('SEKR') && key.length === 99
 }
 
 /**
@@ -66,9 +64,9 @@ const validateKey = (key) => {
  * @returns {Boolean}
  */
 const validateSignature = (signature) => {
-  const minimumLength = 64
-  const maximumLength = 200
-  return signature.length >= minimumLength && signature.length <= maximumLength
+    const minimumLength = 64
+    const maximumLength = 200
+    return signature.length >= minimumLength && signature.length <= maximumLength
 }
 
 /**
@@ -78,8 +76,8 @@ const validateSignature = (signature) => {
  * @returns {Boolean}
  */
 const validateTime = (time) => {
-  const timeStr = time.toString()
-  return timeStr.length >= 10
+    const timeStr = time.toString()
+    return timeStr.length >= 10
 }
 
 /**
@@ -89,5 +87,5 @@ const validateTime = (time) => {
  * @returns {Boolean}
  */
 const validateTxHash = (txHash) => {
-  return txHash.length === 64
+    return txHash.length === 64
 }

@@ -1,7 +1,5 @@
 // Copyright (c) 2022-2022, The Kryptokrona Project
 //
-// Written by Marcus Cvjeticanin
-//
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
@@ -30,40 +28,40 @@
 
 'use strict';
 const {
-  Model
+    Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class PostHashtag extends Model {
-    static associate(models) {}
-  }
-  PostHashtag.init({
-    id: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER
-    },
-    post_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'post',
-        key: 'id',
-        as: 'user_id'
-      }
-    },
-    hashtag_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'hashtag',
-        key: 'id',
-        as: 'hashtag_id'
-      }
+    class PostHashtag extends Model {
+        static associate(models) { }
     }
-  }, {
-    sequelize,
-    timestamps: false,
-    modelName: 'PostHashtag',
-    tableName: 'post_hashtag'
-  });
-  return PostHashtag;
+    PostHashtag.init({
+        id: {
+            allowNull: false,
+            autoIncrement: true,
+            primaryKey: true,
+            type: DataTypes.INTEGER
+        },
+        post_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'post',
+                key: 'id',
+                as: 'user_id'
+            }
+        },
+        hashtag_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'hashtag',
+                key: 'id',
+                as: 'hashtag_id'
+            }
+        }
+    }, {
+        sequelize,
+        timestamps: false,
+        modelName: 'PostHashtag',
+        tableName: 'post_hashtag'
+    });
+    return PostHashtag;
 };

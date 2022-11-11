@@ -1,7 +1,5 @@
 // Copyright (c) 2022-2022, The Kryptokrona Project
 //
-// Written by Marcus Cvjeticanin
-//
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
@@ -150,11 +148,11 @@ app.listen(process.env.SYS_API_PORT, async () => {
         await wallet.start()
         console.log('👛 Started wallet.')
         console.log('📃 Address: ' + wallet.getPrimaryAddress())
-        
+
         saveWallet(wallet)
 
         wallet.on('transaction', async () => {
-          optimizeMessages(wallet)
+            optimizeMessages(wallet)
         })
 
         // starting hugin sync

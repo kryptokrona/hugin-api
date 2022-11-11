@@ -1,7 +1,5 @@
 // Copyright (c) 2022-2022, The Kryptokrona Project
 //
-// Written by Marcus Cvjeticanin
-//
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
@@ -67,7 +65,7 @@ module.exports.messageCriteria = (messageObj) => {
     let criteriaKeywordsInclude = true
     let criteriaKeywordsExclude = true
     let curseWord = false
-    
+
     // check for users to include
     if (usersInclude.length > 0) {
         const lookup = usersInclude.split(' ').some(user => messageObj.nickname === user)
@@ -119,7 +117,7 @@ module.exports.messageCriteria = (messageObj) => {
     // check for keywords to include
     if (keywordsInclude.length > 0) {
         const keywordsInMessage = messageObj.message.split(' ')
-        
+
         criteriaKeywordsInclude = keywordsInclude.split(' ').some(keywordToInclude => {
             const lookup = keywordsInMessage.some(keyword => keywordToInclude === keyword)
 
@@ -134,7 +132,7 @@ module.exports.messageCriteria = (messageObj) => {
     // check for keywords to exclude
     if (keywordsExclude.length > 0) {
         const keywordsInMessage = messageObj.message.split(' ')
-        
+
         criteriaKeywordsExclude = keywordsExclude.split(' ').some(keywordToExclude => {
             const lookup = keywordsInMessage.some(keyword => keywordToExclude === keyword)
 
@@ -157,11 +155,11 @@ module.exports.messageCriteria = (messageObj) => {
         return false
     } else {
         if (
-            criteriaUsersInclude    && 
-            criteriaUsersExclude    && 
-            criteriaBoardsInclude   && 
-            criteriaBoardsExclude   &&
-            criteriaKeywordsInclude && 
+            criteriaUsersInclude &&
+            criteriaUsersExclude &&
+            criteriaBoardsInclude &&
+            criteriaBoardsExclude &&
+            criteriaKeywordsInclude &&
             criteriaKeywordsExclude
         ) {
             return true
@@ -183,12 +181,12 @@ function containCurseWord(message) {
     // going through all words in a message and checks against the profanity list
     messageWords.forEach(word => {
         const found = profanityList.find(curseWord => word === curseWord)
-        
+
         // could perhaps be shorter using some()
         if (found !== undefined) {
             return true
         }
     })
-    
+
     return false
 }

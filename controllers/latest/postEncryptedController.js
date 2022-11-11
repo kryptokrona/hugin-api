@@ -1,6 +1,5 @@
 // Copyright (c) 2022-2022, The Kryptokrona Project
-//
-// Written by Marcus Cvjeticanin
+
 //
 // All rights reserved.
 //
@@ -42,8 +41,8 @@ let db = require("../../configs/postgresql"),
 const Op = db.Sequelize.Op;
 
 const postEncryptedService = require('../../services/postEncryptedService')
-const { getPagination, getPagingDataPostEncrypted} = require('../../utils/pagination')
-const { getTimestamp, convertDateTimeToUnix, convertUnixToDateTime} = require("../../utils/time")
+const { getPagination, getPagingDataPostEncrypted } = require('../../utils/pagination')
+const { getTimestamp, convertDateTimeToUnix, convertUnixToDateTime } = require("../../utils/time")
 
 const postEncryptedController = {}
 
@@ -62,16 +61,16 @@ postEncryptedController.getAll = async (req, res) => {
     const endDateParam = convertUnixToDateTime(to)
 
     postEncryptedService.getAll(limit, offset, order, search, from ? startDateParam : from, to ? endDateParam : to)
-      .then(async data => {
+        .then(async data => {
             // converts the standard UTC to unix timestamp
             data.rows.forEach(row => {
-              row.dataValues.created_at = convertDateTimeToUnix(row.dataValues.createdAt)
-              row.dataValues.updated_at = convertDateTimeToUnix(row.dataValues.updatedAt)
-              row.dataValues.tx_timestamp = parseInt(row.dataValues.tx_timestamp)
+                row.dataValues.created_at = convertDateTimeToUnix(row.dataValues.createdAt)
+                row.dataValues.updated_at = convertDateTimeToUnix(row.dataValues.updatedAt)
+                row.dataValues.tx_timestamp = parseInt(row.dataValues.tx_timestamp)
 
-              // a very ugly fix (probably permanent as it usually is)
-              delete row.dataValues.createdAt
-              delete row.dataValues.updatedAt
+                // a very ugly fix (probably permanent as it usually is)
+                delete row.dataValues.createdAt
+                delete row.dataValues.updatedAt
             })
             const response = await getPagingDataPostEncrypted(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')
@@ -136,13 +135,13 @@ postEncryptedController.getLatest = async (req, res) => {
         .then(async data => {
             // converts the standard UTC to unix timestamp
             data.rows.forEach(row => {
-              row.dataValues.created_at = convertDateTimeToUnix(row.dataValues.createdAt)
-              row.dataValues.updated_at = convertDateTimeToUnix(row.dataValues.updatedAt)
-              row.dataValues.tx_timestamp = parseInt(row.dataValues.tx_timestamp)
+                row.dataValues.created_at = convertDateTimeToUnix(row.dataValues.createdAt)
+                row.dataValues.updated_at = convertDateTimeToUnix(row.dataValues.updatedAt)
+                row.dataValues.tx_timestamp = parseInt(row.dataValues.tx_timestamp)
 
-              // a very ugly fix (probably permanent as it usually is)
-              delete row.dataValues.createdAt
-              delete row.dataValues.updatedAt
+                // a very ugly fix (probably permanent as it usually is)
+                delete row.dataValues.createdAt
+                delete row.dataValues.updatedAt
             })
             const response = await getPagingDataPostEncrypted(data, page, limit)
             log.info(getTimestamp() + ' INFO: Successful response.')

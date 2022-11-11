@@ -1,7 +1,5 @@
 // Copyright (c) 2022-2022, The Kryptokrona Project
 //
-// Written by Marcus Cvjeticanin
-//
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
@@ -39,10 +37,10 @@
  * @returns {String}
  */
 module.exports.getTimestamp = () => {
-    const pad = (n,s=2) => (`${new Array(s).fill(0)}${n}`).slice(-s);
+    const pad = (n, s = 2) => (`${new Array(s).fill(0)}${n}`).slice(-s);
     const d = new Date();
 
-    return `${pad(d.getFullYear(),4)}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+    return `${pad(d.getFullYear(), 4)}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
 }
 
 /**
@@ -60,7 +58,7 @@ module.exports.sleep = (ms) => {
  * @returns {number}
  */
 module.exports.convertDateTimeToUnix = (dateObj) => {
-  return Math.floor(Date.parse(dateObj) / 1000)
+    return Math.floor(Date.parse(dateObj) / 1000)
 }
 
 /**
@@ -69,5 +67,5 @@ module.exports.convertDateTimeToUnix = (dateObj) => {
  * @returns {Date}
  */
 module.exports.convertUnixToDateTime = (unixTimestamp) => {
-  return new Date(unixTimestamp * 1000)
+    return new Date(unixTimestamp * 1000)
 }

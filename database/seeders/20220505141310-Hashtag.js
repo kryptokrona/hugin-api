@@ -1,7 +1,5 @@
 // Copyright (c) 2022-2022, The Kryptokrona Project
 //
-// Written by Marcus Cvjeticanin
-//
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
@@ -31,25 +29,25 @@
 'use strict';
 
 module.exports = {
-  up: (queryInterface, Sequelize) =>
-    queryInterface.bulkInsert(
-      'hashtag',
-      [
-        {
-          id: 1,
-          name: 'kryptokrona',
-        },
-        {
-          id: 2,
-          name: 'hugin',
-        },
-        {
-          id: 3,
-          name: 'crypto',
-        },
-      ],
-      {}
-    ),
-  down: (queryInterface, Sequelize) =>
-    queryInterface.bulkDelete('hashtag', null, {}),
+    up: (queryInterface, Sequelize) =>
+        queryInterface.bulkInsert(
+            'hashtag',
+            [
+                {
+                    id: 1,
+                    name: 'kryptokrona',
+                },
+                {
+                    id: 2,
+                    name: 'hugin',
+                },
+                {
+                    id: 3,
+                    name: 'crypto',
+                },
+            ],
+            {}
+        ),
+    down: (queryInterface, Sequelize) =>
+        queryInterface.bulkDelete('hashtag', null, {}),
 }

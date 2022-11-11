@@ -1,7 +1,5 @@
 // Copyright (c) 2022-2022, The Kryptokrona Project
 //
-// Written by Marcus Cvjeticanin
-//
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
@@ -34,10 +32,10 @@
 
 'use strict'
 
-let Identicon  = require('identicon.js')
+let Identicon = require('identicon.js')
 let intToRGB = require('int-to-rgb')
 
-module.exports.generate = (hash, format='png') => {
+module.exports.generate = (hash, format = 'png') => {
     // get custom color scheme based on address
     let rgb = intToRGB(hashCode(hash))
 
@@ -58,7 +56,7 @@ module.exports.generate = (hash, format='png') => {
 }
 
 const hashCode = (str) => {
-    let hash = Math.abs(generateHashCode(str))*0.007812499538;
+    let hash = Math.abs(generateHashCode(str)) * 0.007812499538;
     return Math.floor(hash);
 }
 
@@ -69,7 +67,7 @@ const generateHashCode = (str) => {
     }
     for (let i = 0; i < str.length; i++) {
         var char = str.charCodeAt(i);
-        hash = ((hash<<5)-hash)+char;
+        hash = ((hash << 5) - hash) + char;
         hash = hash & hash; // Convert to 32bit integer
     }
     return hash;

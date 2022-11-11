@@ -1,7 +1,5 @@
 // Copyright (c) 2022-2022, The Kryptokrona Project
 //
-// Written by Marcus Cvjeticanin
-//
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
@@ -74,9 +72,9 @@ postService.getAll = async (limit, offset, order, searchKeyword, startDate, endD
 
     // don't return avatar column if true
     if (excludeAvatar) {
-      query.attributes = {
-        exclude: ['avatar'],
-      }
+        query.attributes = {
+            exclude: ['avatar'],
+        }
     }
 
     return models.Post.findAndCountAll(query)
@@ -127,9 +125,9 @@ postService.getLatest = async (limit, offset, order, searchKeyword, startDate, e
 
     // don't return avatar column if true
     if (excludeAvatar) {
-      query.attributes = {
-        exclude: ['avatar'],
-      }
+        query.attributes = {
+            exclude: ['avatar'],
+        }
     }
 
     return models.Post.findAndCountAll(query)
@@ -139,66 +137,66 @@ postService.getLatest = async (limit, offset, order, searchKeyword, startDate, e
  * Get replies of a post
  */
 postService.getAllRepliesOfPost = async (txHash) => {
-  return models.Post.findAll({
-    attributes: ['tx_hash'],
-    where: {
-      reply: txHash
-    },
-    raw: true
-  })
+    return models.Post.findAll({
+        attributes: ['tx_hash'],
+        where: {
+            reply: txHash
+        },
+        raw: true
+    })
 }
 
 /**
  * Get post by tx_hash
  */
 postService.getPostByTxHashStr = async (txHash) => {
-  return models.Post.findOne({
-    where: {
-      tx_hash: txHash
-    }
-  })
+    return models.Post.findOne({
+        where: {
+            tx_hash: txHash
+        }
+    })
 }
 
 /**
  * Get all popular posts based on replies
  */
 postService.getPopularPosts = async (limit, offset, order) => {
-  return models.Post.findAndCountAll({
-    attributes: [[Sequelize.literal('COUNT(*)'), 'replies'], ['reply', 'post']],
-    limit: limit,
-    order: [
-      ['replies', order ? order.toUpperCase() : 'DESC'],
-    ],
-    distinct: true,
-    offset: offset,
-    where: {
-      reply: {
-        [Op.ne]: null
-      }
-    },
-    group: 'reply',
-  })
+    return models.Post.findAndCountAll({
+        attributes: [[Sequelize.literal('COUNT(*)'), 'replies'], ['reply', 'post']],
+        limit: limit,
+        order: [
+            ['replies', order ? order.toUpperCase() : 'DESC'],
+        ],
+        distinct: true,
+        offset: offset,
+        where: {
+            reply: {
+                [Op.ne]: null
+            }
+        },
+        group: 'reply',
+    })
 }
 
 /**
  * Get all popular posts based on replies
  */
 postService.getPopularBoards = async (limit, offset, order) => {
-  return models.Post.findAndCountAll({
-    attributes: [[Sequelize.literal('COUNT(*)'), 'posts'], 'board'],
-    limit: limit,
-    order: [
-      ['posts', order ? order.toUpperCase() : 'DESC'],
-    ],
-    distinct: true,
-    offset: offset,
-    where: {
-      reply: {
-        [Op.ne]: null
-      }
-    },
-    group: 'board',
-  })
+    return models.Post.findAndCountAll({
+        attributes: [[Sequelize.literal('COUNT(*)'), 'posts'], 'board'],
+        limit: limit,
+        order: [
+            ['posts', order ? order.toUpperCase() : 'DESC'],
+        ],
+        distinct: true,
+        offset: offset,
+        where: {
+            reply: {
+                [Op.ne]: null
+            }
+        },
+        group: 'board',
+    })
 }
 
 module.exports = postService
