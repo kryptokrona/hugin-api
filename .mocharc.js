@@ -1,5 +1,7 @@
 // Copyright (c) 2022-2022, The Kryptokrona Project
 //
+// Created by Marcus Cvjeticanin
+//
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification, are
@@ -30,7 +32,7 @@ const { colors, symbols } = require('mocha/lib/reporters/base')
 colors.pass = 32
 symbols.ok = '✅'
 
-// example config from Mocha repo       
+// example config from Mocha repo
 module.exports = {
     diff: true,
     extension: ['js'],
