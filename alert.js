@@ -31,12 +31,14 @@
 'use strict'
 
 require('dotenv').config()
+var logger = require('morgan')
 
 const KryptokronaUtils = require('kryptokrona-utils')
 const cnUtil = new KryptokronaUtils.CryptoNote()
 const nacl = require('tweetnacl')
 const naclUtil = require('tweetnacl-util')
 var cron = require('node-cron')
+const {getTimestamp} = require("./utils/time");
 
 function toHex(str, hex) {
     try {
@@ -55,7 +57,7 @@ function nonceFromTimestamp(tmstmp) {
     let nonce = hexToUint(String(tmstmp));
 
     while (nonce.length < nacl.box.nonceLength) {
-        tmp_nonce = Array.from(nonce)
+        let tmp_nonce = Array.from(nonce)
         tmp_nonce.push(0);
         nonce = Uint8Array.from(tmp_nonce)
     }
@@ -99,57 +101,82 @@ async function sendBoardsMessage(message) {
 }
 
 async function cpuWarning() {
+  try {
     console.log("Running CPU check")
     await fetch(`https://${process.env.SYS_ALERT_HOSTNAME}/prometheus/query?query=100 - (avg by (instance) (irate(node_cpu_seconds_total{job="node",mode="idle"}[5m])) * 100)`)
-        .then((response) => {
-            return response.json()
-        })
-        .then((json) => {
-            const resp = json.data.result[0].value[1]
-            const cpuUsage = parseFloat(resp)
-            console.log("CPU ussage: " + cpuUsage)
+      .then((response) => {
+        return response.json()
+      })
+      .then((json) => {
+        const resp = json.data.result[0].value[1]
+        const cpuUsage = parseFloat(resp)
+        console.log("CPU ussage: " + cpuUsage)
 
-            if (cpuUsage > 80) {
-                const message = "The host machine of hugin API has over 80% CPU usage!"
-                sendBoardsMessage(message)
-            }
-        })
+        if (cpuUsage > 80) {
+          const message = "The host machine of hugin API has over 80% CPU usage!"
+          try {
+            sendBoardsMessage(message)
+          } catch (err) {
+            logger.error(getTimestamp() + ' ERROR: Failed to send board message. ' + err)
+          }
+
+        }
+      })
+  } catch (err) {
+    logger.error(getTimestamp() + ' ERROR: Some error occurred while retrieving prometheus CPU data. ' + err)
+  }
 }
 
 async function ramWarning() {
+  try {
     console.log("Running RAM check")
     await fetch(`https://${process.env.SYS_ALERT_HOSTNAME}/prometheus/query?query=100 - ((node_memory_MemAvailable_bytes{job="node"} * 100) / node_memory_MemTotal_bytes{job="node"})`)
-        .then((response) => {
-            return response.json()
-        })
-        .then((json) => {
-            const resp = json.data.result[0].value[1]
-            const ramUsage = parseFloat(resp)
-            console.log("RAM ussage: " + ramUsage)
+      .then((response) => {
+        return response.json()
+      })
+      .then((json) => {
+        const resp = json.data.result[0].value[1]
+        const ramUsage = parseFloat(resp)
+        console.log("RAM ussage: " + ramUsage)
 
-            if (ramUsage > 80) {
-                const message = "The host machine of hugin API has over 80% RAM usage!"
-                sendBoardsMessage(message)
-            }
-        })
+        if (ramUsage > 80) {
+          const message = "The host machine of hugin API has over 80% RAM usage!"
+          try {
+            sendBoardsMessage(message)
+          } catch (err) {
+            logger.error(getTimestamp() + ' ERROR: Failed to send board message. ' + err)
+          }
+        }
+      })
+  } catch (err) {
+    logger.error(getTimestamp() + ' ERROR: Some error occurred while retrieving prometheus RAM data. ' + err)
+  }
 }
 
 async function diskWarning() {
+  try {
     console.log("Running disk check")
     await fetch(`https://${process.env.SYS_ALERT_HOSTNAME}/prometheus/query?query=100 - (100 * ((node_filesystem_avail_bytes{mountpoint="/",fstype!="rootfs"} )  / (node_filesystem_size_bytes{mountpoint="/",fstype!="rootfs"}) ))`)
-        .then((response) => {
-            return response.json()
-        })
-        .then((json) => {
-            const resp = json.data.result[0].value[1]
-            const diskUsage = parseFloat(resp)
-            console.log("disk usage: " + diskUsage)
+      .then((response) => {
+        return response.json()
+      })
+      .then((json) => {
+        const resp = json.data.result[0].value[1]
+        const diskUsage = parseFloat(resp)
+        console.log("disk usage: " + diskUsage)
 
-            if (diskUsage > 80) {
-                const message = "The host machine of hugin API has over 80% disk usage!"
-                sendBoardsMessage(message)
-            }
-        })
+        if (diskUsage > 80) {
+          const message = "The host machine of hugin API has over 80% disk usage!"
+          try {
+            sendBoardsMessage(message)
+          } catch (err) {
+            logger.error(getTimestamp() + ' ERROR: Failed to send board message. ' + err)
+          }
+        }
+      })
+  } catch (err) {
+    logger.error(getTimestamp() + ' ERROR: Some error occurred while retrieving prometheus DISK data. ' + err)
+  }
 }
 
 cron.schedule('*/15 * * * *', () => {
