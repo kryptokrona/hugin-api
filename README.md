@@ -58,7 +58,6 @@ being awesome contributors to this project. **We'd like to take a moment to reco
 [<img src="https://github.com/Coffeboi.png?size=72" alt="Coffeboi" width="72">](https://github.com/Coffeboi)
 [<img src="https://github.com/Swepool.png?size=72" alt="Swepool" width="72">](https://github.com/Swepool)
 [<img src="https://github.com/f-r00t.png?size=72" alt="f-r00t" width="72">](https://github.com/f-r00t)
-[<img src="https://github.com/softx01.png?size=72" alt="softx01" width="72">](https://github.com/softx01)
 
 # License
 
