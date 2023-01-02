@@ -164,7 +164,7 @@ app.listen(process.env.SYS_API_PORT, async () => {
             let [unlockedBalance, lockedBalance] = await wallet.getBalance();
 
             console.log('🔓 Unlocked Balance (XKR): ' + (unlockedBalance / 100000))
-            console.log('🔒 Locked Balance (XKR): ' + (lockedBalance / 100000))
+            console.log('🔒 Locked Balance (XKR): '   + (lockedBalance / 100000))
         }
     }
 })
