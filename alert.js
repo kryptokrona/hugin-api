@@ -90,14 +90,18 @@ async function sendBoardsMessage(message) {
     const secretbox = nacl.secretbox(payload_unencrypted, nonce, hexToUint(group))
     const payload_encrypted = { "sb": Buffer.from(secretbox).toString('hex'), "t": timestamp }
     const payload_encrypted_hex = toHex(JSON.stringify(payload_encrypted))
-
-    return await fetch(`https://${process.env.SYS_ALERT_HOSTNAME}/api/v1/posts`, {
-        method: 'POST', // or 'PUT'
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ payload: payload_encrypted_hex }),
-    }).json()
+    
+    try {
+        return await fetch(`https://${process.env.SYS_ALERT_HOSTNAME}/api/v1/posts`, {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ payload: payload_encrypted_hex }),
+        }).json()
+    } catch (err) {
+        log.error(getTimestamp() + ' ERROR: Could not contact Hugin API. Is it down? ' + err)
+    }
 }
 
 async function cpuWarning() {
