@@ -60,20 +60,16 @@ let swaggerOptions = {
         },
         servers: [
             {
-                url: `https://api.hugin.chat`,
-                description: 'The Official Hugin API hosted by Kryptokrona project'
+                url: `https://n1.vxo.nu`,
+                description: 'Växjö #1 Hugin API hosted by Marcus Cvjeticanin'
+            },
+            {
+                url: `https://n2.vxo.nu`,
+                description: 'Växjö #2 Hugin API hosted by Marcus Cvjeticanin'
             },
             {
                 url: `https://hugin-api.novastack.org`,
                 description: 'High Performance Hugin API Powered by Novastack Hosting'
-            },
-            {
-                url: `https://test-api.novastack.org`,
-                description: 'Used to test new/latest features before running on main Novastack Hugin API'
-            },
-            {
-                url: `https://cache.norpool.org`,
-                description: 'Norpool Hugin API'
             }
         ]
 
