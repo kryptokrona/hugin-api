@@ -183,8 +183,11 @@ async function diskWarning() {
     }
 }
 
-cron.schedule('*/15 * * * *', () => {
-    cpuWarning()
-    ramWarning()
-    diskWarning()
-})
+// if environment variables is not set, don't run cron job
+if (process.env.SYS_ALERT_MY_ADDRESS !== "" || process.env.SYS_ALERT_PRIVATE_KEY !== "" || process.env.SYS_ALERT_GROUP !== "") {
+    cron.schedule('*/15 * * * *', () => {
+        cpuWarning()
+        ramWarning()
+        diskWarning()
+    })
+}
