@@ -29,32 +29,49 @@
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /**
- * Info Controller
+ * Post Controller
  */
 
 'use strict'
 
 let log = require('loglevel')
+let db = require("../../configs/postgresql"),
+    sequelize = db.sequelize,
+    Sequelize = db.Sequelize
 
-const { getPagination, getPagingDataPost } = require('../../utils/pagination')
-const { getTimestamp, convertDateTimeToUnix, convertUnixToDateTime } = require("../../utils/time")
+const Op = db.Sequelize.Op;
 
-const infoController = {}
 
+const { getTimestamp } = require("../../utils/time")
+
+const postController = {}
 
 /**
- * Get a specific posts by tx_hash
+ * Send message
  *
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
  */
-infoController.getInfo = async (req, res) => {
-    const [unlockedBalance, lockedBalance] = await wallet.getBalance();
-    let info = {
-        donationAddress: wallet.getPrimaryAddress(),
-        status: unlockedBalance > 0 ? 'online' : 'offline'
+postController.sendMessage = async (req, res) => {
+    try {
+        const result = await wallet.sendTransactionAdvanced(
+            [[wallet.getPrimaryAddress(), 1]], // destinations,
+            3, // mixin
+            { fixedFee: 1000, isFixedFee: true }, // fee
+            undefined, //paymentID
+            undefined, // subWalletsToTakeFrom
+            undefined, // changeAddress
+            true, // relayToNetwork
+            false, // sendAll
+            Buffer.from(req.body.payload, 'hex')
+        )
+
+        res.json(result)
+    } catch (err) {
+        log.error(getTimestamp() + ' ERROR: Some error occurred while sending message. ' + err)
+        res.json("Sorry, but your request is invalid.")
     }
-    res.json(info)
+
 }
 
-module.exports = infoController
+module.exports = postController
