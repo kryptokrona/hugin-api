@@ -21,7 +21,7 @@ To be able to get data more easily from Hugin this RESTful API and websocket ser
 - Web: https://kryptokrona.org
 - Docs: https://docs.kryptokrona.org
 - GitHub: https://github.com/kryptokrona
-- Hugin: projectdevelopment board on Hugin Messenger
+- Hugin: Kryptokrona group on Hugin Messenger `33909fb89783fb15b5c2df50ff7107c112c3b232681f77814c024c909c07e932`
 - It is HIGHLY recommended to join our board on Hugin Messenger if you want to contribute to stay up to date on what is happening on the project.
 
 # Sponsors
