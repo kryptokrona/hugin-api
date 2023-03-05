@@ -15,6 +15,15 @@ try:
     posts = requests.get(base_url.format(domain, 'api/v1/posts-encrypted/latest'))
     assert posts.status_code == requests.codes.ok
 
+    # trying v1 encrypted posts group endpoints
+    print('GET ' + base_url.format(domain ,'api/v1/posts-encrypted-group'))
+    posts = requests.get(base_url.format(domain, 'api/v1/posts-encrypted-group'))
+    assert posts.status_code == requests.codes.ok
+
+    print('GET ' + base_url.format(domain, 'api/v1/posts-encrypted-group/latest'))
+    posts = requests.get(base_url.format(domain, 'api/v1/posts-encrypted-group/latest'))
+    assert posts.status_code == requests.codes.ok
+
     # trying prometheus metrics
     print('GET ' + base_url.format(domain, 'metrics'))
     prometheus_metrics = requests.get(base_url.format(domain, 'metrics'))
