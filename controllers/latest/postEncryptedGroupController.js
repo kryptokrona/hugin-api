@@ -44,7 +44,6 @@ const Op = db.Sequelize.Op;
 const postEncryptedGroupService = require('../../services/postEncryptedGroupService')
 const { getPagination, getPagingDataPostEncryptedGroup } = require('../../utils/pagination')
 const { getTimestamp, convertDateTimeToUnix, convertUnixToDateTime } = require("../../utils/time")
-const postService = require("../../services/postService");
 
 const postEncryptedGroupController = {}
 

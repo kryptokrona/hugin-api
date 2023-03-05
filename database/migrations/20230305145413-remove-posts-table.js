@@ -1,6 +1,12 @@
 'use strict';
+
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up (queryInterface, Sequelize) {
+    await queryInterface.dropTable('post');
+  },
+
+  async down (queryInterface, Sequelize) {
     await queryInterface.createTable('post', {
       id: {
         allowNull: false,
@@ -51,8 +57,5 @@ module.exports = {
         field: 'updated_at'
       },
     });
-  },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('post');
   }
 };

@@ -1,6 +1,11 @@
 'use strict';
+
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up (queryInterface, Sequelize) {
+    await queryInterface.dropTable('hashtag');
+  },
+
+  async down (queryInterface, Sequelize) {
     await queryInterface.createTable('hashtag', {
       id: {
         allowNull: false,
@@ -13,8 +18,5 @@ module.exports = {
         allowNull: false
       },
     });
-  },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('hashtag');
   }
 };

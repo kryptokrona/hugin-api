@@ -13,14 +13,10 @@ const BASE_URL = 'http://localhost:3000';
 
 export default function () {
    group('API uptime check', () => {
-       const responsePosts = http.get(`${BASE_URL}v1/posts`)
-       check(responsePosts, {
+       const responsePostsEncrypted = http.get(`${BASE_URL}v1/posts-encrypted`)
+       check(responsePostsEncrypted, {
            "status code should be 200": res => res.status === 200,
        })
 
-       const responseHashtags = http.get(`${BASE_URL}/v1/hashtags`)
-       check(responseHashtags, {
-           "status code should be 200": res => res.status === 200,
-       })
    })
 }

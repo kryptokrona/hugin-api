@@ -137,53 +137,6 @@ module.exports.backgroundSyncMessages = async () => {
                     continue
                 }
 
-                if ((message || true) && (message.brd || message.brd !== undefined)) {
-                    log.info(getTimestamp() + ' INFO: Got 1 message. Message: ' + JSON.stringify(message))
-
-                    let avatarStr = avatar.generate(message.k)
-
-                    let messageObj = {
-                        message: message.m || null,
-                        key: message.k || null,
-                        signature: message.s || null,
-                        board: message.brd || null,
-                        time: message.t || null,
-                        nickname: message.n || null,
-                        tx_hash: txHash || null,
-                        reply: message.r || null,
-                        avatar: avatarStr || null,
-                    }
-
-                    const messageValidated = validateMessage(messageObj)
-
-                    if (messageValidated) {
-                        log.info(getTimestamp() + ' INFO: Message was validated.')
-                        // skipping based on criteria - if criteria exists
-                        const criteriaFulfilled = messageCriteria(messageObj)
-
-                        // criteria guard
-                        if (!criteriaFulfilled) {
-                            log.info(getTimestamp() + ' INFO: Message does not meet criteria based on configuration: ' + JSON.stringify(message))
-                            continue
-                        }
-                        log.info(getTimestamp() + ' INFO: Criteria fulfilled.')
-
-                        // broadcast message object to websocket server
-                        ws.send(JSON.stringify(messageObj))
-
-                        // checking if post with txHash already exists in db - if not create a new record
-                        postExists(txHash).then(result => {
-                            if (result === null) {
-                                savePost(messageObj, txHash)
-                            }
-                        })
-                    } else {
-                        log.info(getTimestamp() + ' INFO: Message was not validated, ignoring.')
-                    }
-                } else {
-                    log.info(getTimestamp() + ' INFO: No message.')
-                }
-
             } catch (err) {
                 log.error(getTimestamp() + ' ERROR: ' + err)
             }
@@ -238,28 +191,6 @@ async function encryptedGroupPostExists(txHash) {
 }
 
 /**
- * Check if post exists in database.
- *
- * @param {String} txHash - Hash value.
- * @returns {Boolean} Resolves to true if found.
- */
-async function postExists(txHash) {
-    try {
-        const postTxHashLookup = models.Post.findOne({
-            where: {
-                tx_hash: txHash
-            },
-            order: [['id', 'DESC']],
-            raw: true,
-        })
-
-        return postTxHashLookup
-    } catch (err) {
-        log.error(getTimestamp() + ' ERROR: Sync error. ' + err)
-    }
-}
-
-/**
  * Save an encrypted post to database.
  *
  * @param {String} txHash - Transaction Hash Value.
@@ -301,84 +232,6 @@ async function saveEncryptedGroupPost(txHash, boxObj) {
     }
 }
 
-/**
- * Save a post to database.
- *
- * @param {Object} messageObj - Message object.
- * @param {String} txHash - Hash value.
- * @returns {Promise} Resolves to this if transaction to database succeeded.
- */
-async function savePost(messageObj, txHash) {
-    let startTime = performance.now()
-
-    try {
-        await sequelize.transaction(async (t) => {
-            return models.Post.create(messageObj).then(postObj => {
-                log.info(getTimestamp() + ` INFO: Post transaction was successful - Post with ID ${postObj.id} was created.`)
-
-                // extract hashtags from message and save it do db and add relationship in post_hashtag table
-                let messageStr = messageObj.message
-
-                try {
-                    // break down message to a list of hashtags (if text starts with #)
-                    let hashtags = messageStr.match(/#[^\s#\.\;!*€%&()?^$@`¨]*/gmi)
-
-                    if (hashtags) {
-                        // going through all hashtags and do separate lookups
-                        hashtags.forEach(hashtag => {
-                            // removing the # and making it lowercase, so we have proper input for query
-                            let hashtagName = hashtag.replace('#', '').toLowerCase()
-
-                            const hashtagLookup = models.Hashtag.findOne({
-                                where: {
-                                    name: hashtagName
-                                },
-                                order: [['id', 'DESC']],
-                                raw: true,
-                            })
-
-                            // create hashtag if it does not exist otherwise get the hashtag ID
-                            hashtagLookup.then(async result => {
-                                if (result === null) {
-                                    await sequelize.transaction(async (t1) => {
-                                        return models.Hashtag.create({
-                                            name: hashtagName
-                                        }).then(async hashtagObj => {
-                                            await sequelize.transaction(async (t2) => {
-                                                return models.PostHashtag.create({
-                                                    post_id: postObj.id,
-                                                    hashtag_id: hashtagObj.id
-                                                })
-                                            })
-                                        })
-                                    })
-                                } else {
-                                    // hashtag exists, so we add a new row in post_hashtag with its ID
-                                    await sequelize.transaction(async (t3) => {
-                                        return models.PostHashtag.create({
-                                            post_id: postObj.id,
-                                            hashtag_id: result.id
-                                        })
-                                    })
-                                }
-                            })
-
-                        })
-                    }
-                } catch (TypeError) {
-                    log.error(getTimestamp() + ' ERROR: Could not parse hashtags')
-                }
-            })
-        })
-
-        // calculating queries for debug reasons
-        let endTime = performance.now()
-        log.info(getTimestamp() + ` INFO: Queries to took ${endTime - startTime} seconds`)
-
-    } catch (err) {
-        log.error(getTimestamp() + ' ERROR: An error adding a Post transaction - Rolling back. ' + err)
-    }
-}
 
 /**
  * Converts hex value to string.
