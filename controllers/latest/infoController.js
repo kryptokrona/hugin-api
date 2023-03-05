@@ -52,7 +52,7 @@ infoController.getInfo = async (req, res) => {
     const [unlockedBalance, lockedBalance] = await wallet.getBalance();
     let info = {
         donationAddress: wallet.getPrimaryAddress(),
-        status: unlockedBalance > 0 ? 'online' : 'offline'
+        status: unlockedBalance >= 0 ? 'online' : 'offline'
     }
     res.json(info)
 }

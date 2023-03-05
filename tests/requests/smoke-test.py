@@ -6,24 +6,6 @@ try:
     domain = str(sys.argv[1])
     base_url = 'https://{}/{}'
 
-    # trying v1 posts endpoints
-    print('GET ' + base_url.format(domain ,'api/v1/posts'))
-    posts = requests.get(base_url.format(domain, 'api/v1/posts'))
-    assert posts.status_code == requests.codes.ok
-
-    print('GET ' + base_url.format(domain, 'api/v1/posts/latest'))
-    posts = requests.get(base_url.format(domain, 'api/v1/posts/latest'))
-    assert posts.status_code == requests.codes.ok
-
-    # trying hashtag endpoints
-    print('GET ' + base_url.format(domain, 'api/v1/hashtags'))
-    posts = requests.get(base_url.format(domain, 'api/v1/hashtags'))
-    assert posts.status_code == requests.codes.ok
-
-    print('GET ' + base_url.format(domain, 'api/v1/hashtags/latest'))
-    posts = requests.get(base_url.format(domain, 'api/v1/hashtags/latest'))
-    assert posts.status_code == requests.codes.ok
-
     # trying v1 encrypted posts endpoints
     print('GET ' + base_url.format(domain ,'api/v1/posts-encrypted'))
     posts = requests.get(base_url.format(domain, 'api/v1/posts-encrypted'))
@@ -31,15 +13,6 @@ try:
 
     print('GET ' + base_url.format(domain, 'api/v1/posts-encrypted/latest'))
     posts = requests.get(base_url.format(domain, 'api/v1/posts-encrypted/latest'))
-    assert posts.status_code == requests.codes.ok
-
-    # trying v1 hashtag endpoints
-    print('GET ' + base_url.format(domain, 'api/v1/hashtags'))
-    posts = requests.get(base_url.format(domain, 'api/v1/hashtags'))
-    assert posts.status_code == requests.codes.ok
-
-    print('GET ' + base_url.format(domain, 'api/v1/hashtags/latest'))
-    posts = requests.get(base_url.format(domain, 'api/v1/hashtags/latest'))
     assert posts.status_code == requests.codes.ok
 
     # trying prometheus metrics

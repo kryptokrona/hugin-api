@@ -47,11 +47,8 @@ const swaggerUi = require('swagger-ui-express')
 const files = require('fs/promises');
 
 // latest routers
-var postRouterLatest = require('./routes/latest/postRouter')
 var postEncryptedRouterLatest = require('./routes/latest/postEncryptedRouter')
 var postEncryptedGroupRouterLatest = require('./routes/latest/postEncryptedGroupRouter')
-var hashtagRouterLatest = require('./routes/latest/hashtagRouter')
-var statisticsRouterLatest = require('./routes/latest/statisticsRouter')
 var infoRouterLatest = require('./routes/latest/infoRouter')
 
 // syncers
@@ -93,11 +90,8 @@ app.set('trust proxy', 1)
 app.use(`${process.env.API_BASE_PATH}/docs`, swaggerUi.serve, swaggerUi.setup(openapiSpecification, swaggerCustomOptions))
 
 // latest routes
-app.use(`${process.env.API_BASE_PATH}/v1/`, postRouterLatest)
 app.use(`${process.env.API_BASE_PATH}/v1/`, postEncryptedRouterLatest)
 app.use(`${process.env.API_BASE_PATH}/v1/`, postEncryptedGroupRouterLatest)
-app.use(`${process.env.API_BASE_PATH}/v1/`, hashtagRouterLatest)
-app.use(`${process.env.API_BASE_PATH}/v1/`, statisticsRouterLatest)
 app.use(`${process.env.API_BASE_PATH}/v1/`, infoRouterLatest)
 
 app.use(bodyParser.json());
