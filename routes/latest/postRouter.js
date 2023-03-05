@@ -27,34 +27,30 @@
 // INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
 // STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
 /**
- * Info Controller
+ * Post routes.
  */
 
 'use strict'
 
-let log = require('loglevel')
+const express = require('express')
+const router = express.Router()
 
-const { getPagination, getPagingDataPost } = require('../../utils/pagination')
-const { getTimestamp, convertDateTimeToUnix, convertUnixToDateTime } = require("../../utils/time")
-
-const infoController = {}
-
+const controller = require('../../controllers/latest/postController')
+const { postMessageLimiter } = require('../../configs/rateLimit')
 
 /**
- * Get a specific posts by tx_hash
- *
- * @param {object} req - Express request object.
- * @param {object} res - Express response object.
+ * @openapi
+ * /api/v1/posts:
+ *   post:
+ *     description: Saves a post.
+ *     tags:
+ *       - posts
+ *     responses:
+ *       200:
+ *         description: Saves a post to the blockchain.
  */
-infoController.getInfo = async (req, res) => {
-    const [unlockedBalance, lockedBalance] = await wallet.getBalance();
-    let info = {
-        donationAddress: wallet.getPrimaryAddress(),
-        status: unlockedBalance > 0 ? 'online' : 'offline'
-    }
-    res.json(info)
-}
+router.post('/posts', postMessageLimiter, controller.sendMessage)
 
-module.exports = infoController
+
+module.exports = router
