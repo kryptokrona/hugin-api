@@ -28,13 +28,11 @@ jobs:
       
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
 
       - name: Build Docker
         run: |
           docker build --no-cache -t $GITHUB_REGISTRY/$GITHUB_OWNER/$GITHUB_DOCKER_IMAGE:${{ env.SHA }} .
-          docker buildx build --no-cache --platform linux/arm64 -t $GITHUB_REGISTRY/$GITHUB_OWNER/$GITHUB_DOCKER_IMAGE-arm64:${{ env.SHA }} .
+          docker build --no-cache --platform linux/arm64 -t $GITHUB_REGISTRY/$GITHUB_OWNER/$GITHUB_DOCKER_IMAGE-arm64:${{ env.SHA }} .
 
       - name: Publish Docker
         run: |
