@@ -33,11 +33,7 @@ jobs:
       - name: Build Docker
         run: |
           docker build --no-cache -t $GITHUB_REGISTRY/$GITHUB_OWNER/$GITHUB_DOCKER_IMAGE:${{ env.SHA }} .
-          docker buildx build --no-cache --platform linux/arm64 -t $GITHUB_REGISTRY/$GITHUB_OWNER/$GITHUB_DOCKER_IMAGE-arm64:${{ env.SHA }} .
-      
-      - name: DEBUG show docker images
-        run: |
-          docker image ls
+          docker buildx build --no-cache --platform linux/arm64 -o type=docker -t $GITHUB_REGISTRY/$GITHUB_OWNER/$GITHUB_DOCKER_IMAGE-arm64:${{ env.SHA }} .
 
       - name: Publish Docker
         run: |
