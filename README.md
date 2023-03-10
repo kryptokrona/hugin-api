@@ -24,7 +24,7 @@ To be able to get data more easily from Hugin this RESTful API and websocket ser
 
 - Web: https://kryptokrona.org
 - Docs: https://docs.kryptokrona.org
-- GitHub: https://github.com/kryptokrona
+- GitHub: https://github.com/kryptokrona/hugin-api
 - Slack: https://join.slack.com/t/kryptokrona/shared_invite/zt-1qmt8cz9j-s~2RKYtFfshqeLC1dhU5aA
 - Discord: https://discord.gg/VTgsTGS9b7
 - Twitter: https://twitter.com/mjovanc
