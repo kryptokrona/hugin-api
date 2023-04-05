@@ -62,7 +62,7 @@
 
     sys_api_port: '3000'
     sys_ws_port: '8080'
-    sys_hugin_syncer_sleep: '2000'
+    sys_hugin_syncer_sleep: '10000'
 
     sys_project_name: 'Hugin API'
 
