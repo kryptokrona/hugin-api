@@ -80,6 +80,8 @@ module.exports.backgroundSyncMessages = async () => {
         let transactions = json.addedTxs
         let transaction
 
+        known_pool_txs = known_pool_txs.filter((n) => !json.deletedTxsIds.includes(n))
+
         if (transactions.length === 0) {
             log.info(getTimestamp() + ' INFO: Got empty transaction array.')
             return;
