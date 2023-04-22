@@ -66,6 +66,7 @@ module.exports.backgroundSyncMessages = async () => {
     let message_was_unknown
 
     try {
+        // by the maestro, nilsjr
         const resp = await fetch('http://' + process.env.SYS_HUGIN_NODE_SERVER + '/get_pool_changes_lite', {
             method: 'POST',
             body: JSON.stringify({ knownTxsIds: known_pool_txs })
