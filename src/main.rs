@@ -1,9 +1,10 @@
 mod db;
 mod endpoints;
 mod syncers;
+mod types;
 
+use env_logger::Env;
 use rocket::tokio::runtime::Builder;
-use rocket::tokio::task;
 
 #[macro_use]
 extern crate rocket;
@@ -20,6 +21,10 @@ fn internal_error() -> &'static str {
 
 #[launch]
 fn rocket() -> _ {
+    // initialize logger
+    env_logger::Builder::from_env(Env::default().default_filter_or("info")).init();
+
+    // initialize tokio runtime
     let tokio_runtime = Builder::new_multi_thread()
         .enable_all()
         .build()
