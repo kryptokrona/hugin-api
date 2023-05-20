@@ -3,7 +3,7 @@
 [![build](https://img.shields.io/github/actions/workflow/status/kryptokrona/hugin-api/main-ci.yml?branch=main)](https://github.com/kryptokrona/hugin-api/actions/workflows/main-ci.yml) 
 [![release](https://img.shields.io/github/v/release/kryptokrona/hugin-api)](https://img.shields.io/github/v/release/kryptokrona/hugin-api)
 [![license](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-[![slack](https://badgen.net/badge/icon/slack?icon=slack&label)](https://join.slack.com/t/kryptokrona/shared_invite/zt-1qmt8cz9j-s~2RKYtFfshqeLC1dhU5aA)
+![](https://img.shields.io/badge/Rust-1.68+-orange.svg)
 [![discord](https://img.shields.io/discord/562673808582901793?label=discord)](https://discord.gg/VTgsTGS9b7)
 
 Hugin is a messaging service where messages are stored on the Kryptokrona Blockchain. Messages are secured with industry leading encryption so that only you and your chat partner have the possibility to read them. The purpose is not to gather any personal information about the users, unlike most apps and social media.
@@ -14,6 +14,8 @@ To be able to get data more easily from Hugin this RESTful API and websocket ser
 
 # Table of Contents
 
+- [Hugin API](#hugin-api)
+- [Table of Contents](#table-of-contents)
 - [Development Resources](#development-resources)
 - [Sponsors](#sponsors)
 - [Usages](#usages)
