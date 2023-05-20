@@ -1,1 +1,1 @@
-mod hugin;
+pub mod hugin;
