@@ -1,0 +1,23 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Hugin API",
+    "dateExported": "2023-05-20T16:14:07.582Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "4e0a0369-02b0-47de-9a9c-3bd41f5f5c1d",
+            "colId": "901bacb9-bcb6-4f2f-9036-0334070b6eba",
+            "containerId": "",
+            "name": "Get all encrypted posts",
+            "url": "http://127.0.0.1:8000/api/post-encrypted",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-05-20T10:29:21.307Z",
+            "modified": "2023-05-20T10:29:21.307Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}
