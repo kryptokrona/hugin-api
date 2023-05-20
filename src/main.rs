@@ -1,10 +1,8 @@
+mod endpoints;
+mod syncers;
+
 #[macro_use]
 extern crate rocket;
-
-#[get("/")]
-fn index() -> &'static str {
-    "Hello, world!"
-}
 
 #[catch(404)]
 fn not_found() -> &'static str {
@@ -19,6 +17,14 @@ fn internal_error() -> &'static str {
 #[launch]
 fn rocket() -> _ {
     rocket::build()
-        .mount("/api", routes![index])
+        .mount(
+            "/api",
+            routes![
+                endpoints::post_encrypted::get_all,
+                endpoints::post_encrypted::get,
+                endpoints::post_encrypted_group::get_all,
+                endpoints::post_encrypted_group::get
+            ],
+        )
         .register("/", catchers![not_found, internal_error])
 }
