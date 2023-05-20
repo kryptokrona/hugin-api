@@ -2,6 +2,9 @@ mod db;
 mod endpoints;
 mod syncers;
 
+use rocket::tokio::runtime::Builder;
+use rocket::tokio::task;
+
 #[macro_use]
 extern crate rocket;
 
@@ -17,6 +20,16 @@ fn internal_error() -> &'static str {
 
 #[launch]
 fn rocket() -> _ {
+    let tokio_runtime = Builder::new_multi_thread()
+        .enable_all()
+        .build()
+        .expect("Failed to build Tokio runtime");
+
+    // spawn the syncers
+    tokio_runtime.spawn(async {
+        syncers::hugin::hugin_syncer().await;
+    });
+
     rocket::build()
         .mount(
             "/api",
@@ -31,9 +44,3 @@ fn rocket() -> _ {
         )
         .register("/", catchers![not_found, internal_error])
 }
-
-// fn spawn_background_tasks() -> rocket::tokio::task::JoinHandle<()> {
-//     task::spawn(async {
-//         syncers::hugin::hugin_syncer().await;
-//     })
-// }
