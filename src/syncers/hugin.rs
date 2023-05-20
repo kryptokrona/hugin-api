@@ -50,9 +50,11 @@ pub async fn hugin_syncer() {
         known_txs_ids: &known,
     };
 
+    // run the hugin syncer loop
     loop {
         info!("Hugin syncer loop...");
 
+        // convert the PoolChangesLiteRequest struct to a json string
         let json_body = serde_json::to_string(&pool_changes_lite_req);
 
         println!("json_body: {:?}", json_body);

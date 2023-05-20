@@ -35,6 +35,7 @@ fn rocket() -> _ {
         syncers::hugin::hugin_syncer().await;
     });
 
+    // launch the rocket server
     rocket::build()
         .mount(
             "/api",
