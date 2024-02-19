@@ -166,16 +166,21 @@ async function optimizeMessages(wallet, nbrOfTxs, fee = 10000, attempt = 0) {
     if (attempt > 10) {
         return false
     }
+    console.log("Optimizing!")
     if (wallet.getAddresses().length === 1) {
+        console.log("Creating subwallet!")
         const [spendKey, viewKey] = wallet.getPrimaryAddressPrivateKeys()
         const subWalletKeys = await crypto.generateDeterministicSubwalletKeys(spendKey, 1)
         await wallet.importSubWallet(subWalletKeys.private_key)
+        console.log("Subwallet created!")
     }
 
     const [walletHeight, localHeight, networkHeight] = wallet.getSyncStatus()
 
     let inputs = await wallet.subWallets.getSpendableTransactionInputs(wallet.getAddresses()[1], networkHeight)
-
+    
+    console.log("Got inputs!", inputs)
+    
     if (inputs.length > 8) {
         return inputs.length
     }
