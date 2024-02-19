@@ -222,7 +222,7 @@ const fetchNodes = async () => {
     }
 }
 
-export const getBestNode = async (ssl=true) => {
+const getBestNode = async (ssl=true) => {
 
     let recommended_node = undefined;
     const nodes = await fetchNodes()
