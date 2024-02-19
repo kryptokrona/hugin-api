@@ -152,7 +152,7 @@ async function walletExistsInDb() {
     }
 }
 
-async function optimizeMessages(nbrOfTxs, fee = 10000, attempt = 0) {
+async function optimizeMessages(wallet, nbrOfTxs, fee = 10000, attempt = 0) {
     if (attempt > 10) {
         return false
     }
@@ -209,8 +209,68 @@ async function optimizeMessages(nbrOfTxs, fee = 10000, attempt = 0) {
     return true
 }
 
+const fetchNodes = async () => {
+    try {
+    const response = await fetch(uri)
+    const result = await response.json()
+
+    } catch (e) {
+        console.log("Error fetching nodes")
+        return false
+    }
+
+    return result.nodes
+}
+
+export const getBestNode = async (ssl=true) => {
+
+    let recommended_node = undefined;
+    const nodes = await fetchNodes()
+    if (!nodes) return [false, 0]
+    let node_requests = [];
+    let ssl_nodes =[];
+    if (ssl) {
+        ssl_nodes = nodes.filter(node => {return node.ssl});
+    } else {
+        ssl_nodes =  nodes.filter(node => {return !node.ssl});
+    }
+  
+    ssl_nodes = ssl_nodes.sort((a, b) => 0.5 - Math.random());
+  
+    console.log(ssl_nodes);
+  
+    let i = 0;
+  
+    while (i < ssl_nodes.length) {
+  
+  
+      let this_node = ssl_nodes[i];
+  
+      let nodeURL = `${this_node.ssl ? 'https://' : 'http://'}${this_node.url}:${this_node.port}/info`;
+      try {
+        const resp = await fetch(nodeURL, {
+          method: 'GET',
+        }, 2000);
+  
+      if (resp.ok) {
+  
+        recommended_node = [this_node.url, this_node.port];
+        console.log("resp ok!", recommended_node)
+        return recommended_node;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    i++;
+    }
+    
+    return false
+  
+    }
+
 module.exports = {
     openWallet,
     saveWallet,
-    optimizeMessages
+    optimizeMessages,
+    getBestNode
 }

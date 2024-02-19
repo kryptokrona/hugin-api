@@ -139,9 +139,17 @@ app.listen(process.env.SYS_API_PORT, async () => {
 
     // do not start the hugin syncer if we want to test the endpoints
     if (process.env.NODE_ENV !== 'test') {
+            
+        //Get best node
+        let [url, port] = await getBestNode()
+        //Fallback
+        if (!url) {
+            url = "privacymine.net"
+            port = 21898
+        }
 
-        // initializing daemon and wallet
-        const daemon = new WB.Daemon('pool.kryptokrona.se', 11898)
+        // Initializing daemon and wallet
+        const daemon = new WB.Daemon(url, port)
         global.wallet = await openWallet(daemon)
         await wallet.start()
         console.log('👛 Started wallet.')
@@ -150,12 +158,13 @@ app.listen(process.env.SYS_API_PORT, async () => {
         saveWallet(wallet)
 
         wallet.on('createdtx', async () => {
-            optimizeMessages(wallet)
+            optimizeMessages(wallet, 20)
         })
 
-        wallet.on('incomingtx', async () => {
-            optimizeMessages(wallet)
+        wallet.on('transaction', async () => {
+            optimizeMessages(wallet, 20)
         })
+
 
         // starting hugin sync
         while (true) {
