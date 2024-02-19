@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 
 # Install Python/pip and dependencies
 ENV PYTHONUNBUFFERED=1
-RUN apk add g++ make
+RUN apk add g++ make pip3
 RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
 RUN pip3 install --no-cache --upgrade pip setuptools --break-system-packages
 
