@@ -214,13 +214,12 @@ const fetchNodes = async () => {
     try {
     const response = await fetch(uri)
     const result = await response.json()
-
+    return result.nodes
+    
     } catch (e) {
         console.log("Error fetching nodes")
         return false
     }
-
-    return result.nodes
 }
 
 export const getBestNode = async (ssl=true) => {
