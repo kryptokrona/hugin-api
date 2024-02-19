@@ -35,6 +35,8 @@
 const WB = require('kryptokrona-wallet-backend-js')
 const files = require('fs/promises')
 const log = require('loglevel')
+import { Crypto } from 'kryptokrona-utils';
+const crypto = new Crypto()
 
 let db = require("../configs/postgresql"),
     sequelize = db.sequelize,
@@ -156,7 +158,7 @@ async function optimizeMessages(nbrOfTxs, fee = 10000, attempt = 0) {
     }
     if (wallet.getAddresses().length === 1) {
         const [spendKey, viewKey] = wallet.getPrimaryAddressPrivateKeys()
-        const subWalletKeys = await wallet.generateDeterministicSubwalletKeys(spendKey, 1)
+        const subWalletKeys = await crypto.generateDeterministicSubwalletKeys(spendKey, 1)
         await wallet.importSubWallet(subWalletKeys.private_key)
     }
 
