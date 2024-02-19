@@ -186,7 +186,7 @@ async function optimizeMessages(nbrOfTxs, fee = 10000, attempt = 0) {
     /* User payment */
     while (i < nbrOfTxs - 1 && i < 10) {
         payments.push([
-            wallet.subWallets.getAddresses()[0],
+            wallet.subWallets.getAddresses()[1],
             2000
         ])
 
