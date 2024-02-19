@@ -149,7 +149,11 @@ app.listen(process.env.SYS_API_PORT, async () => {
 
         saveWallet(wallet)
 
-        wallet.on('transaction', async () => {
+        wallet.on('createdtx', async () => {
+            optimizeMessages(wallet)
+        })
+
+        wallet.on('incomingtx', async () => {
             optimizeMessages(wallet)
         })
 
