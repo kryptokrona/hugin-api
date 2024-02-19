@@ -59,7 +59,7 @@ postController.sendMessage = async (req, res) => {
             3, // mixin
             { fixedFee: 1000, isFixedFee: true }, // fee
             undefined, //paymentID
-            undefined, // subWalletsToTakeFrom
+            [wallet.getAddresses()[1]], // subWalletsToTakeFrom
             undefined, // changeAddress
             true, // relayToNetwork
             false, // sendAll
