@@ -35,7 +35,7 @@
 const WB = require('kryptokrona-wallet-backend-js')
 const files = require('fs/promises')
 const log = require('loglevel')
-import { Crypto } from 'kryptokrona-utils';
+const { Crypto } = require('kryptokrona-utils')
 const crypto = new Crypto()
 
 let db = require("../configs/postgresql"),
