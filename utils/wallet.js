@@ -81,10 +81,15 @@ async function openWallet(daemon) {
  */
 async function saveWallet(wallet) {
     log.info(getTimestamp() + ' INFO: Saving wallet...')
+    
+    let encrypted_wallet
+    let mnemonicSeed
+    let walletExists
+    
     try {
-    const encrypted_wallet = await wallet.encryptWalletToString('hugin')
-    const mnemonicSeed = await wallet.getMnemonicSeed()
-    const walletExists = await walletExistsInDb();
+     encrypted_wallet = await wallet.encryptWalletToString('hugin')
+     mnemonicSeed = await wallet.getMnemonicSeed()
+     walletExists = await walletExistsInDb();
     } catch (err) {
     log.info(getTimestamp() + 'Error:' + err);
     }
