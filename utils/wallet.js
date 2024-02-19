@@ -80,9 +80,14 @@ async function openWallet(daemon) {
  * @returns {String}
  */
 async function saveWallet(wallet) {
+    log.info(getTimestamp() + ' INFO: Saving wallet...')
+    try {
     const encrypted_wallet = await wallet.encryptWalletToString('hugin')
     const mnemonicSeed = await wallet.getMnemonicSeed()
     const walletExists = await walletExistsInDb();
+    } catch (err) {
+    log.info(getTimestamp() + 'Error:' + err);
+    }
 
     if (!walletExists) {
         log.info(getTimestamp() + ' INFO: Wallet does not exist. Creating and saving wallet to db...')
