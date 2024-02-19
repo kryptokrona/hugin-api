@@ -55,7 +55,7 @@ const postController = {}
 postController.sendMessage = async (req, res) => {
     try {
         const result = await wallet.sendTransactionAdvanced(
-            [[wallet.getPrimaryAddress(), 1]], // destinations,
+            [[wallet.getAddresses()[1], 1]], // destinations,
             3, // mixin
             { fixedFee: 1000, isFixedFee: true }, // fee
             undefined, //paymentID

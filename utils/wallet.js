@@ -154,10 +154,15 @@ async function optimizeMessages(nbrOfTxs, fee = 10000, attempt = 0) {
     if (attempt > 10) {
         return false
     }
+    if (wallet.getAddresses().length === 1) {
+        const [spendKey, viewKey] = wallet.getPrimaryAddressPrivateKeys()
+        const subWalletKeys = await wallet.generateDeterministicSubwalletKeys(spendKey, 1)
+        await wallet.importSubWallet(subWalletKeys.private_key)
+    }
 
     const [walletHeight, localHeight, networkHeight] = wallet.getSyncStatus()
 
-    let inputs = await wallet.subWallets.getSpendableTransactionInputs(wallet.subWallets.getAddresses(), networkHeight)
+    let inputs = await wallet.subWallets.getSpendableTransactionInputs(wallet.getAddresses()[1], networkHeight)
 
     if (inputs.length > 8) {
         return inputs.length
