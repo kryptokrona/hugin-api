@@ -210,6 +210,7 @@ async function optimizeMessages(wallet, nbrOfTxs, fee = 10000, attempt = 0) {
 }
 
 const fetchNodes = async () => {
+    const uri = 'https://raw.githubusercontent.com/kryptokrona/kryptokrona-public-nodes/main/nodes.json'
     try {
     const response = await fetch(uri)
     const result = await response.json()

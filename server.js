@@ -57,7 +57,7 @@ var huginSyncer = require('./syncers/huginSyncer')
 
 // utils
 const { getTimestamp, sleep } = require('./utils/time')
-const { openWallet, optimizeMessages, saveWallet } = require('./utils/wallet')
+const { openWallet, optimizeMessages, saveWallet, getBestNode } = require('./utils/wallet')
 
 // configs
 const { swaggerOptions, swaggerCustomOptions } = require('./configs/swagger')
