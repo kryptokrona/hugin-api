@@ -151,6 +151,7 @@ app.listen(process.env.SYS_API_PORT, async () => {
         // Initializing daemon and wallet
         const daemon = new WB.Daemon(url, port)
         global.wallet = await openWallet(daemon)
+        wallet.enableAutoOptimization(false);
         await wallet.start()
         console.log('👛 Started wallet.')
         console.log('📃 Address: ' + wallet.getPrimaryAddress())
