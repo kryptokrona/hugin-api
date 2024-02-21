@@ -173,9 +173,11 @@ async function optimizeMessages(wallet, nbrOfTxs, fee = 10000, attempt = 0) {
         await wallet.importSubWallet(subWalletKeys.private_key)
     }
     
+    const [mainWallet, subWallet] = wallet.getAddresses()
+
     const [walletHeight, localHeight, networkHeight] = wallet.getSyncStatus()
 
-    let inputs = await wallet.subWallets.getSpendableTransactionInputs([wallet.subWallets.getAddresses()[1]], networkHeight)
+    let inputs = await wallet.subWallets.getSpendableTransactionInputs([subWallet], networkHeight)
 
     if (inputs.length > 8) {
         return inputs.length
@@ -195,10 +197,10 @@ async function optimizeMessages(wallet, nbrOfTxs, fee = 10000, attempt = 0) {
     let i = 0
 
     /* User payment */
-    while (i < nbrOfTxs - 1 && i < 10) {
+    while (i < nbrOfTxs - 1 && i < 20) {
         payments.push([
-            wallet.subWallets.getAddresses()[1],
-            2000
+            subWallet,
+            1000
         ])
 
         i += 1
@@ -210,7 +212,7 @@ async function optimizeMessages(wallet, nbrOfTxs, fee = 10000, attempt = 0) {
         3, // mixin
         { fixedFee: 1000, isFixedFee: true }, // fee
         undefined, //paymentID
-        undefined, // subWalletsToTakeFrom
+        [mainWallet], // subWalletsToTakeFrom
         undefined, // changeAddress
         true, // relayToNetwork
         false, // sneedAll
