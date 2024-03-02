@@ -119,6 +119,7 @@ module.exports.backgroundSyncMessages = async () => {
                         encryptedPostExists(txHash).then(result => {
                             if (result === null) {
                                 saveEncryptedPost(txHash, boxObj)
+                                ws.send(JSON.stringify(boxObj))
                             }
                         })
                     }
@@ -128,6 +129,7 @@ module.exports.backgroundSyncMessages = async () => {
                         encryptedGroupPostExists(txHash).then(result => {
                             if (result === null) {
                                 saveEncryptedGroupPost(txHash, boxObj)
+                                ws.send(JSON.stringify(boxObj))
                             }
                         })
                     }
