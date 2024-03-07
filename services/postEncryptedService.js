@@ -47,7 +47,7 @@ postEncryptedService.getAll = async (limit, offset, order, searchKeyword, startD
     let query = {
         limit: limit,
         order: [
-            ['id', order ? order.toUpperCase() : 'DESC'],
+            ['created_at', order ? order.toUpperCase() : 'ASC'],
         ],
         offset: offset,
     }
@@ -93,7 +93,7 @@ postEncryptedService.getLatest = async (limit, offset, order, searchKeyword, sta
     let query = {
         limit: limit,
         order: [
-            ['id', order ? order.toUpperCase() : 'DESC'],
+            ['created_at', order ? order.toUpperCase() : 'DESC'],
         ],
         offset: offset,
     }
